@@ -1,0 +1,17 @@
+schau
+untersuche schreibtisch
+nimm karte
+untersuche karte
+untersuche koje
+untersuche kiste
+oeffne kiste
+nimm schluessel
+untersuche schluessel
+schliess tuer mit schluessel auf
+oeffne tuer
+nord
+rauf
+schau
+nimm fernrohr
+untersuche fernrohr
+

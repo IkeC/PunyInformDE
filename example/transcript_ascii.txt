@@ -1,0 +1,98 @@
+-------------------------------------------------------------------------
+title: beispiel_ascii.z5
+-------------------------------------------------------------------------
+
+
+
+Du wachst auf. Die Kajüte schwankt im Seegang, und
+Licht fällt durch das kleine Bullauge. Du erinnerst dich:
+Gestern Abend hat jemand deine Kajütentür von außen abgeschlossen.
+Wer -- und warum? Es wird Zeit, das herauszufinden.
+
+
+Das Schiff der Sterne
+Ein kurzes Abenteuer auf hoher See.
+Release 1 / Serial number 260425 / Inform v6.44 PunyInformDE v6.5dev R
+
+Die Kapitänskajüte
+Die enge Kajüte des Kapitäns auf dem Segelschiff Sternwind. Ein alter Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine hölzerne Koje liegt an der Ostwand. Eine schwere Eichentür führt nach Norden in den Schiffsgang.
+
+Hier befinden sich die Kajütentür und eine Seekiste (geschlossen).
+
+> schau
+Die Kapitänskajüte
+Die enge Kajüte des Kapitäns auf dem Segelschiff Sternwind. Ein alter Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine hölzerne Koje liegt an der Ostwand. Eine schwere Eichentür führt nach Norden in den Schiffsgang.
+
+Hier befinden sich die Kajütentür und eine Seekiste (geschlossen).
+
+> untersuche schreibtisch
+Ein schwerer Eichenschreibtisch, bedeckt mit vergilbten Seekarten und Notizen. In der Mitte liegt eine Karte, die besonders gut erhalten aussieht.
+
+> nimm karte
+Genommen.
+
+> untersuche karte
+Eine alte Seekarte des östlichen Ozeans. Ein roter Kreis markiert eine kleine Insel weit im Osten. Daneben steht in krakeliger Schrift: "Das Fernrohr zeigt den Weg!"
+
+> untersuche koje
+Eine schmale Koje mit einer dünnen Matratze. Darunter steht eine alte Kiste, deren Deckel mit einem Anker verziert ist.
+
+> untersuche kiste
+Eine alte, schwere Seekiste. Der Deckel ist mit einem geschnitzten Anker verziert.
+
+> oeffne kiste
+Du oeffnest die Seekiste, und siehst ein kleiner Schlüssel.
+
+> nimm schluessel
+Genommen.
+
+[Du hast 1 Punkt erhalten.]
+
+> untersuche schluessel
+Ein kleiner Messingschlüssel mit einem Ankeranhänger -- passend zu dem alten Schloss an der Kajütentür.
+
+> schliess tuer mit schluessel auf
+Du schliesst die Kajütentür auf.
+
+[Du hast 1 Punkt erhalten.]
+
+> oeffne tuer
+Du oeffnest die Kajütentür.
+
+> nord
+Der Schiffsgang
+Ein enger Gang. Das Holz knarzt unter deinen Füßen. Im Süden liegt die Kapitänskajüte. Eine rostige Eisentreppe führt nach oben zum Deck.
+
+> rauf
+Das Oberdeck
+Du stehst auf dem Oberdeck der Sternwind. Salzige Meeresluft weht dir ins Gesicht. Ein mächtiger Mast ragt in den wolkenlosen Abendhimmel. Im Westen glüht die untergehende Sonne. Die Eisentreppe führt nach unten.
+
+Hier ist ein Messing-Fernrohr.
+
+> schau
+Das Oberdeck
+Du stehst auf dem Oberdeck der Sternwind. Salzige Meeresluft weht dir ins Gesicht. Ein mächtiger Mast ragt in den wolkenlosen Abendhimmel. Im Westen glüht die untergehende Sonne. Die Eisentreppe führt nach unten.
+
+Hier ist ein Messing-Fernrohr.
+
+> nimm fernrohr
+Genommen.
+
+> untersuche fernrohr
+Du richtest das Messing-Fernrohr nach Osten und schaust hindurch.
+Am Horizont, im letzten Licht der Sonne, liegt eine Insel! Auf einem
+Felsen erkennst du deutlich ein eingemeiseltes Kreuz -- das Zeichen
+für vergrabenen Schatz.
+
+Du senkst das Fernrohr und lächelst.
+Die Seekarte hatte Recht gehabt!
+
+
+[Du hast 1 Punkt erhalten.]
+
+
+  *** Du hast gewonnen ***
+
+In diesem Spiel hast du 3 von 3 moeglichen Punkten erreicht, in 16 Zuegen.
+
+Möchtest du NEUSTART, WIEDERHERSTELLEN oder BEENDEN? 

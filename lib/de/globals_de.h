@@ -1,0 +1,117 @@
+! PunyInformDE: German-specific globals
+! This file is included by lib/globals.h at the very start, so these
+! definitions take precedence over any English defaults in globals.h.
+!
+! To update from a new PunyInform release, only globals.h needs updating
+! — the German overrides here remain separate.
+
+! ---------------------------------------------------------------------------
+! German special characters (Zcharacter declarations for z5+ games)
+! These must come before the first use of these characters in any string
+! or dictionary word. Skip entirely if USE_ASCII is defined.
+! ---------------------------------------------------------------------------
+#IfV5;
+#IfNDef USE_ASCII;
+Zcharacter 'ä';  ! U+00E4
+Zcharacter 'ö';  ! U+00F6
+Zcharacter 'ü';  ! U+00FC
+Zcharacter 'ß';  ! U+00DF
+Zcharacter 'Ä';  ! U+00C4
+Zcharacter 'Ö';  ! U+00D6
+Zcharacter 'Ü';  ! U+00DC
+#EndIf; ! USE_ASCII
+#EndIf; ! IfV5
+
+! ---------------------------------------------------------------------------
+! German parser word constants
+! These override the English defaults defined in globals.h.
+! ---------------------------------------------------------------------------
+! TODO: Review German parser words
+Constant ALL_WORD     = 'alles';   ! English: 'all'
+Constant EXCEPT_WORD1 = 'ausser';  ! English: 'but'   (außer — digraph)
+Constant EXCEPT_WORD2 = 'ohne';    ! English: 'except'
+Constant AND_WORD     = 'und';     ! English: 'and'
+Constant THEN1__WD    = 'dann';    ! English: 'then'
+
+! ---------------------------------------------------------------------------
+! German string constants for is/are
+! ---------------------------------------------------------------------------
+! TODO: Review German is/are strings
+Constant IS_STR  = "ist ";   ! English: "is "
+Constant ARE_STR = "sind ";  ! English: "are "
+
+! Status line labels (override English Score/Moves)
+Constant SCORE__TX       = " Punkte: ";
+Constant SCORE_SHORT__TX = " Pt:";
+Constant MOVES__TX       = " Züge: ";
+Constant MOVES_SHORT__TX = " Zg:";
+
+! Suffix printed after room contents list (override " here.^" from grammar.h)
+! German prefix functions end with "ist "/"befinden sich ", so no suffix needed
+Constant LISTOBJS_ROOM_SUFFIX = ".^";
+
+! ---------------------------------------------------------------------------
+! German string constants (for parser messages)
+! ---------------------------------------------------------------------------
+! TODO: Review German parser strings
+Constant SOMETHING_STR      = "etwas";           ! English: "something"
+Constant SOMEONE_STR        = "jemanden";        ! English: "someone"
+Constant SOMEDIRECTION_STR  = "(eine Richtung)"; ! English: "(some direction)"
+
+! ---------------------------------------------------------------------------
+! German abbreviations
+! Defining CUSTOM_ABBREVIATIONS prevents globals.h from adding English ones.
+! ---------------------------------------------------------------------------
+Constant CUSTOM_ABBREVIATIONS;
+! TODO: Review and tune German abbreviations for best compression
+Abbreviate "Bist du sicher, dass du das ";
+Abbreviate " Selbstverliebt wie immer";
+Abbreviate "nichts Unerwartetes";
+Abbreviate "(zuerst nehme ";
+Abbreviate "Entschuldigung,";
+Abbreviate "Du kannst ";
+Abbreviate "verstehe nicht";
+Abbreviate "Du bist ";
+Abbreviate " bereits ";
+Abbreviate " nichts ";
+Abbreviate "Du hast ";
+Abbreviate " nicht ";
+Abbreviate "etwas ";
+Abbreviate "Richtung";
+Abbreviate "Punkte";
+Abbreviate "Du tr";
+Abbreviate " kein";
+Abbreviate "[Kommentar";
+Abbreviate " dich";
+Abbreviate "Inform ";
+Abbreviate "estand";
+Abbreviate " sein";
+Abbreviate " haben";
+Abbreviate "halten";
+Abbreviate "stehst";
+
+! German string constants for list printing
+! Override the English " and " separator used in PrintContents (puny.h).
+Constant AND_LIST_STR = " und ";
+
+! ---------------------------------------------------------------------------
+! German direction word constants
+! Setting EXTRA_DIRECTION_ROW tells globals.h to append a 3rd row of German
+! direction words to _direction_dict_words, making bare commands like
+! 'nord', 'rauf', 'sued' etc. work as directions.
+! ---------------------------------------------------------------------------
+Constant EXTRA_DIRECTION_ROW;
+Constant DE_NORD   = 'nord';
+Constant DE_SUED   = 'sued';
+Constant DE_OST    = 'ost';
+Constant DE_WEST   = 'west';
+Constant DE_RAUF   = 'rauf';
+Constant DE_RUNTER = 'runter';
+Constant DE_REIN   = 'rein';
+Constant DE_RAUS   = 'raus';
+#IfDef OPTIONAL_FULL_DIRECTIONS;
+Constant DE_NORDOST  = 0;  ! no standard German abbreviation
+Constant DE_NORDWEST = 0;
+Constant DE_SUEDOST  = 0;
+Constant DE_SUEDWEST = 0;
+#EndIf;

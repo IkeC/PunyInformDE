@@ -1,0 +1,204 @@
+!% -~S
+!% -Cu
+!% $OMIT_UNUSED_ROUTINES=1
+!% $ZCODE_LESS_DICT_DATA=1
+
+! Das Schiff der Sterne — Ein kurzes Textabenteuer mit PunyInform-DE
+! Demonstriert: Räume, Behälter, Träger, verschlossene Türen,
+! betretbare Objekte, Punkte und Gewinnbedingung.
+
+Constant Story      "Das Schiff der Sterne";
+Constant Headline   "^Ein kurzes Abenteuer auf hoher See.^";
+
+!Constant STATUSLINE_TIME; Statusline time;
+Constant STATUSLINE_SCORE; Statusline score;
+
+Constant OPTIONAL_SCORED;
+Constant MAX_SCORE = 3;
+
+Constant OPTIONAL_NO_DARKNESS;
+
+! PunyInformDE-Konstanten
+! Uncomment USE_ASCII to enable ASCII-digraph fallback mode (for terminals
+! without Unicode support). Note: USE_ASCII disables Zcharacter declarations,
+! so umlaut INPUT words will also stop working.
+!Constant USE_ASCII;
+
+! Uncomment to add optional features to PunyInform
+!Constant DEBUG;
+!Constant OPTIONAL_SIMPLE_DOORS;
+!Constant OPTIONAL_EXTENDED_METAVERBS;
+!Constant OPTIONAL_EXTENDED_VERBSET;
+!Constant OPTIONAL_FLEXIBLE_INVENTORY;
+!Constant OPTIONAL_LIST_TOGETHER;
+!Constant OPTIONAL_PROVIDE_UNDO;
+
+Constant INITIAL_LOCATION_VALUE = Kajuete;
+
+Include "globals.h";
+Include "puny.h";
+
+
+! ==================================================================
+! RAUM 1: Die Kapitänskajüte
+! ==================================================================
+
+Object Kajuete "Die Kapitänskajüte"
+	with
+		description "Die enge Kajüte des Kapitäns auf dem Segelschiff Sternwind.
+			Ein alter Schreibtisch steht an der Nordwand, bedeckt mit
+			vergilbten Seekarten. Eine hölzerne Koje liegt an der Ostwand.
+			Eine schwere Eichentür führt nach Norden in den Schiffsgang.",
+		n_to [;
+			if (Kajuentuer has locked) {
+				"Die Tür ist fest verschlossen. Du brauchst wohl einen Schlüssel.";
+			}
+			if (Kajuentuer hasnt open) {
+				"Zuerst musst du die Tür öffnen.";
+			}
+			return Schiffsgang;
+		];
+
+Object -> Kajuentuer "Kajütentür"
+	with
+		name 'tuer' 'tur' 'eichentuer' 'kajuetentuer' 'tür' 'kajütentür' 'eichentür',
+		article "die",
+		description "Eine schwere Tür aus geöltem Eichenholz. Das alte Schloss
+			sieht sehr solide aus.",
+		with_key Schluessel,
+		before [;
+			Open: if (self has locked) "Die Tür ist noch verschlossen."; rfalse;
+		],
+		after [;
+			Unlock: if (score < 2) { score = score + 1; } rfalse;
+		],
+	has openable lockable locked female;
+
+Object -> Schreibtisch "Schreibtisch"
+	with
+		name 'schreibtisch' 'tisch',
+		article "ein",
+		description "Ein schwerer Eichenschreibtisch, bedeckt mit vergilbten Seekarten
+			und Notizen. In der Mitte liegt eine Karte, die besonders
+			gut erhalten aussieht.",
+	has supporter scenery;
+
+Object -> -> Karte "Seekarte"
+	with
+		name 'karte' 'seekarte',
+		article "eine",
+		description "Eine alte Seekarte des östlichen Ozeans. Ein roter Kreis
+			markiert eine kleine Insel weit im Osten. Daneben steht in
+			krakeliger Schrift: ~Das Fernrohr zeigt den Weg!~",
+	has female;
+
+Object -> Koje "Koje"
+	with
+		name 'koje',
+		article "eine",
+		description "Eine schmale Koje mit einer dünnen Matratze. Darunter steht
+			eine alte Kiste, deren Deckel mit einem Anker verziert ist.",
+	has enterable scenery female;
+
+Object -> Kiste "Seekiste"
+	with
+		name 'kiste' 'seekiste' 'truhe',
+		article "eine",
+		description "Eine alte, schwere Seekiste. Der Deckel ist mit einem
+			geschnitzten Anker verziert.",
+	has container openable female;
+
+Object -> -> Schluessel "kleiner Schlüssel"
+	with
+		name 'schluessel' 'kleiner' 'messingschluessel' 'schlüssel' 'messingschlüssel',
+		article "ein",
+		description "Ein kleiner Messingschlüssel mit einem Ankeranhänger --
+			passend zu dem alten Schloss an der Kajütentür.",
+		after [;
+			Take: if (score < 1) { score = score + 1; } rfalse;
+		];
+
+! ==================================================================
+! RAUM 2: Der Schiffsgang
+! ==================================================================
+
+Object Schiffsgang "Der Schiffsgang"
+	with
+		description "Ein enger Gang. Das Holz knarzt unter deinen Füßen.
+			Im Süden liegt die Kapitänskajüte. Eine rostige Eisentreppe
+			führt nach oben zum Deck.",
+		s_to Kajuete,
+		u_to Oberdeck;
+
+Object -> Treppe "Eisentreppe"
+	with
+		name 'treppe' 'eisentreppe' 'stiege' 'leiter',
+		article "die",
+		description "Eine rostige Eisentreppe, die steil zum Oberdeck führt.",
+		before [;
+			Climb: PlayerTo(Oberdeck); rtrue;
+		],
+	has scenery female;
+
+! ==================================================================
+! RAUM 3: Das Oberdeck
+! ==================================================================
+
+Object Oberdeck "Das Oberdeck"
+	with
+		description "Du stehst auf dem Oberdeck der Sternwind. Salzige Meeresluft
+			weht dir ins Gesicht. Ein mächtiger Mast ragt in den wolkenlosen
+			Abendhimmel. Im Westen glüht die untergehende Sonne.
+			Die Eisentreppe führt nach unten.",
+		d_to Schiffsgang;
+
+Object -> Mast "Mast"
+	with
+		name 'mast' 'hauptmast',
+		article "ein",
+		description "Der mächtige Hauptmast aus Kiefernholz. Ganz oben weht
+			eine schwarze Flagge mit einem silbernen Stern.",
+		before [;
+			Climb:
+				"Du versuchst den Mast hinaufzuklettern, rutschst aber ab
+				und landest wieder auf Deck.";
+		],
+	has scenery;
+
+Object -> Fernrohr "Messing-Fernrohr"
+	with
+		name 'fernrohr' 'teleskop' 'glas' 'fernglas' 'messing',
+		article "ein",
+		description "Ein poliertes Messing-Fernrohr, schwer und elegant.",
+		before [;
+			Examine:
+				print "Du richtest das Messing-Fernrohr nach Osten und schaust hindurch.^
+Am Horizont, im letzten Licht der Sonne, liegt eine Insel! Auf einem^
+Felsen erkennst du deutlich ein eingemeiseltes Kreuz -- das Zeichen^
+für einen vergrabenen Schatz.^^";
+				print "Du senkst das Fernrohr und lächelst.^
+Die Seekarte hatte Recht gehabt!^^";
+				if (score < 3) { score = score + 1; }
+				deadflag = 2;
+				rtrue;
+		],
+	has neuter;
+
+Object -> Rettungsring "Rettungsring"
+	with
+		name 'rettungsring' 'ring',
+		article "ein",
+		description "Ein roter Rettungsring an der Reling. In weißen Buchstaben
+			steht ~STERNWIND~ darauf.",
+	has scenery;
+
+! ==================================================================
+! SPIELSTART
+! ==================================================================
+
+[Initialise;
+	print "^^Du wachst auf. Die Kajüte schwankt im Seegang, und^
+Licht fällt durch das kleine Bullauge. Du erinnerst dich:^
+Gestern Abend hat jemand deine Kajütentür von außen abgeschlossen.^
+Wer -- und warum? Es wird Zeit, das herauszufinden.^^";
+];
