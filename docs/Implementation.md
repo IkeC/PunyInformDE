@@ -38,7 +38,6 @@ These files do not exist in upstream PunyInform.
 **`de/messages_de.h`** — German translations of all `MSG_xxx` constants plus helper functions:
 - `IsorAre(obj)` — prints "ist" or "sind"
 - `CTheyreorIts(obj)` / `ItorThem(obj)` / `ThatorThose(obj)` — gender-sensitive pronoun helpers
-- All messages may have `! TODO:` prefix comments marking items not yet reviewed by a native speaker
 
 **`de/grammar_de.h`** — German verb definitions. Defines `_ListObjsMsg` and `_ListObjsInOnMsg` (German room-contents phrasing), then includes `grammar.h`, then adds German verbs:
 - Meta: `erneut`, `nochmal`, `beende`, `lade`, `neustart`, `speicher`, `punkte`, `version`, `knapp`, `ausfuehrlich`, `superknapp`, `skript`, `transkript`
@@ -201,7 +200,6 @@ Walkthrough: `example/beispiel.walkthrough.txt` (umlauts) and `example/beispiel.
 1. **`(the)` / `(The)` in non-Nominativ contexts** — only Nominativ is handled by `_PrintObjName`. Akkusativ/Dativ require either `proper` or explicit article strings in game code.
 2. **Adjective inflection** — not implemented. No systematic declension support.
 3. **`ihm` / `dem` / `ihn`** — Dativ/Akkusativ pronouns not understood by the parser.
-4. **`! TODO:` messages** in `de/messages_de.h` — need native-speaker review before release.
 
 
 ## Overview
@@ -369,5 +367,4 @@ untersuche fernrohr              ! +1 pt, win!
 1. **`(the)` / `(The)` print rules** still output English "the". Full German article handling requires gender-sensitive print rules for all cases (Nominativ/Akkusativ/Dativ).
 2. **Adjective inflection** not implemented. Parser accepts some compound forms but not systematic declension.
 3. **`ihm` / `dem` / `ihn`** (Dativ/Akkusativ pronouns) not understood by the parser.
-4. **All `! TODO:` messages** in `de/messages_de.h` need native-speaker review.
-5. **`PrintDE()`** only covers game-side strings; library messages are not transliterated in `USE_ASCII` mode.
+4. **`PrintDE()`** only covers game-side strings; library messages are not transliterated in `USE_ASCII` mode.

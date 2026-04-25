@@ -13,7 +13,6 @@ A complete, release-ready German localisation of PunyInform v6.5, with:
 
 Before tagging an initial release the following must be done:
 
-- [ ] Native-speaker review of all `! TODO:` strings in `lib/de/messages_de.h`
 - [ ] Decide on `(the)` / `(The)` behaviour for Akkusativ/Dativ contexts (current: Nominativ only)
 
 Everything else described below is already implemented and tested.
@@ -217,8 +216,7 @@ The PunyInformDE architecture separates German-specific code from the English ba
 # Current Known Issues / TODOs
 
 1. **Article system**: `(the)` / `(The)` still print English "the". Full German die/der/das requires rewriting the print rules.
-2. **Messages review**: All `! TODO:` items in `de/messages_de.h` need native-speaker review.
-3. **Parser**: `ihm`/`dem`/`ihn` (Dativ/Akkusativ pronouns) not understood.
-4. **Adjective inflection**: No systematic support for German adjective declension.
-5. **USE_ASCII limitation**: `PrintDE()` only covers game-code strings; library messages in `de/messages_de.h` are not transliterated.
-6. **PunyTest integration**: No automated test suite yet for the example game.
+2. **Parser**: `ihm`/`dem`/`ihn` (Dativ/Akkusativ pronouns) not understood.
+3. **Adjective inflection**: No systematic support for German adjective declension.
+4. **USE_ASCII limitation**: `PrintDE()` only covers game-code strings; library messages in `de/messages_de.h` are not transliterated.
+5. **PunyTest integration**: No automated test suite yet for the example game.

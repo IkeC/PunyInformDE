@@ -7,8 +7,6 @@
 ! Special characters: digraphs ae/oe/ue/ss are used for umlauts/Eszett
 ! for z3 compatibility; they map to ä/ö/ü/ß in z5+.
 !
-! TODO: Review all German verb translations before release.
-!
 System_file;
 
 ! ---------------------------------------------------------------------------
@@ -46,7 +44,6 @@ Include "grammar.h";
 ! ---------------------------------------------------------------------------
 
 ! German meta verbs
-! TODO: Review German command words
 ! ---------------------------------------------------------------------------
 
 Extend 'again' first
@@ -57,7 +54,7 @@ Verb meta 'erneut' 'nochmal'
 Verb meta 'beende' 'ende'
 	*                                           -> Quit;
 
-Verb meta 'lade' 'wiederher'
+Verb meta 'lade'
 	*                                           -> Restore;
 
 Verb meta 'neustart'
@@ -83,7 +80,6 @@ Verb meta 'superknapp'
 
 #IfDef OPTIONAL_EXTENDED_METAVERBS;
 #Ifndef NO_PLACES;
-! TODO: Review German command words for places/objects listing
 ! 'orte'/'objekte' alias existing English meta verbs (only if OPTIONAL_EXTENDED_METAVERBS)
 Verb 'orte' = 'places';
 Verb 'objekte' = 'objects';
@@ -99,11 +95,9 @@ Verb meta 'skript' 'transkript'
 
 ! ---------------------------------------------------------------------------
 ! German game verbs
-! TODO: Review and complete all German command translations
 ! ---------------------------------------------------------------------------
 
 ! --- Take / Pick up ---
-! TODO: nimm, hol, nehm = take; greif = grab/take
 Verb 'nimm' 'hol' 'nehm'
 	* multi                                     -> Take
 	* 'auf' multi                               -> Take
@@ -111,15 +105,16 @@ Verb 'nimm' 'hol' 'nehm'
 	* multiinside 'aus' noun                    -> Remove
 	* multiinside 'von' noun                    -> Remove;
 
-Verb 'greif' 'fass'
+Verb 'greif'
 	* multi                                     -> Take
 	* 'nach' multi                              -> Take
-	* multiinside 'aus' noun                    -> Remove
-	* noun                                      -> Touch;
+	* creature 'an'                             -> Attack;
+
+Verb 'fass'
+	* noun 'an'                                 -> Touch;
 
 ! --- Drop ---
-! TODO: lass, lege, wirf = drop; schmeis = throw/drop
-Verb 'lass' 'schmeis' 'wirf'
+Verb 'schmeiß' 'wirf'
 	* multiheld                                 -> Drop
 	* multiheld 'fallen'/'hin'/'hier'/'ab'/'weg' -> Drop
 	* multiheld 'aus' 'der'/'dem'/'den'/'die' noun -> Remove
@@ -140,20 +135,19 @@ Verb 'schau' 'seh' 'sieh' 'guck' 'blick' 'u//'
 	* 'auf' noun                                -> Examine
 	* 'unter' noun                              -> Search;
 
-Verb 'untersuche' 'betrachte' 'inspiziere'
+Verb 'untersuch' 'betracht' 'inspizier'
 	* noun                                      -> Examine;
 
 ! --- Open ---
-! TODO: oeffne = open; entkorke = uncork
-Verb 'oeffne' 'o' 'öffne' 'entkorke'
+Verb 'öffne' 'entkork'
 	* noun                                      -> Open
 	* noun 'mit' held                           -> Unlock;
 
-! --- Close / Lock / Unlock via schliess/schließ ---
+! --- Close / Lock / Unlock via schließ ---
 ! schließ X auf [mit Y]  → Unlock X (with Y)
 ! schließ X zu/ab [mit Y] → Lock X (with Y)
 ! schließ X              → Close X
-Verb 'schliess' 'schließ' 'zumach'
+Verb 'schließ'
 	* noun 'auf' 'mit' held                     -> Unlock
 	* noun 'mit' held 'auf'                     -> Unlock
 	* noun 'auf'                                -> Unlock
@@ -163,7 +157,6 @@ Verb 'schliess' 'schließ' 'zumach'
 	* noun                                      -> Close;
 
 ! --- mach (multi-purpose German verb: mach auf/zu/an/aus) ---
-! TODO: mach X auf = open X; mach X zu = close X; mach X an = switch on; mach X aus = switch off
 Verb 'mach'
 	* noun 'auf'                                -> Open
 	* noun 'zu'                                 -> Close
@@ -176,19 +169,16 @@ Verb 'mach'
 	* 'aus' noun                                -> SwitchOff;
 
 ! --- Inventory ---
-! TODO: inventar, besitz, inv = inventory
 Verb 'inventar' 'besitz' 'zeig_i'
 	*                                           -> Inv;
 
 ! --- Wait ---
-! TODO: warte = wait
-Verb 'warte'
+Verb 'wart'
 	*                                           -> Wait;
 
 ! --- Go ---
-! TODO: geh, lauf, renn, wander = go/walk
 #IfDef OPTIONAL_EXTENDED_VERBSET;
-Verb 'geh' 'lauf' 'renn' 'wander' 'fluecht'
+Verb 'geh' 'lauf' 'renn' 'wander' 'flücht' 'flieh'
 	* noun=ADirection                           -> Go
 	* 'nach' noun=ADirection                    -> Go
 	* noun                                      -> Enter
@@ -196,7 +186,7 @@ Verb 'geh' 'lauf' 'renn' 'wander' 'fluecht'
 	* 'raus'/'hinaus'/'heraus'                  -> Exit
 	* 'rein'/'hinein'/'herein'                  -> GoIn;
 #IfNot;
-Verb 'geh' 'lauf' 'renn' 'wander' 'fluecht'
+Verb 'geh' 'lauf' 'renn' 'wander' 'flücht' 'flieh'
 	* noun=ADirection                           -> Go
 	* 'nach' noun=ADirection                    -> Go
 	* noun                                      -> Enter
@@ -208,25 +198,23 @@ Verb 'verlass'
 	*                                           -> Exit
 	* noun                                      -> Exit;
 
-Verb 'betreten' 'betret'
+Verb 'betret' 'betritt'
 	* noun                                      -> Enter;
 
 ! --- Give / Show ---
-! TODO: gib, reich = give; zeig, praesentier = show
-Verb 'gib' 'reich' 'uebertrag'
+Verb 'gib' 'reich'
 	* held 'an' creature                        -> Give
 	* held creature                             -> Give
 	* creature held                             -> Give reverse;
 
-Verb 'zeig' 'praesentier'
+Verb 'zeig' 'präsentier'
 	* creature held                             -> Show reverse
 	* held creature                             -> Show
 	* held 'an' creature                        -> Show
 	* creature held 'vor'                       -> Show reverse;
 
 ! --- Put in / Put on / Drop ---
-! TODO: leg, stell, steck = put; stell auf = put on; leg in = put in; leg ab = drop
-Verb 'leg' 'lege' 'stell' 'steck' 'tu'
+Verb 'stell' 'steck' 'tu'
 	* multiheld                                 -> Drop
 	* multiheld 'ab'/'hin'/'weg'/'nieder'       -> Drop
 	* multiexcept 'in'/'hinein' noun            -> Insert
@@ -234,105 +222,92 @@ Verb 'leg' 'lege' 'stell' 'steck' 'tu'
 	* multiexcept noun                          -> Insert
 	* 'an' held                                 -> Wear;
 
+Verb 'leg'
+	* multiheld                                 -> Drop
+	* multiexcept 'in' noun                     -> Insert
+	* multiexcept 'auf' noun                    -> PutOn;
+
 ! --- Wear ---
-! TODO: anzieh = put on (clothing); zieh an = put on (clothing)
-Verb 'anzieh' 'trag'
+Verb 'trag'
 	* held                                      -> Wear;
 
-! --- Disrobe ---
-! TODO: auszieh = take off (clothing)
-Verb 'auszieh'
-	* held                                      -> Disrobe;
-
-! --- zieh (ambiguous: zieh X an = wear; zieh X aus = disrobe; zieh = pull) ---
-! TODO: zieh X an/aus/weg = wear/disrobe/pull
-Verb 'zieh' 'zupf'
+Verb 'zieh'
 	* worn 'aus'                                -> Disrobe
 	* held 'an'                                 -> Wear
 	* noun 'an'                                 -> Pull
 	* noun                                      -> Pull;
 
 ! --- Ask / Tell ---
-! TODO: frag = ask; erzaehl, sag = tell/say
 Verb 'frag'
 	* creature 'nach' topic                     -> Ask
 	* creature 'fuer'/'um' noun                 -> AskFor
 	* creature 'zu' topic                       -> AskTo;
 
-Verb 'erzaehl' 'erz' 'berichtige'
-	* creature 'ueber' topic                    -> Tell
+Verb 'bitt'
+	* creature 'um' noun                        -> AskFor;
+
+Verb 'erzähl' 'bericht'
+	* creature 'über' topic                     -> Tell
 	* creature 'von' topic                      -> Tell;
 
-Verb 'sag' 'sprech' 'antworte'
+Verb 'sag' 'sprich' 'antwort'
 	* topic 'zu' creature                       -> Answer
-	* topic 'an' creature                       -> Answer
 	* creature topic                            -> Tell;
 
 ! --- Drink ---
-! TODO: trink = drink; sauf = drink (colloquial)
 Verb 'trink' 'sauf'
 	* noun                                      -> Drink;
 
 ! --- Eat ---
-! TODO: iss = eat; fris = eat (animal/rude)
-Verb 'iss' 'fris'
+Verb 'iss' 'fris' 'ess'
 	* held                                      -> Eat;
 
 ! --- Listen ---
-! TODO: hoer, lausch = listen
-Verb 'hoer' 'lausch'
+Verb 'hör' 'lausch'
 	*                                           -> Listen
 	* 'auf' noun                                -> Listen
 	* noun                                      -> Listen;
 
 ! --- Smell ---
-! TODO: rieche, schnupfer = smell
-Verb 'rieche' 'schnupfer'
+Verb 'riech' 'schnupper'
 	*                                           -> Smell
 	* noun                                      -> Smell;
 
 ! --- Touch / Feel ---
-! TODO: beruehr, fuehle, tast = touch/feel
-Verb 'beruehr' 'fuehle' 'tast'
+Verb 'berühr' 'fühl' 'tast'
 	* noun                                      -> Touch;
 
 ! --- Search ---
-! TODO: durchsuche, such = search
-Verb 'durchsuche' 'such'
+Verb 'durchsuch' 'such'
 	* noun                                      -> Search
 	* 'in' noun                                 -> Search;
 
 ! --- Read ---
-! TODO: lies, les = read
 Verb 'lies' 'les'
 	* noun                                      -> Examine;
 
 ! --- Lock / Unlock ---
-! TODO: schliess ab, abschliess = lock; oeffne ab, aufschliess = unlock
-Verb 'abschliess' 'verriegel'
+Verb 'verriegel'
 	* noun 'mit' held                           -> Lock
 	* noun                                      -> Lock;
 
-Verb 'aufschliess' 'entriegele' 'entsperr'
+Verb 'entriegel' 'aufschließ' 'entsperr'
 	* noun 'mit' held                           -> Unlock
 	* noun                                      -> Unlock;
 
 ! --- Switch on/off ---
-! TODO: schalte X an = switch on; schalte X aus = switch off
-Verb 'schalte' 'druck'
+Verb 'schalt'
 	* noun 'an'                                 -> SwitchOn
 	* noun 'aus'                                -> SwitchOff
 	* 'an' noun                                 -> SwitchOn
 	* 'aus' noun                                -> SwitchOff;
 
 ! --- Attack ---
-! TODO: hau, schlag, tritt, greif an = attack
-Verb 'hau' 'schlag' 'tritt' 'toete' 'zerstoer' 'kaputt' 'erschlag'
+Verb 'hau' 'schlag' 'tritt' 'töt' 'zerstör' 'erschlag'
 	* noun                                      -> Attack
 	* noun 'mit' held                           -> Attack;
 
 ! --- Climb ---
-! TODO: kletter, steig = climb
 Verb 'kletter' 'steig'
 	* noun                                      -> Climb
 	* 'hoch' noun                               -> Climb
@@ -343,79 +318,68 @@ Verb 'kletter' 'steig'
 ! TODO: spring = jump
 Verb 'spring'
 	*                                           -> Jump
-	* 'ueber' noun                              -> JumpOver
+	* 'über' noun                               -> JumpOver
 	* 'in'/'auf' noun                           -> Enter;
 
 ! --- Push / Pull / Turn ---
 ! TODO: schieb, drueck, stoss = push; zieh_an, zupf = pull; dreh = turn
-Verb 'schieb' 'drueck' 'stoss'
+Verb 'schieb' 'drück' 'stoß'
 	* noun                                      -> Push
 	* noun noun=ADirection                      -> PushDir;
 
 Verb 'dreh' 'kurbel'
-	* noun                                      -> Turn
-	* noun 'an'                                 -> SwitchOn
-	* noun 'aus'                                -> SwitchOff;
+	* noun                                      -> Turn;
 
 ! --- Dig ---
-! TODO: graeb, schaufle = dig
-Verb 'graeb' 'schaufle'
+Verb 'grab' 'buddel'
 	* noun                                      -> Dig
 	* noun 'mit' held                           -> Dig;
 
 ! --- Fill ---
-! TODO: fuell = fill
-Verb 'fuell'
+Verb 'füll' 'befüll'
 	* noun                                      -> Fill;
 
 ! --- Cut ---
-! TODO: schneide, hack = cut
-Verb 'schneide' 'hack'
+Verb 'schneid' 'hack'
 	* noun                                      -> Cut
 	* noun 'mit' held                           -> Attack;
 
 ! --- Tie ---
-! TODO: binde, befestige = tie/attach
-Verb 'binde' 'befestige' 'befestig'
+Verb 'bind' 'befestig' 'knot'
 	* noun                                      -> Tie
 	* noun 'an' noun                            -> Tie;
 
 ! --- Shout ---
-! TODO: schreie, ruf, bruell = shout
-Verb 'schreie' 'ruf' 'bruell' 'schrei'
-	* topic 'zu'/'an' creature                  -> Answer
-	* 'zu'/'an' noun                            -> ShoutAt
+Verb 'schrei' 'ruf' 'brüll'
+	* topic 'zu' creature                       -> Answer
+	* noun 'an'                                 -> ShoutAt
 	* topic                                     -> Shout
 	*                                           -> Shout;
 
 ! --- Rub / Clean ---
-! TODO: reib, putz, wisch = rub/clean
 Verb 'reib' 'putz' 'wisch' 'polier'
 	* noun                                      -> Rub;
 
 ! --- Squeeze (only in extended verbset) ---
-! TODO: drueck_an, quetsch = squeeze
 #IfDef OPTIONAL_EXTENDED_VERBSET;
-Verb 'quetsch' 'presse'
+Verb 'quetsch' 'press'
 	* noun                                      -> Squeeze;
 #EndIf;
 
 ! --- Sit / Stand / Lie ---
-! TODO: setz, sitz = sit; steh = stand; lieg = lie down
-Verb 'setz' 'sitz'
+Verb 'sitz'
 	* 'auf' noun                                -> Enter
 	* 'in' noun                                 -> Enter;
 
 Verb 'steh'
 	*                                           -> Exit
 	* 'auf'                                     -> Exit
-	* 'auf' 'von' noun                          -> GetOff;
+	* 'von' noun 'auf'                          -> GetOff;
 
 Verb 'lieg'
 	* 'auf' noun                                -> Enter;
 
 ! --- Yes / No ---
-! TODO: ja = yes; nein = no
 ! Note: 'ja', 'j//' and 'nein' are added to the dictionary via parser.h (YesOrNo function),
 ! so they work as answers to yes/no prompts even without OPTIONAL_EXTENDED_VERBSET.
 #IfDef OPTIONAL_EXTENDED_VERBSET;
@@ -426,8 +390,7 @@ Verb 'nein'
 #EndIf;
 
 ! --- Transfer (push to location) ---
-! TODO: bring, trag = bring/carry to
-Verb 'bring' 'trag_zu'
+Verb 'bring'
 	* noun noun=ADirection                      -> PushDir;
 
 #Ifdef OPTIONAL_EXTENDED_VERBSET;
@@ -435,26 +398,28 @@ Verb 'bring' 'trag_zu'
 ! TODO: Review these optional verb translations
 
 ! Burn
-Verb 'verbrenn' 'zuend' 'entzuend'
+Verb 'verbrenn' 'zünd' 'entzünd'
 	* noun                                      -> Burn
-	* noun 'mit' held                           -> Burn;
+	* noun 'an'                                 -> Burn
+	* noun 'mit' held                           -> Burn
+	* noun 'mit' held 'an'                      -> Burn;
 
 ! Buy
-Verb 'kauf' 'erwirb'
+Verb 'kauf'
 	* noun                                      -> Buy;
 
 ! Consult
-Verb 'schlage_nach' 'konsultier' 'such_in'
-	* noun 'nach' topic                         -> Consult
-	* 'in' noun 'nach' topic                    -> Consult reverse;
+Verb 'schlage'
+	* topic 'nach'                              -> Consult
+	* 'in' noun 'nach' topic 'nach'             -> Consult reverse;
 
 ! Empty
-Verb 'leer' 'schuette' 'leere'
+Verb 'leer' 'schütt'
 	* noun                                      -> Empty
 	* noun 'aus'                                -> Empty;
 
 ! Kiss
-Verb 'kuss' 'umarm' 'kuess'
+Verb 'umarm' 'küss'
 	* noun                                      -> Kiss;
 
 ! Pray
@@ -462,9 +427,9 @@ Verb 'bet'
 	*                                           -> Pray;
 
 ! Set / Adjust
-Verb 'stell_ein' 'einstell' 'regelein'
-	* noun                                      -> Set
-	* noun 'auf' topic                          -> SetTo;
+Verb 'stelle'
+	* noun 'ein'                                -> Set
+	* noun 'auf' topic 'ein'                    -> SetTo;
 
 ! Sing
 Verb 'sing'
@@ -475,7 +440,7 @@ Verb 'schlaf'
 	*                                           -> Sleep;
 
 ! Sorry
-Verb 'entschuldige' 'verzeih'
+Verb 'entschuldig' 'verzeih'
 	*                                           -> Sorry;
 
 ! Swim
@@ -483,36 +448,37 @@ Verb 'schwimm' 'tauch'
 	*                                           -> Swim;
 
 ! Swing
-Verb 'schaukel' 'schaukelauf'
+Verb 'schaukel'
 	* noun                                      -> Swing;
 
 ! Taste
-Verb 'probiere' 'koste' 'schmeck'
+Verb 'probier' 'kost' 'schmeck'
 	* noun                                      -> Taste;
 
 ! Think
-Verb 'denk' 'nachdenk' 'ueberlege'
+Verb 'denk' 'überleg'
 	*                                           -> Think;
 
 ! Transfer
-Verb 'transportier' 'bring_zu' 'zuweise'
-	* noun 'zu'/'an' noun                       -> Transfer;
+Verb 'transportier' 'bring'
+	* noun 'zu' noun                            -> Transfer;
 
 ! Wake
-Verb 'weck' 'wach'
+Verb 'weck'
 	*                                           -> Wake
 	* noun                                      -> WakeOther;
 
 ! Wave
-Verb 'wink' 'schwenk'
+Verb 'wink'
 	*                                           -> WaveHands
-	* noun                                      -> Wave;
+	* noun                                      -> Wave
+	* noun 'zu'                                 -> Wave;
 
 ! Blow
-Verb 'blase' 'blow'
+Verb 'blas'
 	* noun                                      -> Blow;
 
 ! Strong/Mild language - German expletives
-Verb 'mist' 'scheiße' 'verflucht' 'merde'
+Verb 'mist' 'scheiß' 'verflucht' 'verdammt' 'verflixt' 'fuck'
 	*                                           -> Mild;
 #EndIf; ! OPTIONAL_EXTENDED_VERBSET

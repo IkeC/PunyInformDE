@@ -9,3 +9,5 @@ build/
 test/
 .pytest_cache/
 **/__pycache__/
+gameinfo.dbg
+

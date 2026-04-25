@@ -8,6 +8,10 @@
 System_file;
 
 [ YesOrNo n;
+	! Note: This routine includes optional language support via #IfDef guards.
+	! For German support, define LANG_DE in lib/de/parser_de.h before including
+	! this file. Language extensions define their constants and then are included
+	! from globals.h before this parser.h is loaded by puny.h.
 	for (::) {
 		_ReadPlayerInput(true, true);
 		n = parse -> 1;
@@ -15,8 +19,14 @@ System_file;
 		if(n == 1) {
 			! one word reply
 			n = parse --> 1;
-			if(n == 'yes' or 'y//' or 'ja' or 'j//') rtrue;  ! TODO: German ja
-			if(n == 'no' or 'n//' or 'nein') rfalse;  ! TODO: German nein
+			if(n == 'yes' or 'y//') rtrue;
+#IfDef LANG_DE;
+			if(n == 'ja' or 'j//') rtrue;
+#EndIf;
+			if(n == 'no' or 'n//') rfalse;
+#IfDef LANG_DE;
+			if(n == 'nein') rfalse;
+#EndIf;
 		}
 		PrintMsg(MSG_YES_OR_NO);
 	}

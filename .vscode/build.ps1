@@ -47,13 +47,16 @@ if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 # Files preprocessed into build\ascii_lib\  (override lib\ on the include path):
 #   lib\de\globals_de.h   – status-bar label " Züge: " → " Zuege: "
 #   lib\de\messages_de.h  – all parser messages
+#   lib\de\grammar_de.h   – all verb dictionary words (e.g. öffne → oeffne)
 #   lib\puny.h            – " (enthält" → " (enthaelt"
 # File preprocessed into build\ascii_src\   (override example\ on include path):
 #   example\beispiel.inf  – all game text (rooms, objects, intro, …)
 #
-# lib\de\grammar_de.h is deliberately NOT preprocessed: it defines dictionary
-# words (e.g. 'öffne') that already have ASCII alternatives ('oeffne') in the
-# same Verb statement – preprocessing would create duplicate-word compile errors.
+# grammar_de.h defines only the canonical umlaut forms of each verb; the
+# BeforeParsing hook in lib/de/parser_de.h handles digraph→umlaut and -e
+# suffix normalisation at runtime in the Unicode build. In the ASCII build
+# this preprocessing step converts umlaut verb words to their digraph forms
+# so that player input (always digraph-only in the ASCII build) matches.
 # -------------------------------------------------------------------------
 Write-Host "Generating ASCII source tree..."
 New-Item -ItemType Directory -Force -Path "build\ascii_lib\de" | Out-Null
@@ -61,6 +64,7 @@ New-Item -ItemType Directory -Force -Path "build\ascii_src"     | Out-Null
 
 Convert-ToAsciiDigraphs "lib\de\globals_de.h"  "build\ascii_lib\de\globals_de.h"
 Convert-ToAsciiDigraphs "lib\de\messages_de.h" "build\ascii_lib\de\messages_de.h"
+Convert-ToAsciiDigraphs "lib\de\grammar_de.h"  "build\ascii_lib\de\grammar_de.h"
 Convert-ToAsciiDigraphs "lib\puny.h"           "build\ascii_lib\puny.h"
 Convert-ToAsciiDigraphs "example\beispiel.inf" "build\ascii_src\beispiel.inf"
 
@@ -82,4 +86,31 @@ Write-Host "Generating ASCII walkthrough..."
     -replace [char]0xdc, "Ue" `
     | Set-Content "example\beispiel.walkthrough.ascii.txt" -Encoding ASCII
 
-Write-Host "Build complete: build\beispiel.z5, build\beispiel_ascii.z5, example\beispiel.walkthrough.ascii.txt"
+# -------------------------------------------------------------------------
+# Transcript generation
+#
+# PowerShell 5.x's [Console]::OutputEncoding = UTF8 uses UTF-8-with-BOM,
+# which corrupts the first bytes sent to dfrotz's stdin.  Instead we write
+# BOM-free temp files and use cmd.exe's `<` redirect, which passes raw
+# file bytes directly to dfrotz without any encoding layer.
+# -------------------------------------------------------------------------
+Write-Host "Generating transcripts..."
+$utf8NoBom = New-Object System.Text.UTF8Encoding $false
+
+Remove-Item "build\transcript.txt"       -ErrorAction SilentlyContinue
+Remove-Item "build\transcript.ascii.txt" -ErrorAction SilentlyContinue
+
+# Unicode transcript
+$tmpUnicode = [System.IO.Path]::GetTempFileName()
+try {
+    $lines = Get-Content "example\beispiel.walkthrough.txt" -Encoding UTF8
+    [System.IO.File]::WriteAllLines($tmpUnicode, $lines, $utf8NoBom)
+    cmd /c "tools\dfrotz.exe -m -q -Z 0 -T -n ""build\transcript.txt"" ""build\beispiel.z5"" < ""$tmpUnicode"""
+} finally {
+    Remove-Item $tmpUnicode -ErrorAction SilentlyContinue
+}
+
+# ASCII transcript
+cmd /c "tools\dfrotz.exe -m -q -Z 0 -T -n ""build\transcript.ascii.txt"" ""build\beispiel_ascii.z5"" < ""example\beispiel.walkthrough.ascii.txt"""
+
+Write-Host "Build complete: build\beispiel.z5, build\beispiel_ascii.z5, build\transcript.txt, build\transcript.ascii.txt"

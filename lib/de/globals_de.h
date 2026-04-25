@@ -26,7 +26,6 @@ Zcharacter 'Ü';  ! U+00DC
 ! German parser word constants
 ! These override the English defaults defined in globals.h.
 ! ---------------------------------------------------------------------------
-! TODO: Review German parser words
 Constant ALL_WORD     = 'alles';   ! English: 'all'
 Constant EXCEPT_WORD1 = 'ausser';  ! English: 'but'   (außer — digraph)
 Constant EXCEPT_WORD2 = 'ohne';    ! English: 'except'
@@ -36,7 +35,6 @@ Constant THEN1__WD    = 'dann';    ! English: 'then'
 ! ---------------------------------------------------------------------------
 ! German string constants for is/are
 ! ---------------------------------------------------------------------------
-! TODO: Review German is/are strings
 Constant IS_STR  = "ist ";   ! English: "is "
 Constant ARE_STR = "sind ";  ! English: "are "
 
@@ -53,7 +51,6 @@ Constant LISTOBJS_ROOM_SUFFIX = ".^";
 ! ---------------------------------------------------------------------------
 ! German string constants (for parser messages)
 ! ---------------------------------------------------------------------------
-! TODO: Review German parser strings
 Constant SOMETHING_STR      = "etwas";           ! English: "something"
 Constant SOMEONE_STR        = "jemanden";        ! English: "someone"
 Constant SOMEDIRECTION_STR  = "(eine Richtung)"; ! English: "(some direction)"
@@ -115,3 +112,6 @@ Constant DE_NORDWEST = 0;
 Constant DE_SUEDOST  = 0;
 Constant DE_SUEDWEST = 0;
 #EndIf;
+
+! German parser extension (enables ja/nein in YesOrNo via Replace directive)
+Include "de/parser_de.h";

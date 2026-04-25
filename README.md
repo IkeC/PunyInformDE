@@ -7,8 +7,6 @@ A German localisation of PunyInform v6.5, based on the original translation by L
 Release candidate. Tracks PunyInform v6.5.  
 German-specific code lives entirely in `lib/de/` — future upstream updates only require touching the base files in `lib/`.
 
-Remaining before final release: native-speaker review of `! TODO:` strings in `lib/de/messages_de.h`.
-
 ## Example Game: Das Schiff der Sterne
 
 A short puzzle adventure aboard the sailing ship *Sternwind*. The player wakes up locked in the captain's cabin, finds a key, unlocks the door, reaches the deck, and uses a brass telescope to spot a treasure island.
@@ -97,7 +95,6 @@ Umlaut verbs also accepted where supported: `öffne`, `schließ … auf`.
 
 ## Notes
 
-- `! TODO:` strings in `lib/de/messages_de.h` need native-speaker review before final release
 - Dativ/Akkusativ pronouns (`ihm`, `ihn`, `dem`) are not understood by the parser
 - Adjective inflection is not implemented
 
