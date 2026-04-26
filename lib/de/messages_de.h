@@ -1,6 +1,5 @@
 ! Part of PunyInformDE: German localisation of PunyInform.
 ! This file replaces messages.h with German translations.
-! Translations are marked with "! TODO:" and should be reviewed before use.
 !
 ! Note: Zcharacter declarations for German special characters are in globals.h.
 !
@@ -38,7 +37,7 @@ Constant MSG_SMELL_DEFAULT "Du riechst nichts Unerwartetes.";
 Constant MSG_LISTEN_DEFAULT "Du hörst nichts Unerwartetes.";
 #Endif;
 #Ifndef MSG_TELL_PLAYER;
-Constant MSG_TELL_PLAYER "Du redest eine Weile mit dir selbst.";
+Constant MSG_TELL_PLAYER "Du redest ein Weilchen mit dir selbst.";
 #Endif;
 #Ifndef MSG_TELL_DEFAULT;
 Constant MSG_TELL_DEFAULT "Keine Reaktion.";
@@ -86,10 +85,10 @@ Constant MSG_WAIT_DEFAULT "Nichts passiert.";
 Constant MSG_TOUCH_DEFAULT "Du ertastest nichts Unerwartetes.";
 #EndIf;
 #Ifndef MSG_PUSHDIR_DEFAULT;
-Constant MSG_PUSHDIR_DEFAULT "Ist das das Beste, was dir in den Sinn kommt?";
+Constant MSG_PUSHDIR_DEFAULT "Ist das das Beste, was dir einfällt?";
 #EndIf;
 #Ifndef MSG_JUMP;
-Constant MSG_JUMP "Du springst auf der Stelle, ohne Erfolg.";
+Constant MSG_JUMP "Du springst auf der Stelle.";
 #EndIf;
 #Ifndef MSG_REMOVE_DEFAULT;
 Constant MSG_REMOVE_DEFAULT "Entfernt.";
@@ -388,13 +387,13 @@ Constant MSG_TASTE_DEFAULT "Du schmeckst nichts Unerwartetes.";
 Constant MSG_THINK_DEFAULT "Das ist eine gute Idee.";
 #EndIf;
 #Ifndef MSG_WAVEHANDS_DEFAULT;
-Constant MSG_WAVEHANDS_DEFAULT "Du winkst und kommst dir dumm vor.";
+Constant MSG_WAVEHANDS_DEFAULT "Du winkst und kommst dir etwas blöd vor.";
 #EndIf;
 #Ifndef MSG_WAKE_DEFAULT;
 Constant MSG_WAKE_DEFAULT "Die schreckliche Wahrheit ist, dass dies kein Traum ist.";
 #Endif;
 #Ifndef MSG_WAKEOTHER_DEFAULT;
-Constant MSG_WAKEOTHER_DEFAULT "Das erscheint unsinning.";
+Constant MSG_WAKEOTHER_DEFAULT "Das erscheint unsinnig.";
 #Endif;
 #Ifndef MSG_KISS_PLAYER;
 Constant MSG_KISS_PLAYER "Wenn du glaubst, dass das hilft.";
@@ -689,33 +688,27 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 
 	! Not a string, there should be code for the message here
 	switch(p_msg) {
-! TODO: Review all German messages below
 #Iftrue MSG_TAKE_SCENERY < 1000;
 	MSG_TAKE_SCENERY:
-		! TODO: "(Name) ist nicht portabel."
 		print_ret (CTheyreorThats) noun, " ist nicht portabel.";
 #EndIf;
 #Ifndef SKIP_MSG_PUSH_DEFAULT;
 	MSG_PUSH_DEFAULT, MSG_PULL_DEFAULT, MSG_TURN_DEFAULT:
-		! TODO: "Es passiert nichts Offensichtliches."
 		"Es passiert nichts Offensichtliches.";
 #Endif;
 #Ifndef SKIP_MSG_PUSH_STATIC;
 	MSG_PUSH_STATIC, MSG_PULL_STATIC, MSG_TURN_STATIC, MSG_TAKE_STATIC:
-		! TODO: "(Name) ist fixiert."
 		print_ret (CTheyreorThats) noun, " ist fixiert.";
 #Endif;
 #Ifndef SKIP_MSG_PUSH_SCENERY;
 	MSG_PUSH_SCENERY, MSG_PULL_SCENERY, MSG_TURN_SCENERY:
-		! TODO: "Was für ein Konzept!"
-		"Was für ein Konzept!";
+		"Das kannst du nicht bewegen.";
 #Endif;
 #IfDef SACK_OBJECT;
 #IfTrue MSG_SACK_PUTTING < 1000;
 	MSG_SACK_PUTTING:
 	! p_arg_1 = the object being put into SACK_OBJECT.
-		! TODO: "(lege [obj] in [sack] um Platz zu machen)"
-		"(lege ", (the) p_arg_1, " in ", (the) SACK_OBJECT, " um Platz zu machen)";
+		"(lege ", (the) p_arg_1, " in ", (the) SACK_OBJECT, " um Platz zu schaffen)";
 #EndIf;
 #EndIf;
 #IfTrue MSG_PROMPT < 1000;
@@ -740,7 +733,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #EndIf;
 #IfTrue MSG_EXAMINE_NOTHING_SPECIAL < 1000;
 	MSG_EXAMINE_NOTHING_SPECIAL:
-		"Es ist nichts Besonderes an ", (the) noun, ".";
+		"Du erkennst nichts Besonderes an ", (the) noun, ".";
 #EndIf;
 #Ifndef SKIP_MSG_PUSH_ANIMATE;
 	MSG_PUSH_ANIMATE, MSG_PULL_ANIMATE, MSG_TURN_ANIMATE, MSG_CLIMB_ANIMATE:
@@ -749,7 +742,6 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Ifndef SKIP_MSG_DROP_NOT_HOLDING;
 	MSG_DROP_NOT_HOLDING, MSG_SHOW_NOT_HOLDING, MSG_GIVE_NOT_HOLDING,
 	MSG_WEAR_NOT_HOLDING:
-		! TODO: "Du hältst [obj] nicht."
 		"Du hältst ", (ItorThem) noun, " nicht.";
 #Endif;
 #Ifndef SKIP_MSG_OPEN_YOU_CANT;
@@ -760,33 +752,27 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Endif;
 #IfTrue MSG_EAT_INEDIBLE < 1000;
 	MSG_EAT_INEDIBLE:
-		! TODO: "(Name) ist ungenießbar."
 		print_ret (CTheyreorThats) noun, " ist ungenießbar.";
 #EndIf;
 #IfTrue MSG_OPEN_ALREADY < 1000;
 	MSG_OPEN_ALREADY:
-		! TODO: "(Name) ist bereits offen."
 		print_ret (CTheyreorIts) noun, " bereits offen.";
 #EndIf;
 #IfTrue MSG_OPEN_LOCKED < 1000;
 	MSG_OPEN_LOCKED:
-		! TODO: "(Name) ist verschlossen."
 		print_ret (CTheyreorIts) noun, " verschlossen.";
 #EndIf;
 #IfTrue MSG_PUTON_NOT_SUPPORTER < 1000;
 	MSG_PUTON_NOT_SUPPORTER:
-		! TODO: "Du kannst nichts auf [obj] stellen."
 		"Du kannst nichts auf ", (ThatorThose) second, " stellen.";
 #EndIf;
 #Ifndef SKIP_MSG_TAKE_ANIMATE;
 	MSG_TAKE_ANIMATE, MSG_EAT_ANIMATE:
-		! TODO: "Ich glaube nicht, dass [obj] das interessiert."
 		"Ich glaube nicht, dass ", (the) noun, " das interessiert.";
 #Endif;
 #Ifndef SKIP_MSG_TAKE_PLAYER_PARENT;
 	MSG_TAKE_PLAYER_PARENT, MSG_GO_FIRST_LEAVE, MSG_EXIT_FIRST_LEAVE:
 	! p_arg_1 = the object the player has to leave to perform the action.
-		! TODO: "Zuerst musst du [obj] verlassen."
 		"Zuerst musst du ", (the) p_arg_1, " verlassen.";
 #Endif;
 #Iftrue MSG_OPEN_DEFAULT < 1000;
@@ -806,134 +792,115 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 		!@new_line;
 #Endif;
 #Ifndef SKIP_MSG_CLOSE_DEFAULT;
-	MSG_CLOSE_DEFAULT, MSG_ENTER_DEFAULT, MSG_LOCK_DEFAULT,
+	MSG_CLOSE_DEFAULT:
+		"Du schließt ", (the) noun, ".";
+	MSG_ENTER_DEFAULT:
+		"Du betrittst ", (the) noun, ".";
 	MSG_EXIT_DEFAULT:
-	! p_arg_1 = the base verb for this action.
-		"Du ", (verbname) p_arg_1, " ", (the) noun, ".";
+		"Du verlässt ", (the) noun, ".";
+	MSG_LOCK_DEFAULT:
+		"Du verriegelst ", (the) noun, ".";
 	MSG_UNLOCK_DEFAULT:
 		"Du schließt ", (the) noun, " auf.";
 #Endif;
 #Ifndef SKIP_MSG_GIVE_DEFAULT;
 	MSG_GIVE_DEFAULT, MSG_SHOW_DEFAULT:
-		! TODO: "[NPC] scheint nicht interessiert zu sein."
 		print_ret (The) second, " scheint nicht interessiert zu sein.";
 #Endif;
 #Ifndef SKIP_MSG_ASKFOR_DEFAULT;
 	MSG_ASKFOR_DEFAULT, MSG_ASKTO_DEFAULT, MSG_ORDERS_WONT:
 	! p_arg_1 = the actor which the player has asked to do something.
-		! TODO: "[NPC] hat Besseres zu tun."
 		print_ret (The) p_arg_1, " hat Besseres zu tun.";
 #Endif;
 #Ifndef SKIP_MSG_ENTER_NOT_OPEN;
 	MSG_ENTER_NOT_OPEN, MSG_EXIT_NOT_OPEN, MSG_INSERT_NOT_OPEN,
 	MSG_GO_DOOR_CLOSED, MSG_EMPTY_IS_CLOSED:
-	! p_arg_1 = the object which is closed, thus blocking the player's action.
-		! TODO: "Du kannst nicht, da [obj] geschlossen ist."
-		"Du kannst nicht, da ", (ObjIs) p_arg_1, " geschlossen.";
+	! p_arg_1 = the object which is closed, thus blocking the players action
+		"Das geht nicht, da ", (ObjIs) p_arg_1, " geschlossen ist.";
 #Endif;
 #Ifndef SKIP_MSG_GIVE_PLAYER;
 	MSG_GIVE_PLAYER, MSG_TAKE_ALREADY_HAVE:
-		! TODO: "Du hast [obj] bereits."
 		"Du hast ", (ItorThem) noun, " bereits.";
 #Endif;
 #Ifndef SKIP_MSG_SAVE_FAILED;
 	MSG_SAVE_FAILED, MSG_RESTORE_FAILED, MSG_RESTART_FAILED:
-		! TODO: "[verb] fehlgeschlagen."
 		"Fehlgeschlagen: ", (verbname) verb_word, ".";
 #Endif;
 #Ifndef SKIP_MSG_INSERT_ALREADY;
 	MSG_INSERT_ALREADY, MSG_PUTON_ALREADY, MSG_TRANSFER_ALREADY:
-		! TODO: "Schon da."
 		"Schon da.";
 #Endif;
 #Ifndef SKIP_MSG_INSERT_ANIMATE;
 	MSG_INSERT_ANIMATE, MSG_PUTON_ANIMATE:
-		! TODO: "Versuch [obj] stattdessen zu geben."
-		"Versuch ", (ItorThem) noun, " stattdessen zu geben.";
+		"Versuch stattdessen ", (ItorThem) noun, " zu geben.";
 #Endif;
 #Ifndef SKIP_MSG_INSERT_NO_ROOM;
 	MSG_INSERT_NO_ROOM, MSG_PUTON_NO_ROOM:
-		! TODO: "Es gibt keinen Platz mehr."
-		"Es gibt keinen Platz mehr.";
+		"Es ist kein Platz mehr.";
 #Endif;
 #IfTrue MSG_INSERT_DEFAULT < 1000;
 	MSG_INSERT_DEFAULT:
-		! TODO: "Du legst [obj] in [container]."
 		"Du legst ", (the) noun, " in ", (the) second, ".";
 #EndIf;
 #IfTrue MSG_PUTON_DEFAULT < 1000;
 	MSG_PUTON_DEFAULT:
-		! TODO: "Du legst [obj] auf [supporter]."
 		"Du legst ", (the) noun, " auf ", (the) second, ".";
 #EndIf;
 #Ifndef SKIP_MSG_ASK_DEFAULT;
 	MSG_ASK_DEFAULT, MSG_ANSWER_DEFAULT, MSG_SHOUT_DEFAULT, MSG_SHOUTAT_DEFAULT:
-		! TODO: "Keine Antwort."
 		"Keine Antwort.";
 #Endif;
 #IfTrue MSG_WEAR_ALREADY_WORN < 1000;
 	MSG_WEAR_ALREADY_WORN:
-		! TODO: "Du bist mit [obj] bereits bekleidet."
-		"Du bist mit ", (ItorThem) noun, " bereits bekleidet.";
+		"Du bist bereits mit ", (ItorThem) noun, " bekleidet.";
 #EndIf;
 #IfTrue MSG_WEAR_DEFAULT < 1000;
 	MSG_WEAR_DEFAULT:
-		! TODO: "Du bist nun mit [obj] bekleidet."
 		"Du bist nun mit ", (the) noun, " bekleidet.";
 #EndIf;
 #IfTrue MSG_DISROBE_NOT_WEARING < 1000;
 	MSG_DISROBE_NOT_WEARING:
-		! TODO: "Du bist nicht mit [obj] bekleidet."
 		"Du bist nicht mit ", (the) noun, " bekleidet.";
 #EndIf;
 #IfTrue MSG_DISROBE_DEFAULT < 1000;
 	MSG_DISROBE_DEFAULT:
-		! TODO: "Du ziehst [obj] aus."
 		"Du ziehst ", (the) noun, " aus.";
 #EndIf;
 #Ifndef SKIP_MSG_SWITCH_ON_NOT_SWITCHABL;
 	MSG_SWITCH_ON_NOT_SWITCHABLE, MSG_SWITCH_OFF_NOT_SWITCHABLE:
-		! TODO: "(Name) ist nicht umschaltbar."
 		print_ret (CTheyreorThats) noun, " ist nicht umschaltbar.";
 #Endif;
 #Ifndef SKIP_MSG_SWITCH_ON_ON;
 	MSG_SWITCH_ON_ON, MSG_SWITCH_OFF_NOT_ON:
-		! TODO: "(Name) ist schon [ein/aus]."
 		print_ret (CTheyreorThats) noun, " ist schon ", (OnOff) noun, ".";
 #Endif;
 #Ifndef SKIP_MSG_SWITCH_ON_DEFAULT;
 	MSG_SWITCH_ON_DEFAULT, MSG_SWITCH_OFF_DEFAULT:
-		! TODO: "Du schaltest [obj] [ein/aus]."
 		"Du schaltest ", (the) noun, " ", (OnOff) noun, ".";
 #Endif;
 #Iftrue MSG_AUTO_TAKE < 1000;
 	MSG_AUTO_TAKE:
 	! p_arg_1 = the object the player automatically picks up
-		! TODO: "(nimmst zuerst [obj])"
-		"(nimmst zuerst ", (the) p_arg_1, ")";
+		"(du nimmst zuerst ", (the) p_arg_1, ")";
 #Endif;
 #Iftrue MSG_AUTO_DISROBE < 1000;
 	MSG_AUTO_DISROBE:
 	! p_arg_1 = the object the player automatically takes off.
-		! TODO: "(ziehst zuerst [obj] aus)"
-		"(ziehst zuerst ", (the) p_arg_1, " aus)";
+		"(du ziehst zuerst ", (the) p_arg_1, " aus)";
 #Endif;
 #Iftrue MSG_AUTO_DISROBE_WORN < 1000;
 	MSG_AUTO_DISROBE_WORN:
 	! p_arg_1 = the object the player would need to take off.
-		! TODO: "Aber du müsstest zuerst [obj] ausziehen."
-		"Aber du müsstest zuerst ", (the) p_arg_1, " ausziehen.";
+		"Du müsstest zuerst ", (the) p_arg_1, " ausziehen.";
 #Endif;
 #IfTrue MSG_PARSER_NOTHING_TO_VERB < 1000;
 	MSG_PARSER_NOTHING_TO_VERB:
 	! p_arg_1 = the last word in player input + 1.
 		if(action == ##Drop or ##Insert) {
 			if((parse + 2 + (p_arg_1 - 2) *4) --> 0 == ALL_WORD)
-				! TODO: "Du trägst nichts."
 				"Du trägst nichts.";
-			if(TryNumber(verb_wordnum + 1) > 0) "Du haltest keines davon.";
+			if(TryNumber(verb_wordnum + 1) > 0) "Du hältst nichts davon.";
 		}
-		! TODO: "Es gibt keine Dinge die ~ entsprechen."
 		print "Es gibt keine Dinge, die ~";
 		_PrintPartialMatch(verb_wordnum, p_arg_1 - 1);
 		"~ entsprechen.";
@@ -941,22 +908,19 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Ifndef SKIP_MSG_PARSER_NOT_HOLDING;
 	MSG_PARSER_NOT_HOLDING, MSG_AUTO_TAKE_NOT_HELD, MSG_WAVE_NOTHOLDING:
 	! p_arg_1 = the object which the player must be holding to perform the
-	! action but isn't.
-		! TODO: "Aber du haltest [obj] nicht."
-		"Aber du haltest ", (the) p_arg_1, " nicht.";
+	! action but isnt.
+		"Aber du hältst ", (the) p_arg_1, " nicht.";
 #Endif;
 #IfTrue MSG_PARSER_PARTIAL_MATCH < 1000;
 	MSG_PARSER_PARTIAL_MATCH:
 	! p_arg_1 = the word number of the last word understood + 1.
-		! TODO: "Ich habe nur bis ~ verstanden."
-		print "Ich habe nur bis ~";
+		print "Ich habe dich nur bis ~";
 		_PrintPartialMatch(verb_wordnum, p_arg_1);
-		"~, aber dann habe ich dich nicht mehr verstanden.";
+		"~ verstanden.";
 #EndIf;
 #IfTrue MSG_PARSER_CANT_TALK < 1000;
 	MSG_PARSER_CANT_TALK:
-	! p_arg_1 = the object which can't be talked to.
-		! TODO: "Du kannst nicht mit [obj] reden."
+	! p_arg_1 = the object which cant be talked to.
 		"Du kannst nicht mit ", (the) p_arg_1, " reden.";
 #EndIf;
 #IfTrue MSG_PARSER_NO_NEED_REFER_TO < 1000;
@@ -979,149 +943,123 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #EndIf;
 #IfTrue MSG_PARSER_BAD_PATTERN_PREFIX < 1000;
 	MSG_PARSER_BAD_PATTERN_PREFIX:
-		! TODO: "Ich glaube, du wolltest sagen ~"
-		print "Ich glaube, du wolltest sagen ~";
+		print "Ich glaube, du wolltest ~";
 		rtrue;
 #EndIf;
 #IfTrue MSG_PARSER_BAD_PATTERN_SUFFIX < 1000;
 	MSG_PARSER_BAD_PATTERN_SUFFIX:
-		! TODO: "~. Bitte versuche es erneut."
-		"~. Bitte versuche es erneut.";
+		"~ sagen. Bitte versuche es erneut.";
 #EndIf;
 #IfTrue MSG_PARSER_NO_IT < 1000;
 	MSG_PARSER_NO_IT:
-		! TODO: "Ich weiss nicht, was ~ bedeutet."
-		"Ich weiss nicht, was ~", (address) p_arg_1, "~ bedeutet.";
+		"Ich weiß nicht, was ~", (address) p_arg_1, "~ bedeutet.";
 #EndIf;
 #Ifndef SKIP_MSG_PARSER_NOSUCHTHING;
 	MSG_PARSER_NOSUCHTHING, MSG_SHOUT_NOSUCHTHING:
-		! TODO: "So etwas kannst du nicht sehen."
 		"So etwas kannst du nicht sehen.";
 #EndIf;
 #IfTrue MSG_PARSER_CANT_SEE_IT < 1000;
 	MSG_PARSER_CANT_SEE_IT:
-		! TODO: "Du kannst ~ ([name]) momentan nicht sehen."
 		"Du kannst ~", (address) p_arg_1, "~ (", (name) p_arg_2, ") momentan nicht sehen.";
 #EndIf;
 #Ifndef SKIP_MSG_CLOSE_NOT_OPEN;
 	MSG_CLOSE_NOT_OPEN, MSG_TOUCHABLE_FOUND_CLOSED,
 	MSG_PARSER_CONTAINER_ISNT_OPEN:
-	! p_arg_1 = the object which isn't open.
-		! TODO: "(Name) ist nicht offen."
+	! p_arg_1 = the object which isnt open.
 		print_ret (CObjIs) p_arg_1, " nicht offen.";
 #Endif;
 #IfTrue MSG_CONSULT_NOTHING_INTERESTING < 1000;
 	MSG_CONSULT_NOTHING_INTERESTING:
-		! TODO: "Du findest nichts Interessantes in [obj]."
-		"Du findest nichts Interessantes in ", (the) noun, ".";
+		"Du findest nichts von Belang in ", (the) noun, ".";
 #EndIf;
 #Ifndef SKIP_MSG_CUT_NO_USE;
 	MSG_CUT_NO_USE, MSG_JUMP_OVER, MSG_TIE_DEFAULT, MSG_CLIMB_DEFAULT:
-		! TODO: "Damit erreichst du nichts."
 		"Damit erreichst du nichts.";
 #Endif;
 #Ifndef SKIP_MSG_LOCK_ALREADY_LOCKED;
-	MSG_LOCK_ALREADY_LOCKED, MSG_UNLOCK_ALREADY_UNLOCKED:
-	! p_arg_1 = the base verb for this action.
-		! TODO: "(Name) ist schon [verb]."
-		print_ret (CObjIs) noun, " schon ", (verbname) p_arg_1, ".";
+	MSG_LOCK_ALREADY_LOCKED:
+		print_ret (The) noun, " ist bereits verschlossen.";
+	MSG_UNLOCK_ALREADY_UNLOCKED:
+		print_ret (The) noun, " ist bereits aufgeschlossen.";
 #Endif;
 #IfTrue MSG_LOCK_CLOSE_FIRST < 1000;
 	MSG_LOCK_CLOSE_FIRST:
-		! TODO: "Zuerst musst du [obj] schließen."
 		"Zuerst musst du ", (the) noun, " schließen.";
 #EndIf;
 #Ifndef SKIP_MSG_LOCK_KEY_DOESNT_FIT;
 	MSG_LOCK_KEY_DOESNT_FIT, MSG_UNLOCK_KEY_DOESNT_FIT:
-		! TODO: "[key] scheint nicht in das Schloss zu passen."
 		print_ret (The) second, " scheint nicht in das Schloss zu passen.";
 #Endif;
 #IfTrue MSG_EXAMINE_CLOSED < 1000;
 	MSG_EXAMINE_CLOSED:
 	! p_arg_1 = the examined object (which is closed).
-		! TODO: "[Obj] ist geschlossen."
 		print_ret (CObjIs) p_arg_1, " geschlossen.";
 #Endif;
 #IfTrue MSG_REMOVE_NOT_HERE < 1000;
 	MSG_REMOVE_NOT_HERE:
-		! TODO: "Aber [obj] ist momentan nicht da."
 		"Aber ", (ObjIs) noun, " momentan nicht da.";
 #EndIf;
 #IfTrue MSG_SEARCH_IN_IT_ISARE < 1000;
 	MSG_SEARCH_IN_IT_ISARE:
-		! TODO: "[Obj] beinhaltet [contents]."
-		print (The) noun, " beinhaltet ";
+		print (The) noun, " enthält bereits ";
 		PrintContents(0, noun);
 		".";
 #EndIf;
 #IfTrue MSG_SEARCH_ON_IT_ISARE < 1000;
 	MSG_SEARCH_ON_IT_ISARE:
-		! TODO: "Auf [obj] liegt [contents]."
 		print "Auf ", (the) noun;
 		PrintContents(" ", noun, ISARE_BIT);
 		".";
 #EndIf;
 #IfTrue MSG_SEARCH_EMPTY < 1000;
 	MSG_SEARCH_EMPTY:
-		! TODO: "[Obj] ist leer."
 		print_ret (CObjIs) noun, " leer.";
 #EndIf;
 #IfTrue MSG_SEARCH_NOTHING_ON < 1000;
 	MSG_SEARCH_NOTHING_ON:
-		! TODO: "Es ist nichts auf [obj]."
 		"Es ist nichts auf ", (the) noun, ".";
 #EndIf;
 #IfTrue MSG_SEARCH_CANT_SEE_CLOSED < 1000;
 	MSG_SEARCH_CANT_SEE_CLOSED:
-		! TODO: "Du kannst nicht reinschauen, da [obj] geschlossen ist."
-		"Du kannst nicht reinschauen, da ", (ObjIs) noun, " geschlossen.";
+		"Du kannst nicht reinschauen, ", (ObjIs) noun, " geschlossen.";
 #EndIf;
 #IfTrue MSG_EXAMINE_ONOFF < 1000;
 	MSG_EXAMINE_ONOFF:
-		! TODO: "[Obj] ist aktuell [ein/aus]geschaltet."
 		print_ret (CObjIs) noun, " aktuell ", (OnOff) noun, "geschaltet.";
 #EndIf;
 #IfTrue MSG_EAT_DEFAULT < 1000;
 	MSG_EAT_DEFAULT:
-		! TODO: "Du isst [obj]. Nicht schlecht."
 		"Du isst ", (the) noun, ". Nicht schlecht.";
 #EndIf;
 #Ifndef SKIP_MSG_RUB_DEFAULT;
 MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
-	! TODO: "Damit erreichst du nichts."
 	"Damit erreichst du nichts.";
 #Endif;
 #IfTrue MSG_TAKE_NOT_AVAILABLE < 1000;
 	MSG_TAKE_NOT_AVAILABLE:
-		! TODO: "[Obj] ist nicht vorhanden."
 		print_ret (CObjIs) noun, " nicht vorhanden.";
 #EndIf;
 #IfTrue MSG_TAKE_BELONGS < 1000;
 	MSG_TAKE_BELONGS:
 		! p_arg_1 = the object that is held by p_arg_2
-		! TODO: "[obj1] gehört [obj2]."
 		print_ret (The) p_arg_1, " gehört ", (the) p_arg_2, ".";
 #EndIf;
 #IfTrue MSG_TAKE_PART_OF < 1000;
 	MSG_TAKE_PART_OF:
 		! p_arg_1 = the object that is part of p_arg_2
-		! TODO: "[obj1] ist ein Teil von [obj2]."
 		print_ret (The) p_arg_1, " ist ein Teil von ", (the) p_arg_2, ".";
 #EndIf;
 #Ifndef OPTIONAL_NO_DARKNESS;
 #Ifndef SKIP_MSG_EXAMINE_DARK;
 	MSG_EXAMINE_DARK, MSG_SEARCH_DARK:
-		! TODO: "Aber es ist dunkel."
 		"Aber es ist dunkel.";
 #Endif;
 #Endif;
 #Iftrue MSG_SCORE_DEFAULT < 1000;
 	MSG_SCORE_DEFAULT:
 #Ifdef NO_SCORE;
-		! TODO: "Es gibt keine Punkte in diesem Spiel."
 		"Es gibt keine Punkte in diesem Spiel.";
 #Ifnot;
-		! TODO: Score message
 		if (deadflag) print "In diesem Spiel hast du"; else print "Bisher hast du";
 		print " ", score, " von ", MAX_SCORE, " möglichen Punkten erreicht, in ", turns, " ";
 		if(turns == 1) print "Zug"; else print "Zügen";
@@ -1131,18 +1069,15 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 #IfDef OPTIONAL_FULL_SCORE;
 #IfTrue MSG_FULLSCORE_START < 1000;
 	MSG_FULLSCORE_START:
-		! TODO: "Die Punktzahl setzt sich wie folgt zusammen:"
 		print "Die Punktzahl setzt sich wie folgt zusammen:";
 #EndIf;
 #IfTrue MSG_FULLSCORE_END < 1000;
 	MSG_FULLSCORE_END:
-		! TODO: "insgesamt (von [MAX_SCORE])"
 		"insgesamt (von ", MAX_SCORE, ")";
 #EndIf;
 #EndIf;
 #Ifndef SKIP_MSG_LOOKMODE;
 	MSG_LOOKMODE_NORMAL, MSG_LOOKMODE_LONG, MSG_LOOKMODE_SHORT:
-		! TODO: Lookmode messages
 		print "Dieses Spiel ist jetzt im ";
 		if(lookmode==1) print "normalen ~";
 		if(lookmode==2) print "~ausführlichen";
@@ -1165,7 +1100,6 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 #Endif;
 #IfTrue MSG_RESTART_RESTORE_OR_QUIT < 1000;
 	MSG_RESTART_RESTORE_OR_QUIT:
-		! TODO: Game over options
 		print "^Möchtest du NEUSTART, WIEDERHERSTELLEN";
 #Ifdef OPTIONAL_PROVIDE_UNDO_FINAL;
 	#Ifdef DEATH_MENTION_UNDO;
@@ -1185,25 +1119,21 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 #EndIf;
 #IfTrue MSG_AREYOUSUREQUIT < 1000;
 	MSG_AREYOUSUREQUIT: ! print and rtrue to avoid newline
-		! TODO: "Bist du sicher, dass du das Spiel beenden willst? "
 		print "Bist du sicher, dass du das Spiel beenden willst? ";
 		rtrue;
 #EndIf;
 #IfTrue MSG_YOU_HAVE_WON < 1000;
 	MSG_YOU_HAVE_WON: ! print and rtrue to avoid newline
-		! TODO: "Du hast gewonnen"
  		print "Du hast gewonnen";
  		rtrue;
 #EndIf;
 #IfTrue MSG_YOU_HAVE_DIED < 1000;
 	MSG_YOU_HAVE_DIED: ! print and rtrue to avoid newline
-		! TODO: "Du bist gestorben"
 		print "Du bist gestorben";
 		rtrue;
 #EndIf;
 #IfTrue MSG_ENTER_BAD_LOCATION < 1000;
 	MSG_ENTER_BAD_LOCATION:
-		! TODO: "Du musst zuerst [obj] verlassen/betreten."
 		print "Du musst zuerst ";
 		if(player notin location && ~~IndirectlyContains(parent(player), noun))
 			print (the) parent(player), " verlassen";
@@ -1213,7 +1143,6 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 #EndIf;
 #IfTrue MSG_ENTER_HELD < 1000;
 	MSG_ENTER_HELD:
-		! TODO: "Du kannst [obj] nicht betreten, während du [obj] trägst."
 		"Du kannst ", (the) noun, " nicht betreten, während du ", (ItOrThem) noun, " trägst.";
 #EndIf;
 #Ifndef SKIP_MSG_INSERT_NOT_CONTAINER;
@@ -1222,19 +1151,16 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 #Ifnot;
 	MSG_INSERT_NOT_CONTAINER:
 #Endif;
-		! p_arg_1 = the object that can't contain things
-		! TODO: "[obj] kann Dinge nicht aufbewahren."
-		print_ret (The) p_arg_1, " kann Dinge nicht aufbewahren.";
+		! p_arg_1 = the object that cant contain things
+		print_ret (The) p_arg_1, " kann keine Dinge enthalten.";
 #Endif;
 #IfTrue MSG_YES_OR_NO < 1000;
 	MSG_YES_OR_NO:
-		! TODO: "Bitte antworte mit ja oder nein: "
-		print "Bitte antworte mit ja oder nein: ";
+		print "Bitte antworte mit Ja oder Nein: ";
 		rtrue;
 #EndIf;
 #IfTrue MSG_RESTART_CONFIRM < 1000;
 	MSG_RESTART_CONFIRM:
-		! TODO: "Bist du sicher, dass du neu starten willst? "
 		print "Bist du sicher, dass du neu starten willst? ";
 		rtrue;
 #Endif;
@@ -1242,7 +1168,6 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 #Ifndef NO_SCORE;
 #Ifndef SKIP_MSG_NOTIFY_ON;
 	MSG_NOTIFY_ON, MSG_NOTIFY_OFF:
-		! TODO: "Spielstandsmeldung ein/aus."
 		print "Spielstandsmeldung ";
 		if(p_msg == MSG_NOTIFY_ON) "ein.";
 		"aus.";
@@ -1270,29 +1195,24 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 #IfDef OPTIONAL_EXTENDED_VERBSET;
 #IfTrue MSG_BLOW_DEFAULT < 1000;
 	MSG_BLOW_DEFAULT:
-		! TODO: "Du kannst [obj] nicht sinnvoll blasen."
-		"Du kannst ", (the) noun, " nicht sinnvoll blasen.";
+		"Du kannst ", (the) noun, " nicht sinnvoll pusten.";
 #EndIf;
 #IfTrue MSG_EMPTY_ALREADY_EMPTY < 1000;
 	MSG_EMPTY_ALREADY_EMPTY:
 		! p_arg_1 = the object that is already empty
-		! TODO: "[Obj] ist bereits leer."
 		print_ret (CObjIs) p_arg_1, " bereits leer.";
 #EndIf;
 #IfTrue MSG_SET_DEFAULT < 1000;
 	MSG_SET_DEFAULT:
-		! TODO: "Nein, du kannst [obj] nicht einstellen."
 		"Nein, du kannst ", (thatorthose) noun, " nicht einstellen.";
 #EndIf;
 #IfTrue MSG_SET_TO_DEFAULT < 1000;
 	MSG_SET_TO_DEFAULT:
-		! TODO: "Nein, du kannst [obj] nicht auf etwas einstellen."
 		"Nein, du kannst ", (thatorthose) noun, " nicht auf etwas einstellen.";
 #EndIf;
 #IfTrue MSG_WAVE_DEFAULT < 1000;
 	MSG_WAVE_DEFAULT:
-		! TODO: "Du siehst stupide aus, wenn du mit [obj] winkst."
-		"Du siehst stupide aus, wenn du mit ", (the) noun, " winkst.";
+		"Du siehst dämlich aus, wenn du mit ", (the) noun, " winkst.";
 #EndIf;
 #EndIf;
 
@@ -1398,7 +1318,7 @@ Constant ERR_ILLEGAL_CHOOSEOBJNO 9;
 Constant ERR_BUFFER_OVERRUN 10;
 
 [_RunTimeError p_err p_obj _parent;
-	print "^[PunyInform Fehler: ";
+	print "^[PunyInformDE Fehler: ";
 	if(p_err ofclass string)
 		print (string) p_err;
 	else {

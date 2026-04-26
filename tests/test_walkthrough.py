@@ -101,6 +101,17 @@ def test_unlock_message_german(game):
 
 
 @pytest.mark.feature("messages")
+def test_close_message_german(game):
+    """Closing a container produces German text, not English 'close'."""
+    out = game.run([
+        "oeffne kiste",
+        "schliess kiste",
+    ])
+    assert_output_contains(out, "schlie")  # covers both schließt and schliesst
+    assert_output_not_contains(out, " close ")
+
+
+@pytest.mark.feature("messages")
 def test_open_message_oeffnest(game):
     """Opening a door uses 'Du öffnest', not 'Du machst ... auf'."""
     out = game.run([
