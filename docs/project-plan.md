@@ -196,3 +196,45 @@ The PunyInformDE architecture separates German-specific code from the English ba
 - `PrintDE()` runtime helper removed (superseded by build-time preprocessing)
 - Redundant `#IfDef USE_ASCII` branches removed from `messages_de.h`
 - **Result: 39 pass, 3 xfail (dfrotz piped-stdin umlaut limitation — not fixable without patching dfrotz)**
+
+### Session 7 — Artikelsystem (§1) und Pronomensubstitution (§2)
+
+#### §1 Artikelsystem
+
+- Neues Modul `lib/de/article_de.h` mit vollständigen Artikeltabellen für
+  Nominativ/Akkusativ/Dativ × 4 Genera (maskulin/feminin/Neutrum/Plural)
+- `DE_Gender(obj)`: leitet Genus aus Attributen ab (has female → 1, has neuter → 2,
+  has pluralname → 3, Standard → 0/maskulin)
+- `DE_DefArticles` / `DE_IndefArticles`: Arrays mit 12 Einträgen (3 Kasus × 4 Genera)
+- Druckfunktionen: `DE_Der`/`DE_Den`/`DE_Dem` (best.) und `DE_Ein`/`DE_Einen`/`DE_Einem` (unbest.)
+- `_PrintObjName` in `puny.h` komplett neu geschrieben: verwendet die Tabellen für
+  FORM_DEF / FORM_INDEF / FORM_CDEF (capitalized)
+- `article`-Eigenschaft wird nur noch für Ausnahmen benötigt (article 0 = kein Artikel,
+  article "string" = manuelle Überschreibung). Alle Objekte ohne `article` erhalten
+  automatisch korrekte Artikel.
+- ~15 Meldungen in `messages_de.h` aktualisiert auf Akkusativ/Dativ-Formen (DE_Den/DE_Dem)
+- `ItorThem`, `ThatorThose`, `CTheyreorThats`, `CTheyreorIts`: genus-bewusste Implementierung
+  (unbelebte Objekte bekommen genus-abhängige Pronomina, nicht pauschal "es")
+
+#### §2 Pronomensubstitution
+
+- `PronounNotice` in `parser.h`: neuer `#IfDef LANG_DE`-Block für unbelebte Objekte —
+  feminin→herobj, Neutrum→itobj, maskulin→himobj
+- `_DE_SubstitutePronouns()` in `article_de.h` (nicht in parser_de.h, da herobj/themobj
+  erst nach globals.h bekannt sind): ersetzt deutsche Pronomina im Eingabepuffer durch
+  englische Entsprechungen vor dem Tokenisieren
+  - "er" → "him", "ihn" → "him", "ihm" → "him", "sie" → "her"/"them", "es" → "it", "ihnen" → "them"
+- `BeforeParsing` in `parser_de.h`: Pass 3 (Pronomensubstitution) wird **vor** Pass 2
+  (e-Stripping) ausgeführt, damit "sie" nicht zu "si" reduziert wird
+
+#### Beispiel-Spiel und Tests
+
+- `example/beispiel.inf`: Neue Objekte **Kompass** (maskulin) und **Goldmünzen** (plural)
+  für Pronomen-Tests; alle `with article "..."` entfernt (werden aus Genus abgeleitet);
+  ausführliche deutsche Kommentare zu Genus, Artikel und Pronomen für alle Objekte
+- `example/beispiel.walkthrough.txt`: Pronomen-Tests hinzugefügt
+  (untersuche sie/ihn/es nach entsprechenden Objekten)
+- `tests/test_articles.py`: Neue Testdatei (§1 Artikelsystem)
+- `tests/test_pronouns.py`: Neue Testdatei (§2 Pronomensubstitution)
+- `tests/test_walkthrough.py`: Walkthrough aktualisiert mit Pronomen-Tests
+- **Ergebnis: 70 pass, 3 xfail (unverändert)**

@@ -7,6 +7,11 @@ Commands use ASCII digraphs (oeffne, schluessel, schliess) because dfrotz
 in piped-stdin mode on Windows does not reliably map Latin-1 bytes to the
 Z-machine's extended character table. All umlaut forms are also accepted by
 the game parser (öffne, schlüssel, schließ) and tested interactively.
+
+The walkthrough also exercises the pronoun substitution system (§2):
+  "untersuche sie" — examines the last feminine/plural object
+  "untersuche ihn" — examines the last masculine object
+  "untersuche es"  — examines the last neuter object (Fernrohr → win)
 """
 
 from __future__ import annotations
@@ -19,23 +24,31 @@ from PunyTest.asserts import (
 NOT_UNDERSTOOD = "verstehe nicht"
 UNKNOWN_VERB   = "kenne ich nicht"
 
+# Full walkthrough including pronoun tests (§2) and new objects (§1)
 WALKTHROUGH = [
     "schau",
     "untersuche schreibtisch",
+    "nimm muenzen",           # themobj = Goldmünzen (plural)
+    "untersuche sie",         # sie → them → Goldmünzen
+    "lege muenzen auf schreibtisch",
+    "nimm kompass",           # himobj = Kompass (maskulin)
+    "untersuche ihn",         # ihn → him → Kompass
+    "lege kompass auf schreibtisch",
     "nimm karte",
     "untersuche karte",
     "untersuche koje",
     "untersuche kiste",
-    "oeffne kiste",
-    "nimm schluessel",
-    "untersuche schluessel",
+    "oeffne kiste",           # herobj = Seekiste (feminin) after open
+    "untersuche sie",         # sie → her → Seekiste
+    "nimm schluessel",        # himobj = Schlüssel (maskulin)
+    "untersuche ihn",         # ihn → him → Schlüssel
     "schliess tuer mit schluessel auf",
     "oeffne tuer",
     "nord",
     "rauf",
     "schau",
-    "nimm fernrohr",
-    "untersuche fernrohr",
+    "nimm fernrohr",          # itobj = Fernrohr (Neutrum)
+    "untersuche es",          # es → it → Fernrohr → win condition
 ]
 
 
@@ -59,7 +72,7 @@ def test_wins_game(game):
 @pytest.mark.feature("walkthrough")
 def test_reaches_oberdeck(game):
     """The walkthrough successfully navigates to Oberdeck."""
-    out = game.run(WALKTHROUGH[:14])  # up to 'rauf'
+    out = game.run(WALKTHROUGH[:20])  # up to 'rauf'
     assert_output_contains(out, "Oberdeck")
 
 

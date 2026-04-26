@@ -2005,7 +2005,20 @@ Array guess_object-->5;
 		if(p_object has female) herobj = p_object;
 		else if(p_object has neuter) itobj = p_object;
 		else himobj = p_object;
-	} else itobj = p_object;
+	} else {
+		! PunyInformDE §2: Im Deutschen haben unbelebte Objekte Genus.
+		! Feminin  → herobj  (Pronomen "sie")
+		! Neutrum  → itobj   (Pronomen "es")
+		! Maskulin → himobj  (Pronomen "er"/"ihn"/"ihm")
+		! Ohne LANG_DE: alle unbelebten Objekte → itobj (Englisch: "it")
+#IfDef LANG_DE;
+		if(p_object has female) herobj = p_object;
+		else if(p_object has neuter) itobj = p_object;
+		else himobj = p_object;
+#IfNot;
+		itobj = p_object;
+#EndIf; ! LANG_DE
+	}
 	!print "he ", himobj, " she ", herobj, " it ", itobj, "^";
 ];
 

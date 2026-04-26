@@ -29,7 +29,7 @@ crediting the source algorithms, and listing known limitations.  See §5.
 
 ---
 
-## 1. Article System: Cases (Nominative, Akkusativ, Dativ)
+## 1. Article System: Cases (Nominativ, Akkusativ, Dativ)
 
 ### The Problem
 

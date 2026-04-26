@@ -1,17 +1,24 @@
 schau
 untersuche schreibtisch
+nimm muenzen
+untersuche sie
+lege muenzen auf schreibtisch
+nimm kompass
+untersuche ihn
+lege kompass auf schreibtisch
 nimm karte
 untersuche karte
 untersuche koje
 untersuche kiste
 oeffne kiste
+untersuche sie
 nimm schluessel
-untersuche schluessel
+untersuche ihn
 schliess tuer mit schluessel auf
 oeffne tuer
 nord
 rauf
 schau
 nimm fernrohr
-untersuche fernrohr
+untersuche es
 

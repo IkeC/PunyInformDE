@@ -120,6 +120,16 @@ Constant LANG_DE;
     }
 #Endif; ! USE_ASCII
 
+    ! --- Pass 3: deutsche Pronomina → englische Pronomina ersetzen ---
+    ! WICHTIG: Muss vor Pass 2 laufen, damit "sie" nicht durch die
+    ! -e-Stripping-Regel zu "si" reduziert wird (Pass 2 entfernt
+    ! abschließendes 'e' von nicht erkannten Wörtern).
+    if (_DE_SubstitutePronouns()) {
+        buffer->(2 + buffer->1) = 0;
+        @tokenise buffer parse;
+        _nwords = parse->1;
+    }
+
     ! --- Pass 2: strip trailing -e from still-unrecognised words ---
     ! Note: some interpreters (e.g. dfrotz) convert digraphs like 'ue'→ü on
     ! input, so 'schaue' arrives as 'schaü' (ZSCII 157). We expand trailing
@@ -169,4 +179,5 @@ Constant LANG_DE;
     }
 ];
 
-
+! _DE_SubstitutePronouns is defined in de/article_de.h (compiled after globals.h
+! so that herobj/themobj global variables are already declared when needed).

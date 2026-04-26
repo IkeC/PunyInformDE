@@ -733,7 +733,8 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #EndIf;
 #IfTrue MSG_EXAMINE_NOTHING_SPECIAL < 1000;
 	MSG_EXAMINE_NOTHING_SPECIAL:
-		"Du erkennst nichts Besonderes an ", (the) noun, ".";
+		! "an" + Dativ → (DE_Dem)
+		"Du erkennst nichts Besonderes an ", (DE_Dem) noun, ".";
 #EndIf;
 #Ifndef SKIP_MSG_PUSH_ANIMATE;
 	MSG_PUSH_ANIMATE, MSG_PULL_ANIMATE, MSG_TURN_ANIMATE, MSG_CLIMB_ANIMATE:
@@ -742,7 +743,8 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Ifndef SKIP_MSG_DROP_NOT_HOLDING;
 	MSG_DROP_NOT_HOLDING, MSG_SHOW_NOT_HOLDING, MSG_GIVE_NOT_HOLDING,
 	MSG_WEAR_NOT_HOLDING:
-		"Du hältst ", (ItorThem) noun, " nicht.";
+		! "halten" = Akkusativ → (DE_Den)
+		"Du hältst ", (DE_Den) noun, " nicht.";
 #Endif;
 #Ifndef SKIP_MSG_OPEN_YOU_CANT;
 	MSG_OPEN_YOU_CANT, MSG_CLOSE_YOU_CANT, MSG_ENTER_YOU_CANT,
@@ -773,15 +775,17 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Ifndef SKIP_MSG_TAKE_PLAYER_PARENT;
 	MSG_TAKE_PLAYER_PARENT, MSG_GO_FIRST_LEAVE, MSG_EXIT_FIRST_LEAVE:
 	! p_arg_1 = the object the player has to leave to perform the action.
-		"Zuerst musst du ", (the) p_arg_1, " verlassen.";
+	! "verlassen" = Akkusativ → (DE_Den)
+		"Zuerst musst du ", (DE_Den) p_arg_1, " verlassen.";
 #Endif;
 #Iftrue MSG_OPEN_DEFAULT < 1000;
 	MSG_OPEN_DEFAULT:
-		print "Du öffnest ", (the) noun;
-		if(noun has container && noun hasnt transparent &&
+		! "öffnen" = Akkusativ → (DE_Den)
+		print "Du öffnest ", (DE_Den) noun;
+		if (noun has container && noun hasnt transparent &&
 				~~IndirectlyContains(noun, player)) {
 			print ", und siehst ";
-			if(PrintContents(0, noun)==false) print "nichts";
+			if (PrintContents(0, noun) == false) print "nichts";
 		}
 		".";
 #Endif;
@@ -793,15 +797,20 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Endif;
 #Ifndef SKIP_MSG_CLOSE_DEFAULT;
 	MSG_CLOSE_DEFAULT:
-		"Du schließt ", (the) noun, ".";
+		! "schließen" = Akkusativ → (DE_Den)
+		"Du schließt ", (DE_Den) noun, ".";
 	MSG_ENTER_DEFAULT:
-		"Du betrittst ", (the) noun, ".";
+		! "betreten" = Akkusativ → (DE_Den)
+		"Du betrittst ", (DE_Den) noun, ".";
 	MSG_EXIT_DEFAULT:
-		"Du verlässt ", (the) noun, ".";
+		! "verlassen" = Akkusativ → (DE_Den)
+		"Du verlässt ", (DE_Den) noun, ".";
 	MSG_LOCK_DEFAULT:
-		"Du verriegelst ", (the) noun, ".";
+		! "verriegeln" = Akkusativ → (DE_Den)
+		"Du verriegelst ", (DE_Den) noun, ".";
 	MSG_UNLOCK_DEFAULT:
-		"Du schließt ", (the) noun, " auf.";
+		! "aufschließen" = Akkusativ → (DE_Den)
+		"Du schließt ", (DE_Den) noun, " auf.";
 #Endif;
 #Ifndef SKIP_MSG_GIVE_DEFAULT;
 	MSG_GIVE_DEFAULT, MSG_SHOW_DEFAULT:
@@ -840,11 +849,13 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Endif;
 #IfTrue MSG_INSERT_DEFAULT < 1000;
 	MSG_INSERT_DEFAULT:
-		"Du legst ", (the) noun, " in ", (the) second, ".";
+		! "legen in" (wohin?) = Akkusativ für noun + second → (DE_Den)
+		"Du legst ", (DE_Den) noun, " in ", (DE_Den) second, ".";
 #EndIf;
 #IfTrue MSG_PUTON_DEFAULT < 1000;
 	MSG_PUTON_DEFAULT:
-		"Du legst ", (the) noun, " auf ", (the) second, ".";
+		! "legen auf" (wohin?) = Akkusativ für noun + second → (DE_Den)
+		"Du legst ", (DE_Den) noun, " auf ", (DE_Den) second, ".";
 #EndIf;
 #Ifndef SKIP_MSG_ASK_DEFAULT;
 	MSG_ASK_DEFAULT, MSG_ANSWER_DEFAULT, MSG_SHOUT_DEFAULT, MSG_SHOUTAT_DEFAULT:
@@ -852,19 +863,23 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Endif;
 #IfTrue MSG_WEAR_ALREADY_WORN < 1000;
 	MSG_WEAR_ALREADY_WORN:
-		"Du bist bereits mit ", (ItorThem) noun, " bekleidet.";
+		! "mit" + Dativ → (DE_Dem)
+		"Du bist bereits mit ", (DE_Dem) noun, " bekleidet.";
 #EndIf;
 #IfTrue MSG_WEAR_DEFAULT < 1000;
 	MSG_WEAR_DEFAULT:
-		"Du bist nun mit ", (the) noun, " bekleidet.";
+		! "mit" + Dativ → (DE_Dem)
+		"Du bist nun mit ", (DE_Dem) noun, " bekleidet.";
 #EndIf;
 #IfTrue MSG_DISROBE_NOT_WEARING < 1000;
 	MSG_DISROBE_NOT_WEARING:
-		"Du bist nicht mit ", (the) noun, " bekleidet.";
+		! "mit" + Dativ → (DE_Dem)
+		"Du bist nicht mit ", (DE_Dem) noun, " bekleidet.";
 #EndIf;
 #IfTrue MSG_DISROBE_DEFAULT < 1000;
 	MSG_DISROBE_DEFAULT:
-		"Du ziehst ", (the) noun, " aus.";
+		! "ausziehen" = Akkusativ → (DE_Den)
+		"Du ziehst ", (DE_Den) noun, " aus.";
 #EndIf;
 #Ifndef SKIP_MSG_SWITCH_ON_NOT_SWITCHABL;
 	MSG_SWITCH_ON_NOT_SWITCHABLE, MSG_SWITCH_OFF_NOT_SWITCHABLE:
@@ -876,22 +891,26 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Endif;
 #Ifndef SKIP_MSG_SWITCH_ON_DEFAULT;
 	MSG_SWITCH_ON_DEFAULT, MSG_SWITCH_OFF_DEFAULT:
-		"Du schaltest ", (the) noun, " ", (OnOff) noun, ".";
+		! "schalten" = Akkusativ → (DE_Den)
+		"Du schaltest ", (DE_Den) noun, " ", (OnOff) noun, ".";
 #Endif;
 #Iftrue MSG_AUTO_TAKE < 1000;
 	MSG_AUTO_TAKE:
 	! p_arg_1 = the object the player automatically picks up
-		"(du nimmst zuerst ", (the) p_arg_1, ")";
+	! "nehmen" = Akkusativ → (DE_Den)
+		"(du nimmst zuerst ", (DE_Den) p_arg_1, ")";
 #Endif;
 #Iftrue MSG_AUTO_DISROBE < 1000;
 	MSG_AUTO_DISROBE:
 	! p_arg_1 = the object the player automatically takes off.
-		"(du ziehst zuerst ", (the) p_arg_1, " aus)";
+	! "ausziehen" = Akkusativ → (DE_Den)
+		"(du ziehst zuerst ", (DE_Den) p_arg_1, " aus)";
 #Endif;
 #Iftrue MSG_AUTO_DISROBE_WORN < 1000;
 	MSG_AUTO_DISROBE_WORN:
 	! p_arg_1 = the object the player would need to take off.
-		"Du müsstest zuerst ", (the) p_arg_1, " ausziehen.";
+	! "ausziehen" = Akkusativ → (DE_Den)
+		"Du müsstest zuerst ", (DE_Den) p_arg_1, " ausziehen.";
 #Endif;
 #IfTrue MSG_PARSER_NOTHING_TO_VERB < 1000;
 	MSG_PARSER_NOTHING_TO_VERB:
@@ -909,7 +928,8 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 	MSG_PARSER_NOT_HOLDING, MSG_AUTO_TAKE_NOT_HELD, MSG_WAVE_NOTHOLDING:
 	! p_arg_1 = the object which the player must be holding to perform the
 	! action but isnt.
-		"Aber du hältst ", (the) p_arg_1, " nicht.";
+	! "halten" = Akkusativ → (DE_Den)
+		"Aber du hältst ", (DE_Den) p_arg_1, " nicht.";
 #Endif;
 #IfTrue MSG_PARSER_PARTIAL_MATCH < 1000;
 	MSG_PARSER_PARTIAL_MATCH:
@@ -921,7 +941,8 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #IfTrue MSG_PARSER_CANT_TALK < 1000;
 	MSG_PARSER_CANT_TALK:
 	! p_arg_1 = the object which cant be talked to.
-		"Du kannst nicht mit ", (the) p_arg_1, " reden.";
+	! "mit" + Dativ → (DE_Dem)
+		"Du kannst nicht mit ", (DE_Dem) p_arg_1, " reden.";
 #EndIf;
 #IfTrue MSG_PARSER_NO_NEED_REFER_TO < 1000;
 	MSG_PARSER_NO_NEED_REFER_TO:
@@ -970,7 +991,8 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Endif;
 #IfTrue MSG_CONSULT_NOTHING_INTERESTING < 1000;
 	MSG_CONSULT_NOTHING_INTERESTING:
-		"Du findest nichts von Belang in ", (the) noun, ".";
+		! "in" + Dativ (wo?) → (DE_Dem)
+		"Du findest nichts von Belang in ", (DE_Dem) noun, ".";
 #EndIf;
 #Ifndef SKIP_MSG_CUT_NO_USE;
 	MSG_CUT_NO_USE, MSG_JUMP_OVER, MSG_TIE_DEFAULT, MSG_CLIMB_DEFAULT:
@@ -984,7 +1006,8 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Endif;
 #IfTrue MSG_LOCK_CLOSE_FIRST < 1000;
 	MSG_LOCK_CLOSE_FIRST:
-		"Zuerst musst du ", (the) noun, " schließen.";
+		! "schließen" = Akkusativ → (DE_Den)
+		"Zuerst musst du ", (DE_Den) noun, " schließen.";
 #EndIf;
 #Ifndef SKIP_MSG_LOCK_KEY_DOESNT_FIT;
 	MSG_LOCK_KEY_DOESNT_FIT, MSG_UNLOCK_KEY_DOESNT_FIT:
@@ -1007,7 +1030,8 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #EndIf;
 #IfTrue MSG_SEARCH_ON_IT_ISARE < 1000;
 	MSG_SEARCH_ON_IT_ISARE:
-		print "Auf ", (the) noun;
+		! "auf" + Dativ (Lage, wo?) → (DE_Dem)
+		print "Auf ", (DE_Dem) noun;
 		PrintContents(" ", noun, ISARE_BIT);
 		".";
 #EndIf;
@@ -1017,7 +1041,8 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #EndIf;
 #IfTrue MSG_SEARCH_NOTHING_ON < 1000;
 	MSG_SEARCH_NOTHING_ON:
-		"Es ist nichts auf ", (the) noun, ".";
+		! "auf" + Dativ (Lage) → (DE_Dem)
+		"Es ist nichts auf ", (DE_Dem) noun, ".";
 #EndIf;
 #IfTrue MSG_SEARCH_CANT_SEE_CLOSED < 1000;
 	MSG_SEARCH_CANT_SEE_CLOSED:
@@ -1029,7 +1054,8 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #EndIf;
 #IfTrue MSG_EAT_DEFAULT < 1000;
 	MSG_EAT_DEFAULT:
-		"Du isst ", (the) noun, ". Nicht schlecht.";
+		! "essen" = Akkusativ → (DE_Den)
+		"Du isst ", (DE_Den) noun, ". Nicht schlecht.";
 #EndIf;
 #Ifndef SKIP_MSG_RUB_DEFAULT;
 MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
@@ -1143,7 +1169,8 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 #EndIf;
 #IfTrue MSG_ENTER_HELD < 1000;
 	MSG_ENTER_HELD:
-		"Du kannst ", (the) noun, " nicht betreten, während du ", (ItOrThem) noun, " trägst.";
+		! "betreten" = Akkusativ → (DE_Den); (ItorThem) = Akkusativ-Pronomen
+		"Du kannst ", (DE_Den) noun, " nicht betreten, während du ", (ItorThem) noun, " trägst.";
 #EndIf;
 #Ifndef SKIP_MSG_INSERT_NOT_CONTAINER;
 #ifdef MSG_EMPTY_NOT_CONTAINER;
@@ -1212,7 +1239,8 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 #EndIf;
 #IfTrue MSG_WAVE_DEFAULT < 1000;
 	MSG_WAVE_DEFAULT:
-		"Du siehst dämlich aus, wenn du mit ", (the) noun, " winkst.";
+		! "mit" + Dativ → (DE_Dem)
+		"Du siehst dämlich aus, wenn du mit ", (DE_Dem) noun, " winkst.";
 #EndIf;
 #EndIf;
 
@@ -1226,19 +1254,23 @@ default:
 ! TODO: These need to be extended for full German grammatical gender support
 
 [ ThatorThose p_obj;
-	! TODO: German: "dieses/diese/diesen" depending on gender/case
-	if (p_obj has pluralname) print "diese"; else print "das";
+	! Akkusativ Demonstrativpronomen nach Genus:
+	! maskulin="den", feminin="die", Neutrum="das", Plural="die"
+	if (p_obj has pluralname) { print "die";  return; }
+	if (p_obj has female)     { print "die";  return; }
+	if (p_obj has neuter)     { print "das";  return; }
+	print "den";  ! maskulin Akkusativ
 ];
 
 [ ItorThem p_obj;
-	! TODO: German pronouns: er/sie/es/sie (plural) - needs gender attribute support
-	if (p_obj == player)		{ print "du selbst"; rtrue; }
-	if (p_obj has pluralname)	{ print "sie"; rtrue; }
-	if (p_obj has animate) {
-		if (p_obj has female)	{ print "sie"; rtrue; }
-		if (p_obj hasnt neuter)	{ print "ihn"; rtrue; }
-	}
-	print "es";
+	! Akkusativ-Pronomen nach Genus (für alle Objekte, belebt oder unbelebt):
+	! maskulin="ihn", feminin="sie", Neutrum="es", Plural="sie"
+	! Hinweis: Im Deutschen haben auch unbelebte Objekte Genus-abhängige Pronomina.
+	if (p_obj == player)       { print "du selbst"; rtrue; }
+	if (p_obj has pluralname)  { print "sie"; rtrue; }  ! Plural Akk = "sie"
+	if (p_obj has female)      { print "sie"; rtrue; }  ! Feminin Akk = "sie"
+	if (p_obj has neuter)      { print "es";  rtrue; }  ! Neutrum Akk = "es"
+	print "ihn";  ! Maskulin Akk = "ihn" (Standard)
 ];
 
 ! Note: ItOrThem() is an alias for ItorThem() - Inform 6 is case-insensitive
@@ -1268,22 +1300,20 @@ default:
 ];
 
 [ CTheyreorThats p_obj;
-	! TODO: German requires gender - using basic forms
-	if (p_obj == player)		{ print "Du bist"; return; }
-	if (p_obj has pluralname)	{ print "Sie sind"; return; }
-	if (p_obj has animate) {
-		if (p_obj has female)	{ print "Sie ist"; return; }
-		if (p_obj hasnt neuter) { print "Er ist"; return; }
-	}
-	print "Es ist";
+	! Nominativ "ist"-Ausdruck nach Genus (für belebte und unbelebte Objekte)
+	if (p_obj == player)       { print "Du bist"; return; }
+	if (p_obj has pluralname)  { print "Sie sind"; return; }
+	if (p_obj has female)      { print "Sie ist"; return; }  ! feminin
+	if (p_obj has neuter)      { print "Es ist";  return; }  ! Neutrum
+	print "Er ist";  ! maskulin (Standard)
 ];
 
 [ CTheyreorIts p_obj;
-	if(p_obj ~= player && p_obj hasnt pluralname && p_obj hasnt animate) {
-		if (p_obj has female)		{ print "Sie ist"; return; }
-		if (p_obj has neuter)		{ print "Es ist"; return; }
-		print "Er ist";
-		return;
+	! Für unbelebte Objekte: Genus-abhängig
+	if (p_obj ~= player && p_obj hasnt pluralname) {
+		if (p_obj has female)  { print "Sie ist"; return; }  ! feminin
+		if (p_obj has neuter)  { print "Es ist";  return; }  ! Neutrum
+		if (p_obj hasnt animate) { print "Er ist"; return; } ! maskulin (unbelebt)
 	}
 	CTheyreorThats(p_obj);
 ];
