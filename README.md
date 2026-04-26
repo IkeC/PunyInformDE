@@ -94,4 +94,4 @@ Many other authors have contributed to the underlying base of this solution. If 
 
 Don't be shy, please contribute to this project if you can! Feel free to open PRs or open an issue.
 
-The main hub for discussion outside this repo is the [PunyInformDE thread](https://if-forum.org/forum.php?id=2) on the IFWizz forums, the central meeting point for the German interactive fiction community.
+The main hub for discussion outside this repo is the [PunyInformDE thread](https://if-forum.org/topic.php?id=1385) on the IFWizz forums, the central meeting point for the German interactive fiction community.
