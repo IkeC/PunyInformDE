@@ -60,7 +60,6 @@ Constant SOMEDIRECTION_STR  = "(eine Richtung)"; ! English: "(some direction)"
 ! Defining CUSTOM_ABBREVIATIONS prevents globals.h from adding English ones.
 ! ---------------------------------------------------------------------------
 Constant CUSTOM_ABBREVIATIONS;
-! TODO: Review and tune German abbreviations for best compression
 Abbreviate "Bist du sicher, dass du das ";
 Abbreviate " Selbstverliebt wie immer";
 Abbreviate "nichts Unerwartetes";

@@ -1,5 +1,5 @@
 local
-tools/*.exe
+tools/inform6.exe
 tools/Lectrote/
 
 # Build outputs (compiled game files)

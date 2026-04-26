@@ -9,16 +9,6 @@ A complete, release-ready German localisation of PunyInform v6.5, with:
 - Unicode build (`build/beispiel.z5`) and ASCII build (`build/beispiel_ascii.z5`)
 - VS Code tasks for Build and interactive testing
 
-## Release Checklist
-
-Before tagging an initial release the following must be done:
-
-- [ ] Decide on `(the)` / `(The)` behaviour for Akkusativ/Dativ contexts (current: Nominativ only)
-
-Everything else described below is already implemented and tested.
-
----
-
 ## Architecture (current)
 
 ```
@@ -68,7 +58,88 @@ tests/
                   ASCII walkthrough generation
 ```
 
----
+C:\Source\PunyInformDE is a fork from an outdated german translation of PunyInform. The current version of PunyInform is at C:\Source\PunyInform. We want to have an up-to-date German version of PunyInform in PunyInformDE.
+
+C:\Source\PunyDust has our recent port of the game "Dust" where we used PunyTest. You can check this to see tests and copy the build structure. C:\Source\fiction\PunyTest contains a test framework we wrote for testing PunyInform games. 
+
+## Completed Work (Session 1)
+
+- Compared PunyInform v6.5 with old PunyInformDE (v4.6-based fork)
+- Copied all infrastructure files from PunyInform v6.5: scope.h, parser.h, globals.h, grammar.h, ext_*.h
+- Modified puny.h to include messages_de.h and grammar_de.h instead of messages.h and grammar.h
+- Created messages_de.h: German translations of all MSG_xxx constants (all prefixed with TODO)
+- Created grammar_de.h: German verb definitions building on top of the English grammar.h
+- Fixed all compilation errors (PrintVerb conflicts, action guards, encoding issues)
+- Added German special character support (Zcharacter declarations in globals.h)
+- Added German direction shortcuts (nord, sued, ost, rauf, runter, rein, raus) to globals.h
+- Changed parser special words to German: alles, ausser, ohne, und, dann
+- Added German string constants: etwas, jemanden, (eine Richtung)
+- Added German yes/no support in parser.h (ja/nein/j// recognized by YesOrNo)
+- Example game (beispiel.inf) compiles cleanly to beispiel.z5
+
+## Architecture
+
+The PunyInformDE architecture separates German-specific code from the English base:
+- `globals.h`: Based on PunyInform v6.5, modified for German (Zcharacter, direction words, parser words)
+- `parser.h`: Based on PunyInform v6.5, modified for German yes/no (YesOrNo function)
+- `grammar.h`: Unchanged from PunyInform v6.5 (English grammar base)
+- `grammar_de.h`: NEW — German verb definitions; includes grammar.h then adds German verbs
+- `messages_de.h`: NEW — German message translations (all prefixed with TODO for review)
+- `messages.h`: Old DE messages, kept for reference (not used)
+- `puny.h`: Modified to include messages_de.h and grammar_de.h instead of messages.h/grammar.h
+
+## Known Issues / TODOs
+
+1. **Article system**: `(the)` and `(The)` still print English "the/The". German requires die/der/das based on noun gender. This requires a significant grammar system.
+2. **Noun parsing**: German inflections (Akkusativ, Dativ) are partially handled but not fully. Parser understands basic object references.
+3. **Adjective handling**: No special support for German adjective inflection yet.
+
+# Next project steps
+
+1. Review and finalize all TODO-prefixed German translations in messages_de.h
+2. Implement proper German article system (die/der/das) — requires gender tracking on objects
+3. Replace English abbreviations in globals.h with German ones
+4. Extend beispiel.inf to cover more library features and create a proper walkthrough
+5. Set up PunyTest-based tests for the example game
+6. Consider creating globals_de.h as a separate DE-specific globals override file
+
+# Session 2 Completed Work
+
+## Architecture Improvements
+- Created `lib/de/` subdirectory for all DE-specific files
+- Moved `messages_de.h` and `grammar_de.h` into `lib/de/`
+- Created `lib/de/globals_de.h` with all German overrides (Zcharacter, parser words, abbreviations, IS_STR/ARE_STR, USE_ASCII PrintDE helper)
+- Updated `globals.h` to `Include "de/globals_de.h"` first and use `#IfNDef` guards on all overrideable constants
+- Updated `puny.h` to use `de/messages_de.h` and `de/grammar_de.h` paths
+- Restored English defaults for all overridden constants in `globals.h`
+
+## German Text Fixes
+- Banner now says `PunyInformDE v6.5dev R`
+- `_ListObjsMsg`: "Du siehst ... hier." (was English "You can see ... here.")
+- `_ListObjsInOnMsg`: "Auf/In ... siehst du ..." (was English "On/In ... you can see ...")
+- `_PrintAfterEntry`: all container/item state strings translated (offen/geschlossen/leer/gibt Licht/getragen/worauf)
+- Default indef article fallback: "ein" (was "a"), "einige" (was "some")
+
+## UTF-8 / Build
+- All `@{00e4}`-style Unicode escapes replaced with real ä/ö/ü/ß/Ä/Ö/Ü characters
+- `!% -Cu` added to `beispiel.inf` for UTF-8 source mode
+- `build/` output directory created; compile command: `inform6 +include_path=lib example\beispiel.inf build\beispiel.z5`
+- USE_ASCII support: `Zcharacter` declarations guarded by `#IfNDef USE_ASCII`; `PrintDE()` runtime helper added
+
+## Example Game: Das Schiff der Sterne
+- Replaced single-room stub with a 3-room puzzle adventure
+- Demonstrates: rooms, lockable door, supporter, container, enterable object, scoring, win condition
+- Full walkthrough in `example/beispiel.walkthrough.txt`
+
+## VS Code Integration
+- Created `.vscode/tasks.json` with **Build** (default build task) and **Test** (runs Build then opens dfrotz interactively) tasks
+
+# Current Known Issues / TODOs
+
+1. **Article system**: `(the)` / `(The)` still print English "the". Full German die/der/das requires rewriting the print rules.
+2. **Parser**: `ihm`/`dem`/`ihn` (Dativ/Akkusativ pronouns) not understood.
+3. **Adjective inflection**: No systematic support for German adjective declension.
+
 
 ## Completed Work
 
@@ -125,98 +196,3 @@ tests/
 - `PrintDE()` runtime helper removed (superseded by build-time preprocessing)
 - Redundant `#IfDef USE_ASCII` branches removed from `messages_de.h`
 - **Result: 39 pass, 3 xfail (dfrotz piped-stdin umlaut limitation — not fixable without patching dfrotz)**
-
-
-C:\Source\PunyInformDE is a fork from an outdated german translation of PunyInform. The current version of PunyInform is at C:\Source\PunyInform. We want to have an up-to-date German version of PunyInform in PunyInformDE.
-
-C:\Source\PunyDust has our recent port of the game "Dust" where we used PunyTest. You can check this to see tests and copy the build structure. C:\Source\fiction\PunyTest contains a test framework we wrote for testing PunyInform games. 
-
-# Current Project Step
-
-Update PunyInformDE so it has the most current PunyInform soruce code. To make updating easier in the future, any specialities we add to support German should go in their own files if possible (lib/de folder). If you believe changes must be made in the regular file, explain.
-
-Any translations to German must be reviewed, so make sure you prefix the translation proposal with "TODO " (within the string)
-
-# Current Project Step State
-
-## Completed Work (Session 1)
-
-- Compared PunyInform v6.5 with old PunyInformDE (v4.6-based fork)
-- Copied all infrastructure files from PunyInform v6.5: scope.h, parser.h, globals.h, grammar.h, ext_*.h
-- Modified puny.h to include messages_de.h and grammar_de.h instead of messages.h and grammar.h
-- Created messages_de.h: German translations of all MSG_xxx constants (all prefixed with TODO)
-- Created grammar_de.h: German verb definitions building on top of the English grammar.h
-- Fixed all compilation errors (PrintVerb conflicts, action guards, encoding issues)
-- Added German special character support (Zcharacter declarations in globals.h)
-- Added German direction shortcuts (nord, sued, ost, rauf, runter, rein, raus) to globals.h
-- Changed parser special words to German: alles, ausser, ohne, und, dann
-- Added German string constants: etwas, jemanden, (eine Richtung)
-- Added German yes/no support in parser.h (ja/nein/j// recognized by YesOrNo)
-- Example game (beispiel.inf) compiles cleanly to beispiel.z5
-
-## Architecture
-
-The PunyInformDE architecture separates German-specific code from the English base:
-- `globals.h`: Based on PunyInform v6.5, modified for German (Zcharacter, direction words, parser words)
-- `parser.h`: Based on PunyInform v6.5, modified for German yes/no (YesOrNo function)
-- `grammar.h`: Unchanged from PunyInform v6.5 (English grammar base)
-- `grammar_de.h`: NEW — German verb definitions; includes grammar.h then adds German verbs
-- `messages_de.h`: NEW — German message translations (all prefixed with TODO for review)
-- `messages.h`: Old DE messages, kept for reference (not used)
-- `puny.h`: Modified to include messages_de.h and grammar_de.h instead of messages.h/grammar.h
-
-## Known Issues / TODOs
-
-1. **Article system**: `(the)` and `(The)` still print English "the/The". German requires die/der/das based on noun gender. This requires a significant grammar system.
-2. **Messages**: Many messages still in English or have literal strings like "Please enter a filename". These all have `! TODO:` prefix comments.
-3. **Abbreviations**: globals.h still has English abbreviations (Constant ABBREV_1 etc.) — TODO to replace with German
-4. **Noun parsing**: German inflections (Akkusativ, Dativ) are partially handled but not fully. Parser understands basic object references.
-5. **Adjective handling**: No special support for German adjective inflection yet.
-
-# Next project steps
-
-1. Review and finalize all TODO-prefixed German translations in messages_de.h
-2. Implement proper German article system (die/der/das) — requires gender tracking on objects
-3. Replace English abbreviations in globals.h with German ones
-4. Extend beispiel.inf to cover more library features and create a proper walkthrough
-5. Set up PunyTest-based tests for the example game
-6. Consider creating globals_de.h as a separate DE-specific globals override file
-
-# Session 2 Completed Work
-
-## Architecture Improvements
-- Created `lib/de/` subdirectory for all DE-specific files
-- Moved `messages_de.h` and `grammar_de.h` into `lib/de/`
-- Created `lib/de/globals_de.h` with all German overrides (Zcharacter, parser words, abbreviations, IS_STR/ARE_STR, USE_ASCII PrintDE helper)
-- Updated `globals.h` to `Include "de/globals_de.h"` first and use `#IfNDef` guards on all overrideable constants
-- Updated `puny.h` to use `de/messages_de.h` and `de/grammar_de.h` paths
-- Restored English defaults for all overridden constants in `globals.h`
-
-## German Text Fixes
-- Banner now says `PunyInformDE v6.5dev R`
-- `_ListObjsMsg`: "Du siehst ... hier." (was English "You can see ... here.")
-- `_ListObjsInOnMsg`: "Auf/In ... siehst du ..." (was English "On/In ... you can see ...")
-- `_PrintAfterEntry`: all container/item state strings translated (offen/geschlossen/leer/gibt Licht/getragen/worauf)
-- Default indef article fallback: "ein" (was "a"), "einige" (was "some")
-
-## UTF-8 / Build
-- All `@{00e4}`-style Unicode escapes replaced with real ä/ö/ü/ß/Ä/Ö/Ü characters
-- `!% -Cu` added to `beispiel.inf` for UTF-8 source mode
-- `build/` output directory created; compile command: `inform6 +include_path=lib example\beispiel.inf build\beispiel.z5`
-- USE_ASCII support: `Zcharacter` declarations guarded by `#IfNDef USE_ASCII`; `PrintDE()` runtime helper added
-
-## Example Game: Das Schiff der Sterne
-- Replaced single-room stub with a 3-room puzzle adventure
-- Demonstrates: rooms, lockable door, supporter, container, enterable object, scoring, win condition
-- Full walkthrough in `example/beispiel.walkthrough.txt`
-
-## VS Code Integration
-- Created `.vscode/tasks.json` with **Build** (default build task) and **Test** (runs Build then opens dfrotz interactively) tasks
-
-# Current Known Issues / TODOs
-
-1. **Article system**: `(the)` / `(The)` still print English "the". Full German die/der/das requires rewriting the print rules.
-2. **Parser**: `ihm`/`dem`/`ihn` (Dativ/Akkusativ pronouns) not understood.
-3. **Adjective inflection**: No systematic support for German adjective declension.
-4. **USE_ASCII limitation**: `PrintDE()` only covers game-code strings; library messages in `de/messages_de.h` are not transliterated.
-5. **PunyTest integration**: No automated test suite yet for the example game.

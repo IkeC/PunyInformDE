@@ -123,7 +123,6 @@ Verb 'schmeiß' 'wirf'
 	* multiexcept 'auf' noun                    -> PutOn;
 
 ! --- Look / Examine ---
-! TODO: schau, seh, sieh, guck = look; untersuche, betrachte = examine
 Verb 'schau' 'seh' 'sieh' 'guck' 'blick' 'u//'
 	*                                           -> Look
 	* 'dich' 'um'                               -> Look
@@ -144,9 +143,6 @@ Verb 'öffne' 'entkork'
 	* noun 'mit' held                           -> Unlock;
 
 ! --- Close / Lock / Unlock via schließ ---
-! schließ X auf [mit Y]  → Unlock X (with Y)
-! schließ X zu/ab [mit Y] → Lock X (with Y)
-! schließ X              → Close X
 Verb 'schließ'
 	* noun 'auf' 'mit' held                     -> Unlock
 	* noun 'mit' held 'auf'                     -> Unlock
@@ -169,7 +165,7 @@ Verb 'mach'
 	* 'aus' noun                                -> SwitchOff;
 
 ! --- Inventory ---
-Verb 'inventar' 'besitz' 'zeig_i'
+Verb 'inventar' 'besitz'
 	*                                           -> Inv;
 
 ! --- Wait ---
@@ -315,14 +311,12 @@ Verb 'kletter' 'steig'
 	* 'auf' noun                                -> Enter;
 
 ! --- Jump ---
-! TODO: spring = jump
 Verb 'spring'
 	*                                           -> Jump
 	* 'über' noun                               -> JumpOver
 	* 'in'/'auf' noun                           -> Enter;
 
 ! --- Push / Pull / Turn ---
-! TODO: schieb, drueck, stoss = push; zieh_an, zupf = pull; dreh = turn
 Verb 'schieb' 'drück' 'stoß'
 	* noun                                      -> Push
 	* noun noun=ADirection                      -> PushDir;
@@ -395,7 +389,6 @@ Verb 'bring'
 
 #Ifdef OPTIONAL_EXTENDED_VERBSET;
 ! --- Extended verbset German synonyms ---
-! TODO: Review these optional verb translations
 
 ! Burn
 Verb 'verbrenn' 'zünd' 'entzünd'
