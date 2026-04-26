@@ -38,6 +38,12 @@ ASCII_WALKTHROUGH = [
     "nord",
     "rauf",
     "schau",
+    "rede mit steuermann",
+    "1",
+    "rede mit papagei",
+    "1",
+    "rede mit navigatorin",
+    "1",
     "nimm fernrohr",
     "untersuche fernrohr",
 ]
@@ -134,9 +140,9 @@ def test_ascii_walkthrough_wins(game_ascii):
 
 @pytest.mark.feature("ascii")
 def test_ascii_walkthrough_full_score(game_ascii):
-    """ASCII walkthrough achieves maximum score (3/3)."""
+    """ASCII walkthrough achieves maximum score (5/5)."""
     out = game_ascii.run(ASCII_WALKTHROUGH)
-    assert_output_contains(out, "3")
+    assert_output_contains(out, "5")
 
 
 @pytest.mark.feature("ascii")

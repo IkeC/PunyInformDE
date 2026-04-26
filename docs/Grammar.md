@@ -5,7 +5,7 @@
 This document analyses three known issues in PunyInformDE by examining how
 the **deform** library (a full German Inform 6 library, Release 6/11, 2005–2010
 by Martin Oehm) solved them. It proposes concrete implementation plans and
-shows how the solutions would look in `beispiel.inf`.
+shows how the solutions would look in `sterne.inf`.
 
 The deform source files examined are in `c:\Source\informtest\deform\`:
 - `German.h` — language engine, article tables, printing, input normalisation
@@ -196,7 +196,7 @@ MSG_GIVE_DEFAULT:
     print_ret (GDer) second, " scheint nicht interessiert zu sein.";
 ```
 
-**Example impact in beispiel.inf** — current vs. proposed output:
+**Example impact in sterne.inf** — current vs. proposed output:
 
 ```
 >> nimm schluessel
@@ -462,7 +462,7 @@ One `VM_Tokenise` call per command at most.  The `_DE_ShiftRight1` loop
 runs at most once, over typically 5–20 bytes.  Essentially free on any
 platform, old or new.
 
-**Example impact in beispiel.inf**:
+**Example impact in sterne.inf**:
 ```
 >> oeffne kiste
 Du öffnest die Seekiste.
@@ -500,7 +500,7 @@ Test cases required for each pronoun form.
 ### The Problem
 
 German adjectives decline based on case, gender, and definiteness.
-A key object in `beispiel.inf`:
+A key object in `sterne.inf`:
 
 ```inform
 Object -> Schluessel "kleiner Schlüssel"
@@ -651,7 +651,7 @@ This is called in `BeforeParsing` for every word whose dictionary address
 is 0 **and** which was not already processed by Pass 1/2 (i.e. not a verb).
 The word boundary is then adjusted just like Pass 2 does.
 
-**Impact in beispiel.inf** (no game source changes needed):
+**Impact in sterne.inf** (no game source changes needed):
 ```
 >> nimm kleinen schluessel     ← currently fails
 (matches 'klein' after stripping '-en')
@@ -749,7 +749,7 @@ Array DE_AdjSuffix_Bare  --> "e"  "er" "e"  "es"  ! Nom: pl m f n
 ];
 ```
 
-**Example usage in beispiel.inf** — comparing current vs. proposed:
+**Example usage in sterne.inf** — comparing current vs. proposed:
 
 Current (static `short_name`):
 ```inform
@@ -779,7 +779,7 @@ FORM_DEF  (Dat):  "dem kleinen Schlüssel"      ! def:   "-en" for m Dat
 - Modified `_PrintObjName` in `puny.h` (~40 lines, replaces current 30)
 - New `DE_Gender`, `DE_SetAdjSuffix`, `DE_PrintAdjSuffix`, `DE_PrintNounSuffix`
   functions (~80 lines)
-- Updating `beispiel.inf` objects to use `adj` property
+- Updating `sterne.inf` objects to use `adj` property
 - New test cases for all 4 objects with adjectives in the example game
 
 **Open question — backwards compatibility**: The current `article` property
@@ -834,7 +834,7 @@ article-mode code. We can keep backwards compatibility by checking:
 
 ## 4. The `article` Property After §1
 
-You may have noticed that `beispiel.inf` objects currently declare:
+You may have noticed that `sterne.inf` objects currently declare:
 ```inform
 Object -> Kiste "Seekiste"
     with article "eine",
@@ -857,7 +857,7 @@ article automatically from the gender attribute alone:
 | `has pluralname` | *(no indefinite)* | — | — |
 
 So **after §1, `with article` can be dropped from all normal objects**.
-`beispiel.inf` would become:
+`sterne.inf` would become:
 ```inform
 Object -> Kiste "Seekiste"    ! no 'article' property needed
     ...
@@ -910,7 +910,7 @@ the table lookup: a single array index read.
 
 **No design decision is needed before starting work.**  The migration is:
 1. Implement §1 article tables.
-2. Remove `with article "..."` from all standard objects in `beispiel.inf`.
+2. Remove `with article "..."` from all standard objects in `sterne.inf`.
 3. `article` remains as an optional override for edge cases.
 
 ---
@@ -956,6 +956,17 @@ After implementing any feature in §1–§3, create (or update)
 
 ## Recommended Implementation Order
 
+### Current Status (2026-04-26)
+
+- **§1 Article system**: IMPLEMENTED in `lib/de/article_de.h` + `puny.h` + `messages_de.h`
+- **§2 Pronoun input**: IMPLEMENTED in `parser.h` + `parser_de.h` (`_DE_SubstitutePronouns` call path)
+- **§3 Stage 1 (input suffix stripping)**: IMPLEMENTED in `lib/de/parser_de.h` (`_DE_PruneWordSuffixLen` + BeforeParsing pass)
+- **§3 Stage 2 (output adjective declension)**: IMPLEMENTED in `lib/de/article_de.h` + `puny.h` + `messages_de.h`
+
+Transcript-verified examples after §3 implementation:
+- `Du legst den alten Kompass auf den Schreibtisch.`
+- `Du öffnest die Seekiste, und siehst einen kleinen Schlüssel.`
+
 1. **§1 Article system** — highest impact on correctness of existing messages.
    Start with article tables + `den`/`dem`/`einen`/`einem` print functions,
    then update the ~15 messages in `messages_de.h` that use Akkusativ/Dativ.
@@ -972,7 +983,7 @@ After implementing any feature in §1–§3, create (or update)
 
 4. **§3 Stage 2 — output adjective declension** — largest effort, most
    invasive change to `puny.h`.  Remove `with article "..."` from all
-   standard `beispiel.inf` objects after §1 is done (see §4 migration note).
+   standard `sterne.inf` objects after §1 is done (see §4 migration note).
    Best done after all tests are green for steps 1–3.
 
 5. **§5 Documentation** — create `docs/Implementation.md` after each

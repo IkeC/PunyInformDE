@@ -81,6 +81,33 @@ Constant LANG_DE;
 ];
 #Endif; ! USE_ASCII
 
+! ---------------------------------------------------------------------------
+! _DE_PruneWordSuffixLen -- §3 Stage 1 input robustness.
+!
+! For an unknown word, try stripping common inflection endings and check if
+! the stem exists in the dictionary. Returns the new length if a valid stem
+! was found, otherwise returns p_len unchanged.
+!
+! Order matches deform/German.i7x behavior:
+!   1) two-char endings: -em / -en / -er / -es
+!   2) one-char endings: -e / -n / -s
+! ---------------------------------------------------------------------------
+[ _DE_PruneWordSuffixLen p_start p_len _newlen _c0 _c1;
+    if (p_len >= 4) {
+        _newlen = p_len - 2;
+        _c0 = (p_start + _newlen)->0;
+        _c1 = (p_start + _newlen + 1)->0;
+        if (_c0 == 'e' && (_c1 == 'm' || _c1 == 'n' || _c1 == 'r' || _c1 == 's')) return _newlen;
+    }
+
+    if (p_len >= 3) {
+        _newlen = p_len - 1;
+        _c0 = (p_start + _newlen)->0;
+        if (_c0 == 'e' || _c0 == 'n' || _c0 == 's') return _newlen;
+    }
+    return p_len;
+];
+
 
 ! ---------------------------------------------------------------------------
 ! BeforeParsing -- normalise unrecognised words then re-tokenise.
@@ -174,6 +201,30 @@ Constant LANG_DE;
     }
     if(_changed) {
         ! null-terminate buffer at the new end (required by @tokenise in some implementations)
+        buffer->(2 + buffer->1) = 0;
+        @tokenise buffer parse;
+        _nwords = parse->1;
+    }
+
+    ! --- Pass 4: prune unknown-word suffixes (-em/-en/-er/-es, -e/-n/-s) ---
+    _changed = false;
+    for(_i = 1 : _i <= _nwords : _i++) {
+        if(parse-->(_i + _i - 1) ~= 0) continue;
+        _waddr = WordAddress(_i);
+        _wlen  = WordLength(_i);
+        if(_wlen < 3) continue;
+        _newlen = _DE_PruneWordSuffixLen(_waddr, _wlen);
+        if(_newlen >= _wlen) continue;
+
+        _blen = buffer->1;
+        ! shift later bytes left by (_wlen - _newlen) to close the removed suffix
+        for(_j = (_waddr + _newlen) - buffer : _j <= _blen + 1 : _j++) {
+            buffer->_j = buffer->(_j + (_wlen - _newlen));
+        }
+        buffer->1 = _blen - (_wlen - _newlen);
+        _changed = true;
+    }
+    if(_changed) {
         buffer->(2 + buffer->1) = 0;
         @tokenise buffer parse;
     }

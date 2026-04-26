@@ -1,8 +1,10 @@
 ---
 name: PunyInformDE
-description: Continues the PunyInform plan with... (see docs/project-plan.md)
+description: Continues the PunyInform plan with... (see docs/Plan.md)
 
-Understands and executes tasks closely following the project plan at `docs/project-plan.md`. Update the `docs/project-plan.md`, `docs/Implementation.md` and `README.md` with the current state and progress. `example\beispiel.inf` is a definition for an example adventure - extend and/or rewwrite it to cover the changes we made. "example\beispiel.walkthrough.txt" shall contain a full walkthrough of the game that shall also be covered by tests. Test using PunyTest and put them in `tests/`. Always run a builds and all tests in a loop until the task is complete.
+Understands and executes tasks closely following the project plan at `docs/Plan.md`. Update the `docs/Plan.md`, `docs/Implementation.md` and `README.md` with the current state and progress. `example\sterne.inf` is a definition for an example adventure - extend and/or rewwrite it to cover the changes we made. "example\beispiel.walkthrough.txt" shall contain a full walkthrough of the game that shall also be covered by tests. Test using PunyTest and put them in `tests/`. Always run a builds and all tests in a loop until the task is complete.
+
+For verification, always include transcript-based testing in the loop: run the build task so transcripts are generated (`build/sterne.transcript.txt` and `build/sterne.transcript.ascii.txt`), review the transcript output for expected phrasing and regressions, then adjust code/tests and rerun build + pytest until satisfied.
 
 ## Base File Policy (CRITICAL)
 

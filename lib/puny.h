@@ -563,37 +563,12 @@ Constant ONE_SPACE_STRING = " ";
 ! PunyInformDE: German override — Artikel aus Tabellen (§1 Artikelsystem).
 ! Nominativ bestimmt/unbestimmt via DE_DefArticles/DE_IndefArticles.
 ! Für Akkusativ/Dativ in Nachrichten: (DE_Den)/(DE_Dem) etc. verwenden.
-[ _PrintObjName p_obj p_form   _g _s;
+[ _PrintObjName p_obj p_form;
 	caps_mode = false;
 	if (p_form == FORM_CDEF) caps_mode = 2;
 	if (p_obj hasnt proper) {
-		_g = DE_Gender(p_obj);
-		if (p_form == FORM_CDEF) {
-			! Großgeschriebene Nominativ-Artikel für Satzbeginn
-			switch (_g) {
-			0: print "Der "; ! maskulin
-			1: print "Die "; ! feminin
-			2: print "Das "; ! Neutrum
-			3: print "Die "; ! Plural
-			}
-		} else if (p_form == FORM_DEF) {
-			! Kleingeschriebene Nominativ-Artikel aus Tabelle
-			_s = DE_DefArticles-->_g;
-			print (string) _s; print " ";
-		} else if (p_form == FORM_INDEF) {
-			! Unbestimmter Nominativ-Artikel mit Override-Unterstützung
-			if (p_obj.&article && p_obj.article == 0) {
-				! article 0 = kein Artikel (z.B. abstrakte Nomen)
-			} else if (p_obj.&article && p_obj.article ofclass String) {
-				! Legacy-Override: article "string"
-				PrintOrRun(p_obj, article, true); print " ";
-			} else if (p_obj has pluralname) {
-				print "einige "; ! kein unbestimmter Plural-Artikel
-			} else {
-				_s = DE_IndefArticles-->_g; ! Nominativ-Zeile (Index 0..3)
-				if (_s) { print (string) _s; print " "; }
-			}
-		}
+		_DE_PrintObjByForm(p_obj, p_form, short_name_case);
+		return;
 	}
 	PrintShortName(p_obj);
 ];

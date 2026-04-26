@@ -784,8 +784,11 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 		print "Du öffnest ", (DE_Den) noun;
 		if (noun has container && noun hasnt transparent &&
 				~~IndirectlyContains(noun, player)) {
-			print ", und siehst ";
+			print " und siehst ";
+			p_arg_2 = short_name_case;
+			short_name_case = Akk;
 			if (PrintContents(0, noun) == false) print "nichts";
+			short_name_case = p_arg_2;
 		}
 		".";
 #Endif;
@@ -1025,7 +1028,10 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #IfTrue MSG_SEARCH_IN_IT_ISARE < 1000;
 	MSG_SEARCH_IN_IT_ISARE:
 		print (The) noun, " enthält bereits ";
+		p_arg_2 = short_name_case;
+		short_name_case = Akk;
 		PrintContents(0, noun);
+		short_name_case = p_arg_2;
 		".";
 #EndIf;
 #IfTrue MSG_SEARCH_ON_IT_ISARE < 1000;

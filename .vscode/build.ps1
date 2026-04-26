@@ -32,8 +32,8 @@ New-Item -ItemType Directory -Force -Path "build" | Out-Null
 # -------------------------------------------------------------------------
 # Standard Unicode build
 # -------------------------------------------------------------------------
-Write-Host "Compiling beispiel.z5..."
-& .\tools\inform6.exe +include_path=lib example\beispiel.inf build\beispiel.z5
+Write-Host "Compiling sterne.z5..."
+& .\tools\inform6.exe +include_path=lib example\sterne.inf build\sterne.z5
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 # -------------------------------------------------------------------------
@@ -50,7 +50,7 @@ if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 #   lib\de\grammar_de.h   – all verb dictionary words (e.g. öffne → oeffne)
 #   lib\puny.h            – " (enthält" → " (enthaelt"
 # File preprocessed into build\ascii_src\   (override example\ on include path):
-#   example\beispiel.inf  – all game text (rooms, objects, intro, …)
+#   example\sterne.inf  – all game text (rooms, objects, intro, …)
 #
 # grammar_de.h defines only the canonical umlaut forms of each verb; the
 # BeforeParsing hook in lib/de/parser_de.h handles digraph→umlaut and -e
@@ -66,17 +66,17 @@ Convert-ToAsciiDigraphs "lib\de\globals_de.h"  "build\ascii_lib\de\globals_de.h"
 Convert-ToAsciiDigraphs "lib\de\messages_de.h" "build\ascii_lib\de\messages_de.h"
 Convert-ToAsciiDigraphs "lib\de\grammar_de.h"  "build\ascii_lib\de\grammar_de.h"
 Convert-ToAsciiDigraphs "lib\puny.h"           "build\ascii_lib\puny.h"
-Convert-ToAsciiDigraphs "example\beispiel.inf" "build\ascii_src\beispiel.inf"
+Convert-ToAsciiDigraphs "example\sterne.inf" "build\ascii_src\sterne.inf"
 
-Write-Host "Compiling beispiel_ascii.z5..."
-& .\tools\inform6.exe "+include_path=build\ascii_lib,build\ascii_src,lib" example\beispiel_ascii.inf build\beispiel_ascii.z5
+Write-Host "Compiling sterne.ascii.z5..."
+& .\tools\inform6.exe "+include_path=build\ascii_lib,build\ascii_src,lib" example\sterne_ascii.inf build\sterne.ascii.z5
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 # -------------------------------------------------------------------------
 # ASCII walkthrough (for manual testing / Test Dfrotz (ASCII) task)
 # -------------------------------------------------------------------------
 Write-Host "Generating ASCII walkthrough..."
-(Get-Content "example\beispiel.walkthrough.txt" -Encoding UTF8) `
+(Get-Content "example\sterne.walkthrough.txt" -Encoding UTF8) `
     -replace [char]0xe4, "ae" `
     -replace [char]0xf6, "oe" `
     -replace [char]0xfc, "ue" `
@@ -84,7 +84,7 @@ Write-Host "Generating ASCII walkthrough..."
     -replace [char]0xc4, "Ae" `
     -replace [char]0xd6, "Oe" `
     -replace [char]0xdc, "Ue" `
-    | Set-Content "example\beispiel.walkthrough.ascii.txt" -Encoding ASCII
+    | Set-Content "example\sterne.walkthrough.ascii.txt" -Encoding ASCII
 
 # -------------------------------------------------------------------------
 # Transcript generation
@@ -97,20 +97,20 @@ Write-Host "Generating ASCII walkthrough..."
 Write-Host "Generating transcripts..."
 $utf8NoBom = New-Object System.Text.UTF8Encoding $false
 
-Remove-Item "build\transcript.txt"       -ErrorAction SilentlyContinue
-Remove-Item "build\transcript.ascii.txt" -ErrorAction SilentlyContinue
+Remove-Item "build\sterne.transcript.txt"       -ErrorAction SilentlyContinue
+Remove-Item "build\sterne.transcript.ascii.txt" -ErrorAction SilentlyContinue
 
 # Unicode transcript
 $tmpUnicode = [System.IO.Path]::GetTempFileName()
 try {
-    $lines = Get-Content "example\beispiel.walkthrough.txt" -Encoding UTF8
+    $lines = Get-Content "example\sterne.walkthrough.txt" -Encoding UTF8
     [System.IO.File]::WriteAllLines($tmpUnicode, $lines, $utf8NoBom)
-    cmd /c "tools\dfrotz.exe -m -q -Z 0 -T -n ""build\transcript.txt"" ""build\beispiel.z5"" < ""$tmpUnicode"""
+    cmd /c "tools\dfrotz.exe -m -q -Z 0 -T -n ""build\sterne.transcript.txt"" ""build\sterne.z5"" < ""$tmpUnicode"""
 } finally {
     Remove-Item $tmpUnicode -ErrorAction SilentlyContinue
 }
 
 # ASCII transcript
-cmd /c "tools\dfrotz.exe -m -q -Z 0 -T -n ""build\transcript.ascii.txt"" ""build\beispiel_ascii.z5"" < ""example\beispiel.walkthrough.ascii.txt"""
+cmd /c "tools\dfrotz.exe -m -q -Z 0 -T -n ""build\sterne.transcript.ascii.txt"" ""build\sterne.ascii.z5"" < ""example\sterne.walkthrough.ascii.txt"""
 
-Write-Host "Build complete: build\beispiel.z5, build\beispiel_ascii.z5, build\transcript.txt, build\transcript.ascii.txt"
+Write-Host "Build complete: build\sterne.z5, build\sterne.ascii.z5, build\sterne.transcript.txt, build\sterne.transcript.ascii.txt"

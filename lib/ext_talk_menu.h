@@ -808,6 +808,12 @@ Verb 'talk' 'converse' 'interview' 'interrogate'
 	* 'to'/'with' creature                      ->Talk
 	* creature                                  ->Talk;
 
+#IfDef LANG_DE;
+Verb 'rede' 'unterhalte' 'plaudere' 'diskutier'
+	* 'mit' creature                            ->Talk
+	* creature                                  ->Talk;
+#EndIf;
+
 #Ifdef DEBUG;
 #Ifdef FLAG_COUNT;
 Constant TM_MAX_FLAG = FLAG_COUNT;

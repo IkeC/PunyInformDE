@@ -49,6 +49,31 @@ Constant MOVES_SHORT__TX = " Zg:";
 Constant LISTOBJS_ROOM_SUFFIX = ".^";
 
 ! ---------------------------------------------------------------------------
+! §3 groundwork: grammatical case and adjective properties
+! ---------------------------------------------------------------------------
+#IfNDef Nom;
+Constant Nom = 0;
+#EndIf;
+#IfNDef Akk;
+Constant Akk = 1;
+#EndIf;
+#IfNDef Dat;
+Constant Dat = 2;
+#EndIf;
+
+! Current case used by _PrintObjName / article_de helpers.
+! Default stays Nominativ for generic object rendering.
+Global short_name_case = Nom;
+
+! Last preferred target for ambiguous German "sie": 1=herobj, 2=themobj.
+Global de_last_sie_target = 0;
+
+! Optional adjective stem(s) and noun declension marker for §3.
+#IfNDef adj;
+Property adj;
+#EndIf;
+
+! ---------------------------------------------------------------------------
 ! German string constants (for parser messages)
 ! ---------------------------------------------------------------------------
 Constant SOMETHING_STR      = "etwas";           ! English: "something"

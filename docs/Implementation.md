@@ -1,370 +1,181 @@
-# PunyInformDE — Implementation Notes
+# PunyInformDE - Implementation Notes
 
-## Overview
+This document contains the technical details for the current German-language
+implementation strategy. The README is intentionally brief; this file is the
+reference for internals.
 
-PunyInformDE is a German localisation of PunyInform v6.5 for the Inform 6 compiler. It targets z5 story files and supports direct UTF-8 source encoding via the compiler's `-Cu` flag.
+## Scope
 
-The design principle is **minimal diff from upstream**: all German-specific code lives in `lib/de/` so syncing to a new PunyInform release only requires updating the base files in `lib/`.
+- Base library: PunyInform v6.5
+- Compiler: Inform 6.44
+- Targets: z5 (Unicode + ASCII build variants)
+- Design rule: German-specific behavior lives in `lib/de/` whenever possible
 
----
+## Credits and Source Algorithms
 
-## File Structure
+The implementation approach is based on the same core ideas used by:
 
-### Modified PunyInform Base Files (`lib/`)
+1. deform 6/11 (2005-2010), Martin Oehm
+   - Reference files: `c:/Source/informtest/deform/German.h`, `GermanG.h`
+2. German.i7x (Team GerX, Frank Gerbig et al.)
+   - Reference file: `c:/Source/fiction/Staub/Staub.materials/Extensions/Team GerX/German.i7x`
 
-| File | Modification |
-|------|-------------|
-| `globals.h` | `Include "de/globals_de.h"` at top; all overridable constants wrapped in `#IfNDef` guards |
-| `parser.h` | `YesOrNo` extended to accept `ja`, `j//`, `nein` |
-| `grammar.h` | Banner changed to `PunyInformDE v…`; `_ListObjsMsg` / `_ListObjsInOnMsg` and `LISTOBJS_ROOM_SUFFIX` made overridable via `#IfNDef` guards |
-| `puny.h` | Includes `de/messages_de.h` and `de/grammar_de.h`; `_PrintObjName` outputs German gender articles (die/das/der); `_PrintAfterEntry` container/item state strings translated; list separator uses `AND_LIST_STR` constant |
-| `scope.h` | Unchanged |
-| `ext_*.h` | Unchanged |
+PunyInformDE adopts equivalent concepts but keeps them lightweight for
+PunyInform's smaller footprint and architecture.
 
-### German-Specific Files (`lib/de/`)
+## Implemented Features
 
-These files do not exist in upstream PunyInform.
+## §1 Article System
 
-**`de/globals_de.h`** — Loaded first by `globals.h`. Contains:
-- `Zcharacter` declarations for ä ö ü ß Ä Ö Ü, guarded by `#IfNDef USE_ASCII` (see ASCII Build below)
-- German parser word constants: `ALL_WORD = 'alles'`, `EXCEPT_WORD1 = 'ausser'`, `EXCEPT_WORD2 = 'ohne'`, `AND_WORD = 'und'`, `THEN1__WD = 'dann'`
-- `IS_STR = "ist "`, `ARE_STR = "sind "`, `AND_LIST_STR = " und "`
-- `SOMETHING_STR`, `SOMEONE_STR`, `SOMEDIRECTION_STR` in German
-- Status bar labels: `SCORE__TX = " Punkte: "`, `SCORE_SHORT__TX = " Pt:"`, `MOVES__TX = " Züge: "`, `MOVES_SHORT__TX = " Zg:"`
-- `LISTOBJS_ROOM_SUFFIX = ".^"` (German prefix functions end with "ist"/"befinden sich")
-- German direction constants (`DE_NORD` … `DE_RAUS`) and `EXTRA_DIRECTION_ROW` flag
-- German abbreviation set (`CUSTOM_ABBREVIATIONS` prevents English ones loading)
+Implemented in:
 
-**`de/messages_de.h`** — German translations of all `MSG_xxx` constants plus helper functions:
-- `IsorAre(obj)` — prints "ist" or "sind"
-- `CTheyreorIts(obj)` / `ItorThem(obj)` / `ThatorThose(obj)` — gender-sensitive pronoun helpers
+- `lib/de/article_de.h`
+- `lib/puny.h`
+- `lib/de/messages_de.h`
 
-**`de/grammar_de.h`** — German verb definitions. Defines `_ListObjsMsg` and `_ListObjsInOnMsg` (German room-contents phrasing), then includes `grammar.h`, then adds German verbs:
-- Meta: `erneut`, `nochmal`, `beende`, `lade`, `neustart`, `speicher`, `punkte`, `version`, `knapp`, `ausfuehrlich`, `superknapp`, `skript`, `transkript`
-- Object: `nimm`/`hol`/`greif`, `lass`/`wirf`, `schau`/`seh`/`untersuche`
-- Navigation: `geh`/`lauf`/`renn`/`wander` + direction words from `globals.h`
-- Locks: `schliess`/`schließ X auf` (unlock), `schliess X zu` (close/lock), `mach X auf/zu`
-- Wear: `anzieh`, `auszieh`, `zieh X an/aus`
-- Communication: `frag`, `erzaehl`, `sag`, `gib`, `zeig`
-- Senses: `hoer`, `rieche`, `beruehr`, `lies`
-- Other: `trink`, `iss`, `warte`, `hau`, `kletter`
+Key elements:
 
----
+- Gender derivation via attributes (`female`, `neuter`, `pluralname`, default masculine)
+- Case-aware definite and indefinite article tables (Nom/Akk/Dat)
+- Case print helpers: `DE_Der`, `DE_Den`, `DE_Dem`, `DE_Ein`, `DE_Einen`, `DE_Einem`
+- Backward-compatible `article` behavior:
+  - `article 0` suppresses indefinite article
+  - `article "..."` is treated as string override
 
-## German Article System
+## §2 Pronoun Input
 
-Inform 6's built-in article system prints `(a)`/`(the)`/`(The)`. PunyInformDE hooks into this via:
+Implemented in:
 
-- **`article` property** — set the indefinite article string directly (`article "eine"`, `article "ein"`, etc.)
-- **`female` attribute** — causes gender helpers to use "sie"/"Sie"
-- **`neuter` attribute** — causes gender helpers to use "es"/"Es"
-- Default — masculine ("er"/"Er")
-- **`_PrintObjName`** in `puny.h` reads these attributes to select die/das/der for `(the)` output
+- `lib/parser.h` (`PronounNotice` LANG_DE behavior)
+- `lib/de/parser_de.h` (`BeforeParsing` call sequence)
+- `lib/de/article_de.h` (`_DE_SubstitutePronouns` routine)
 
-The definite article produced by `(the)` only covers Nominativ. For Akkusativ/Dativ contexts, game authors should write explicit article strings or use `proper` to suppress the article.
+German pronouns are rewritten before parse resolution:
 
----
+- `er`/`ihn`/`ihm` -> `him`
+- `sie` -> `her` or `them` (slot-based fallback)
+- `es` -> `it`
+- `ihnen` -> `them`
 
-## UTF-8 and Special Characters
+## §3 Stage 1 Input Suffix Pruning
 
-Source files are encoded as **UTF-8 without BOM**. The compiler flag `!% -Cu` enables UTF-8 source mode. Umlauts and ß are used directly in all source files.
+Implemented in:
 
-`de/globals_de.h` extends the Z-machine character table:
+- `lib/de/parser_de.h`
 
-```inform6
-#IfV5;
-#IfNDef USE_ASCII;
-Zcharacter 'ä'; Zcharacter 'ö'; Zcharacter 'ü';
-Zcharacter 'ß'; Zcharacter 'Ä'; Zcharacter 'Ö'; Zcharacter 'Ü';
-#EndIf;
-#EndIf;
-```
+Added `_DE_PruneWordSuffixLen` and a post-tokenization pass for unknown words.
+Recognized endings:
 
-This must come before any string or dictionary word using these characters — `globals_de.h` is first in the include chain.
+- Two-char: `-em`, `-en`, `-er`, `-es`
+- One-char: `-e`, `-n`, `-s`
 
----
+This allows commands like:
 
-## ASCII Build
+- `nimm kleinen schluessel`
+- `untersuche altem kompass`
 
-For interpreters without Unicode output support, a separate `beispiel_ascii.z5` is produced. The approach is **build-time preprocessing**: the build script substitutes all umlauts in every source file to digraph equivalents before compilation, so the compiled story file contains only ASCII bytes.
+with stem-based dictionary entries.
 
-### Why `USE_ASCII` Is Still Needed
+## §3 Stage 2 Output Adjective Declension
 
-Although preprocessing replaces all umlaut characters in string literals, the `Zcharacter` declarations in `globals_de.h` use umlaut characters as dictionary tokens (`Zcharacter 'ä'`). After preprocessing these would become `Zcharacter 'ae'`, which is invalid Inform 6 syntax. The `#IfNDef USE_ASCII` guard skips the entire block, so `USE_ASCII` remains necessary as a compile-time signal to suppress those declarations.
+Implemented in:
 
-### How the ASCII Build Works
+- `lib/de/article_de.h`
+- `lib/puny.h`
+- `lib/de/messages_de.h`
+- `lib/de/globals_de.h` (case globals and `adj` property)
 
-The build script ([`.vscode/build.ps1`](../.vscode/build.ps1)) performs these steps for the ASCII target:
+Key mechanisms:
 
-1. **Preprocess** the following files into `build/ascii_lib/` and `build/ascii_src/`, replacing ä→ae, ö→oe, ü→ue, ß→ss, Ä→Ae, Ö→Oe, Ü→Ue:
-   - `lib/de/globals_de.h` → `build/ascii_lib/de/globals_de.h` (status-bar label `" Züge: "` etc.)
-   - `lib/de/messages_de.h` → `build/ascii_lib/de/messages_de.h` (all parser messages)
-   - `lib/puny.h` → `build/ascii_lib/puny.h` (`" (enthält"` etc.)
-   - `example/beispiel.inf` → `build/ascii_src/beispiel.inf` (all game text)
-2. **Compile** `example/beispiel_ascii.inf` (which defines `Constant USE_ASCII` then includes `beispiel.inf`) with the preprocessed tree first on the include path.
+- `short_name_case` global (`Nom`, `Akk`, `Dat`)
+- Adjective suffix selection by mode/case/gender:
+  - definite article
+  - indefinite article
+  - bare noun phrase (no article)
+- `adj` property support for stem-based adjective rendering
+- `_PrintObjName` delegates to `_DE_PrintObjByForm(...)`
+- Messages that list contained items in accusative context now set and restore
+  `short_name_case` around `PrintContents(...)`
 
-`lib/de/grammar_de.h` is deliberately **not** preprocessed because it defines dictionary words like `'öffne'` alongside ASCII alternatives like `'oeffne'` in the same `Verb` statement — preprocessing both would create duplicate-word errors.
+This fixes outputs such as:
 
-### Digraph Mapping
+- `Du legst den alten Kompass auf den Schreibtisch.`
+- `Du öffnest die Seekiste, und siehst einen kleinen Schlüssel.`
 
-| Umlaut | Digraph |
-|--------|---------|
-| ä      | ae      |
-| ö      | oe      |
-| ü      | ue      |
-| ß      | ss      |
-| Ä      | Ae      |
-| Ö      | Oe      |
-| Ü      | Ue      |
+## Example Story Coverage
 
----
+`example/sterne.inf` now contains explicit §3 demo objects and stems:
 
-## Direction Words
+- `Kompass` with `adj "alt"`
+- `Schluessel` with `adj "klein"`
+- Dative/default-examine demo objects:
+  - `Ring` (m), `Nadel` (f), `Tuch` (n)
 
-German direction shortcuts (`nord`, `sued`, `ost`, `west`, `rauf`, `runter`, `rein`, `raus`) are defined in `globals_de.h` and wired into the `_direction_dict_words` 3-row table via the `EXTRA_DIRECTION_ROW` constant. `globals.h` selects between the 2-row (English) and 3-row (German) variants at compile time.
+Walkthrough (`example/beispiel.walkthrough.txt`) includes commands that exercise:
 
----
+- Pronoun replacement
+- Suffix-pruned input forms
+- Accusative and dative adjective output paths
 
-## Building
+## Test Coverage
 
-The VS Code **Build** task (`Ctrl+Shift+B`) runs [`.vscode/build.ps1`](../.vscode/build.ps1), which:
+### Test Harness Setup
 
-1. Compiles `build/beispiel.z5` (Unicode build)
-2. Preprocesses German sources and compiles `build/beispiel_ascii.z5` (ASCII build)
-3. Generates `example/beispiel.walkthrough.ascii.txt` from the umlaut walkthrough
+PunyTest is maintained as a separate public repository:
 
-Manual compilation:
-```
-tools\inform6.exe +include_path=lib example\beispiel.inf build\beispiel.z5
-```
+- `https://github.com/IkeC/PunyTest`
 
-- Compiler: Inform 6.44+ required
-- Target: z5
-- Source encoding: UTF-8 without BOM, `-Cu` flag declared in `!%` header
+Expected local layout:
 
----
+- `C:/Source/PunyInformDE`
+- `C:/Source/PunyTest`
 
-## Tests
+`tests/conftest.py` prepends the parent folder (for example `C:/Source`) to
+`sys.path`, so importing `PunyTest.*` works without copying framework files
+into this repository.
 
-Automated tests use the [PunyTest](../../fiction/PunyTest/) framework (pytest-based) and dfrotz:
+Key files:
 
-```
-python -m pytest tests\ -v
-```
+- `tests/test_articles.py`
+- `tests/test_pronouns.py`
+- `tests/test_suffix_pruning.py`
+- `tests/test_stage3_known_limitations.py`
+- `tests/test_walkthrough.py`
 
-| Test file | Coverage |
-|-----------|----------|
-| `test_walkthrough.py` | Full walkthrough against Unicode build |
-| `test_ascii_build.py` | Full walkthrough + no-high-bytes assertion against ASCII build |
-| `test_directions.py` | German direction commands |
-| `test_lock_unlock.py` | Lock/unlock commands and messages |
-| `test_list_format.py` | Container listing format, `und` separator |
-| `test_umlauts.py` | ASCII digraph input (passing) + umlaut input (xfail — dfrotz piped-stdin limitation on Windows) |
+Current suite status (latest run):
 
-The `test_ascii_output_has_no_high_bytes` test scans the entire ASCII walkthrough output and fails if any character with `ord > 127` appears, catching any preprocessed file that was missed.
+- 81 passed
+- 3 xfailed (known dfrotz umlaut-pipe limitation on Windows)
 
----
+## Build and Transcript Loop
 
-## VS Code Tasks
+Build task (`.vscode/build.ps1`) does all of:
 
-| Task | Shortcut | Action |
-|------|----------|--------|
-| Build | `Ctrl+Shift+B` | Compiles both builds, generates ASCII walkthrough |
-| Test Dfrotz | Run Task | Interactive dfrotz session (Unicode build) |
-| Test Dfrotz (ASCII) | Run Task | Interactive dfrotz session (ASCII build) |
-| Test Lectrote | Run Task | Opens Lectrote (Unicode build) |
-| Test Lectrote (ASCII) | Run Task | Opens Lectrote (ASCII build) |
+1. Compile Unicode story
+2. Generate ASCII source tree and compile ASCII story
+3. Generate ASCII walkthrough
+4. Run walkthrough through dfrotz and emit transcripts
 
----
+Artifacts used for validation:
 
-## Example Game: Das Schiff der Sterne
+- `build/sterne.transcript.txt`
+- `build/sterne.transcript.ascii.txt`
 
-A three-room puzzle adventure demonstrating the library features:
+## Architectural Decisions
 
-| Feature | Implementation |
-|---------|---------------|
-| Rooms | `Kajuete`, `Schiffsgang`, `Oberdeck` |
-| Supporter | `Schreibtisch` with `Karte` on top |
-| Container | `Kiste` (openable) with `Schluessel` inside |
-| Enterable object | `Koje` |
-| Lockable door | `Kajuentuer` (locked, `with_key Schluessel`) |
-| Scoring | `OPTIONAL_SCORED`, `MAX_SCORE = 3` |
-| Win condition | Examining `Fernrohr` sets `deadflag = 2` |
+1. Attribute-based gender (not a new grammatical_gender property)
+2. Pronoun substitution in `BeforeParsing` instead of deep parser replacement
+3. Stem + suffix model via `adj` property for adjective output
+4. Keep `article` as optional override for edge cases
+5. Keep technical complexity primarily in `lib/de/article_de.h`
 
-Walkthrough: `example/beispiel.walkthrough.txt` (umlauts) and `example/beispiel.walkthrough.ascii.txt` (digraphs, auto-generated by Build).
+## Known Limits
 
----
-
-## Known Limitations / TODOs
-
-1. **`(the)` / `(The)` in non-Nominativ contexts** — only Nominativ is handled by `_PrintObjName`. Akkusativ/Dativ require either `proper` or explicit article strings in game code.
-2. **Adjective inflection** — not implemented. No systematic declension support.
-3. **`ihm` / `dem` / `ihn`** — Dativ/Akkusativ pronouns not understood by the parser.
-
-
-## Overview
-
-PunyInformDE is a German localisation of PunyInform v6.5 for the Inform 6 compiler. It targets z5 story files and supports direct UTF-8 source encoding via the compiler's `-Cu` flag.
-
-The design principle is **minimal diff from upstream**: all German-specific code lives in `lib/de/` so syncing to a new PunyInform release only requires updating the base files in `lib/`.
-
----
-
-## File Structure
-
-### Modified PunyInform Base Files (`lib/`)
-
-| File | Modification |
-|------|-------------|
-| `globals.h` | Adds `Include "de/globals_de.h"` at top; all constants wrapped in `#IfNDef` guards so `de/globals_de.h` can override them |
-| `parser.h` | `YesOrNo` extended to accept `ja`, `j//`, `nein` |
-| `grammar.h` | Banner changed to `PunyInformDE v...`; `_ListObjsMsg`, `_ListObjsInOnMsg` translated; `" here.^"` → `" hier.^"` |
-| `puny.h` | Includes `de/messages_de.h` and `de/grammar_de.h` instead of originals; `_PrintAfterEntry` container/item state strings translated |
-| `scope.h` | Unchanged |
-| `ext_*.h` | Unchanged |
-
-### German-Specific Files (`lib/de/`)
-
-These files do not exist in upstream PunyInform.
-
-**`de/globals_de.h`** — Loaded first by `globals.h`. Contains:
-- `Zcharacter` declarations for ä ö ü ß Ä Ö Ü (guarded by `#IfNDef USE_ASCII` and `#IfV5`)
-- German parser word constants: `ALL_WORD = 'alles'`, `EXCEPT_WORD1 = 'ausser'`, `EXCEPT_WORD2 = 'ohne'`, `AND_WORD = 'und'`, `THEN1__WD = 'dann'`
-- `IS_STR = "ist "`, `ARE_STR = "sind "`
-- `SOMETHING_STR`, `SOMEONE_STR`, `SOMEDIRECTION_STR` in German
-- German abbreviation set (`CUSTOM_ABBREVIATIONS` constant prevents English ones)
-- `PrintDE(str)` runtime helper when `USE_ASCII` is defined
-
-**`de/messages_de.h`** — German translations of all `MSG_xxx` constants plus helper functions:
-- `IsorAre(obj)` — prints "ist" or "sind"
-- `CTheyreorIts(obj)` — prints "Sie ist" / "Es ist" / "Er ist" based on gender attributes
-- `ThatorThose(obj)` — prints "Das" or "Die" based on plural
-- All messages prefixed `! TODO:` for review
-
-**`de/grammar_de.h`** — German verb definitions. Includes `grammar.h` then adds:
-- Meta verbs: `erneut`, `nochmal`, `beende`, `lade`, `neustart`, `speicher`, `punkte`
-- Object verbs: `nimm`, `hol`, `greif`, `lass`, `wirf`, `schau`, `seh`, `untersuche`
-- Navigation: `geh`, `lauf`, `renn`, `wander` (+ direction words via `globals.h`)
-- Locks: `aufschliess`, `abschliess`, `verriegel`, `oeffne X mit Y`
-- Switch: `schalte X an/aus`, `mach X auf/zu/an/aus`
-- Wear: `anzieh`, `auszieh`, `zieh X an/aus`
-- Communication: `frag`, `erzaehl`, `sag`, `gib`, `zeig`
-- Senses: `hoer`, `rieche`, `beruehr`, `lies`
-- Other: `trink`, `iss`, `warte`, `hau` (attack), `kletter`
-
----
-
-## German Article System
-
-Inform 6's built-in article system prints `(a)`/`(the)`/`(The)`. PunyInformDE hooks into this via:
-
-- **`article` property** on objects — set the indefinite article string directly  
-  e.g. `article "eine"` for feminine nouns, `article "ein"` for masculine/neuter
-- **`female` attribute** — causes `CTheyreorIts` to print "Sie ist"
-- **`neuter` attribute** — causes `CTheyreorIts` to print "Es ist"
-- Default (no attribute) — prints "Er ist" (masculine)
-
-The `(the)` print rule still outputs "the" / "The" — this is a known limitation. For full German article handling, game authors should use `proper` attribute or override via `before [Examine: ...]` patterns.
-
----
-
-## UTF-8 and Special Characters
-
-Source files are encoded as **UTF-8 without BOM**. The compiler flag `!% -Cu` enables UTF-8 source mode. Umlauts and ß can be used directly everywhere in source.
-
-The Z-machine character table must be extended for umlauts to render correctly at runtime. `de/globals_de.h` declares:
-
-```inform6
-#IfV5;
-#IfNDef USE_ASCII;
-Zcharacter 'ä'; Zcharacter 'ö'; Zcharacter 'ü';
-Zcharacter 'ß'; Zcharacter 'Ä'; Zcharacter 'Ö'; Zcharacter 'Ü';
-#EndIf;
-#EndIf;
-```
-
-This must come before any string or dictionary word using these characters (it is first in the include chain).
-
-### USE_ASCII Mode
-
-Define `Constant USE_ASCII;` in your game file before `Include "globals.h"` to suppress `Zcharacter` declarations. This suits interpreters that do not support Unicode output.
-
-The `PrintDE(str)` function is compiled in when `USE_ASCII` is set. It uses `PrintAnyToArray` to expand a string and then transliterates UTF-8 byte sequences for ä/ö/ü/ß/Ä/Ö/Ü into digraphs:
-
-| Character | Digraph |
-|-----------|---------|
-| ä | ae |
-| ö | oe |
-| ü | ue |
-| ß | ss |
-| Ä | Ae |
-| Ö | Oe |
-| Ü | Ue |
-
-**Limitation**: Library messages in `de/messages_de.h` use compiled string literals and are **not** automatically transliterated by `PrintDE()`. Only game code that explicitly calls `PrintDE()` benefits from transliteration.
-
----
-
-## Direction Words
-
-German direction shortcuts are defined in `globals.h` via the `direction_dict_words` array mechanism (3-row table: abbreviation, English, German). Supported: `nord`, `sued`, `ost`, `west`, `rauf`, `runter`, `rein`, `raus`.
-
----
-
-## Building
-
-```
-inform6 +include_path=lib example\beispiel.inf build\beispiel.z5
-```
-
-- Compiler: Inform 6.44+ required (`#IfnDef VN_1644` guard in `globals.h`)
-- Target: z5 (z8 also supported)
-- Output: `build/` directory
-- Source encoding: UTF-8 without BOM, `-Cu` flag in `!%` header
-
-VS Code tasks (`Ctrl+Shift+B` = Build, `Ctrl+Shift+P` → Run Test Task = Test):
-- **Build** — compiles to `build/beispiel.z5`
-- **Test** — runs Build, then opens dfrotz interactively in a dedicated terminal
-
----
-
-## Example Game: Das Schiff der Sterne
-
-A three-room puzzle adventure demonstrating the library features:
-
-| Feature | Implementation |
-|---------|---------------|
-| Rooms | `Kajuete`, `Schiffsgang`, `Oberdeck` |
-| Supporter | `Schreibtisch` with `Karte` on top |
-| Container | `Kiste` (openable) with `Schluessel` inside |
-| Enterable object | `Koje` |
-| Lockable door | `Kajuentuer` (locked, `with_key Schluessel`) |
-| Scoring | `OPTIONAL_SCORED`, `MAX_SCORE = 3` |
-| Win condition | Examining `Fernrohr` sets `deadflag = 2` |
-
-### Puzzle Walkthrough
-
-```
-schau                            ! inspect the room
-untersuche schreibtisch          ! see the Seekarte on top
-nimm karte / untersuche karte    ! optional: read the hint
-untersuche koje                  ! notice the Kiste
-untersuche kiste
-oeffne kiste                     ! reveals Schluessel (+0 pts)
-nimm schluessel                  ! +1 pt
-aufschliess tuer mit schluessel  ! +1 pt (or: oeffne tuer mit schluessel)
-oeffne tuer
-nord
-rauf                             ! now on Oberdeck
-nimm fernrohr
-untersuche fernrohr              ! +1 pt, win!
-```
-
----
-
-## Known Limitations / TODOs
-
-1. **`(the)` / `(The)` print rules** still output English "the". Full German article handling requires gender-sensitive print rules for all cases (Nominativ/Akkusativ/Dativ).
-2. **Adjective inflection** not implemented. Parser accepts some compound forms but not systematic declension.
-3. **`ihm` / `dem` / `ihn`** (Dativ/Akkusativ pronouns) not understood by the parser.
-4. **`PrintDE()`** only covers game-side strings; library messages are not transliterated in `USE_ASCII` mode.
+1. Noun declension beyond adjective endings (for example weak noun class behavior)
+   is not fully modeled.
+2. Genitive system is intentionally limited.
+3. Advanced deform/German.i7x features remain out of scope for now:
+   - contraction tables (`ins`, `vom`, etc.)
+   - compound splitting tables
+   - pronominal adverbs (`damit`, `daraus`)
+   - runtime gender mutation system

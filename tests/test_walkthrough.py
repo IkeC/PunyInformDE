@@ -7,11 +7,6 @@ Commands use ASCII digraphs (oeffne, schluessel, schliess) because dfrotz
 in piped-stdin mode on Windows does not reliably map Latin-1 bytes to the
 Z-machine's extended character table. All umlaut forms are also accepted by
 the game parser (öffne, schlüssel, schließ) and tested interactively.
-
-The walkthrough also exercises the pronoun substitution system (§2):
-  "untersuche sie" — examines the last feminine/plural object
-  "untersuche ihn" — examines the last masculine object
-  "untersuche es"  — examines the last neuter object (Fernrohr → win)
 """
 
 from __future__ import annotations
@@ -24,31 +19,53 @@ from PunyTest.asserts import (
 NOT_UNDERSTOOD = "verstehe nicht"
 UNKNOWN_VERB   = "kenne ich nicht"
 
-# Full walkthrough including pronoun tests (§2) and new objects (§1)
+# Full walkthrough including pronouns, extra verb forms, and talk menu use.
 WALKTHROUGH = [
     "schau",
+    "riech",
+    "hoer",
     "untersuche schreibtisch",
-    "nimm muenzen",           # themobj = Goldmünzen (plural)
-    "untersuche sie",         # sie → them → Goldmünzen
+    "untersuche ring",
+    "untersuche alte nadel",
+    "nimm muenzen",
+    "nimm sie",
     "lege muenzen auf schreibtisch",
-    "nimm kompass",           # himobj = Kompass (maskulin)
-    "untersuche ihn",         # ihn → him → Kompass
-    "lege kompass auf schreibtisch",
+    "untersuche feinem tuch",
+    "nimm muenzen",
+    "untersuche sie",
+    "lege muenzen auf schreibtisch",
+    "nimm kompass",
+    "untersuche ihn",
+    "lege alten kompass auf schreibtisch",
     "nimm karte",
+    "untersuche alte karte",
     "untersuche karte",
+    "inventar",
     "untersuche koje",
     "untersuche kiste",
-    "oeffne kiste",           # herobj = Seekiste (feminin) after open
-    "untersuche sie",         # sie → her → Seekiste
-    "nimm schluessel",        # himobj = Schlüssel (maskulin)
-    "untersuche ihn",         # ihn → him → Schlüssel
+    "schau in kiste",
+    "oeffne kiste",
+    "untersuche sie",
+    "nimm kleinen schluessel",
+    "untersuche ihn",
     "schliess tuer mit schluessel auf",
     "oeffne tuer",
     "nord",
-    "rauf",
+    "lies plakat",
+    "beruehr glocke",
+    "geh rauf",
+    "kletter mast",
+    "warte",
     "schau",
-    "nimm fernrohr",          # itobj = Fernrohr (Neutrum)
-    "untersuche es",          # es → it → Fernrohr → win condition
+    "rede mit steuermann",
+    "1",
+    "rede mit papagei",
+    "1",
+    "rede mit navigatorin",
+    "1",
+    "frag steuermann nach wetter",
+    "nimm fernrohr",
+    "untersuche es",
 ]
 
 
@@ -72,16 +89,27 @@ def test_wins_game(game):
 @pytest.mark.feature("walkthrough")
 def test_reaches_oberdeck(game):
     """The walkthrough successfully navigates to Oberdeck."""
-    out = game.run(WALKTHROUGH[:20])  # up to 'rauf'
+    out = game.run(WALKTHROUGH[:33])  # up to 'geh rauf'
     assert_output_contains(out, "Oberdeck")
 
 
 @pytest.mark.feature("walkthrough")
+def test_ambiguous_sie_prefers_recent_plural(game):
+    """After feminine references, taking coins should make 'sie' refer to coins."""
+    out = game.run([
+        "untersuche alte nadel",
+        "nimm muenzen",
+        "untersuche sie",
+    ])
+    assert_output_contains(out, "Goldm")
+
+
+@pytest.mark.feature("walkthrough")
 def test_full_score(game):
-    """The walkthrough achieves the maximum score (3)."""
+    """The walkthrough achieves the maximum score (5)."""
     out = game.run(WALKTHROUGH)
-    # Score line appears as "3/3" or "Punkte: 3"
-    assert_output_contains(out, "3")
+    # Score line appears as "5/5" or "Punkte: 5"
+    assert_output_contains(out, "5")
 
 
 @pytest.mark.feature("walkthrough")
@@ -100,6 +128,14 @@ def test_score_notification_du_hast_erhalten(game):
     assert_output_contains(out, "erhalten")
     assert_output_not_contains(out, "Punktestand")
     assert_output_not_contains(out, "stieg")
+
+
+@pytest.mark.feature("messages")
+def test_open_message_no_comma_before_und(game):
+    """Open+contents message uses '... Seekiste und siehst ...' (no comma)."""
+    out = game.run(["oeffne kiste"])
+    assert_output_contains(out, "Seekiste und siehst")
+    assert_output_not_contains(out, "Seekiste, und siehst")
 
 
 @pytest.mark.feature("messages")

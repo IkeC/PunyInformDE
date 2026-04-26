@@ -108,6 +108,15 @@ def test_sie_plural_muenzen(game):
     assert_output_not_contains(out, NOT_UNDERSTOOD)
 
 
+@pytest.mark.feature("pronouns")
+def test_sie_plural_after_previous_feminine_reference(game):
+    """After a feminine object was referenced, taking coins should still make 'sie' plural."""
+    out = game.run(["untersuche nadel", "nimm muenzen", "untersuche sie"])
+    assert_output_contains(out, "Goldm",
+        msg="'untersuche sie' should resolve to plural Goldmünzen after taking coins")
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
 # ---------------------------------------------------------------------------
 # Neutrum: "es" → it
 # ---------------------------------------------------------------------------
@@ -115,7 +124,12 @@ def test_sie_plural_muenzen(game):
 @pytest.mark.feature("pronouns")
 def test_es_neutrum_fernrohr(game):
     """'es' nach 'nimm fernrohr' → triggers win condition (Fernrohr, Neutrum, itobj)."""
-    out = game.run(_UNLOCK_AND_GOTO_OBERDECK + ["nimm fernrohr", "untersuche es"])
+    out = game.run(_UNLOCK_AND_GOTO_OBERDECK + [
+        "talk to steuermann", "1",
+        "talk to papagei", "1",
+        "talk to navigatorin", "1",
+        "nimm fernrohr", "untersuche es",
+    ])
     assert_output_contains(out, "gewonnen",
         msg="'untersuche es' soll Fernrohr (Neutrum) untersuchen und Spiel gewinnen")
 

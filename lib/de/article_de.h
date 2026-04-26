@@ -118,21 +118,140 @@ Array DE_IndefArticles -->
     return s;
 ];
 
+Constant DE_MODE_DEF   = 0;
+Constant DE_MODE_INDEF = 1;
+Constant DE_MODE_BARE  = 2;
+
+! ---------------------------------------------------------------------------
+! _DE_GetAdjSuffix -- Adjektiv-Endung nach Modus/Kasus/Genus ermitteln.
+!   p_mode: DE_MODE_DEF / DE_MODE_INDEF / DE_MODE_BARE
+!   p_case: Nom/Akk/Dat
+!   p_gender: 0=mask, 1=fem, 2=neut, 3=plural
+! ---------------------------------------------------------------------------
+[ _DE_GetAdjSuffix p_mode p_case p_gender;
+    if (p_mode == DE_MODE_DEF) {
+        ! Definiter Artikel (schwache Flexion)
+        ! Nom: m/f/n=-e, pl=-en; Akk: m=-en,f/n=-e,pl=-en; Dat: alle -en
+        if (p_case == Dat) return "en";
+        if (p_case == Akk) {
+            if (p_gender == 0 or 3) return "en";
+            return "e";
+        }
+        ! Nom
+        if (p_gender == 3) return "en";
+        return "e";
+    }
+
+    if (p_mode == DE_MODE_INDEF) {
+        ! Indefiniter Artikel (gemischte Flexion)
+        ! Nom: m=-er,f=-e,n=-es,pl=-en; Akk: m=-en,f=-e,n=-es,pl=-en; Dat: alle -en
+        if (p_case == Dat) return "en";
+        if (p_case == Akk) {
+            if (p_gender == 0 or 3) return "en";
+            if (p_gender == 1) return "e";
+            return "es";
+        }
+        ! Nom
+        if (p_gender == 0) return "er";
+        if (p_gender == 1) return "e";
+        if (p_gender == 2) return "es";
+        return "en";
+    }
+
+    ! Ohne Artikel (starke Flexion)
+    ! Nom: m=-er,f=-e,n=-es,pl=-e; Akk: m=-en,f=-e,n=-es,pl=-e; Dat: m=-em,f=-er,n=-em,pl=-en
+    if (p_case == Dat) {
+        if (p_gender == 0) return "em";
+        if (p_gender == 1) return "er";
+        if (p_gender == 2) return "em";
+        return "en";
+    }
+    if (p_case == Akk) {
+        if (p_gender == 0) return "en";
+        if (p_gender == 1) return "e";
+        if (p_gender == 2) return "es";
+        return "e";
+    }
+    ! Nom
+    if (p_gender == 0) return "er";
+    if (p_gender == 1) return "e";
+    if (p_gender == 2) return "es";
+    return "e";
+];
+
+[ _DE_PrintAdjList p_obj p_mode p_case p_gender _i _n _suffix;
+    if (p_obj provides adj) {
+        _n = p_obj.#adj / WORDSIZE;
+        _suffix = _DE_GetAdjSuffix(p_mode, p_case, p_gender);
+        for (_i = 0 : _i < _n : _i++) {
+            print (string) (p_obj.&adj-->_i), (string) _suffix, " ";
+        }
+    }
+];
+
+[ _DE_PrintDefWithName p_obj p_case p_cap _g _s;
+    _g = DE_Gender(p_obj);
+    _s = DE_DefArticles-->(p_case * 4 + _g);
+    if (_s) {
+        if (p_cap) {
+            if (p_case == Nom) {
+                if (_g == 0) print "Der";
+                else if (_g == 1 or 3) print "Die";
+                else print "Das";
+            } else if (p_case == Akk) {
+                if (_g == 0) print "Den";
+                else if (_g == 1 or 3) print "Die";
+                else print "Das";
+            } else {
+                if (_g == 0 or 2) print "Dem";
+                else if (_g == 1) print "Der";
+                else print "Den";
+            }
+        } else {
+            print (string) _s;
+        }
+        print " ";
+    }
+    _DE_PrintAdjList(p_obj, DE_MODE_DEF, p_case, _g);
+    PrintShortName(p_obj);
+];
+
+[ _DE_PrintIndefWithName p_obj p_case _g _s _mode;
+    _g = DE_Gender(p_obj);
+    _s = _DE_IndefArtStr(p_obj, p_case, (p_case == Dat));
+    _mode = DE_MODE_INDEF;
+
+    if (_s == 0) {
+        _mode = DE_MODE_BARE;
+    } else if (_s == -1) {
+        print "einige ";
+    } else if (_s == -2) {
+        print "einigen ";
+    } else {
+        print (string) _s; print " ";
+        if (p_obj.&article && p_obj.article ofclass String) {
+            ! Bei freier String-Überschreibung keine automatische Adjektiv-Flexion erzwingen.
+            _mode = -1;
+        }
+    }
+
+    if (_mode >= 0) _DE_PrintAdjList(p_obj, _mode, p_case, _g);
+    PrintShortName(p_obj);
+];
+
+[ _DE_PrintObjByForm p_obj p_form p_case;
+    if (p_form == FORM_CDEF) { _DE_PrintDefWithName(p_obj, p_case, true);  return; }
+    if (p_form == FORM_DEF)  { _DE_PrintDefWithName(p_obj, p_case, false); return; }
+    if (p_form == FORM_INDEF) { _DE_PrintIndefWithName(p_obj, p_case); return; }
+    PrintShortName(p_obj);
+];
+
 ! ---------------------------------------------------------------------------
 ! _DE_PrintIndefWithName -- Hilfsfunktion: unbestimmten Artikel + Name drucken.
 ! p_case: 0=Nom, 1=Akk, 2=Dat
 ! ---------------------------------------------------------------------------
-[ _DE_PrintIndefWithName p_obj p_case   s;
-    s = _DE_IndefArtStr(p_obj, p_case, (p_case == 2));
-    if (s == 0) {
-        ! Kein Artikel
-        PrintShortName(p_obj);
-        return;
-    }
-    if (s == -1) { print "einige ";   PrintShortName(p_obj); return; }
-    if (s == -2) { print "einigen ";  PrintShortName(p_obj); return; }
-    print (string) s; print " ";
-    PrintShortName(p_obj);
+[ _DE_PrintIndefWithName_Compat p_obj p_case;
+    _DE_PrintIndefWithName(p_obj, p_case);
 ];
 
 ! ---------------------------------------------------------------------------
@@ -142,20 +261,17 @@ Array DE_IndefArticles -->
 ! Nominativ bestimmt: "der Schlüssel / die Kiste / das Fernrohr / die Münzen"
 ! (entspricht (the) in Nominativ-Position)
 [ DE_Der p_obj;
-    print (string) DE_DefArticles-->(DE_Gender(p_obj)); print " ";
-    PrintShortName(p_obj);
+    _DE_PrintDefWithName(p_obj, Nom, false);
 ];
 
 ! Akkusativ bestimmt: "den Schlüssel / die Kiste / das Fernrohr / die Münzen"
 [ DE_Den p_obj;
-    print (string) DE_DefArticles-->(4 + DE_Gender(p_obj)); print " ";
-    PrintShortName(p_obj);
+    _DE_PrintDefWithName(p_obj, Akk, false);
 ];
 
 ! Dativ bestimmt: "dem Schlüssel / der Kiste / dem Fernrohr / den Münzen"
 [ DE_Dem p_obj;
-    print (string) DE_DefArticles-->(8 + DE_Gender(p_obj)); print " ";
-    PrintShortName(p_obj);
+    _DE_PrintDefWithName(p_obj, Dat, false);
 ];
 
 ! ---------------------------------------------------------------------------
@@ -164,17 +280,17 @@ Array DE_IndefArticles -->
 
 ! Nominativ unbestimmt: "ein Schlüssel / eine Kiste / ein Fernrohr / einige Münzen"
 [ DE_Ein p_obj;
-    _DE_PrintIndefWithName(p_obj, 0);
+    _DE_PrintIndefWithName(p_obj, Nom);
 ];
 
 ! Akkusativ unbestimmt: "einen Schlüssel / eine Kiste / ein Fernrohr / einige Münzen"
 [ DE_Einen p_obj;
-    _DE_PrintIndefWithName(p_obj, 1);
+    _DE_PrintIndefWithName(p_obj, Akk);
 ];
 
 ! Dativ unbestimmt: "einem Schlüssel / einer Kiste / einem Fernrohr / einigen Münzen"
 [ DE_Einem p_obj;
-    _DE_PrintIndefWithName(p_obj, 2);
+    _DE_PrintIndefWithName(p_obj, Dat);
 ];
 
 ! ---------------------------------------------------------------------------
@@ -255,14 +371,26 @@ Array DE_IndefArticles -->
 
         ! --- "sie" (3 Bytes) → "her" (3 Bytes) oder "them" (4 Bytes) ---
         if (_wlen == 3 && _waddr->0 == 's' && _waddr->1 == 'i' && _waddr->2 == 'e') {
-            if (herobj ~= 0) {
+            if (themobj ~= 0 && (herobj == 0 || de_last_sie_target == 2)) {
+                ! Plural bevorzugen, wenn zuletzt ein Plural-Objekt referenziert wurde.
+                ! 3→4 Bytes, 1 Byte rechts verschieben.
+                if (_blen >= buffer->0) continue;
+                for (_j = _blen + 1 : _j >= _woff + 3 : _j--)
+                    buffer->(_j + 1) = buffer->_j;
+                buffer->_woff       = 't';
+                buffer->(_woff + 1) = 'h';
+                buffer->(_woff + 2) = 'e';
+                buffer->(_woff + 3) = 'm';
+                buffer->1 = _blen + 1;
+                _changed = true;
+            } else if (herobj ~= 0) {
                 ! Feminin: "sie" → "her" (in-place, beide 3 Bytes)
                 buffer->_woff       = 'h';
                 buffer->(_woff + 1) = 'e';
                 buffer->(_woff + 2) = 'r';
                 _changed = true;
             } else if (themobj ~= 0) {
-                ! Plural: "sie" → "them" (3→4 Bytes, 1 Byte rechts verschieben)
+                ! Nur Plural gesetzt: ebenfalls "them".
                 if (_blen >= buffer->0) continue;
                 for (_j = _blen + 1 : _j >= _woff + 3 : _j--)
                     buffer->(_j + 1) = buffer->_j;

@@ -1,11 +1,11 @@
 """PunyInformDE test configuration.
 
-Wires the PunyTest framework to the 'beispiel' game.
+Wires the PunyTest framework to the 'sterne' game.
 The compiled .z5 in build/ is used if present; otherwise inform6 is invoked.
 
 Two game variants are supported:
-  game          – Unicode build (build/beispiel.z5)     uses cp1252 I/O
-  game_ascii    – ASCII build   (build/beispiel_ascii.z5) uses ASCII I/O
+    game          – Unicode build (build/sterne.z5)      uses cp1252 I/O
+    game_ascii    – ASCII build   (build/sterne.ascii.z5) uses ASCII I/O
 """
 
 from __future__ import annotations
@@ -13,27 +13,46 @@ from __future__ import annotations
 import subprocess
 import sys
 from pathlib import Path
+import importlib
 
-# Add c:\Source\fiction to sys.path so the PunyTest package is importable.
-_FICTION = Path(__file__).resolve().parent.parent.parent / "fiction"
-if str(_FICTION) not in sys.path:
-    sys.path.insert(0, str(_FICTION))
+GAME_ROOT = Path(__file__).resolve().parent.parent
+
+# Add the sibling PunyTest repository root (e.g. C:\Source\PunyTest) so the
+# public package name `punytest` can be imported.
+_PUNYTEST_REPO = GAME_ROOT.parent / "PunyTest"
+if str(_PUNYTEST_REPO) not in sys.path:
+    sys.path.insert(0, str(_PUNYTEST_REPO))
 
 import pytest
 
-from PunyTest.conftest_base import (  # noqa: F401 – re-export fixtures
-    pytest_configure,
-    skip_no_dfrotz,
-    skip_no_inform6,
-)
-from PunyTest.runner import compile_story, GameSession, GameOutput
-from PunyTest.tools import find_dfrotz, find_inform6
+try:
+    # New public repository layout/package name.
+    _pt_pkg = importlib.import_module("punytest")
+    _pt_asserts = importlib.import_module("punytest.asserts")
+    _pt_conftest_base = importlib.import_module("punytest.conftest_base")
+    _pt_runner = importlib.import_module("punytest.runner")
+    _pt_tools = importlib.import_module("punytest.tools")
 
-GAME_ROOT = Path(__file__).resolve().parent.parent
-STORY_SOURCE       = GAME_ROOT / "example" / "beispiel.inf"
-STORY_Z5           = GAME_ROOT / "build" / "beispiel.z5"
-STORY_ASCII_SOURCE = GAME_ROOT / "example" / "beispiel_ascii.inf"
-STORY_ASCII_Z5     = GAME_ROOT / "build" / "beispiel_ascii.z5"
+    # Compatibility aliases for existing test imports: from PunyTest.asserts import ...
+    sys.modules.setdefault("PunyTest", _pt_pkg)
+    sys.modules.setdefault("PunyTest.asserts", _pt_asserts)
+    sys.modules.setdefault("PunyTest.conftest_base", _pt_conftest_base)
+    sys.modules.setdefault("PunyTest.runner", _pt_runner)
+    sys.modules.setdefault("PunyTest.tools", _pt_tools)
+
+    from punytest.conftest_base import pytest_configure  # noqa: F401
+    from punytest.runner import compile_story, GameSession, GameOutput
+    from punytest.tools import find_dfrotz, find_inform6
+except ModuleNotFoundError:
+    # Legacy fallback for older local checkouts that still expose `PunyTest`.
+    from PunyTest.conftest_base import pytest_configure  # noqa: F401
+    from PunyTest.runner import compile_story, GameSession, GameOutput
+    from PunyTest.tools import find_dfrotz, find_inform6
+
+STORY_SOURCE       = GAME_ROOT / "example" / "sterne.inf"
+STORY_Z5           = GAME_ROOT / "build" / "sterne.z5"
+STORY_ASCII_SOURCE = GAME_ROOT / "example" / "sterne_ascii.inf"
+STORY_ASCII_Z5     = GAME_ROOT / "build" / "sterne.ascii.z5"
 
 # Input encoding for dfrotz on Windows.
 # dfrotz reads raw bytes from piped stdin; Windows Latin-1 (cp1252) encodes

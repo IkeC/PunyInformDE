@@ -2001,18 +2001,29 @@ Array guess_object-->5;
 	if(p_object == 0 or player or Directions) return;
 	if(p_object has pluralname) {
 		themobj = p_object;
+#IfDef LANG_DE;
+		de_last_sie_target = 2;
+#EndIf;
 	} else if(p_object has animate) {
-		if(p_object has female) herobj = p_object;
+		if(p_object has female) {
+			herobj = p_object;
+#IfDef LANG_DE;
+			de_last_sie_target = 1;
+#EndIf;
+		}
 		else if(p_object has neuter) itobj = p_object;
 		else himobj = p_object;
 	} else {
-		! PunyInformDE §2: Im Deutschen haben unbelebte Objekte Genus.
+		! PunyInformDE: Im Deutschen haben unbelebte Objekte Genus.
 		! Feminin  → herobj  (Pronomen "sie")
 		! Neutrum  → itobj   (Pronomen "es")
 		! Maskulin → himobj  (Pronomen "er"/"ihn"/"ihm")
 		! Ohne LANG_DE: alle unbelebten Objekte → itobj (Englisch: "it")
 #IfDef LANG_DE;
-		if(p_object has female) herobj = p_object;
+		if(p_object has female) {
+			herobj = p_object;
+			de_last_sie_target = 1;
+		}
 		else if(p_object has neuter) itobj = p_object;
 		else himobj = p_object;
 #IfNot;

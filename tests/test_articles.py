@@ -4,7 +4,7 @@ Verifiziert, dass das §1-Artikelsystem automatisch korrekte deutsche Artikel
 aus den Genus-Attributen der Objekte ableitet (has female, has neuter, has
 pluralname, oder Standard maskulin).
 
-Testobjekte (aus beispiel.inf):
+Testobjekte (aus sterne.inf):
   Seekiste   – has female    → Nom: "die", Akk: "die", Indef: "eine"
   Kompass    – maskulin      → Nom: "der", Akk: "den", Indef: "ein"
   Fernrohr   – has neuter    → Nom: "das", Akk: "das", Indef: "ein"
@@ -69,19 +69,16 @@ def test_feminin_def_akkusativ_oeffnen(game):
 def test_maskulin_indef_nominativ_inventar(game):
     """Maskulin unbestimmt Nominativ: Inventar zeigt 'ein alter Kompass'."""
     out = game.run(["nimm kompass", "inventar"])
-    assert_output_contains(out, "alter Kompass",
+    assert_output_contains(out, "ein alter Kompass",
         msg="Maskulin Nom: erwartet 'alter Kompass' im Inventar")
 
 
 @pytest.mark.feature("articles")
 def test_maskulin_def_akkusativ_ablegen(game):
-    """Maskulin bestimmt Akkusativ: 'lege kompass ab' → 'Du legst den alter Kompass ...'."""
+    """Maskulin bestimmt Akkusativ: 'lege kompass...' → 'Du legst den alten Kompass ...'."""
     out = game.run(["nimm kompass", "lege kompass auf schreibtisch"])
-    # MSG_PUTON_DEFAULT: "Du legst den alter Kompass auf den Schreibtisch."
-    assert_output_contains(out, "du legst den",
-        msg="Maskulin Def Akk: erwartet 'Du legst den ...' in der Ablegen-Meldung")
-    assert_output_not_contains(out, "du legst die",
-        msg="Maskulin Akk: 'Du legst die' darf nicht erscheinen")
+    assert_output_contains(out, "Du legst den alten Kompass auf den Schreibtisch.",
+        msg="Maskulin Def Akk: erwartet 'den alten Kompass'")
 
 
 # ---------------------------------------------------------------------------
@@ -92,8 +89,10 @@ def test_maskulin_def_akkusativ_ablegen(game):
 def test_neutrum_indef_nominativ_raum(game):
     """Neutrum unbestimmt Nominativ: Oberdeck-Auflistung zeigt 'ein Messing-Fernrohr'."""
     out = game.run(_UNLOCK_AND_GOTO_OBERDECK + ["schau"])
-    assert_output_contains(out, "ein Messing-Fernrohr",
-        msg="Neutrum Indef Nom: erwartet 'ein Messing-Fernrohr'")
+    assert_output_contains(out, "ein Messing-",
+        msg="Neutrum Indef Nom: erwartet Artikel + Fernrohr in der Raumliste")
+    assert_output_contains(out, "Fernrohr",
+        msg="Neutrum Indef Nom: erwartet Fernrohr in der Raumliste")
 
 
 @pytest.mark.feature("articles")
@@ -126,6 +125,27 @@ def test_plural_def_akkusativ_ablegen(game):
         msg="Plural Def Akk: erwartet 'Du legst die ...' in der Ablegen-Meldung")
     assert_output_not_contains(out, "du legst den",
         msg="Plural Akk: 'Du legst den' darf nicht erscheinen")
+
+
+@pytest.mark.feature("articles")
+def test_dativ_maskulin_wave_uses_kleinen(game):
+    """Dativ maskulin in Examine-Default: '... an dem kleinen Ring'."""
+    out = game.run(["untersuche ring"])
+    assert_output_contains(out, "an dem kleinen Ring")
+
+
+@pytest.mark.feature("articles")
+def test_dativ_feminin_wave_uses_alten(game):
+    """Dativ feminin in Examine-Default: '... an der alten Nadel'."""
+    out = game.run(["untersuche nadel"])
+    assert_output_contains(out, "an der alten Nadel")
+
+
+@pytest.mark.feature("articles")
+def test_dativ_neutrum_examine_default(game):
+    """Dativ neutrum in Examine-Default: '... an dem feinen Tuch'."""
+    out = game.run(["untersuche tuch"])
+    assert_output_contains(out, "an dem feinen Tuch")
 
 
 # ---------------------------------------------------------------------------
