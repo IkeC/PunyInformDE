@@ -79,13 +79,13 @@ For design analysis and rationale history, see:
 
 ## Acknowledgements
 
-**PunyInform** ([GitHub: johanberntsson/PunyInform](https://github.com/johanberntsson/PunyInform))
+ [**PunyInform**](https://github.com/johanberntsson/PunyInform)
 — The lightweight Inform 6 library that PunyInformDE is built on. Created and maintained by J. Berntsson, F. Ramsberg 
 and contributors.
 
-**Deform** — The Inform 6 library extension framework which many  grammatical solutions have been lifted from. Created by M. Oehm and contributors.
+[**Deform**](https://martin-oehm.de/deform/) — The Inform 6 library extension framework which many grammatical solutions have been lifted from. Created by M. Oehm and contributors.
 
-**Original PunyInformDE Fork** ([GitHub: smartgrids-aau/punyinformde](https://github.com/smartgrids-aau/punyinformde))
+[**Original PunyInformDE Fork**](https://github.com/smartgrids-aau/punyinformde)
 — The initial German localisation work done in 2023 by L. Santner and A. Pulvermacher.
 
 Many other authors have contributed to the underlying base of this solution. If you feel anyone is missing, please let me know.
@@ -94,4 +94,4 @@ Many other authors have contributed to the underlying base of this solution. If 
 
 Don't be shy, please contribute to this project if you can! Feel free to open PRs or open an issue.
 
-The main hub for discussion is the [PunyInformDE thread](https://if-forum.org/forum.php?id=2) on the IFWizz forums, the central meeting point for the German interactive fiction community.
+The main hub for discussion outside this repo is the [PunyInformDE thread](https://if-forum.org/forum.php?id=2) on the IFWizz forums, the central meeting point for the German interactive fiction community.
