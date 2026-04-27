@@ -63,6 +63,7 @@ New-Item -ItemType Directory -Force -Path "build\ascii_lib\de" | Out-Null
 New-Item -ItemType Directory -Force -Path "build\ascii_src"     | Out-Null
 
 Convert-ToAsciiDigraphs "lib\de\globals_de.h"  "build\ascii_lib\de\globals_de.h"
+Convert-ToAsciiDigraphs "lib\de\dechar.h"      "build\ascii_lib\de\dechar.h"
 Convert-ToAsciiDigraphs "lib\de\messages_de.h" "build\ascii_lib\de\messages_de.h"
 Convert-ToAsciiDigraphs "lib\de\grammar_de.h"  "build\ascii_lib\de\grammar_de.h"
 Convert-ToAsciiDigraphs "lib\de\parser_de.h"   "build\ascii_lib\de\parser_de.h"

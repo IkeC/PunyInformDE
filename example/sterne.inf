@@ -8,6 +8,12 @@
 ! Pronomensubstitution, Artikelsystem, NPC-Gespräche (ext_talk_menu),
 ! Punkte, und konversations-abhängige Spiellogik.
 
+! Custom alphabet table — must come before any string literal (even Story).
+! Puts German umlauts in A0 (cheapest row) for smaller Z5 story files.
+! The #IfV5/#IfNDef USE_ASCII guards inside dechar.h skip this in
+! ASCII and Z3 builds automatically.
+Include "de/dechar.h";
+
 Constant Story      "Das Schiff der Sterne";
 Constant Headline   "^Ein kurzes Abenteuer auf hoher See.^";
 
