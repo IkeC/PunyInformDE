@@ -37,12 +37,12 @@ Constant OPTIONAL_NO_DARKNESS;
 
 Constant INITIAL_LOCATION_VALUE = Kajuete;
 
-Global talked_steuermann = false;
-Global talked_navigatorin = false;
-Global talked_papagei = false;
-Global has_steuermann_token = false;
-Global has_navigatorin_token = false;
-Global has_papagei_token = false;
+! NOTE (fredrikr, PunyInform dev): declaring Global variables before including
+! globals.h is a bad idea for Z3, where the Z-machine spec requires score,
+! turns, and location to be at specific global-variable indices (0-2). If user
+! globals come first, they shift those library globals out of position, breaking
+! the Z3 status bar. All game Global declarations are therefore placed AFTER
+! the library includes.
 
 Constant TM_MSG_YOU "Du";
 Constant TM_MSG_TALK_ABOUT_WHAT "Gesprächsthemen:^";
@@ -57,6 +57,15 @@ Constant TM_MSG_PAGE_OPTION_SHORT "[N]ext";
 Include "globals.h";
 Include "ext_talk_menu.h";
 Include "puny.h";
+
+! Game-specific global variables declared here (after library includes) so that
+! Z3 global-variable slot ordering is preserved — see note above.
+Global talked_steuermann = false;
+Global talked_navigatorin = false;
+Global talked_papagei = false;
+Global has_steuermann_token = false;
+Global has_navigatorin_token = false;
+Global has_papagei_token = false;
 
 
 ! ==================================================================

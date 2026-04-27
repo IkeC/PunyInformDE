@@ -39,13 +39,16 @@ Constant LANG_DE;
 
 ! ---------------------------------------------------------------------------
 ! _DE_IsVowelByte: return true if byte c is a German vowel (ASCII or umlaut).
+! Only used by _DE_NormaliseDigraphsOnly; guarded accordingly.
 ! ---------------------------------------------------------------------------
+#IfNDef USE_ASCII;
 [ _DE_IsVowelByte c;
     if(c == 'a' or 'e' or 'i' or 'o' or 'u' or
        'A' or 'E' or 'I' or 'O' or 'U' or
        'ä' or 'ö' or 'ü' or 'Ä' or 'Ö' or 'Ü') rtrue;
     rfalse;
 ];
+#Endif; ! USE_ASCII
 
 ! ---------------------------------------------------------------------------
 ! _DE_NormaliseDigraphsOnly
