@@ -115,6 +115,15 @@ Object Kajuete "Die Kapitänskajüte"
 			return Schiffsgang;
 		];
 
+Object -> KajueteScenery "Kajüte"
+	with
+		name 'kajuete' 'kajüte' 'kapitaenskajuete' 'kapitänskajüte' 'kajueten'
+			'kajüten' 'kapitaen' 'kapitän' 'kammer' 'raum',
+		before [;
+			Examine: <<Look>>;
+		],
+	has scenery female;
+
 ! FEMININ: has female
 ! Artikeltabelle → Nom: "die Kajütentür", Indef: "eine Kajütentür"
 ! Pronomen → herobj → "sie": "schließ sie auf"
@@ -260,6 +269,14 @@ Object Schiffsgang "Der Schiffsgang"
 		s_to Kajuete,
 		u_to Oberdeck;
 
+Object -> SchiffsGangScenery "Gang"
+	with
+		name 'schiffsgang' 'gang' 'korridor' 'flur',
+		before [;
+			Examine: <<Look>>;
+		],
+	has scenery;
+
 ! FEMININ: has female + has scenery
 ! Artikeltabelle → "die Eisentreppe", Indef: "eine Eisentreppe"
 Object -> Treppe "Eisentreppe"
@@ -304,6 +321,14 @@ Object Oberdeck "Das Oberdeck"
 			Abendhimmel. Im Westen glüht die untergehende Sonne.
 			Die Eisentreppe führt nach unten.",
 		d_to Schiffsgang;
+
+Object -> OberdeckScenery "Oberdeck"
+	with
+		name 'oberdeck' 'deck' 'verdeck',
+		before [;
+			Examine: <<Look>>;
+		],
+	has scenery neuter;
 
 [MarkSteuermann;
 	talked_steuermann = true;
