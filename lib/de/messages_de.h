@@ -972,7 +972,12 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #EndIf;
 #IfTrue MSG_PARSER_NO_IT < 1000;
 	MSG_PARSER_NO_IT:
-		"Ich weiß nicht, was ~", (address) p_arg_1, "~ bedeutet.";
+		print "Ich weiß nicht, was ~";
+		if (p_arg_1 == 'it') print "es";
+		else if (p_arg_1 == 'him') print "er";
+		else if (p_arg_1 == 'her' or 'them') print "sie";
+		else print (address) p_arg_1;
+		print_ret "~ bedeutet.";
 #EndIf;
 #Ifndef SKIP_MSG_PARSER_NOSUCHTHING;
 	MSG_PARSER_NOSUCHTHING, MSG_SHOUT_NOSUCHTHING:
@@ -1010,6 +1015,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #EndIf;
 #Ifndef SKIP_MSG_LOCK_KEY_DOESNT_FIT;
 	MSG_LOCK_KEY_DOESNT_FIT, MSG_UNLOCK_KEY_DOESNT_FIT:
+		if (second == nothing) "Du hast keinen passenden Schlüssel dafür.";
 		print_ret (The) second, " scheint nicht in das Schloss zu passen.";
 #Endif;
 #IfTrue MSG_EXAMINE_CLOSED < 1000;
