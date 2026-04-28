@@ -6,7 +6,7 @@ pluralname, oder Standard maskulin).
 
 Testobjekte (aus sterne.inf):
   Seekiste   – has female    → Nom: "die", Akk: "die", Indef: "eine"
-  Kompass    – maskulin      → Nom: "der", Akk: "den", Indef: "ein"
+  Kompass    – maskulin      → Nom: "der", Akk: "den", Indef Nom: "ein", Indef Akk: "einen"
   Fernrohr   – has neuter    → Nom: "das", Akk: "das", Indef: "ein"
   Goldmünzen – has pluralname → Nom: "die", Indef: "einige"
 
@@ -66,11 +66,13 @@ def test_feminin_def_akkusativ_oeffnen(game):
 # ---------------------------------------------------------------------------
 
 @pytest.mark.feature("articles")
-def test_maskulin_indef_nominativ_inventar(game):
-    """Maskulin unbestimmt Nominativ: Inventar zeigt 'ein alter Kompass'."""
+def test_maskulin_indef_akkusativ_inventar(game):
+    """Maskulin unbestimmt Akkusativ: Inventar zeigt 'einen alten Kompass'.
+    'Du hast X' verlangt Akkusativ, daher 'einen' statt 'ein'.
+    """
     out = game.run(["nimm kompass", "inventar"])
-    assert_output_contains(out, "ein alter Kompass",
-        msg="Maskulin Nom: erwartet 'alter Kompass' im Inventar")
+    assert_output_contains(out, "einen alten Kompass",
+        msg="Maskulin Akk: erwartet 'einen alten Kompass' im Inventar")
 
 
 @pytest.mark.feature("articles")

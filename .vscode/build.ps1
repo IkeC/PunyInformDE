@@ -70,6 +70,8 @@ Convert-ToAsciiDigraphs "lib\de\messages_de.h" "build\ascii_lib\de\messages_de.h
 Convert-ToAsciiDigraphs "lib\de\grammar_de.h"  "build\ascii_lib\de\grammar_de.h"
 Convert-ToAsciiDigraphs "lib\de\parser_de.h"   "build\ascii_lib\de\parser_de.h"
 Convert-ToAsciiDigraphs "lib\de\article_de.h"  "build\ascii_lib\de\article_de.h"
+Convert-ToAsciiDigraphs "lib\de\ext_talk_menu_de.h" "build\ascii_lib\de\ext_talk_menu_de.h"
+Convert-ToAsciiDigraphs "lib\de\ext_talk_menu_inline_de.h" "build\ascii_lib\de\ext_talk_menu_inline_de.h"
 Convert-ToAsciiDigraphs "lib\puny.h"           "build\ascii_lib\puny.h"
 Convert-ToAsciiDigraphs "example\sterne.inf" "build\ascii_src\sterne.inf"
 

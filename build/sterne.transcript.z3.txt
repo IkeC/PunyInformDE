@@ -53,7 +53,7 @@ Fuenf glaenzende Goldmuenzen mit dem Abbild eines Seeadlers.
 > lege muenzen auf schreibtisch
 Du legst die Goldmuenzen auf den Schreibtisch.
 
-> untersuche feinem tuch
+> untersuche feines tuch
 Du erkennst nichts Besonderes an dem feinen Tuch.
 
 > nimm muenzen
@@ -164,30 +164,74 @@ Hier befinden sich Steuermann Hinnerk, Navigatorin Elara, Molly und ein Messing-
 Fernrohr.
 
 > rede mit steuermann
-Du: "Was siehst du dort draussen?"
-Steuermann Hinnerk: "Steuermann Hinnerk kneift die Augen zusammen. Der Wind
-bleibt ruhig. Gute Sicht nach Osten."
+Worueber moechtest du mit Steuermann Hinnerk sprechen?
 
-Damit endet euer kurzes Gespraech.
+[1] Wetter
+[2] Schiff
+[0] Gespraech beenden
+
+> 1
+["Was siehst du dort draussen?"]
+Steuermann Hinnerk kneift die Augen zusammen. "Der Wind bleibt ruhig. Gute Sicht
+nach Osten."
+
+[1] Schiff
+[0] Gespraech beenden
+
+> 1
+["Was ist das fuer ein Schiff?"]
+Hinnerk klopft stolz auf das Steuerrad. "Die Sternwind -- bestes Schiff, das je
+die See befuhr. Seit zwanzig Jahren bin ich ihr Steuermann."
+
+Damit endet das Gespraech.
 
 [Du hast 1 Punkt erhalten.]
 
 > rede mit papagei
-Du: "Was hast du gehoert, Molly?"
-Molly: "Der Papagei kraechzt laut: Wo ist Marten? BRAAK!"
+Worueber moechtest du mit Molly sprechen?
 
-Damit endet euer kurzes Gespraech.
+[1] Spruch
+[2] Marten
+[0] Gespraech beenden
+
+> 1
+["Was hast du gehoert, Molly?"]
+Der Papagei kraechzt laut: "Wo ist Marten? BRAAK!"
+
+[1] Marten
+[0] Gespraech beenden
+
+> 1
+["Wer ist dieser Marten, Molly?"]
+Molly nickt aufgeregt und kraechzt: "Marten! Schatz! Insel! BRAAK!" Ein Name und
+ein Versprechen -- mehr verraet der Vogel nicht.
+
+Damit endet das Gespraech.
 
 > rede mit navigatorin
-Du: "Was ist unser Kurs?"
-Navigatorin Elara: "Navigatorin Elara tippt auf die Seekarte. Der richtige
-Winkel fehlt noch."
+Worueber moechtest du mit Navigatorin Elara sprechen?
 
-Die Navigatorin nickt. Mit ernstmimischer Miene ueberreicht sie dir ihren
-Kompass. Du hast ihn, die Karte und jetzt die drei Berichte der Crew. Alles
-deutet auf die Insel hin. Es wird Zeit, dass du das Fernrohr nutzt!
+[1] Kurs
+[2] Insel
+[0] Gespraech beenden
 
-Damit endet euer kurzes Gespraech.
+> 1
+["Was ist unser Kurs?"]
+Navigatorin Elara tippt auf die Seekarte. "Der richtige Winkel fehlt noch."
+Die Navigatorin nickt. Mit feierlicher Miene ueberreicht sie dir ihren Kompass.
+"Du hast ihn, die Karte und jetzt die drei Berichte der Crew. Alles deutet auf
+die Insel hin. Es wird Zeit, dass du das Fernrohr nutzst!"
+
+[1] Insel
+[0] Gespraech beenden
+
+> 1
+["Weisst du etwas ueber die Insel auf der Karte?"]
+Elara senkt die Stimme. "Es heisst, dort liegt ein verborgener Schatz. Marten --
+unser frueherer Kapitaen -- soll ihn dort vergraben haben. Das Fernrohr zeigt
+dir den Weg."
+
+Damit endet das Gespraech.
 
 [Du hast 1 Punkt erhalten.]
 
@@ -201,7 +245,6 @@ Felsen erkennst du deutlich ein eingemeiseltes Kreuz -- das Zeichen
 fuer einen vergrabenen Schatz.
 
 Du senkst das Fernrohr und laechelst. Das Abenteuer kann beginnen!
-
 
 [Du hast 1 Punkt erhalten.]
 

@@ -58,11 +58,14 @@ WALKTHROUGH = [
     "warte",
     "schau",
     "rede mit steuermann",
-    "1",
+    "1",  # Wetter (MarkSteuermann → has_steuermann_token)
+    "1",  # Schiff
     "rede mit papagei",
-    "1",
+    "1",  # Spruch (MarkPapagei)
+    "1",  # Marten
     "rede mit navigatorin",
-    "1",
+    "1",  # Kurs (NavigatorinBriefing → has_navigatorin_token)
+    "1",  # Insel
     "frag steuermann nach wetter",
     "nimm fernrohr",
     "untersuche es",
