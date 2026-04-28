@@ -51,19 +51,14 @@ Constant INITIAL_LOCATION_VALUE = Kajuete;
 ! the Z3 status bar. All game Global declarations are therefore placed AFTER
 ! the library includes.
 
-Constant TM_MSG_YOU "Du";
-Constant TM_MSG_TALK_ABOUT_WHAT "Gesprächsthemen:^";
-Constant TM_MSG_TOPICS_DEPLETED "Damit endet euer kurzes Gespräch.";
-Constant TM_MSG_EXIT "Damit beendest du das Gespräch.";
-Constant TM_MSG_NO_TOPICS "Im Moment fällt dir kein passendes Thema ein.";
-Constant TM_MSG_EXIT_OPTION "[ENTER] Gespräch beenden";
-Constant TM_MSG_PAGE_OPTION "[N] Nächste Seite";
-Constant TM_MSG_EXIT_OPTION_SHORT "[ENTER] Ende";
-Constant TM_MSG_PAGE_OPTION_SHORT "[N]ext";
-
 Include "globals.h";
-Include "ext_talk_menu.h";
 Include "puny.h";
+
+! The PunyInform style talk menu
+! Include "ext_talk_menu_inline_de.h";
+
+! The modified inline talk menu, created for Staub/Dust by IkeC
+Include "ext_talk_menu_inline_de.h";
 
 ! Game-specific global variables declared here (after library includes) so that
 ! Z3 global-variable slot ordering is preserved — see note above.
@@ -362,31 +357,40 @@ Object -> OberdeckScenery "Oberdeck"
 		talked_navigatorin = true;
 		has_navigatorin_token = true;
 		if (score < 4) { score = score + 1; }
-		print "^Die Navigatorin nickt. Mit ernstmimischer Miene überreicht sie dir ihren Kompass. Du hast ihn, die Karte und jetzt die drei Berichte der Crew. Alles deutet auf die Insel hin. Es wird Zeit, dass du das Fernrohr nutzt!^";
+		print "^Die Navigatorin nickt. Mit feierlicher Miene überreicht sie dir ihren Kompass. ~Du hast ihn, die Karte und jetzt die drei Berichte der Crew. Alles deutet auf die Insel hin. Es wird Zeit, dass du das Fernrohr nutzst!~";
 	} else {
-		print "^Die Navigatorin zögert. Sprich zuerst mit dem Steuermann. Mir fehlt noch das ganze Bild.^";
+		print "^Die Navigatorin zögert. ~Sprich zuerst mit dem Steuermann. Mir fehlt noch das ganze Bild.~";
 	}
 ];
 
 Array talk_array_Steuermann -->
 	TM_ACTIVE 310 "Wetter"
 		"Was siehst du dort draußen?"
-		"Steuermann Hinnerk kneift die Augen zusammen. Der Wind bleibt ruhig. Gute Sicht nach Osten."
+		"Steuermann Hinnerk kneift die Augen zusammen. ~Der Wind bleibt ruhig. Gute Sicht nach Osten.~"
 		MarkSteuermann
+	TM_ACTIVE 311 "Schiff"
+		"Was ist das für ein Schiff?"
+		"Hinnerk klopft stolz auf das Steuerrad. ~Die Sternwind -- bestes Schiff, das je die See befuhr. Seit zwanzig Jahren bin ich ihr Steuermann.~"
 	TM_END;
 
 Array talk_array_Navigatorin -->
 	TM_ACTIVE 320 "Kurs"
 		"Was ist unser Kurs?"
-		"Navigatorin Elara tippt auf die Seekarte. Der richtige Winkel fehlt noch."
+		"Navigatorin Elara tippt auf die Seekarte. ~Der richtige Winkel fehlt noch.~"
 		NavigatorinBriefing
+	TM_ACTIVE 321 "Insel"
+		"Weißt du etwas über die Insel auf der Karte?"
+		"Elara senkt die Stimme. ~Es heißt, dort liegt ein verborgener Schatz. Marten -- unser früherer Kapitän -- soll ihn dort vergraben haben. Das Fernrohr zeigt dir den Weg.~"
 	TM_END;
 
 Array talk_array_Papagei -->
 	TM_ACTIVE 330 "Spruch"
 		"Was hast du gehört, Molly?"
-		"Der Papagei krächzt laut: Wo ist Marten? BRAAK!"
+		"Der Papagei krächzt laut: ~Wo ist Marten? BRAAK!~"
 		MarkPapagei
+	TM_ACTIVE 331 "Marten"
+		"Wer ist dieser Marten, Molly?"
+		"Molly nickt aufgeregt und krächzt: ~Marten! Schatz! Insel! BRAAK!~ Ein Name und ein Versprechen -- mehr verrät der Vogel nicht."
 	TM_END;
 
 Object -> Steuermann "Steuermann Hinnerk"
@@ -446,7 +450,7 @@ Object -> Fernrohr "Messing-Fernrohr"
 Am Horizont, im letzten Licht der Sonne, liegt eine Insel! Auf einem^
 Felsen erkennst du deutlich ein eingemeiseltes Kreuz -- das Zeichen^
 für einen vergrabenen Schatz.^^";
-			print "Du senkst das Fernrohr und lächelst. Das Abenteuer kann beginnen!^^";
+			print "Du senkst das Fernrohr und lächelst. Das Abenteuer kann beginnen!^";
 				if (score < 5) { score = score + 1; }
 				deadflag = 2;
 				rtrue;

@@ -731,10 +731,14 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 			p_arg_1 = "Du hast:";
 			p_arg_2 = NEWLINE_BIT;
 		}
+		! Inventory items are direct objects of "Du hast" → Akkusativ
+		short_name_case = Akk;
 		if(PrintContents(p_arg_1, player, p_arg_2)) {
+			short_name_case = Nom;
 			if(inventory_style) print ".^";
 			rtrue;
 		}
+		short_name_case = Nom;
 		rfalse;
 #EndIf;
 #IfTrue MSG_EXAMINE_NOTHING_SPECIAL < 1000;

@@ -7,7 +7,7 @@ untersuche alte nadel
 nimm muenzen
 untersuche sie
 lege muenzen auf schreibtisch
-untersuche feinem tuch
+untersuche feines tuch
 nimm muenzen
 untersuche sie
 lege muenzen auf schreibtisch
@@ -36,9 +36,12 @@ warte
 schau
 rede mit steuermann
 1
+1
 rede mit papagei
 1
+1
 rede mit navigatorin
+1
 1
 nimm fernrohr
 untersuche es

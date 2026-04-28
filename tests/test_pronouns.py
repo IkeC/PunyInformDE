@@ -125,9 +125,9 @@ def test_sie_plural_after_previous_feminine_reference(game):
 def test_es_neutrum_fernrohr(game):
     """'es' nach 'nimm fernrohr' → triggers win condition (Fernrohr, Neutrum, itobj)."""
     out = game.run(_UNLOCK_AND_GOTO_OBERDECK + [
-        "talk to steuermann", "1",
-        "talk to papagei", "1",
-        "talk to navigatorin", "1",
+        "talk to steuermann", "1", "1",
+        "talk to papagei", "1", "1",
+        "talk to navigatorin", "1", "1",
         "nimm fernrohr", "untersuche es",
     ])
     assert_output_contains(out, "gewonnen",
