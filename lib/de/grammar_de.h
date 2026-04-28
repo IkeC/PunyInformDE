@@ -299,7 +299,7 @@ Verb 'schalt'
 	* 'aus' noun                                -> SwitchOff;
 
 ! --- Attack ---
-Verb 'hau' 'schlag' 'tritt' 'töt' 'zerstör' 'erschlag'
+Verb 'hau' 'tritt' 'töt' 'zerstör' 'erschlag'
 	* noun                                      -> Attack
 	* noun 'mit' held                           -> Attack;
 
@@ -402,9 +402,11 @@ Verb 'kauf'
 	* noun                                      -> Buy;
 
 ! Consult
-Verb 'schlage'
+Verb 'schlag'
 	* topic 'nach'                              -> Consult
-	* 'in' noun 'nach' topic 'nach'             -> Consult reverse;
+	* 'in' noun 'nach' topic 'nach'             -> Consult reverse
+	* noun                                      -> Attack
+	* noun 'mit' held                           -> Attack;
 
 ! Empty
 Verb 'leer' 'schütt'
@@ -420,7 +422,7 @@ Verb 'bet'
 	*                                           -> Pray;
 
 ! Set / Adjust
-Verb 'stelle'
+Verb 'stell'
 	* noun 'ein'                                -> Set
 	* noun 'auf' topic 'ein'                    -> SetTo;
 
