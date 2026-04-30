@@ -242,6 +242,43 @@ Object -> Koje "Koje"
 			eine alte Kiste, deren Deckel mit einem Anker verziert ist.",
 	has enterable scenery female;
 
+! MANUELLER ARTIKEL: article "dein" (Possessiv-Determinierer)
+! Demonstriert: manuell gesetzte Artikel werden nach Kasus dekliniert.
+!   Nom: "dein Personalausweis"   Akk: "deinen Personalausweis"
+!   Dat: "deinem Personalausweis"
+! Kein has female/neuter → maskulin (Standard).
+Object -> Personalausweis "Personalausweis"
+	with
+		article "dein",
+		name 'ausweis' 'personalausweis' 'pass' 'dokument',
+		description "Du magst dieses alte Foto nicht. Du guckst darauf
+			wie ein Reh im Scheinwerferlicht.",
+	;
+
+! MANUELLER ARTIKEL, FEMININ: article "mein" + has female
+!   Nom: "meine Jacke"   Akk: "meine Jacke"   Dat: "meiner Jacke"
+Object -> Jacke "Jacke"
+	with
+		article "mein",
+		name 'jacke' 'windjacke' 'mantel',
+		description [;
+			print "Du findest nichts Besonderes an ", (DE_Einem) self, ".^";
+			rtrue;
+		],
+	has female;
+
+! MANUELLER ARTIKEL, NEUTRUM: article "sein" + has neuter
+!   Nom: "sein Tagebuch"   Akk: "sein Tagebuch"   Dat: "seinem Tagebuch"
+Object -> Tagebuch "Tagebuch"
+	with
+		article "sein",
+		name 'tagebuch' 'notizbuch' 'buch',
+		description [;
+			print "Du findest nichts Besonderes an ", (DE_Einem) self, ".^";
+			rtrue;
+		],
+	has neuter;
+
 ! FEMININ: has female + has container
 ! Artikeltabelle → "die Seekiste", Indef: "eine Seekiste"
 ! Pronomen → herobj → "öffne sie", "schließ sie"

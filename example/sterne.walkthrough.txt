@@ -17,7 +17,14 @@ lege alten kompass auf schreibtisch
 nimm karte
 untersuche alte karte
 untersuche karte
+nimm ausweis
+untersuche ausweis
+nimm jacke
 inventar
+untersuche jacke
+nimm tagebuch
+inventar
+untersuche tagebuch
 untersuche koje
 untersuche kiste
 schau in kiste

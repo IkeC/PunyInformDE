@@ -162,3 +162,91 @@ def test_no_article_property_needed(game):
     assert_output_contains(out, "Kompass",
         msg="Kompass (kein article-Property) sollte erkennbar sein")
     assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+# ---------------------------------------------------------------------------
+# Manuell gesetzter Artikel: article "dein" (Possessiv-Determinierer)
+# ---------------------------------------------------------------------------
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_indef_akkusativ_inventar(game):
+    """Manuell gesetzter Artikel wird im Akkusativ korrekt dekliniert.
+
+    article "dein" (maskulin) → Inventar zeigt 'deinen Personalausweis'.
+    'Du hast X' verlangt Akkusativ, daher 'deinen' statt 'dein'.
+    """
+    out = game.run(["nimm ausweis", "inventar"])
+    # "Du hast deinen Personalausweis" proves both the accusative form and the context
+    assert_output_contains(out, "Du hast deinen Personalausweis",
+        msg="Manueller Artikel Akk: erwartet 'Du hast deinen Personalausweis' im Inventar")
+
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_indef_nominativ_raum(game):
+    """Manuell gesetzter Artikel im Nominativ (Raumliste): 'dein Personalausweis'."""
+    out = game.run(["schau"])
+    assert_output_contains(out, "dein Personalausweis",
+        msg="Manueller Artikel Nom: erwartet 'dein Personalausweis' in der Raumliste")
+
+
+# ---------------------------------------------------------------------------
+# Manuell gesetzter Artikel: article "mein" + has female (Feminin)
+#   Nom: "meine Jacke"   Akk: "meine Jacke"   Dat: "meiner Jacke"
+# ---------------------------------------------------------------------------
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_feminin_nominativ_raum(game):
+    """Feminin + article 'mein': Raumliste zeigt 'meine Jacke'."""
+    out = game.run(["schau"])
+    assert_output_contains(out, "meine Jacke",
+        msg="Manueller Artikel Feminin Nom: erwartet 'meine Jacke' in der Raumliste")
+
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_feminin_akkusativ_inventar(game):
+    """Feminin + article 'mein': Inventar zeigt 'meine Jacke' (Akk == Nom für Feminin)."""
+    out = game.run(["nimm jacke", "inventar"])
+    assert_output_contains(out, "Du hast meine Jacke",
+        msg="Manueller Artikel Feminin Akk: erwartet 'Du hast meine Jacke'")
+
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_feminin_dativ_examine(game):
+    """Feminin + article 'mein': Description-Funktion zeigt 'meiner Jacke' (Dativ unbestimmt)."""
+    out = game.run(["untersuche jacke"])
+    assert_output_contains(out, "meiner Jacke",
+        msg="Manueller Artikel Feminin Dat: erwartet 'meiner Jacke' in Examine-Antwort")
+
+
+# ---------------------------------------------------------------------------
+# Manuell gesetzter Artikel: article "sein" + has neuter (Neutrum)
+#   Nom: "sein Tagebuch"   Akk: "sein Tagebuch"   Dat: "seinem Tagebuch"
+# ---------------------------------------------------------------------------
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_neutrum_nominativ_raum(game):
+    """Neutrum + article 'sein': Raumliste enthält 'sein Tagebuch' (Nom == Akk für Neutrum).
+
+    Geprüft über Inventar ('Du hast sein Tagebuch') statt direkte Raumliste,
+    da die Raumliste 'sein' und 'Tagebuch' an einer Zeilenumbruchsgrenze trennen kann.
+    """
+    out = game.run(["nimm tagebuch", "inventar"])
+    # Nom == Akk für Neutrum: "sein Tagebuch" in beiden Positionen korrekt
+    assert_output_contains(out, "Du hast sein Tagebuch",
+        msg="Manueller Artikel Neutrum Nom/Akk: erwartet 'Du hast sein Tagebuch'")
+
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_neutrum_akkusativ_inventar(game):
+    """Neutrum + article 'sein': Inventar zeigt 'sein Tagebuch' (Akk == Nom für Neutrum)."""
+    out = game.run(["nimm tagebuch", "inventar"])
+    assert_output_contains(out, "Du hast sein Tagebuch",
+        msg="Manueller Artikel Neutrum Akk: erwartet 'Du hast sein Tagebuch'")
+
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_neutrum_dativ_examine(game):
+    """Neutrum + article 'sein': Description-Funktion zeigt 'seinem Tagebuch' (Dativ unbestimmt)."""
+    out = game.run(["untersuche tagebuch"])
+    assert_output_contains(out, "seinem Tagebuch",
+        msg="Manueller Artikel Neutrum Dat: erwartet 'seinem Tagebuch' in Examine-Antwort")
