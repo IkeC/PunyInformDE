@@ -162,3 +162,193 @@ def test_no_article_property_needed(game):
     assert_output_contains(out, "Kompass",
         msg="Kompass (kein article-Property) sollte erkennbar sein")
     assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+# ---------------------------------------------------------------------------
+# Manuell gesetzter Artikel: article "dein" (Possessiv-Determinierer)
+# ---------------------------------------------------------------------------
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_indef_akkusativ_inventar(game):
+    """Manuell gesetzter Artikel wird im Akkusativ korrekt dekliniert.
+
+    article "dein" (maskulin) → Inventar zeigt 'deinen Personalausweis'.
+    'Du hast X' verlangt Akkusativ, daher 'deinen' statt 'dein'.
+    """
+    out = game.run(["nimm ausweis", "inventar"])
+    # "Du hast deinen Personalausweis" proves both the accusative form and the context
+    assert_output_contains(out, "Du hast deinen Personalausweis",
+        msg="Manueller Artikel Akk: erwartet 'Du hast deinen Personalausweis' im Inventar")
+
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_indef_nominativ_raum(game):
+    """Manuell gesetzter Artikel im Nominativ (Raumliste): 'dein Personalausweis'."""
+    out = game.run(["schau"])
+    assert_output_contains(out, "dein Personalausweis",
+        msg="Manueller Artikel Nom: erwartet 'dein Personalausweis' in der Raumliste")
+
+
+# ---------------------------------------------------------------------------
+# Manuell gesetzter Artikel: article "mein" + has female (Feminin)
+#   Nom: "meine Jacke"   Akk: "meine Jacke"   Dat: "meiner Jacke"
+# ---------------------------------------------------------------------------
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_feminin_nominativ_raum(game):
+    """Feminin + article 'mein': Raumliste zeigt 'meine Jacke'."""
+    out = game.run(["schau"])
+    assert_output_contains(out, "meine Jacke",
+        msg="Manueller Artikel Feminin Nom: erwartet 'meine Jacke' in der Raumliste")
+
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_feminin_akkusativ_inventar(game):
+    """Feminin + article 'mein': Inventar zeigt 'meine Jacke' (Akk == Nom für Feminin)."""
+    out = game.run(["nimm jacke", "inventar"])
+    assert_output_contains(out, "Du hast meine Jacke",
+        msg="Manueller Artikel Feminin Akk: erwartet 'Du hast meine Jacke'")
+
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_feminin_dativ_examine(game):
+    """Feminin + article 'mein': Description-Funktion zeigt 'meiner Jacke' (Dativ unbestimmt)."""
+    out = game.run(["untersuche jacke"])
+    assert_output_contains(out, "meiner Jacke",
+        msg="Manueller Artikel Feminin Dat: erwartet 'meiner Jacke' in Examine-Antwort")
+
+
+# ---------------------------------------------------------------------------
+# Manuell gesetzter Artikel: article "sein" + has neuter (Neutrum)
+#   Nom: "sein Tagebuch"   Akk: "sein Tagebuch"   Dat: "seinem Tagebuch"
+# ---------------------------------------------------------------------------
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_neutrum_nominativ_raum(game):
+    """Neutrum + article 'sein': Raumliste enthält 'sein Tagebuch' (Nom == Akk für Neutrum).
+
+    Geprüft über Inventar ('Du hast sein Tagebuch') statt direkte Raumliste,
+    da die Raumliste 'sein' und 'Tagebuch' an einer Zeilenumbruchsgrenze trennen kann.
+    """
+    out = game.run(["nimm tagebuch", "inventar"])
+    # Nom == Akk für Neutrum: "sein Tagebuch" in beiden Positionen korrekt
+    assert_output_contains(out, "Du hast sein Tagebuch",
+        msg="Manueller Artikel Neutrum Nom/Akk: erwartet 'Du hast sein Tagebuch'")
+
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_neutrum_akkusativ_inventar(game):
+    """Neutrum + article 'sein': Inventar zeigt 'sein Tagebuch' (Akk == Nom für Neutrum)."""
+    out = game.run(["nimm tagebuch", "inventar"])
+    assert_output_contains(out, "Du hast sein Tagebuch",
+        msg="Manueller Artikel Neutrum Akk: erwartet 'Du hast sein Tagebuch'")
+
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_neutrum_dativ_examine(game):
+    """Neutrum + article 'sein': Description-Funktion zeigt 'seinem Tagebuch' (Dativ unbestimmt)."""
+    out = game.run(["untersuche tagebuch"])
+    assert_output_contains(out, "seinem Tagebuch",
+        msg="Manueller Artikel Neutrum Dat: erwartet 'seinem Tagebuch' in Examine-Antwort")
+
+
+# ---------------------------------------------------------------------------
+# (The) in before-Handler: Akkusativ statt Nominativ
+# ---------------------------------------------------------------------------
+
+@pytest.mark.feature("articles")
+def test_the_in_before_handler_uses_akkusativ(game):
+    """(The) noun in einem before-Handler verwendet Akkusativ, nicht Nominativ.
+
+    Drop-Handler des Personalausweis: print_ret (The) noun, " behältst du besser bei dir."
+    Maskulin → Akk: "Den Personalausweis behältst du besser bei dir."
+    Vor dem Fix lautete die Ausgabe: "Der Personalausweis ..." (Nominativ, falsch).
+    """
+    out = game.run(["nimm ausweis", "wirf ausweis"])
+    # "Den" (Akk masc) must appear — only the article word itself, no umlauts needed
+    assert_output_contains(out, "Den Personalausweis",
+        msg="(The) in before-Handler: erwartet Akkusativ 'Den', nicht Nominativ 'Der'")
+    assert_output_not_contains(out, "Der Personalausweis beh",
+        msg="Nominativ 'Der Personalausweis beh...' darf nicht erscheinen")
+
+
+@pytest.mark.feature("articles")
+def test_raum_listing_nach_aktion_verwendet_nominativ(game):
+    """Nach einer Aktion verwendet die Raumliste weiterhin Nominativ für Objekte.
+
+    Regression: short_name_case nach Aktion muss auf Nom zurückgesetzt werden,
+    damit die Raumliste maskuline Objekte korrekt als 'ein Kompass' zeigt,
+    nicht als 'einen Kompass' (Akk).
+    """
+    # Ausweis nehmen (setzt short_name_case = Akk) → dann schau
+    out = game.run(["nimm ausweis", "lege ausweis ab", "schau"])
+    assert_output_contains(out, "dein Personalausweis",
+        msg="Raumliste nach Aktion: erwartet 'dein Personalausweis' in Nom-Form")
+
+
+# ---------------------------------------------------------------------------
+# (the)/(The)/(a)/(A) Akkusativ-Varianten: before- und after-Handler
+#
+# Maskulin ist der einzige Fall, bei dem sich bestimmter und unbestimmter
+# Artikel zwischen Nominativ und Akkusativ sichtbar unterscheiden:
+#   def:   Nom "der/Der" ≠ Akk "den/Den"
+#   indef: Nom "ein/Ein" ≠ Akk "einen/Einen"
+# Feminin und Neutrum haben identische Formen → kein Unterschied sichtbar.
+# ---------------------------------------------------------------------------
+
+@pytest.mark.feature("articles")
+def test_the_lowercase_in_before_handler_uses_akkusativ(game):
+    """(the) noun (lowercase) in before-Handler → Akkusativ, nicht Nominativ.
+
+    Kompass-Drop-Handler: print_ret "Nein, ", (the) noun, " brauchst du noch."
+    Maskulin + adj "alt": Akk = "den alten Kompass", Nom = "der alte Kompass".
+    """
+    out = game.run(["nimm kompass", "wirf kompass"])
+    assert_output_contains(out, "den alten Kompass",
+        msg="(the) in before-Handler: erwartet 'den alten Kompass' (Akk)")
+    assert_output_not_contains(out, "der alte Kompass",
+        msg="Nominativ 'der alte Kompass' darf nicht erscheinen")
+
+
+@pytest.mark.feature("articles")
+def test_the_lowercase_in_after_handler_uses_akkusativ(game):
+    """(the) noun in after-Handler → Akkusativ, nicht Nominativ.
+
+    Kompass-Take-after-Handler: print_ret "Jetzt hast du ", (the) noun, "."
+    Maskulin + adj "alt": Akk = "den alten Kompass", Nom = "der alte Kompass".
+    Testet, dass PerformPreparedAction auch after-Routinen im Akk-Kontext ausführt.
+    """
+    out = game.run(["nimm kompass"])
+    assert_output_contains(out, "Jetzt hast du den alten Kompass",
+        msg="(the) in after-Handler: erwartet 'den alten Kompass' (Akk)")
+    assert_output_not_contains(out, "Jetzt hast du der alte Kompass",
+        msg="Nominativ 'der alte Kompass' im after-Handler darf nicht erscheinen")
+
+
+@pytest.mark.feature("articles")
+def test_the_lowercase_in_before_handler_uses_akkusativ_ring(game):
+    """(the) noun (lowercase def) in before-Handler → Akkusativ, nicht Nominativ.
+
+    Ring-Drop-Handler: print_ret "Du brauchst ", (the) noun, " noch."
+    Maskulin + adj "klein": Akk = "den kleinen Ring", Nom = "der kleine Ring".
+    """
+    out = game.run(["nimm ring", "wirf ring"])
+    assert_output_contains(out, "den kleinen Ring",
+        msg="(the) in before-Handler: erwartet 'den kleinen Ring' (Akk)")
+    assert_output_not_contains(out, "der kleine Ring",
+        msg="Nominativ 'der kleine Ring' darf nicht erscheinen")
+
+
+@pytest.mark.feature("articles")
+def test_The_uppercase_in_before_handler_uses_akkusativ_with_adj(game):
+    """(The) noun (uppercase def) in before-Handler eines anderen Objekts → Akkusativ.
+
+    Schlüssel-Drop-Handler: print_ret (The) noun, " brauchst du noch."
+    Maskulin + adj "klein": Akk = "Den kleinen", Nom = "Der kleine".
+    Testet denselben Format-Spezifikator auf einem zweiten Objekt mit Adjektiv.
+    """
+    out = game.run(["oeffne kiste", "nimm schluessel", "wirf schluessel"])
+    assert_output_contains(out, "Den kleinen",
+        msg="(The) auf Schlüssel: erwartet 'Den kleinen' (Akk)")
+    assert_output_not_contains(out, "Der kleine",
+        msg="Nominativ 'Der kleine' darf nicht erscheinen")

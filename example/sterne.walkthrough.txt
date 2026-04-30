@@ -3,6 +3,8 @@ riech
 hör
 untersuche schreibtisch
 untersuche ring
+nimm ring
+wirf ring
 untersuche alte nadel
 nimm münzen
 untersuche sie
@@ -13,11 +15,21 @@ untersuche sie
 lege münzen auf schreibtisch
 nimm kompass
 untersuche ihn
+wirf kompass
 lege alten kompass auf schreibtisch
 nimm karte
 untersuche alte karte
 untersuche karte
+nimm ausweis
+untersuche ausweis
+wirf ausweis
+nimm ausweis
+nimm jacke
 inventar
+untersuche jacke
+nimm tagebuch
+inventar
+untersuche tagebuch
 untersuche koje
 untersuche kiste
 schau in kiste
@@ -25,6 +37,7 @@ schau in kiste
 untersuche sie
 nimm kleinen schlüssel
 untersuche ihn
+wirf kleinen schlüssel
 schließ tür mit schlüssel auf
 öffne tür
 nord

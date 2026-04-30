@@ -93,6 +93,18 @@ Array DE_IndefArticles -->
 ;
 
 ! ---------------------------------------------------------------------------
+! Endungen für Stamm-Artikel (article "dein", "mein", "kein" usw.).
+! Folgt der "ein-"-Systematik ohne Basislexem.
+!
+!           mask.   fem.    Neut.   Plural
+! ---------------------------------------------------------------------------
+Array DE_IndefStemEndings -->
+    ""     "e"    ""     ""    ! Nominativ (Index 0..3)
+    "en"   "e"    ""     ""    ! Akkusativ (Index 4..7)
+    "em"   "er"   "em"   ""    ! Dativ     (Index 8..11)
+;
+
+! ---------------------------------------------------------------------------
 ! _DE_IndefArtStr -- gibt den richtigen unbestimmten Artikel als String zurück,
 !   unter Berücksichtigung einer optionalen article-Override-Eigenschaft.
 !
@@ -106,8 +118,8 @@ Array DE_IndefArticles -->
 [ _DE_IndefArtStr p_obj p_case p_plural_dative   g s;
     ! Override: article 0 → kein Artikel
     if (p_obj.&article && p_obj.article == 0) return 0;
-    ! Override: article "string" → Legacy-Eigenschaft, nur für Nominativ
-    if (p_obj.&article && p_obj.article ofclass String) return p_obj.article;
+    ! Override: article "string" → Stamm, wird fallabhängig dekliniert (→ -3)
+    if (p_obj.&article && p_obj.article ofclass String) return -3;
     g = DE_Gender(p_obj);
     ! Plural: kein unbestimmter Artikel → "einige"/"einigen"
     if (g == 3) {
@@ -227,12 +239,11 @@ Constant DE_MODE_BARE  = 2;
         print "einige ";
     } else if (_s == -2) {
         print "einigen ";
+    } else if (_s == -3) {
+        print (string) p_obj.article;
+        print (string) (DE_IndefStemEndings-->(p_case * 4 + _g)); print " ";
     } else {
         print (string) _s; print " ";
-        if (p_obj.&article && p_obj.article ofclass String) {
-            ! Bei freier String-Überschreibung keine automatische Adjektiv-Flexion erzwingen.
-            _mode = -1;
-        }
     }
 
     if (_mode >= 0) _DE_PrintAdjList(p_obj, _mode, p_case, _g);
