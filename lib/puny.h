@@ -1315,7 +1315,7 @@ Include "parser.h";
 
 [ ActionPrimitive; return indirect(#actions_table-->action); ];
 
-[ PerformPreparedAction _ret_val _action_returned;
+[ PerformPreparedAction _ret_val _action_returned _saved_snc;
 #IfDef DEBUG;
 	if(debug_flag & 2) TraceAction();
 #EndIf;
@@ -1325,6 +1325,8 @@ Include "parser.h";
 		input_second = second;
 		input_direction = selected_direction;
 	}
+	_saved_snc = short_name_case;
+	short_name_case = Akk;
 	if ((meta || (BeforeRoutines() == false)) && action < 4096) {
 		@push run_after_routines_msg; @push run_after_routines_arg_1;
 		run_after_routines_msg = 0;
@@ -1342,6 +1344,7 @@ Include "parser.h";
 		@pull run_after_routines_arg_1; @pull run_after_routines_msg;
 		_ret_val = true; ! could run the command
 	}
+	short_name_case = _saved_snc;
 	return _ret_val;
 ];
 

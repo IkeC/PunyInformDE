@@ -7,6 +7,8 @@
 ! Demonstriert: Räume, Behälter, Träger, verschlossene Türen, betretbare Objekte,
 ! Pronomensubstitution, Artikelsystem, NPC-Gespräche (ext_talk_menu),
 ! Punkte, und konversations-abhängige Spiellogik.
+!
+! Dieses Spiel darf durch jedermann ohne Einschränkung verändert werden.
 
 ! Custom alphabet table — must come before any string literal (even Story).
 ! Puts German umlauts in A0 (cheapest row) for smaller Z5 story files.
@@ -188,7 +190,18 @@ Object -> -> Kompass "Kompass"
 		adj "alt",
 		description "Ein alter Messing-Kompass mit einer zuverlässigen Nadel.
 			Auf dem Gehäuse ist ein Anker eingraviert.",
-	;
+		before [;
+			Drop:
+				! (the) noun im Akkusativ-Kontext (before-Handler)
+				! Erwartet: "den alten Kompass" (Akk), nicht "der alte Kompass" (Nom)
+				print_ret "Nein, ", (the) noun, " brauchst du noch.";
+		],
+		after [;
+			Take:
+				! (the) noun im Akkusativ-Kontext (after-Handler)
+				! Erwartet: "den alten Kompass" (Akk), nicht "der alte Kompass" (Nom)
+				print_ret "Jetzt hast du ", (the) noun, ".";
+		];
 ! Hinweis: kein has female/neuter → maskulin (Standard) → "ein alter Kompass"
 
 ! PLURAL: has pluralname
@@ -215,7 +228,12 @@ Object -> -> Ring "Ring"
 	with
 		name 'ring' 'klein',
 		adj "klein",
-	;
+		before [;
+			Drop:
+				! (the) noun im Akkusativ-Kontext (before-Handler)
+				! Erwartet: "den kleinen Ring" (Akk Def), nicht "der kleine Ring" (Nom)
+				print_ret "Du brauchst ", (the) noun, " noch.";
+		];
 
 ! Feminin, ohne eigene description:
 ! Examine → "... an der alten Nadel"
@@ -253,6 +271,11 @@ Object -> Personalausweis "Personalausweis"
 		name 'ausweis' 'personalausweis' 'pass' 'dokument',
 		description "Du magst dieses alte Foto nicht. Du guckst darauf
 			wie ein Reh im Scheinwerferlicht.",
+		before [;
+			Drop:
+				! (The) noun in Akkusativ-Kontext: "Den Personalausweis behältst du besser bei dir."
+				print_ret (The) noun, " behältst du besser bei dir.";
+		],
 	;
 
 ! MANUELLER ARTIKEL, FEMININ: article "mein" + has female
@@ -300,6 +323,12 @@ Object -> -> Schluessel "Schlüssel"
 		adj "klein",
 		description "Ein kleiner Messingschlüssel mit einem Ankeranhänger --
 			passend zu dem alten Schloss an der Kajütentür.",
+		before [;
+			Drop:
+				! (The) noun im Akkusativ-Kontext (before-Handler)
+				! Erwartet: "Den kleinen" (Akk Def Kapital), nicht "Der kleine" (Nom)
+				print_ret (The) noun, " brauchst du noch.";
+		],
 		after [;
 			Take: if (score < 1) { score = score + 1; } rfalse;
 		];

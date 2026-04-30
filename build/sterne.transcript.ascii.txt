@@ -43,6 +43,12 @@ Darauf liegen eine Seekarte, ein alter Kompass und einige Goldmuenzen.
 > untersuche ring
 Du erkennst nichts Besonderes an dem kleinen Ring.
 
+> nimm ring
+Genommen.
+
+> wirf ring
+Du brauchst den kleinen Ring noch.
+
 > untersuche alte nadel
 Du erkennst nichts Besonderes an der alten Nadel.
 
@@ -68,11 +74,14 @@ Fuenf glaenzende Goldmuenzen mit dem Abbild eines Seeadlers.
 Du legst die Goldmuenzen auf den Schreibtisch.
 
 > nimm kompass
-Genommen.
+Jetzt hast du den alten Kompass.
 
 > untersuche ihn
 Ein alter Messing-Kompass mit einer zuverlaessigen Nadel. Auf dem Gehaeuse ist
 ein Anker eingraviert.
+
+> wirf kompass
+Nein, den alten Kompass brauchst du noch.
 
 > lege alten kompass auf schreibtisch
 Du legst den alten Kompass auf den Schreibtisch.
@@ -97,11 +106,18 @@ Genommen.
 Du magst dieses alte Foto nicht. Du guckst darauf wie ein Reh im
 Scheinwerferlicht.
 
+> wirf ausweis
+Den Personalausweis behaeltst du besser bei dir.
+
+> nimm ausweis
+Du hast ihn bereits.
+
 > nimm jacke
 Genommen.
 
 > inventar
-Du hast meine Jacke, deinen Personalausweis und eine alte Seekarte.
+Du hast meine Jacke, deinen Personalausweis, eine alte Seekarte und einen
+kleinen Ring.
 
 > untersuche jacke
 Du findest nichts Besonderes an meiner Jacke.
@@ -110,8 +126,8 @@ Du findest nichts Besonderes an meiner Jacke.
 Genommen.
 
 > inventar
-Du hast sein Tagebuch, meine Jacke, deinen Personalausweis und eine alte
-Seekarte.
+Du hast sein Tagebuch, meine Jacke, deinen Personalausweis, eine alte Seekarte
+und einen kleinen Ring.
 
 > untersuche tagebuch
 Du findest nichts Besonderes an seinem Tagebuch.
@@ -142,6 +158,9 @@ Genommen.
 > untersuche ihn
 Ein kleiner Messingschluessel mit einem Ankeranhaenger -- passend zu dem alten
 Schloss an der Kajuetentuer.
+
+> wirf kleinen schluessel
+Den kleinen Schluessel brauchst du noch.
 
 > schliess tuer mit schluessel auf
 Du schliesst die Kajuetentuer auf.
@@ -276,7 +295,7 @@ Du senkst das Fernrohr und laechelst. Das Abenteuer kann beginnen!
 
   *** Du hast gewonnen ***
 
-In diesem Spiel hast du 5 von 5 moeglichen Punkten erreicht, in 48 Zuegen.
+In diesem Spiel hast du 5 von 5 moeglichen Punkten erreicht, in 54 Zuegen.
 
 Moechtest du NEUSTART, WIEDERHERSTELLEN oder BEENDEN? 
 

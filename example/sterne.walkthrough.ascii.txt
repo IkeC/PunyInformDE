@@ -3,6 +3,8 @@ riech
 hoer
 untersuche schreibtisch
 untersuche ring
+nimm ring
+wirf ring
 untersuche alte nadel
 nimm muenzen
 untersuche sie
@@ -13,12 +15,15 @@ untersuche sie
 lege muenzen auf schreibtisch
 nimm kompass
 untersuche ihn
+wirf kompass
 lege alten kompass auf schreibtisch
 nimm karte
 untersuche alte karte
 untersuche karte
 nimm ausweis
 untersuche ausweis
+wirf ausweis
+nimm ausweis
 nimm jacke
 inventar
 untersuche jacke
@@ -32,6 +37,7 @@ oeffne kiste
 untersuche sie
 nimm kleinen schluessel
 untersuche ihn
+wirf kleinen schluessel
 schliess tuer mit schluessel auf
 oeffne tuer
 nord

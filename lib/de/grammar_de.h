@@ -16,6 +16,7 @@ System_file;
 ! ---------------------------------------------------------------------------
 
 [ _ListObjsMsg p_parent  _count;
+	short_name_case = Nom;
 	_count = PrintContents(1, p_parent, 0); ! count without printing
 	print "^";
 	if(_count == 2) print "Hier befinden sich ";
@@ -27,7 +28,9 @@ System_file;
 	_count = PrintContents(1, p_parent, 0);
 	print "^";
 	if(p_parent has supporter) print "Auf "; else print "In ";
+	short_name_case = Dat;
 	print (the) p_parent;
+	short_name_case = Nom;
 	if(_count == 2) print " befinden sich "; else print " ist ";
 	if(also_flag) print "auch ";
 ];
