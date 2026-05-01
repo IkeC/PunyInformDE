@@ -136,6 +136,25 @@ Du findest nichts Besonderes an seinem Tagebuch.
 Eine schmale Koje mit einer duennen Matratze. Darunter steht eine alte Kiste,
 deren Deckel mit einem Anker verziert ist.
 
+> steig in koje
+Du gehst in die Koje.
+
+> schau
+Die Kapitaenskajuete (in der Koje)
+Die enge Kajuete des Kapitaens auf dem Segelschiff Sternwind. Ein alter
+Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine
+hoelzerne Koje liegt an der Ostwand. Eine schwere Eichentuer fuehrt nach Norden
+in den Schiffsgang.
+
+Hier befinden sich eine Kajuetentuer, unser Logbuch und eine Seekiste
+(geschlossen).
+
+> raus
+Du verlaesst die Koje.
+
+> geh in kiste
+Das geht nicht, da die Seekiste geschlossen ist.
+
 > untersuche kiste
 Eine alte, schwere Seekiste. Der Deckel ist mit einem geschnitzten Anker
 verziert.
@@ -146,9 +165,11 @@ Du kannst nicht reinschauen, die Seekiste ist geschlossen.
 > oeffne kiste
 Du oeffnest die Seekiste und siehst einen kleinen Schluessel.
 
-> untersuche sie
-Eine alte, schwere Seekiste. Der Deckel ist mit einem geschnitzten Anker
-verziert.
+> steig in kiste
+Du gehst in die Seekiste.
+
+> raus
+Du verlaesst die Seekiste.
 
 > nimm kleinen schluessel
 Genommen.
@@ -161,6 +182,9 @@ Schloss an der Kajuetentuer.
 
 > wirf kleinen schluessel
 Den kleinen Schluessel brauchst du noch.
+
+> schliess kiste
+Du schliesst die Seekiste.
 
 > schliess tuer mit schluessel auf
 Du schliesst die Kajuetentuer auf.
@@ -293,10 +317,8 @@ Du senkst das Fernrohr und laechelst. Das Abenteuer kann beginnen!
 [Du hast 1 Punkt erhalten.]
 
 
-  *** Du hast gewonnen ***
+  *** Du hast gewonnen! ***
 
-In diesem Spiel hast du 5 von 5 moeglichen Punkten erreicht, in 54 Zuegen.
-
-Moechtest du NEUSTART, WIEDERHERSTELLEN oder BEENDEN? 
+In diesem Spiel hast du 5 von 5 moeglichen Punkten erreicht, in 60 Zuegen.
 
 Moechtest du NEUSTART, WIEDERHERSTELLEN oder BEENDEN? 

@@ -1,6 +1,5 @@
 {
   "github.pullRequests.remotes": ["origin"],
-  "githubPullRequests.pullRequestDefaults": {
-    "base": "main"
-  }
+  "github.pullRequests.defaultBase": "main",
+  "github.pullRequests.defaultMergeMethod": "squash"
 }

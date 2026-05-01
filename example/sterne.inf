@@ -324,7 +324,7 @@ Object -> Kiste "Seekiste"
 		name 'kiste' 'seekiste' 'truhe',
 		description "Eine alte, schwere Seekiste. Der Deckel ist mit einem
 			geschnitzten Anker verziert.",
-	has container openable female;
+	has container openable enterable female;
 
 ! MASKULIN: kein has female/neuter
 ! Artikeltabelle → "der Schlüssel", Indef: "ein kleiner Schlüssel"

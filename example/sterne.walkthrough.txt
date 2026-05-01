@@ -31,13 +31,19 @@ nimm tagebuch
 inventar
 untersuche tagebuch
 untersuche koje
+steig in koje
+schau
+raus
+geh in kiste
 untersuche kiste
 schau in kiste
 öffne kiste
-untersuche sie
+steig in kiste
+raus
 nimm kleinen schlüssel
 untersuche ihn
 wirf kleinen schlüssel
+schließ kiste
 schließ tür mit schlüssel auf
 öffne tür
 nord
@@ -58,4 +64,3 @@ rede mit navigatorin
 1
 nimm fernrohr
 untersuche es
-
