@@ -24,6 +24,15 @@ System_file;
 	if(also_flag) print "auch ";
 ];
 
+[ _PrintInOnContext p_obj;
+	if(p_obj has supporter) print " (auf ";
+	else print " (in ";
+	short_name_case = Dat;
+	print (the) p_obj;
+	short_name_case = Nom;
+	print ")";
+];
+
 [ _ListObjsInOnMsg p_parent  _count;
 	_count = PrintContents(1, p_parent, 0);
 	print "^";
@@ -35,16 +44,26 @@ System_file;
 	if(also_flag) print "auch ";
 ];
 
+! PrintVerb — translates built-in abbreviation words to German for VerbName().
+! Defined here (before Include "grammar.h") so the #Ifdef PrintVerb guard
+! in grammar.h:VerbName() is satisfied.
+[ PrintVerb p_v;
+	switch(p_v) {
+		'x//':       print "untersuche"; rtrue;
+		'examine':   print "untersuche"; rtrue; ! Z3
+		'l//':       print "schau";     rtrue;
+		'z//':       print "warte";     rtrue;
+		'g//':       print "nochmal";   rtrue;
+		'q//':       print "beende";    rtrue;
+		'i//':       print "inventar";  rtrue;
+		'inventory': print "inventar";  rtrue; ! Z3
+		'superbrief': print "superknapp"; rtrue;
+	}
+	rfalse;
+];
+
 ! Include the base English grammar (actions and action subs)
 Include "grammar.h";
-
-! ---------------------------------------------------------------------------
-! PrintVerb is intentionally NOT defined here.
-! VerbName() in grammar.h will print German verb words naturally by calling
-! print (address) p_v, which gives the correct German verb word.
-! If you need to override how a specific verb is printed, define PrintVerb
-! in your game file before including globals.h.
-! ---------------------------------------------------------------------------
 
 ! German meta verbs
 ! ---------------------------------------------------------------------------
@@ -197,6 +216,10 @@ Verb 'verlass'
 	*                                           -> Exit
 	* noun                                      -> Exit;
 
+Verb 'raus' 'heraus' 'hinaus'
+	*                                           -> Exit
+	* noun                                      -> Exit;
+
 Verb 'betret' 'betritt'
 	* noun                                      -> Enter;
 
@@ -311,7 +334,8 @@ Verb 'kletter' 'steig'
 	* noun                                      -> Climb
 	* 'hoch' noun                               -> Climb
 	* noun 'hoch'                               -> Climb
-	* 'auf' noun                                -> Enter;
+	* 'auf' noun                                -> Enter
+	* 'in' noun                                 -> Enter;
 
 ! --- Jump ---
 Verb 'spring'

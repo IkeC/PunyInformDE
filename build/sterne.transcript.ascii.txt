@@ -136,6 +136,22 @@ Du findest nichts Besonderes an seinem Tagebuch.
 Eine schmale Koje mit einer duennen Matratze. Darunter steht eine alte Kiste,
 deren Deckel mit einem Anker verziert ist.
 
+> steig in koje
+Du gehst in die Koje.
+
+> schau
+Die Kapitaenskajuete (in der Koje)
+Die enge Kajuete des Kapitaens auf dem Segelschiff Sternwind. Ein alter
+Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine
+hoelzerne Koje liegt an der Ostwand. Eine schwere Eichentuer fuehrt nach Norden
+in den Schiffsgang.
+
+Hier befinden sich eine Kajuetentuer, unser Logbuch und eine Seekiste
+(geschlossen).
+
+> raus
+Du verlaesst die Koje.
+
 > untersuche kiste
 Eine alte, schwere Seekiste. Der Deckel ist mit einem geschnitzten Anker
 verziert.
@@ -295,8 +311,6 @@ Du senkst das Fernrohr und laechelst. Das Abenteuer kann beginnen!
 
   *** Du hast gewonnen ***
 
-In diesem Spiel hast du 5 von 5 moeglichen Punkten erreicht, in 54 Zuegen.
-
-Moechtest du NEUSTART, WIEDERHERSTELLEN oder BEENDEN? 
+In diesem Spiel hast du 5 von 5 moeglichen Punkten erreicht, in 57 Zuegen.
 
 Moechtest du NEUSTART, WIEDERHERSTELLEN oder BEENDEN? 

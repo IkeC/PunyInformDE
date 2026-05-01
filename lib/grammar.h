@@ -1757,6 +1757,14 @@ Constant _REAL_LOCATION_TEXT " *** real_location ***";
 ];
 #EndIf;
 
+#IfNDef _PrintInOnContext;
+[ _PrintInOnContext p_obj;
+	if(p_obj has supporter) print " (on ";
+	else print " (in ";
+	print (the) p_obj, ")";
+];
+#EndIf;
+
 #IfNDef _ListObjsInOnMsg;
 [ _ListObjsInOnMsg p_parent;
 	print "^";
@@ -1810,11 +1818,7 @@ Constant _REAL_LOCATION_TEXT " *** real_location ***";
 #Endif;
 	_obj = parent(player);
 	while(_obj ~= _ceil or 0) {
-		if(_obj has supporter)
-			print " (on ";
-		else
-			print " (in ";
-		print (the) _obj, ")";
+		_PrintInOnContext(_obj);
 		_obj = parent(_obj);
 	}
 	new_line;

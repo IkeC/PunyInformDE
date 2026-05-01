@@ -385,3 +385,23 @@ def test_The_uppercase_in_before_handler_uses_akkusativ_with_adj(game):
         msg="(The) auf Schlüssel: erwartet 'Den kleinen' (Akk)")
     assert_output_not_contains(out, "Der kleine",
         msg="Nominativ 'Der kleine' darf nicht erscheinen")
+
+
+# ---------------------------------------------------------------------------
+# Issue #6: Raumname-Kontext bei betretbaren Objekten (Dativ nach "in"/"auf")
+# ---------------------------------------------------------------------------
+
+@pytest.mark.feature("articles")
+def test_room_context_in_enterable_uses_dativ(game):
+    """Raumname nach Betreten eines Containers: Dativ statt Akkusativ/Nominativ.
+
+    Issue #6: Bei einem femininen betretbaren Objekt (Koje, has female) muss
+    der Raumkopf "(in der Koje)" lauten, nicht "(in die Koje)" (Akk)
+    oder "(in die Koje)" (Nom).
+    Dativ feminin bestimmt = "der".
+    """
+    out = game.run(["betret koje", "schau"])
+    assert_output_contains(out, "(in der Koje)",
+        msg="Raumkopf: erwartet '(in der Koje)' (Dativ feminin)")
+    assert_output_not_contains(out, "(in die Koje)",
+        msg="Akkusativ '(in die Koje)' darf nicht erscheinen")

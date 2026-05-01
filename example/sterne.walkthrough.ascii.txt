@@ -31,6 +31,9 @@ nimm tagebuch
 inventar
 untersuche tagebuch
 untersuche koje
+steig in koje
+schau
+raus
 untersuche kiste
 schau in kiste
 oeffne kiste
@@ -58,4 +61,3 @@ rede mit navigatorin
 1
 nimm fernrohr
 untersuche es
-

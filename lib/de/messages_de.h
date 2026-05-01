@@ -790,11 +790,13 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 		print "Du öffnest ", (DE_Den) noun;
 		if (noun has container && noun hasnt transparent &&
 				~~IndirectlyContains(noun, player)) {
-			print " und siehst ";
-			p_arg_2 = short_name_case;
-			short_name_case = Akk;
-			if (PrintContents(0, noun) == false) print "nichts";
-			short_name_case = p_arg_2;
+			if (PrintContents(1, noun, 0) ~= 0) {
+				print " und siehst ";
+				p_arg_2 = short_name_case;
+				short_name_case = Akk;
+				PrintContents(0, noun);
+				short_name_case = p_arg_2;
+			}
 		}
 		".";
 #Endif;
@@ -803,8 +805,9 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 		! "schließen" = Akkusativ → (DE_Den)
 		"Du schließt ", (DE_Den) noun, ".";
 	MSG_ENTER_DEFAULT:
-		! "betreten" = Akkusativ → (DE_Den)
-		"Du betrittst ", (DE_Den) noun, ".";
+		! Akkusativ: "in X" (container) oder "auf X" (supporter)
+		if (noun has supporter) { "Du steigst auf ", (DE_Den) noun, "."; }
+		"Du gehst in ", (DE_Den) noun, ".";
 	MSG_EXIT_DEFAULT:
 		! "verlassen" = Akkusativ → (DE_Den)
 		"Du verlässt ", (DE_Den) noun, ".";
@@ -828,7 +831,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 	MSG_ENTER_NOT_OPEN, MSG_EXIT_NOT_OPEN, MSG_INSERT_NOT_OPEN,
 	MSG_GO_DOOR_CLOSED, MSG_EMPTY_IS_CLOSED:
 	! p_arg_1 = the object which is closed, thus blocking the players action
-		"Das geht nicht, da ", (ObjIs) p_arg_1, " geschlossen ist.";
+		"Das geht nicht, da ", (the) p_arg_1, " geschlossen ist.";
 #Endif;
 #Ifndef SKIP_MSG_GIVE_PLAYER;
 	MSG_GIVE_PLAYER, MSG_TAKE_ALREADY_HAVE:
@@ -1237,12 +1240,12 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 #EndIf;
 #IfTrue MSG_YOU_HAVE_WON < 1000;
 	MSG_YOU_HAVE_WON: ! print and rtrue to avoid newline
- 		print "Du hast gewonnen";
+ 		print "Du hast gewonnen!";
  		rtrue;
 #EndIf;
 #IfTrue MSG_YOU_HAVE_DIED < 1000;
 	MSG_YOU_HAVE_DIED: ! print and rtrue to avoid newline
-		print "Du bist gestorben";
+		print "Du bist gestorben!";
 		rtrue;
 #EndIf;
 #IfTrue MSG_YES_OR_NO < 1000;

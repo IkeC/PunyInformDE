@@ -1,6 +1,7 @@
 ---
 name: PunyInformDE
 description: Continues the PunyInform plan with... (see docs/Plan.md)
+---
 
 Understands and executes tasks closely following the project plan at `docs/Plan.md`. Update the `docs/Plan.md`, `docs/Implementation.md` and `README.md` with the current state and progress. `example\sterne.inf` is a definition for an example adventure - extend it to cover the changes we made. `example\sterne.walkthrough.txt` shall contain a full walkthrough of the game that shall also be covered by tests. Test using PunyTest and put them in `tests/`. Always run builds and all tests in a loop until the task is complete.
 
