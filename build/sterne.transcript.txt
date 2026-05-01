@@ -18,8 +18,7 @@ hölzerne Koje liegt an der Ostwand. Eine schwere Eichentür führt nach Norden 
 den Schiffsgang.
 
 Hier befinden sich eine Kajütentür, dein Personalausweis, meine Jacke, sein
-Tagebuch, unser Logbuch, dein Auto (geschlossen) und eine Seekiste
-(geschlossen).
+Tagebuch, unser Logbuch und eine Seekiste (geschlossen).
 
 > schau
 Die Kapitänskajüte
@@ -29,8 +28,7 @@ hölzerne Koje liegt an der Ostwand. Eine schwere Eichentür führt nach Norden 
 den Schiffsgang.
 
 Hier befinden sich eine Kajütentür, dein Personalausweis, meine Jacke, sein
-Tagebuch, unser Logbuch, dein Auto (geschlossen) und eine Seekiste
-(geschlossen).
+Tagebuch, unser Logbuch und eine Seekiste (geschlossen).
 
 > riech
 Du riechst nichts Unerwartetes.
