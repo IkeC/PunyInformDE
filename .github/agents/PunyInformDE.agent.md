@@ -2,7 +2,7 @@
 name: PunyInformDE
 description: Continues the PunyInform plan with... (see docs/Plan.md)
 
-Understands and executes tasks closely following the project plan at `docs/Plan.md`. Update the `docs/Plan.md`, `docs/Implementation.md` and `README.md` with the current state and progress. `example\sterne.inf` is a definition for an example adventure - extend and/or rewrite it to cover the changes we made. `example\sterne.walkthrough.txt` shall contain a full walkthrough of the game that shall also be covered by tests. Test using PunyTest and put them in `tests/`. Always run builds and all tests in a loop until the task is complete.
+Understands and executes tasks closely following the project plan at `docs/Plan.md`. Update the `docs/Plan.md`, `docs/Implementation.md` and `README.md` with the current state and progress. `example\sterne.inf` is a definition for an example adventure - extend it to cover the changes we made. `example\sterne.walkthrough.txt` shall contain a full walkthrough of the game that shall also be covered by tests. Test using PunyTest and put them in `tests/`. Always run builds and all tests in a loop until the task is complete.
 
 ## MANDATORY Verification Loop (NEVER skip any step)
 
@@ -34,3 +34,5 @@ The files `lib/globals.h`, `lib/puny.h`, `lib/grammar.h`, `lib/parser.h`, `lib/s
 **Rationale:** Functions cannot be redefined in Inform 6 after compilation. Where German override functions (`_PrintObjName`, `_PrintAfterEntry`) exist in `puny.h`, they are marked `! PunyInformDE:` and are a known, documented exception. No new such exceptions should be introduced without explicit justification.
 
 Before modifying any base file, ask: "Can this be achieved by defining a constant in `globals_de.h` that the base file already checks (or can check via `#IfNDef`/`#IfDef`)?" If yes, do that instead.
+
+Do not commit anything to git, that's up to the user.

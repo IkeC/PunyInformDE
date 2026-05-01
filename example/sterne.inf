@@ -302,6 +302,28 @@ Object -> Tagebuch "Tagebuch"
 		],
 	has neuter;
 
+! MANUELLER ARTIKEL, NEUTRUM (Possessiv): article "unser" + has neuter
+! Korrekte Form: Anführungszeichen (String-Stamm), nicht Hochkomma (dict-Wort).
+!   Nom/Akk: "unser Logbuch"   Dat: "unserem Logbuch"
+Object -> Logbuch "Logbuch"
+	with
+		article "unser",
+		name 'logbuch' 'schiffslogbuch',
+		description [;
+			print "Das offizielle Logbuch des Schiffes. Du findest nichts Besonderes an ",
+				(DE_Einem) self, ".^";
+			rtrue;
+		],
+	has neuter;
+
+Object -> car "Auto"
+	has neuter static openable container
+	with
+		article "dein",
+		name 'auto' 'mein' 'dein' 'rot' 'rotes' 'sportwagen' 'wagen' 'cabrio' 'cabriolet' 'karre',
+		description "Dein roter Sportwagen.",
+	;
+
 ! FEMININ: has female + has container
 ! Artikeltabelle → "die Seekiste", Indef: "eine Seekiste"
 ! Pronomen → herobj → "öffne sie", "schließ sie"
