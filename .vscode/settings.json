@@ -1,0 +1,6 @@
+{
+  "github.pullRequests.remotes": ["origin"],
+  "githubPullRequests.pullRequestDefaults": {
+    "base": "main"
+  }
+}

@@ -253,6 +253,39 @@ def test_manueller_artikel_neutrum_dativ_examine(game):
 
 
 # ---------------------------------------------------------------------------
+# Manuell gesetzter Artikel: article "unser" + has neuter (Possessiv Neutrum)
+# Demonstriert Issue #5-Workaround: korrekte Form ist article "string"
+# (doppelte Anführungszeichen), nicht article 'word' (Hochkomma/dict-Wort).
+#   Nom/Akk: "unser Logbuch"   Dat: "unserem Logbuch"
+# ---------------------------------------------------------------------------
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_neutrum_possessiv_nominativ_raum(game):
+    """Neutrum + article \"unser\" (Possessiv): Raumliste zeigt 'unser Logbuch', nicht 'ein Logbuch'."""
+    out = game.run(["schau"])
+    assert_output_contains(out, "unser Logbuch",
+        msg="Possessiv-Artikel Neutrum Nom: erwartet 'unser Logbuch' in der Raumliste")
+    assert_output_not_contains(out, "ein Logbuch",
+        msg="Possessiv-Artikel: Standard-Artikel 'ein' darf nicht erscheinen")
+
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_neutrum_possessiv_akkusativ_inventar(game):
+    """Neutrum + article \"unser\": Inventar zeigt 'unser Logbuch' (Akk == Nom für Neutrum)."""
+    out = game.run(["nimm logbuch", "inventar"])
+    assert_output_contains(out, "Du hast unser Logbuch",
+        msg="Possessiv-Artikel Neutrum Akk: erwartet 'Du hast unser Logbuch'")
+
+
+@pytest.mark.feature("articles")
+def test_manueller_artikel_neutrum_possessiv_dativ_examine(game):
+    """Neutrum + article \"unser\": Description zeigt 'unserem' (Dativ, Wortumbruch möglich)."""
+    out = game.run(["untersuche logbuch"])
+    assert_output_contains(out, "unserem",
+        msg="Possessiv-Artikel Neutrum Dat: erwartet 'unserem' in Examine-Antwort")
+
+
+# ---------------------------------------------------------------------------
 # (The) in before-Handler: Akkusativ statt Nominativ
 # ---------------------------------------------------------------------------
 

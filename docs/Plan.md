@@ -1,5 +1,8 @@
 # PunyInformDE — Project Plan
 
+Our project: https://github.com/IkeC/PunyInformDE
+Upstream: https://github.com/smartgrids-aau/punyinformde
+
 ## Goal
 
 A complete, release-ready German localisation of PunyInform v6.5, with:
@@ -8,9 +11,6 @@ A complete, release-ready German localisation of PunyInform v6.5, with:
 - Automated test suite (PunyTest / pytest + dfrotz)
 - Unicode build (`build/sterne.z5`) and ASCII build (`build/sterne.ascii.z5`)
 - VS Code tasks for Build and interactive testing
-
-## Issues/Plans
-- Currently no open issues or plan steps
 
 ## Architecture (current)
 ```

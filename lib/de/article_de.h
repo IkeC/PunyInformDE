@@ -119,6 +119,10 @@ Array DE_IndefStemEndings -->
     ! Override: article 0 → kein Artikel
     if (p_obj.&article && p_obj.article == 0) return 0;
     ! Override: article "string" → Stamm, wird fallabhängig dekliniert (→ -3)
+    ! Hinweis: article 'word' (Hochkomma, dict-Wort) wird NICHT unterstützt.
+    ! Der Byte-Adresswert eines Dictionary-Eintrags ist von Inform 6 zur Laufzeit
+    ! nicht sicher von einem gepackten String-Zeiger unterscheidbar (beide liegen
+    ! im selben Wertebereich). Verwende article "string" (Anführungszeichen).
     if (p_obj.&article && p_obj.article ofclass String) return -3;
     g = DE_Gender(p_obj);
     ! Plural: kein unbestimmter Artikel → "einige"/"einigen"
