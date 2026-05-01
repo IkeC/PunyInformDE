@@ -719,7 +719,8 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #IfTrue MSG_SACK_PUTTING < 1000;
 	MSG_SACK_PUTTING:
 	! p_arg_1 = the object being put into SACK_OBJECT.
-		"(lege ", (the) p_arg_1, " in ", (the) SACK_OBJECT, " um Platz zu schaffen)";
+		! "legen" = Akkusativ; "in" + Akkusativ (Richtung) → (DE_Den)
+		"(lege ", (DE_Den) p_arg_1, " in ", (DE_Den) SACK_OBJECT, " um Platz zu schaffen)";
 #EndIf;
 #EndIf;
 #IfTrue MSG_INVENTORY_DEFAULT < 1000;
@@ -776,7 +777,8 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #EndIf;
 #Ifndef SKIP_MSG_TAKE_ANIMATE;
 	MSG_TAKE_ANIMATE, MSG_EAT_ANIMATE:
-		"Ich glaube nicht, dass ", (the) noun, " das interessiert.";
+		! Nominativ: noun ist Subjekt von "interessiert" → (DE_Der)
+		"Ich glaube nicht, dass ", (DE_Der) noun, " das interessiert.";
 #Endif;
 #Ifndef SKIP_MSG_TAKE_PLAYER_PARENT;
 	MSG_TAKE_PLAYER_PARENT, MSG_GO_FIRST_LEAVE, MSG_EXIT_FIRST_LEAVE:
@@ -820,18 +822,21 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Endif;
 #Ifndef SKIP_MSG_GIVE_DEFAULT;
 	MSG_GIVE_DEFAULT, MSG_SHOW_DEFAULT:
-		print_ret (The) second, " scheint nicht interessiert zu sein.";
+		! Nominativ: second ist Subjekt → (DE_Der_Cap) am Satzanfang
+		print_ret (DE_Der_Cap) second, " scheint nicht interessiert zu sein.";
 #Endif;
 #Ifndef SKIP_MSG_ASKFOR_DEFAULT;
 	MSG_ASKFOR_DEFAULT, MSG_ASKTO_DEFAULT, MSG_ORDERS_WONT:
 	! p_arg_1 = the actor which the player has asked to do something.
-		print_ret (The) p_arg_1, " hat Besseres zu tun.";
+		! Nominativ: p_arg_1 ist Subjekt → (DE_Der_Cap) am Satzanfang
+		print_ret (DE_Der_Cap) p_arg_1, " hat Besseres zu tun.";
 #Endif;
 #Ifndef SKIP_MSG_ENTER_NOT_OPEN;
 	MSG_ENTER_NOT_OPEN, MSG_EXIT_NOT_OPEN, MSG_INSERT_NOT_OPEN,
 	MSG_GO_DOOR_CLOSED, MSG_EMPTY_IS_CLOSED:
 	! p_arg_1 = the object which is closed, thus blocking the players action
-		"Das geht nicht, da ", (the) p_arg_1, " geschlossen ist.";
+		! Nominativ: p_arg_1 ist Subjekt im Nebensatz → (DE_Der)
+		"Das geht nicht, da ", (DE_Der) p_arg_1, " geschlossen ist.";
 #Endif;
 #Ifndef SKIP_MSG_GIVE_PLAYER;
 	MSG_GIVE_PLAYER, MSG_TAKE_ALREADY_HAVE:
@@ -1011,9 +1016,11 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Endif;
 #Ifndef SKIP_MSG_LOCK_ALREADY_LOCKED;
 	MSG_LOCK_ALREADY_LOCKED:
-		print_ret (The) noun, " ist bereits verschlossen.";
+		! Nominativ: noun ist Subjekt → (DE_Der_Cap) am Satzanfang
+		print_ret (DE_Der_Cap) noun, " ist bereits verschlossen.";
 	MSG_UNLOCK_ALREADY_UNLOCKED:
-		print_ret (The) noun, " ist bereits aufgeschlossen.";
+		! Nominativ: noun ist Subjekt → (DE_Der_Cap) am Satzanfang
+		print_ret (DE_Der_Cap) noun, " ist bereits aufgeschlossen.";
 #Endif;
 #IfTrue MSG_LOCK_CLOSE_FIRST < 1000;
 	MSG_LOCK_CLOSE_FIRST:
@@ -1023,7 +1030,8 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Ifndef SKIP_MSG_LOCK_KEY_DOESNT_FIT;
 	MSG_LOCK_KEY_DOESNT_FIT, MSG_UNLOCK_KEY_DOESNT_FIT:
 		if (second == nothing) "Du hast keinen passenden Schlüssel dafür.";
-		print_ret (The) second, " scheint nicht in das Schloss zu passen.";
+		! Nominativ: second ist Subjekt → (DE_Der_Cap) am Satzanfang
+		print_ret (DE_Der_Cap) second, " scheint nicht in das Schloss zu passen.";
 #Endif;
 #IfTrue MSG_EXAMINE_CLOSED < 1000;
 	MSG_EXAMINE_CLOSED:
@@ -1036,7 +1044,8 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #EndIf;
 #IfTrue MSG_SEARCH_IN_IT_ISARE < 1000;
 	MSG_SEARCH_IN_IT_ISARE:
-		print (The) noun, " enthält bereits ";
+		! Nominativ: noun ist Subjekt → (DE_Der_Cap) am Satzanfang
+		print (DE_Der_Cap) noun, " enthält bereits ";
 		p_arg_2 = short_name_case;
 		short_name_case = Akk;
 		PrintContents(0, noun);
@@ -1083,12 +1092,14 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 #IfTrue MSG_TAKE_BELONGS < 1000;
 	MSG_TAKE_BELONGS:
 		! p_arg_1 = the object that is held by p_arg_2
-		print_ret (The) p_arg_1, " gehört ", (the) p_arg_2, ".";
+		! p_arg_1 Nominativ (Subjekt), p_arg_2 Dativ ("gehören" + Dativ) → (DE_Dem)
+		print_ret (DE_Der_Cap) p_arg_1, " gehört ", (DE_Dem) p_arg_2, ".";
 #EndIf;
 #IfTrue MSG_TAKE_PART_OF < 1000;
 	MSG_TAKE_PART_OF:
 		! p_arg_1 = the object that is part of p_arg_2
-		print_ret (The) p_arg_1, " ist ein Teil von ", (the) p_arg_2, ".";
+		! p_arg_1 Nominativ (Subjekt), p_arg_2 Dativ ("von" + Dativ) → (DE_Dem)
+		print_ret (DE_Der_Cap) p_arg_1, " ist ein Teil von ", (DE_Dem) p_arg_2, ".";
 #EndIf;
 #Ifndef OPTIONAL_NO_DARKNESS;
 #Ifndef SKIP_MSG_EXAMINE_DARK;
@@ -1104,9 +1115,11 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 	MSG_ENTER_BAD_LOCATION:
 		print "Du musst zuerst ";
 		if(player notin location && ~~IndirectlyContains(parent(player), noun))
-			print (the) parent(player), " verlassen";
+			! "verlassen" = Akkusativ → (DE_Den)
+			print (DE_Den) parent(player), " verlassen";
 		else
-			print (the) parent(noun), " betreten";
+			! "betreten" = Akkusativ → (DE_Den)
+			print (DE_Den) parent(noun), " betreten";
 		".";
 #EndIf;
 #IfTrue MSG_ENTER_HELD < 1000;
@@ -1121,13 +1134,15 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 	MSG_INSERT_NOT_CONTAINER:
 #Endif;
 		! p_arg_1 = the object that cant contain things
-		print_ret (The) p_arg_1, " kann keine Dinge enthalten.";
+		! Nominativ: p_arg_1 ist Subjekt → (DE_Der_Cap) am Satzanfang
+		print_ret (DE_Der_Cap) p_arg_1, " kann keine Dinge enthalten.";
 #Endif;
 
 #IfDef OPTIONAL_EXTENDED_VERBSET;
 #IfTrue MSG_BLOW_DEFAULT < 1000;
 	MSG_BLOW_DEFAULT:
-		"Du kannst ", (the) noun, " nicht sinnvoll pusten.";
+		! "pusten" = Akkusativ → (DE_Den)
+		"Du kannst ", (DE_Den) noun, " nicht sinnvoll pusten.";
 #EndIf;
 #IfTrue MSG_EMPTY_ALREADY_EMPTY < 1000;
 	MSG_EMPTY_ALREADY_EMPTY:
@@ -1300,11 +1315,13 @@ default:
 ! Note: ItOrThem() is an alias for ItorThem() - Inform 6 is case-insensitive
 
 [ CObjIs p_obj;
-	print (The) p_obj, " ", (isorare) p_obj;
+	! Nominativ: p_obj ist Subjekt, großgeschrieben → (DE_Der_Cap)
+	print (DE_Der_Cap) p_obj, " ", (isorare) p_obj;
 ];
 
 [ ObjIs p_obj;
-	print (the) p_obj, " ", (isorare) p_obj;
+	! Nominativ: p_obj ist Subjekt, kleingeschrieben → (DE_Der)
+	print (DE_Der) p_obj, " ", (isorare) p_obj;
 ];
 
 [ DoOrDoes p_obj;
@@ -1411,7 +1428,8 @@ Constant ERR_BUFFER_OVERRUN 10;
 #IfTrue RUNTIME_ERRORS == RTE_VERBOSE;
 	if(p_obj ofclass object) {
 		_parent = parent(p_obj);
-		print "Fehlerverursachendes Objekt: ", (the) p_obj, " (", p_obj, ") in ", (name) _parent, " (", _parent, ")^";
+		! Nominativ: p_obj ist Subjekt der Fehlermeldung → (DE_Der)
+		print "Fehlerverursachendes Objekt: ", (DE_Der) p_obj, " (", p_obj, ") in ", (name) _parent, " (", _parent, ")^";
 	}
 #Ifnot;
 	_parent = p_obj; ! Avoid compiler warning

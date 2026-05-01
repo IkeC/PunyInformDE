@@ -37,8 +37,11 @@ Key elements:
 
 - Gender derivation via attributes (`female`, `neuter`, `pluralname`, default masculine)
 - Case-aware definite and indefinite article tables (Nom/Akk/Dat)
-- Case print helpers: `DE_Der`, `DE_Den`, `DE_Dem`, `DE_Ein`, `DE_Einen`, `DE_Einem`
-- Backward-compatible `article` behavior:
+- Case print helpers: `DE_Der`, `DE_Den`, `DE_Dem`, `DE_Ein`, `DE_Einen`, `DE_Einem`, `DE_Der_Cap`
+- `DE_Der_Cap` is the explicit capitalised-Nominativ replacement for `(The)` at sentence start
+- All `(the)` / `(The)` calls in `messages_de.h` replaced with explicit German case functions;
+  proper-named objects (`has proper`) always skip article printing via guard in `_DE_PrintDefWithName`
+  and `_DE_PrintIndefWithName`
   - `article 0` suppresses indefinite article
   - `article "..."` is treated as string override
 
@@ -144,7 +147,7 @@ Key files:
 
 Current suite status (latest run):
 
-- 81 passed
+- 81 passed → 143 passed (as of issue #8 explicit-articles refactoring)
 - 3 xfailed (known dfrotz umlaut-pipe limitation on Windows)
 
 ## Build and Transcript Loop

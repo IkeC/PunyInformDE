@@ -39,7 +39,8 @@
 !   (DE_Einen) obj  Akkusativ unbestimmt : "einen/eine/ein/einige Schlüssel"
 !   (DE_Einem) obj  Dativ unbestimmt     : "einem/einer/einem/einigen Schlüssel"
 !
-! Die (the)/(The) und (a)/(A) Formatzeiger bleiben für Nominativ erhalten.
+! (DE_Der_Cap) ist der explizite Ersatz für (The) am Satzanfang.
+! (the)/(The) sollen in messages_de.h nicht mehr verwendet werden.
 !
 ! === Speicherbedarf ===
 ! DE_DefArticles:   12 Einträge × 2 Bytes = 24 Bytes (Zeiger auf Strings)
@@ -206,6 +207,7 @@ Constant DE_MODE_BARE  = 2;
 ];
 
 [ _DE_PrintDefWithName p_obj p_case p_cap _g _s;
+    if (p_obj has proper) { PrintShortName(p_obj); return; }  ! Eigennamen: kein Artikel
     _g = DE_Gender(p_obj);
     _s = DE_DefArticles-->(p_case * 4 + _g);
     if (_s) {
@@ -233,6 +235,7 @@ Constant DE_MODE_BARE  = 2;
 ];
 
 [ _DE_PrintIndefWithName p_obj p_case _g _s _mode;
+    if (p_obj has proper) { PrintShortName(p_obj); return; }  ! Eigennamen: kein Artikel
     _g = DE_Gender(p_obj);
     _s = _DE_IndefArtStr(p_obj, p_case, (p_case == Dat));
     _mode = DE_MODE_INDEF;
@@ -287,6 +290,12 @@ Constant DE_MODE_BARE  = 2;
 ! Dativ bestimmt: "dem Schlüssel / der Kiste / dem Fernrohr / den Münzen"
 [ DE_Dem p_obj;
     _DE_PrintDefWithName(p_obj, Dat, false);
+];
+
+! Nominativ bestimmt, großgeschrieben: "Der Schlüssel / Die Kiste / Das Fernrohr"
+! Expliziter Ersatz für (The) am Satzanfang in messages_de.h
+[ DE_Der_Cap p_obj;
+    _DE_PrintDefWithName(p_obj, Nom, true);
 ];
 
 ! ---------------------------------------------------------------------------
