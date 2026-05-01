@@ -4,8 +4,9 @@
 grammatical case handling (nominative/accusative/dative), and German pronoun resolution (er/sie/es/ihnen)
 for creating interactive fiction in German.
 
-**Designed for**: Inform 6 authors writing German-language IF who want automated support for German grammar,
-without manual article/case annotation. 
+Includes PunyInform features and commits up to May 1st, 2026.
+
+**Designed for**: Interactive fiction authors writing German-language IF who want automated support for German grammar. 
 
 **Features**:
 - German article system (automatic declension from gender attributes)
