@@ -152,6 +152,9 @@ Hier befinden sich eine Kajütentür, unser Logbuch und eine Seekiste
 > raus
 Du verlässt die Koje.
 
+> geh in kiste
+Das geht nicht, da die Seekiste geschlossen ist.
+
 > untersuche kiste
 Eine alte, schwere Seekiste. Der Deckel ist mit einem geschnitzten Anker
 verziert.
@@ -162,9 +165,11 @@ Du kannst nicht reinschauen, die Seekiste ist geschlossen.
 > öffne kiste
 Du öffnest die Seekiste und siehst einen kleinen Schlüssel.
 
-> untersuche sie
-Eine alte, schwere Seekiste. Der Deckel ist mit einem geschnitzten Anker
-verziert.
+> steig in kiste
+Du gehst in die Seekiste.
+
+> raus
+Du verlässt die Seekiste.
 
 > nimm kleinen schlüssel
 Genommen.
@@ -177,6 +182,9 @@ Schloss an der Kajütentür.
 
 > wirf kleinen schlüssel
 Den kleinen Schlüssel brauchst du noch.
+
+> schließ kiste
+Du schließt die Seekiste.
 
 > schließ tür mit schlüssel auf
 Du schließt die Kajütentür auf.
@@ -309,8 +317,8 @@ Du senkst das Fernrohr und lächelst. Das Abenteuer kann beginnen!
 [Du hast 1 Punkt erhalten.]
 
 
-  *** Du hast gewonnen ***
+  *** Du hast gewonnen! ***
 
-In diesem Spiel hast du 5 von 5 möglichen Punkten erreicht, in 57 Zügen.
+In diesem Spiel hast du 5 von 5 möglichen Punkten erreicht, in 60 Zügen.
 
 Möchtest du NEUSTART, WIEDERHERSTELLEN oder BEENDEN? 

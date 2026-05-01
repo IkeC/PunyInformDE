@@ -34,13 +34,16 @@ untersuche koje
 steig in koje
 schau
 raus
+geh in kiste
 untersuche kiste
 schau in kiste
 öffne kiste
-untersuche sie
+steig in kiste
+raus
 nimm kleinen schlüssel
 untersuche ihn
 wirf kleinen schlüssel
+schließ kiste
 schließ tür mit schlüssel auf
 öffne tür
 nord
