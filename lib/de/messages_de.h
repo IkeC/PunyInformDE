@@ -1387,6 +1387,7 @@ Constant ERR_NOT_DIR_PROP 7;
 Constant ERR_NOT_FAKE_OBJ 8;
 Constant ERR_ILLEGAL_CHOOSEOBJNO 9;
 Constant ERR_BUFFER_OVERRUN 10;
+Constant ERR_UNSAFE_GRAMMAR_PROP 11;
 
 [_RunTimeError p_err p_obj _parent;
 	print "^[PunyInformDE Fehler: ";
@@ -1418,6 +1419,8 @@ Constant ERR_BUFFER_OVERRUN 10;
 #Ifdef DEBUG;
 		ERR_BUFFER_OVERRUN:
 			print "Pufferüberlauf: Zu viele Zeichen in einen Puffer gedruckt";
+		ERR_UNSAFE_GRAMMAR_PROP:
+			print "Unsichere Verwendung der grammar-Eigenschaft";
 #Endif;
 		default:
 			print "Unbekannter Fehler";
