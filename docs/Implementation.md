@@ -148,6 +148,7 @@ Key files:
 Current suite status (latest run):
 
 - 81 passed → 143 passed (as of issue #8 explicit-articles refactoring)
+- 143 passed → 145 passed (as of issue #13: DEBUG compile fix)
 - 3 xfailed (known dfrotz umlaut-pipe limitation on Windows)
 
 ## Build and Transcript Loop
