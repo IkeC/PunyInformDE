@@ -151,6 +151,74 @@ Current suite status (latest run):
 - 143 passed → 145 passed (as of issue #13: DEBUG compile fix)
 - 3 xfailed (known dfrotz umlaut-pipe limitation on Windows)
 
+## USE_ASCII and the ASCII Preprocessing Pass
+
+### Why USE_ASCII exists
+
+The Unicode build targets Z5 with a custom `Zcharacter` table (declared in
+`lib/de/chartable_de.h`). That table remaps the seven German umlaut characters
+(ä ö ü ß Ä Ö Ü) into the cheapest Z-character encoding row (A0), so each
+umlaut encodes as a single Z-character byte rather than a multi-byte Unicode
+escape. This saves story-file space and enables efficient umlaut output on any
+V5+ interpreter that supports extended character sets.
+
+`USE_ASCII` is a compile-time constant that disables this Unicode machinery for
+targets that cannot display characters outside the 7-bit ASCII range — primarily
+Z3 (8-bit machines) and any interpreter without Unicode support. When defined:
+
+- `chartable_de.h` skips the `Zcharacter` declaration entirely.
+- `parser_de.h` omits the `_DE_IsVowelByte` and `_DE_NormaliseDigraphsOnly`
+  runtime functions, which are only needed to fold digraph player input (e.g.
+  `ae`) back into umlaut bytes (`ä`) before dictionary lookup in the Unicode
+  build. In the ASCII build player input stays in digraph form, so no
+  normalisation is needed.
+- The `BeforeParsing` digraph→umlaut conversion pass is skipped.
+
+### Why a source-level preprocessing pass is also needed
+
+Defining `USE_ASCII` alone is not sufficient to produce a fully ASCII story
+file. The reason is how Inform 6 handles string literals: **the compiler stores
+the raw byte values of string characters from the source file**. If the source
+contains `ä` (UTF-8 0xC3 0xA4, or Latin-1 0xE4), that character ends up
+encoded in the story file using whatever mechanism the active Zcharacter table
+or Unicode support provides. Without the custom Zcharacter table, umlauts fall
+back to the Z-machine's 10-bit Unicode escape mechanism — they still appear as
+umlaut characters in interpreter output, just less efficiently.
+
+There is no way to instruct Inform 6 to silently replace non-ASCII characters
+in string literals at compile time. The only reliable approach is to replace
+every umlaut in every string literal in every source file with its two-letter
+ASCII digraph **before compilation**. This is what the preprocessing pass in
+`build.ps1` does:
+
+1. It reads each source file containing German strings as UTF-8.
+2. It substitutes each umlaut character: ä→ae, ö→oe, ü→ue, ß→ss, Ä→Ae,
+   Ö→Oe, Ü→Ue.
+3. It writes the result, UTF-8-without-BOM, into a shadow directory
+   (`build/ascii_lib/` mirroring `lib/` and `build/ascii_src/` mirroring
+   `example/`).
+4. Those shadow directories are placed first on the include path for the ASCII
+   and Z3 compiler invocations, so they silently override the umlaut originals.
+
+The files that require preprocessing are those that contain German string
+literals in their source:
+
+| Original file | Shadow location | Content replaced |
+|---|---|---|
+| `lib/de/globals_de.h` | `build/ascii_lib/de/` | Status-bar label `" Züge: "` |
+| `lib/de/messages_de.h` | `build/ascii_lib/de/` | All parser messages |
+| `lib/de/grammar_de.h` | `build/ascii_lib/de/` | Verb dictionary words |
+| `lib/de/article_de.h` | `build/ascii_lib/de/` | Article/adjective strings |
+| `lib/de/parser_de.h` | `build/ascii_lib/de/` | Normalisation code comments |
+| `lib/de/chartable_de.h` | `build/ascii_lib/de/` | Umlaut chars in `Zcharacter` (becomes dead code under `USE_ASCII`) |
+| `lib/de/ext_talk_menu_inline_de.h` | `build/ascii_lib/de/` | Conversation menu strings |
+| `lib/puny.h` | `build/ascii_lib/` | ` (enthält` container suffix |
+| `example/sterne.inf` | `build/ascii_src/` | All room/object/NPC text |
+
+Files that contain no German string literals (e.g. `lib/parser.h`,
+`lib/grammar.h`, `lib/scope.h`) are not preprocessed and are read directly from
+their original location via the lower-priority include path entries.
+
 ## Build and Transcript Loop
 
 Build task (`.vscode/build.ps1`) does all of:
