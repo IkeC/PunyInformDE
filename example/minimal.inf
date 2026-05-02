@@ -1,0 +1,22 @@
+!% -Cu
+Constant Story      "Minimal";
+Constant Headline   "^Ein Beispielspiel für PunyInfomDE.^";
+Constant OPTIONAL_NO_DARKNESS;
+Constant INITIAL_LOCATION_VALUE = Buecherei;
+
+Include "globals.h";
+Include "puny.h";
+
+Object Buecherei "Die Bücherei"
+	with
+		description "Du bist in einer Bücherei.";
+
+Object -> Kiste "Kiste"
+	with
+		name 'kiste',
+		inside_description "Ich steh' gerne in der Kiste!",
+	has container open openable enterable;
+
+[Initialise;
+	print "Oha, wie bin ich denn in der Bücherei gelandet?^";
+];

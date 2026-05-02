@@ -1,4 +1,11 @@
 # PunyInformDE
+
+## Deutsch
+
+**PunyInformDE** ist die deutsche Version von [PunyInform](https://github.com/johanberntsson/PunyInform). Für einen schnellen Einstieg in deutscher Sprache lies bitte [docs/Schnellstart.md](docs/Schnellstart.md).
+
+## Englisch
+
 **PunyInformDE** is a German localisation of [PunyInform](https://github.com/johanberntsson/PunyInform)
 (a lightweight Inform 6 game library). It extends PunyInform with German-native article declension,
 grammatical case handling (nominative/accusative/dative), and German pronoun resolution (er/sie/es/ihnen)
