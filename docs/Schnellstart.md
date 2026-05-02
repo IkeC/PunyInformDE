@@ -42,7 +42,7 @@ cd ../PunyInformDE/tools
 ln -s ../../Inform6/inform6 .
 ```
 
-Alternativ kannst du den Compiler über einen Paketmanager installieren, z.B. unter Linux Ubuntu mit:
+Alternativ kannst du den Compiler über einen Paketmanager installieren, z. B. unter Linux Ubuntu mit:
 
 ```
 sudo apt install inform6-compiler
@@ -68,7 +68,7 @@ Wenn alles funktioniert hat, solltest du jetzt das kompilierte Spiel `minimal.z5
 
 # Beispiel spielen
 
-Es gibt viele Programme, die Spiele im Z-machine-Format (.z3, .z5, .z8 etc.) ausführen können. Eine kleine Liste findest du [hier](https://ikeserver.de/Staub/download.html). Zum schnellen Testen bietet sich z.B. `dfrotz` an, welches du direkt über die Kommandozeile ausführen kannst. Das kann später sehr hilfreich sein, wenn du dein Spiel z.B. automatisch testen lassen willst, oder ein Transkript eines kompletten Spieldurchlaufs erzeugen willst.
+Es gibt viele Programme, die Spiele im Z-machine-Format (.z3, .z5, .z8 etc.) ausführen können. Eine kleine Liste findest du [hier](https://ikeserver.de/Staub/download.html). Zum schnellen Testen bietet sich z. B. `dfrotz` an, welches du direkt über die Kommandozeile ausführen kannst. Das kann später sehr hilfreich sein, wenn du dein Spiel z. B. automatisch testen lassen willst, oder ein Transkript eines kompletten Spieldurchlaufs erzeugen willst.
 
 Unter Windows kannst du dfrotz direkt aus dem Tools-Verzeichnis starten:
 
@@ -97,7 +97,7 @@ tools/dfrotz minimal.z5
 
 # Schreibe dein eigenes Spiel!
 
-Oben haben wir ja ´minimal.inf´ kompiliert. Das ist eine einfache Textdatei mit folgendem Inhalt:
+Oben haben wir ja `minimal.inf` kompiliert. Das ist eine einfache Textdatei mit folgendem Inhalt:
 
 ```
 !% -Cu
@@ -124,7 +124,7 @@ Object -> Kiste "Kiste"
 ];
 ```
 
-Am besten legst du für dein eigenes Spiel einen eigenen Order (z.B. `MeinSpiel` in deinem Basisverzeichnis an. Schreibe dein Spiel in `mein-spiel.inf`, dann kompiliere und teste es! Unter Windows:
+Am besten legst du für dein eigenes Spiel einen eigenen Order (z. B. `MeinSpiel` in deinem Basisverzeichnis an. Schreibe dein Spiel in `mein-spiel.inf`, dann kompiliere und teste es! Unter Windows:
 
 ```
 mkdir MeinSpiel
@@ -139,6 +139,8 @@ cp ..\PunyInformDE\example\minimal.inf MeinSpiel.inf
 
 # Hilfe, Links und Ressourcen
 
-Wenn du Hilfe brauchst, schau am besten im [PunyInformDE thread](https://if-forum.org/topic.php?id=1385) vorbei. Dieses Forum ist der zentrale Treffpunkt für die deutsche Interactive Fiction-Community.
+Das Spiel "Das Schiff der Sterne" (`example\sterne.inf`) ist ein umfangreicheres Beispiel, das viele Konzepte von PunyInform und die Umsetzung in PunyInformDE etwas genauer erklärt.
+
+Wenn du Hilfe brauchst, schau am besten im [PunyInformDE-Thread](https://if-forum.org/topic.php?id=1385) vorbei. Dieses Forum von [ifwizz.de](https://ifwizz.de) ist der zentrale Treffpunkt für die deutsche Interactive Fiction-Community.
 
 Alternativ oder zusätzlich kannst du gerne [ein Issue](https://github.com/IkeC/PunyInformDE/issues) hier in GitHub erstellen.

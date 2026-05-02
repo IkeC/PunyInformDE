@@ -2,7 +2,9 @@
 
 ## Deutsch
 
-**PunyInformDE** ist die deutsche Version von [PunyInform](https://github.com/johanberntsson/PunyInform). Für einen schnellen Einstieg in deutscher Sprache lies bitte [docs/Schnellstart.md](docs/Schnellstart.md).
+**PunyInformDE** ist die deutsche Version von [PunyInform](https://github.com/johanberntsson/PunyInform), ein Programm zur Erstellung von Textadventures ("Interactive Fiction"). 
+
+Für einen schnellen Einstieg in deutscher Sprache lies bitte [docs/Schnellstart.md](docs/Schnellstart.md).
 
 ## Englisch
 
