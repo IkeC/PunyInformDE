@@ -116,16 +116,11 @@ repository (see *Repository Layout* below):
 
 ## Where To Read More
 
-For implementation details, architecture, algorithm decisions, and known limits,
-see:
-
-- docs/Implementation.md
-
-For design analysis and rationale history, see:
-
-- docs/Grammar.md
+For implementation details, architecture, algorithm decisions, and known limits, see [Implementation.md](docs/Implementation.md). For design analysis and rationale history, see [Grammar.md](docs/Grammar.md).
 
 ## Acknowledgements
+
+[**Inform6**](https://github.com/DavidKinder/Inform6) — The interactive fiction design language and compiler, created by G. Nelson and contributors.
 
  [**PunyInform**](https://github.com/johanberntsson/PunyInform)
 — The lightweight Inform 6 library that PunyInformDE is built on. Created and maintained by J. Berntsson, F. Ramsberg 

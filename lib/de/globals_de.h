@@ -122,10 +122,10 @@ Constant DE_RUNTER = 'runter';
 Constant DE_REIN   = 'rein';
 Constant DE_RAUS   = 'raus';
 #IfDef OPTIONAL_FULL_DIRECTIONS;
-Constant DE_NORDOST  = 0;  ! no standard German abbreviation
-Constant DE_NORDWEST = 0;
-Constant DE_SUEDOST  = 0;
-Constant DE_SUEDWEST = 0;
+Constant DE_NORDOST  = 'no';  ! Nordosten
+Constant DE_NORDWEST = 0;     ! same as English 'nw'
+Constant DE_SUEDOST  = 'so';  ! Südosten
+Constant DE_SUEDWEST = 0;     ! same as English 'sw'
 #EndIf;
 
 ! German parser extension (enables ja/nein in YesOrNo via Replace directive)

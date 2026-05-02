@@ -19,6 +19,10 @@ System_file;
 !       [1] Wetter
 !       [2] Schiff
 !       [0] Gespräch beenden
+!
+!   The label is printed exactly as defined by the author — no quotes are
+!   added automatically.  If you want quoted labels, embed ~ in the string:
+!       TM_ACTIVE 10 "~Wetter~"
 !       > 1
 !       [~Was siehst du dort draußen?~]
 !       Steuermann Hinnerk kneift die Augen zusammen...
@@ -331,7 +335,8 @@ Global talk_menu_multi_mode = true;
 			_i++;
 			_val = _array-->_i;
 			while(_val >= TM_FIRST_ID && _val <= TM_LAST_ID) { _i++; _val = _array-->_i; }
-			_TMCallOrPrint(p_npc, _i);
+			_TMCallOrPrint(p_npc, _i, true);
+			print "^";
 		}
 	}
 
@@ -386,9 +391,9 @@ Global talk_menu_multi_mode = true;
 			if(_array-->_i == TM_NO_LINE) {
 				_val = _array-->_count;
 				if(metaclass(_val) == String)
-					print "[~", (string) _val, "~]^";
+					print "[", (string) _val, "]^";
 				else if(metaclass(_val) == Routine) {
-					print "[~"; _val(); print "~]^";
+					print "["; _val(); print "]^";
 				}
 			} else
 				TMPrintLine(player, p_npc, _i);
@@ -473,7 +478,8 @@ Global talk_menu_multi_mode = true;
 			_i++;
 			_val = _array-->_i;
 			while(_val >= TM_FIRST_ID && _val <= TM_LAST_ID) { _i++; _val = _array-->_i; }
-			_TMCallOrPrint(p_npc, _i);
+			_TMCallOrPrint(p_npc, _i, true);
+			print "^";
 		}
 	}
 
@@ -532,9 +538,9 @@ Global talk_menu_multi_mode = true;
 			if(_array-->_i == TM_NO_LINE) {
 				_val = _array-->_count;
 				if(metaclass(_val) == String)
-					print "[~", (string) _val, "~]^";
+					print "[", (string) _val, "]^";
 				else if(metaclass(_val) == Routine) {
-					print "[~"; _val(); print "~]^";
+					print "["; _val(); print "]^";
 				}
 			} else
 				TMPrintLine(player, p_npc, _i);
