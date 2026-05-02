@@ -9,7 +9,7 @@ Wer -- und warum? Es wird Zeit, das herauszufinden.
 
 Das Schiff der Sterne
 Ein kurzes Abenteuer auf hoher See.
-Release 1 / Serial number 260501 / Inform v6.44 PunyInformDE v6.5 R
+Release 1 / Serial number 260502 / Inform v6.44 PunyInformDE v6.5 R
 
 Die Kapitaenskajuete
 Die enge Kajuete des Kapitaens auf dem Segelschiff Sternwind. Ein alter
@@ -17,8 +17,8 @@ Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine
 hoelzerne Koje liegt an der Ostwand. Eine schwere Eichentuer fuehrt nach Norden
 in den Schiffsgang.
 
-Hier befinden sich eine Kajuetentuer, dein Personalausweis, meine Jacke, sein
-Tagebuch, unser Logbuch und eine Seekiste (geschlossen).
+Hier befinden sich dein Personalausweis, meine Jacke, sein Tagebuch, unser
+Logbuch und eine Seekiste (geschlossen).
 
 > schau
 Die Kapitaenskajuete
@@ -27,8 +27,8 @@ Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine
 hoelzerne Koje liegt an der Ostwand. Eine schwere Eichentuer fuehrt nach Norden
 in den Schiffsgang.
 
-Hier befinden sich eine Kajuetentuer, dein Personalausweis, meine Jacke, sein
-Tagebuch, unser Logbuch und eine Seekiste (geschlossen).
+Hier befinden sich dein Personalausweis, meine Jacke, sein Tagebuch, unser
+Logbuch und eine Seekiste (geschlossen).
 
 > riech
 Du riechst nichts Unerwartetes.
@@ -146,8 +146,7 @@ Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine
 hoelzerne Koje liegt an der Ostwand. Eine schwere Eichentuer fuehrt nach Norden
 in den Schiffsgang.
 
-Hier befinden sich eine Kajuetentuer, unser Logbuch und eine Seekiste
-(geschlossen).
+Hier befinden sich unser Logbuch und eine Seekiste (geschlossen).
 
 > raus
 Du verlaesst die Koje.

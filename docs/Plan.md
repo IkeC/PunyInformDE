@@ -59,6 +59,8 @@ tests/
   test_room_noun.py    — Room objects addressable by name
   test_explicit_articles.py — Explicit DE_* article functions in messages (issue #8)
   test_debug_compile.py — DEBUG (-D) build compiles without ERR_UNSAFE_GRAMMAR_PROP error (issue #13)
+  test_double_ist.py — No double 'ist' in CTheyreorThats-based messages (issues a/b)
+  test_object_name_normalisation.py — Digraph input still resolves after removing explicit digraph name entries
 
 .vscode/
   tasks.json    — Build, Test Dfrotz, Test Dfrotz (ASCII), Test Lectrote,

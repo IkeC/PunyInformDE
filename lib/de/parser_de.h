@@ -173,7 +173,17 @@ Array _de_dict_parse -> 8;  ! 2-byte header + 1 word entry (4 bytes)
         }
         buffer->1 = _blen - (_wlen - _newlen);
         _changed = true;
+        ! Re-tokenise immediately so that the parse entries (word start positions
+        ! and dict addresses) for subsequent words are correct after the buffer
+        ! was shifted.  Without this, when word N shrinks, word N+1's stored
+        ! start-position in `parse` is stale and points to the wrong bytes.
+        buffer->(2 + buffer->1) = 0;
+        @tokenise buffer parse;
+        _nwords = parse->1;
     }
+    ! _changed is set, but the final re-tokenise already happened inside the loop.
+    ! The check below is kept for safety (it is a no-op if nothing changed after
+    ! the last iteration).
     if(_changed) {
         buffer->(2 + buffer->1) = 0;
         @tokenise buffer parse;

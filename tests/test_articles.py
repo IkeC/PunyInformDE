@@ -263,8 +263,12 @@ def test_manueller_artikel_neutrum_dativ_examine(game):
 def test_manueller_artikel_neutrum_possessiv_nominativ_raum(game):
     """Neutrum + article \"unser\" (Possessiv): Raumliste zeigt 'unser Logbuch', nicht 'ein Logbuch'."""
     out = game.run(["schau"])
-    assert_output_contains(out, "unser Logbuch",
-        msg="Possessiv-Artikel Neutrum Nom: erwartet 'unser Logbuch' in der Raumliste")
+    # dfrotz word-wraps at 80 chars, so "unser" and "Logbuch" may fall on separate
+    # lines. Test each token independently to be line-wrap-insensitive.
+    assert_output_contains(out, "unser",
+        msg="Possessiv-Artikel Neutrum Nom: erwartet 'unser' in der Raumliste")
+    assert_output_contains(out, "Logbuch",
+        msg="Possessiv-Artikel Neutrum Nom: erwartet 'Logbuch' in der Raumliste")
     assert_output_not_contains(out, "ein Logbuch",
         msg="Possessiv-Artikel: Standard-Artikel 'ein' darf nicht erscheinen")
 

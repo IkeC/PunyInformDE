@@ -119,10 +119,10 @@ Object Kajuete "Die Kapitänskajüte"
 			vergilbten Seekarten. Eine hölzerne Koje liegt an der Ostwand.
 			Eine schwere Eichentür führt nach Norden in den Schiffsgang.",
 		n_to [;
-			if (Kajuentuer has locked) {
+			if (Kajuetentuer has locked) {
 				"Die Tür ist fest verschlossen. Du brauchst wohl einen Schlüssel.";
 			}
-			if (Kajuentuer hasnt open) {
+			if (Kajuetentuer hasnt open) {
 				"Zuerst musst du die Tür öffnen.";
 			}
 			return Schiffsgang;
@@ -130,8 +130,8 @@ Object Kajuete "Die Kapitänskajüte"
 
 Object -> KajueteScenery "Kajüte"
 	with
-		name 'kajuete' 'kajüte' 'kapitaenskajuete' 'kapitänskajüte' 'kajueten'
-			'kajüten' 'kapitaen' 'kapitän' 'kammer' 'raum',
+		name 'kajüte' 'kapitänskajüte' 'kajüten'
+			'kapitän' 'kammer' 'raum',
 		before [;
 			Examine: <<Look>>;
 		],
@@ -141,9 +141,9 @@ Object -> KajueteScenery "Kajüte"
 ! Artikeltabelle → Nom: "die Kajütentür", Indef: "eine Kajütentür"
 ! Pronomen → herobj → "sie": "schließ sie auf"
 ! Kein "with article" nötig — der Artikel wird automatisch erzeugt.
-Object -> Kajuentuer "Kajütentür"
+Object -> Kajuetentuer "Kajütentür"
 	with
-		name 'tuer' 'tur' 'eichentuer' 'kajuetentuer' 'tür' 'kajütentür' 'eichentür',
+		name 'tur' 'tür' 'kajütentür' 'eichentür',
 		description "Eine schwere Tür aus geöltem Eichenholz. Das alte Schloss
 			sieht sehr solide aus.",
 		with_key Schluessel,
@@ -153,7 +153,7 @@ Object -> Kajuentuer "Kajütentür"
 		after [;
 			Unlock: if (score < 2) { score = score + 1; } rfalse;
 		],
-	has openable lockable locked female;
+	has scenery openable lockable locked female;
 
 ! MASKULIN (Standard): kein has female, kein has neuter
 ! Artikeltabelle → Nom: "der Schreibtisch", Indef: "ein Schreibtisch"
@@ -209,7 +209,7 @@ Object -> -> Kompass "Kompass"
 ! Pronomen → themobj → "untersuche sie" (wenn kein herobj gesetzt) / "nimm sie"
 Object -> -> Muenzen "Goldmünzen"
 	with
-		name 'muenzen' 'geld' 'goldmuenzen' 'münzen' 'goldmünzen',
+		name 'geld' 'münzen' 'goldmünzen',
 		description "Fünf glänzende Goldmünzen mit dem Abbild eines Seeadlers.",
 	has pluralname;
 ! Hinweis: has pluralname → kein unbestimmter Artikel → "die Münzen", "einige Münzen"
@@ -332,8 +332,8 @@ Object -> Kiste "Seekiste"
 ! Für Flexion wird der Stamm in adj gespeichert ("klein").
 Object -> -> Schluessel "Schlüssel"
 	with
-		name 'schluessel' 'klein'
-			'messingschluessel' 'schlüssel' 'messingschlüssel',
+		name 'klein'
+			'messingschlüssel' 'schlüssel',
 		adj "klein",
 		description "Ein kleiner Messingschlüssel mit einem Ankeranhänger --
 			passend zu dem alten Schloss an der Kajütentür.",

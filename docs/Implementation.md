@@ -149,6 +149,7 @@ Current suite status (latest run):
 
 - 81 passed → 143 passed (as of issue #8 explicit-articles refactoring)
 - 143 passed → 145 passed (as of issue #13: DEBUG compile fix)
+- 145 passed → 163 passed (double-ist fix + digraph-name cleanup + normaliser stale-address fix)
 - 3 xfailed (known dfrotz umlaut-pipe limitation on Windows)
 
 ## USE_ASCII and the ASCII Preprocessing Pass
@@ -218,6 +219,47 @@ literals in their source:
 Files that contain no German string literals (e.g. `lib/parser.h`,
 `lib/grammar.h`, `lib/scope.h`) are not preprocessed and are read directly from
 their original location via the lower-priority include path entries.
+
+## Object Name Lists and Digraph Normalisation
+
+### The rule: umlaut-only entries in `name` properties
+
+In the Unicode build, `BeforeParsing` (`lib/de/parser_de.h`) runs
+`_DE_NormaliseDigraphsOnly` on every word that is NOT already in the dictionary.
+For a word like `tuer`, the function collapses `ue` → `ü`, producing `tür` (3
+bytes). If `tür` is in the dictionary, the normalised form replaces the original
+in the input buffer before the parser runs.
+
+In the ASCII build, the preprocessing pass converts every umlaut in dictionary
+entries (i.e., inside `name '...'` property strings) from umlaut to digraph at
+compile time. So `'tür'` in source becomes `'tuer'` in the compiled dictionary,
+and player input `tuer` matches directly.
+
+**Consequence**: object `name` properties need to list only the umlaut form. The
+digraph form is handled automatically by either the runtime normaliser (Unicode)
+or the compile-time preprocessor (ASCII). Listing both forms is redundant and
+increases the dictionary size. The only exception is a word like `'tur'`
+(truncated form without any digraph) that cannot be recovered from the umlaut
+form by normalisation.
+
+### Normaliser stale-address bug (fixed)
+
+`BeforeParsing` Pass 1 iterates over all words in the parse table. When a word
+is normalised (e.g., `oeffne` → `öffne`, 6 bytes → 5 bytes), the code shifts
+the input buffer left by 1 byte to close the gap. Without an immediate
+re-tokenise, the parse-table entry for the **next** word still holds the
+**old** byte offset into the buffer (pointing one byte too far). The next
+iteration then reads the wrong bytes and fails to normalise the second word.
+
+The fix: after applying each normalisation inside the loop, call
+`@tokenise buffer parse` immediately. This updates all word addresses in the
+parse table before the next iteration.
+
+This means that compound commands where BOTH the verb and the object require
+digraph normalisation (e.g., `oeffne tuer`, `schliess tuer mit schluessel auf`)
+now work correctly even when both words are absent from the dictionary.
+
+## §4 Gender-Sensitive Message Helpers
 
 ## Build and Transcript Loop
 
