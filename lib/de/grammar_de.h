@@ -249,6 +249,10 @@ Verb 'leg'
 	* multiexcept 'in' noun                     -> Insert
 	* multiexcept 'auf' noun                    -> PutOn;
 
+Verb 'lass'
+	* multiheld                                 -> Drop;
+	* multiheld 'fallen'                        -> Drop;
+
 ! --- Wear ---
 Verb 'trag'
 	* held                                      -> Wear;
