@@ -13,22 +13,22 @@ System_file;
 Constant MSG_TAKE_YOURSELF "Selbstverliebt wie immer.";
 #EndIf;
 #Ifndef MSG_TAKE_NO_CAPACITY;
-Constant MSG_TAKE_NO_CAPACITY "Du hältst schon zu viele Sachen.";
+Constant MSG_TAKE_NO_CAPACITY "Mehr kannst du nicht tragen.";
 #EndIf;
 #Ifndef MSG_TAKE_DEFAULT;
-Constant MSG_TAKE_DEFAULT "Genommen.";
+Constant MSG_TAKE_DEFAULT "In Ordnung.";
 #EndIf;
 #Ifndef MSG_DRINK_NOTHING_SUITABLE;
 Constant MSG_DRINK_NOTHING_SUITABLE "Hier gibt es nichts zu trinken.";
 #EndIf;
 #Ifndef MSG_DROP_DROPPED;
-Constant MSG_DROP_DROPPED "Fallengelassen.";
+Constant MSG_DROP_DROPPED "In Ordnung.";
 #EndIf;
 #Ifndef MSG_THROW_ANIMATE;
 Constant MSG_THROW_ANIMATE "Sinnlos.";
 #Endif;
 #Ifndef MSG_THROW_DEFAULT;
-Constant MSG_THROW_DEFAULT "Im entscheidenden Moment fehlen dir die Nerven.";
+Constant MSG_THROW_DEFAULT "Im entscheidenden Moment versagen dir die Nerven.";
 #Endif;
 #Ifndef MSG_SMELL_DEFAULT;
 Constant MSG_SMELL_DEFAULT "Du riechst nichts Unerwartetes.";
@@ -52,10 +52,10 @@ Constant MSG_EXIT_ALREADY "Aber du bist im Moment in nichts drin!";
 Constant MSG_EXIT_NOT_ON "Du bist da nicht drauf.";
 #Endif;
 #Ifndef MSG_EXIT_NOT_IN;
-Constant MSG_EXIT_NOT_IN "Du bist da nicht drinnen.";
+Constant MSG_EXIT_NOT_IN "Du bist da nicht drin.";
 #Endif;
 #Ifndef MSG_INVENTORY_EMPTY;
-Constant MSG_INVENTORY_EMPTY "Du stehst mit leeren Händen da.";
+Constant MSG_INVENTORY_EMPTY "Du hast nichts.";
 #Endif;
 #Ifndef MSG_GO_CANT_GO;
 Constant MSG_GO_CANT_GO "Da kannst du nicht hingehen.";
@@ -701,19 +701,23 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Endif;
 #Iftrue MSG_TAKE_SCENERY < 1000;
 	MSG_TAKE_SCENERY:
-		print_ret (CTheyreorThats) noun, " nicht portabel.";
+		print_ret "Du kannst ", (DE_Den) noun, " nicht mitnehmen.";
 #EndIf;
 #Ifndef SKIP_MSG_PUSH_DEFAULT;
 	MSG_PUSH_DEFAULT, MSG_PULL_DEFAULT, MSG_TURN_DEFAULT:
-		"Es passiert nichts Offensichtliches.";
+		"Du siehst keinen Grund dazu.";
 #Endif;
 #Ifndef SKIP_MSG_PUSH_STATIC;
-	MSG_PUSH_STATIC, MSG_PULL_STATIC, MSG_TURN_STATIC, MSG_TAKE_STATIC:
-		print_ret (CTheyreorThats) noun, " fixiert.";
+	MSG_PUSH_STATIC, MSG_PULL_STATIC, MSG_TURN_STATIC:
+		print_ret (CObjIs) noun, " nicht beweglich.";
+#Endif;
+#Ifndef SKIP_MSG_TAKE_STATIC;
+	MSG_TAKE_STATIC:
+		print_ret "Du kannst ", (DE_Den) noun, " nicht mitnehmen.";
 #Endif;
 #Ifndef SKIP_MSG_PUSH_SCENERY;
 	MSG_PUSH_SCENERY, MSG_PULL_SCENERY, MSG_TURN_SCENERY:
-		"Das kannst du nicht bewegen.";
+		print_ret (CObjIs) noun, " nicht beweglich.";
 #Endif;
 #IfDef SACK_OBJECT;
 #IfTrue MSG_SACK_PUTTING < 1000;
@@ -755,7 +759,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 	MSG_DROP_NOT_HOLDING, MSG_SHOW_NOT_HOLDING, MSG_GIVE_NOT_HOLDING,
 	MSG_WEAR_NOT_HOLDING:
 		! "halten" = Akkusativ → (DE_Den)
-		"Du hältst ", (DE_Den) noun, " nicht.";
+		"Du hast ", (DE_Den) noun, " gar nicht.";
 #Endif;
 #Ifndef SKIP_MSG_OPEN_YOU_CANT;
 	MSG_OPEN_YOU_CANT, MSG_CLOSE_YOU_CANT, MSG_ENTER_YOU_CANT,
@@ -929,7 +933,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 		if(action == ##Drop or ##Insert) {
 			if((parse + 2 + (p_arg_1 - 2) *4) --> 0 == ALL_WORD)
 				"Du trägst nichts.";
-			if(TryNumber(verb_wordnum + 1) > 0) "Du hältst nichts davon.";
+			if(TryNumber(verb_wordnum + 1) > 0) "Du hast nichts davon.";
 		}
 		print "Es gibt keine Dinge, die ~";
 		_PrintPartialMatch(verb_wordnum, p_arg_1 - 1);
@@ -940,7 +944,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 	! p_arg_1 = the object which the player must be holding to perform the
 	! action but isnt.
 	! "halten" = Akkusativ → (DE_Den)
-		"Aber du hältst ", (DE_Den) p_arg_1, " nicht.";
+		"Aber du hast ", (DE_Den) p_arg_1, " gar nicht.";
 #Endif;
 #IfTrue MSG_PARSER_PARTIAL_MATCH < 1000;
 	MSG_PARSER_PARTIAL_MATCH:

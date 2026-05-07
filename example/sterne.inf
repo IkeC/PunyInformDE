@@ -164,7 +164,7 @@ Object -> Schreibtisch "Schreibtisch"
 		description "Ein schwerer Eichenschreibtisch, bedeckt mit vergilbten Seekarten
 			und Notizen. Darauf liegen eine Seekarte, ein alter Kompass und
 			einige Goldmünzen.",
-	has supporter scenery;
+	has supporter scenery static;
 
 ! FEMININ: has female
 ! Artikeltabelle → "die Seekarte", Indef: "eine Seekarte"
@@ -173,7 +173,7 @@ Object -> Schreibtisch "Schreibtisch"
 !   Nom: "eine alte Seekarte" / Akk: "die alte Seekarte" / Dat: "der alten Seekarte"
 Object -> -> Karte "Seekarte"
 	with
-		name 'karte' 'seekarte' 'alt',
+		name 'karte' 'seekarte' 'karten' 'seekarten' 'alt',
 		adj "alt",
 		description "Eine alte Seekarte des östlichen Ozeans. Ein roter Kreis
 			markiert eine kleine Insel weit im Osten. Daneben steht in

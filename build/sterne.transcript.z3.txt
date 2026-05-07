@@ -9,7 +9,7 @@ Wer -- und warum? Es wird Zeit, das herauszufinden.
 
 Das Schiff der Sterne
 Ein kurzes Abenteuer auf hoher See.
-Release 1 / Serial number 260505 / Inform v6.44 PunyInformDE v6.5 R
+Release 1 / Serial number 260507 / Inform v6.44 PunyInformDE v6.5 R
 
 Die Kapitaenskajuete
 Die enge Kajuete des Kapitaens auf dem Segelschiff Sternwind. Ein alter
@@ -44,7 +44,7 @@ Darauf liegen eine Seekarte, ein alter Kompass und einige Goldmuenzen.
 Du erkennst nichts Besonderes an dem kleinen Ring.
 
 > nimm ring
-Genommen.
+In Ordnung.
 
 > wirf ring
 Du brauchst den kleinen Ring noch.
@@ -53,7 +53,7 @@ Du brauchst den kleinen Ring noch.
 Du erkennst nichts Besonderes an der alten Nadel.
 
 > nimm muenzen
-Genommen.
+In Ordnung.
 
 > untersuche sie
 Fuenf glaenzende Goldmuenzen mit dem Abbild eines Seeadlers.
@@ -65,7 +65,7 @@ Du legst die Goldmuenzen auf den Schreibtisch.
 Du erkennst nichts Besonderes an dem feinen Tuch.
 
 > nimm muenzen
-Genommen.
+In Ordnung.
 
 > untersuche sie
 Fuenf glaenzende Goldmuenzen mit dem Abbild eines Seeadlers.
@@ -87,7 +87,7 @@ Nein, den alten Kompass brauchst du noch.
 Du legst den alten Kompass auf den Schreibtisch.
 
 > nimm karte
-Genommen.
+In Ordnung.
 
 > untersuche alte karte
 Eine alte Seekarte des oestlichen Ozeans. Ein roter Kreis markiert eine kleine
@@ -100,7 +100,7 @@ Insel weit im Osten. Daneben steht in krakeliger Schrift: Das Fernrohr zeigt den
 Weg!
 
 > nimm ausweis
-Genommen.
+In Ordnung.
 
 > untersuche ausweis
 Du magst dieses alte Foto nicht. Du guckst darauf wie ein Reh im
@@ -113,7 +113,7 @@ Den Personalausweis behaeltst du besser bei dir.
 Du hast ihn bereits.
 
 > nimm jacke
-Genommen.
+In Ordnung.
 
 > inventar
 Du hast meine Jacke, deinen Personalausweis, eine alte Seekarte und einen
@@ -123,7 +123,7 @@ kleinen Ring.
 Du findest nichts Besonderes an meiner Jacke.
 
 > nimm tagebuch
-Genommen.
+In Ordnung.
 
 > inventar
 Du hast sein Tagebuch, meine Jacke, deinen Personalausweis, eine alte Seekarte
@@ -171,7 +171,7 @@ Du gehst in die Seekiste.
 Du verlaesst die Seekiste.
 
 > nimm kleinen schluessel
-Genommen.
+In Ordnung.
 
 [Du hast 1 Punkt erhalten.]
 
@@ -303,7 +303,7 @@ Damit endet das Gespraech.
 [Du hast 1 Punkt erhalten.]
 
 > nimm fernrohr
-Genommen.
+In Ordnung.
 
 > untersuche es
 Du richtest das Messing-Fernrohr nach Osten und schaust hindurch.
