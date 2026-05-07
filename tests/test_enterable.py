@@ -139,6 +139,24 @@ def test_x_abbreviation_prints_german_ascii(game_ascii):
     assert_output_contains(out, "untersuche")
 
 
+@pytest.mark.feature("enterable")
+def test_b_abbreviation_works(game):
+    """'b' abbreviation for betrachte: must examine an object."""
+    out = game.run(["b schreibtisch"])
+    assert_output_contains(out, "Schreibtisch",
+        msg="'b schreibtisch' must produce examine output")
+    assert_output_not_contains(out, "kenne ich nicht",
+        msg="'b' must be a recognised command")
+
+
+@pytest.mark.feature("enterable")
+def test_b_abbreviation_works_ascii(game_ascii):
+    """ASCII build: 'b' abbreviation for betrachte."""
+    out = game_ascii.run(["b schreibtisch"])
+    assert_output_contains(out, "Schreibtisch")
+    assert_output_not_contains(out, "kenne ich nicht")
+
+
 # ---------------------------------------------------------------------------
 # Issue b: 'raus' as standalone verb exits container
 # ---------------------------------------------------------------------------

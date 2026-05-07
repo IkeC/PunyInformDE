@@ -140,13 +140,37 @@ Constant DIR_WORD_SW    = 'suedwest';
 #EndIf;
 
 ! V5+ direction word array — replaces the English one in globals.h.
+! Using DIR_* constants (not literals) silences I6 "declared but not used" warnings:
+! the compiler tracks constant use in array initialisers but not in @je operands.
 #Iftrue #version_number > 3;
 #IfDef OPTIONAL_FULL_DIRECTIONS;
-Array _direction_dict_words static --> 'n//' 's//' 'o//' 'w//' 'no' 'nw' 'so' 'sw' 'hoch' 0 0 0
-	'nord' 'sued' 'ost' 'west' 'nordost' 'nordwest' 'suedost' 'suedwest' 'rauf' 'runter' 'rein' 'raus';
+Array _direction_dict_words static -->
+	DIR_ABBREV_N DIR_ABBREV_S DIR_ABBREV_E DIR_ABBREV_W
+	DIR_ABBREV_NE DIR_ABBREV_NW DIR_ABBREV_SE DIR_ABBREV_SW
+	DIR_ABBREV_U DIR_ABBREV_D DIR_ABBREV_IN DIR_ABBREV_OUT
+	DIR_WORD_N DIR_WORD_S DIR_WORD_E DIR_WORD_W
+	DIR_WORD_NE DIR_WORD_NW DIR_WORD_SE DIR_WORD_SW
+	DIR_WORD_U DIR_WORD_D DIR_WORD_IN DIR_WORD_OUT;
 #IfNot;
-Array _direction_dict_words static --> 'n//' 's//' 'o//' 'w//' 'hoch' 0 0 0
-	'nord' 'sued' 'ost' 'west' 'rauf' 'runter' 'rein' 'raus';
+Array _direction_dict_words static -->
+	DIR_ABBREV_N DIR_ABBREV_S DIR_ABBREV_E DIR_ABBREV_W
+	DIR_ABBREV_U DIR_ABBREV_D DIR_ABBREV_IN DIR_ABBREV_OUT
+	DIR_WORD_N DIR_WORD_S DIR_WORD_E DIR_WORD_W
+	DIR_WORD_U DIR_WORD_D DIR_WORD_IN DIR_WORD_OUT;
+#EndIf;
+#IfNot;
+! V3: I6 does not count constants used in @je assembly operands as "used".
+! This dummy static array references all DIR_* constants in a non-assembly context
+! to silence those warnings. (static --> arrays occupy read-only story-file space.)
+Array _dir_words_anchor static -->
+	DIR_ABBREV_N DIR_ABBREV_S DIR_ABBREV_E DIR_ABBREV_W
+	DIR_ABBREV_U DIR_ABBREV_D DIR_ABBREV_IN DIR_ABBREV_OUT
+	DIR_WORD_N DIR_WORD_S DIR_WORD_E DIR_WORD_W
+	DIR_WORD_U DIR_WORD_D DIR_WORD_IN DIR_WORD_OUT;
+#IfDef OPTIONAL_FULL_DIRECTIONS;
+Array _dir_fullwords_anchor static -->
+	DIR_ABBREV_NE DIR_ABBREV_NW DIR_ABBREV_SE DIR_ABBREV_SW
+	DIR_WORD_NE DIR_WORD_NW DIR_WORD_SE DIR_WORD_SW;
 #EndIf;
 #EndIf;
 

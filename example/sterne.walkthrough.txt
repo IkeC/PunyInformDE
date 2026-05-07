@@ -1,8 +1,8 @@
 schau
 riech
 hör
-untersuche schreibtisch
-untersuche ring
+betrachte schreibtisch
+b ring
 nimm ring
 wirf ring
 untersuche alte nadel

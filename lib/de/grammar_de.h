@@ -50,6 +50,7 @@ System_file;
 [ PrintVerb p_v;
 	switch(p_v) {
 		'x//':       print "untersuche"; rtrue;
+		'b//':       print "betrachte";  rtrue;
 		'examine':   print "untersuche"; rtrue; ! Z3
 		'l//':       print "schau";     rtrue;
 		'z//':       print "warte";     rtrue;
@@ -156,7 +157,7 @@ Verb 'schau' 'seh' 'sieh' 'guck' 'blick' 'u//'
 	* 'auf' noun                                -> Examine
 	* 'unter' noun                              -> Search;
 
-Verb 'untersuch' 'betracht' 'inspizier'
+Verb 'untersuch' 'betracht' 'inspizier' 'b//'
 	* noun                                      -> Examine;
 
 ! --- Open ---

@@ -36,11 +36,11 @@ Du riechst nichts Unerwartetes.
 > hoer
 Du hoerst nichts Unerwartetes.
 
-> untersuche schreibtisch
+> betrachte schreibtisch
 Ein schwerer Eichenschreibtisch, bedeckt mit vergilbten Seekarten und Notizen.
 Darauf liegen eine Seekarte, ein alter Kompass und einige Goldmuenzen.
 
-> untersuche ring
+> b ring
 Du erkennst nichts Besonderes an dem kleinen Ring.
 
 > nimm ring
