@@ -108,24 +108,46 @@ Constant AND_LIST_STR = " und ";
 
 ! ---------------------------------------------------------------------------
 ! German direction word constants
-! Setting EXTRA_DIRECTION_ROW tells globals.h to append a 3rd row of German
-! direction words to _direction_dict_words, making bare commands like
-! 'nord', 'rauf', 'sued' etc. work as directions.
+! Setting DIRECTION_WORDS_DEFINED skips the English defaults block and the
+! English _direction_dict_words array in globals.h. This file supplies both.
 ! ---------------------------------------------------------------------------
-Constant EXTRA_DIRECTION_ROW;
-Constant DE_NORD   = 'nord';
-Constant DE_SUED   = 'sued';
-Constant DE_OST    = 'ost';
-Constant DE_WEST   = 'west';
-Constant DE_RAUF   = 'rauf';
-Constant DE_RUNTER = 'runter';
-Constant DE_REIN   = 'rein';
-Constant DE_RAUS   = 'raus';
+Constant DIRECTION_WORDS_DEFINED;
+Constant DIR_ABBREV_N   = 'n//';    ! Norden  (abbreviation stays 'n')
+Constant DIR_ABBREV_S   = 's//';    ! Süden   (abbreviation stays 's')
+Constant DIR_ABBREV_E   = 'o//';    ! Osten   ('o', not 'e')
+Constant DIR_ABBREV_W   = 'w//';    ! Westen  (abbreviation stays 'w')
+Constant DIR_ABBREV_U   = 'hoch';   ! hinauf  ('hoch'; no single-char abbrev)
+Constant DIR_ABBREV_D   = 0;        ! hinunter (no abbreviation)
+Constant DIR_ABBREV_IN  = 0;        ! rein    (no abbreviation)
+Constant DIR_ABBREV_OUT = 0;        ! raus    (no abbreviation)
+Constant DIR_WORD_N     = 'nord';
+Constant DIR_WORD_S     = 'sued';
+Constant DIR_WORD_E     = 'ost';
+Constant DIR_WORD_W     = 'west';
+Constant DIR_WORD_U     = 'rauf';
+Constant DIR_WORD_D     = 'runter';
+Constant DIR_WORD_IN    = 'rein';
+Constant DIR_WORD_OUT   = 'raus';
 #IfDef OPTIONAL_FULL_DIRECTIONS;
-Constant DE_NORDOST  = 'no';  ! Nordosten
-Constant DE_NORDWEST = 0;     ! same as English 'nw'
-Constant DE_SUEDOST  = 'so';  ! Südosten
-Constant DE_SUEDWEST = 0;     ! same as English 'sw'
+Constant DIR_ABBREV_NE  = 'no';       ! Nordost
+Constant DIR_ABBREV_NW  = 'nw';       ! Nordwest  (same as English)
+Constant DIR_ABBREV_SE  = 'so';       ! Südost
+Constant DIR_ABBREV_SW  = 'sw';       ! Südwest   (same as English)
+Constant DIR_WORD_NE    = 'nordost';
+Constant DIR_WORD_NW    = 'nordwest';
+Constant DIR_WORD_SE    = 'suedost';
+Constant DIR_WORD_SW    = 'suedwest';
+#EndIf;
+
+! V5+ direction word array — replaces the English one in globals.h.
+#Iftrue #version_number > 3;
+#IfDef OPTIONAL_FULL_DIRECTIONS;
+Array _direction_dict_words static --> 'n//' 's//' 'o//' 'w//' 'no' 'nw' 'so' 'sw' 'hoch' 0 0 0
+	'nord' 'sued' 'ost' 'west' 'nordost' 'nordwest' 'suedost' 'suedwest' 'rauf' 'runter' 'rein' 'raus';
+#IfNot;
+Array _direction_dict_words static --> 'n//' 's//' 'o//' 'w//' 'hoch' 0 0 0
+	'nord' 'sued' 'ost' 'west' 'rauf' 'runter' 'rein' 'raus';
+#EndIf;
 #EndIf;
 
 ! German parser extension (enables ja/nein in YesOrNo via Replace directive)

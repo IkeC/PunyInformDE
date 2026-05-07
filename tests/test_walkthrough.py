@@ -53,7 +53,8 @@ WALKTHROUGH = [
     "nord",
     "lies plakat",
     "beruehr glocke",
-    "geh rauf",
+    "hoch",               # replaces 'geh rauf' — tests new 'hoch' = up alias
+    "o",                  # tests 'o' = east alias (blocked direction, not unknown verb)
     "kletter mast",
     "warte",
     "schau",
@@ -91,8 +92,8 @@ def test_wins_game(game):
 
 @pytest.mark.feature("walkthrough")
 def test_reaches_oberdeck(game):
-    """The walkthrough successfully navigates to Oberdeck."""
-    out = game.run(WALKTHROUGH[:33])  # up to 'geh rauf'
+    """The walkthrough successfully navigates to Oberdeck (via 'hoch')."""
+    out = game.run(WALKTHROUGH[:34])  # up to and including 'hoch'
     assert_output_contains(out, "Oberdeck")
 
 

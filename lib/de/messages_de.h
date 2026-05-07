@@ -1033,7 +1033,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #EndIf;
 #Ifndef SKIP_MSG_LOCK_KEY_DOESNT_FIT;
 	MSG_LOCK_KEY_DOESNT_FIT, MSG_UNLOCK_KEY_DOESNT_FIT:
-		if (second == nothing) "Du hast keinen passenden Schlüssel dafür.";
+		if (second == nothing) "Gib an, womit du das Schloss öffnen oder schließen willst.";
 		! Nominativ: second ist Subjekt → (DE_Der_Cap) am Satzanfang
 		print_ret (DE_Der_Cap) second, " scheint nicht in das Schloss zu passen.";
 #Endif;

@@ -283,6 +283,26 @@ Constant FAKE_S_OBJ = 10002;
 Constant FAKE_E_OBJ = 10003;
 Constant FAKE_W_OBJ = 10004;
 
+! ─── Direction word defaults (overridable by language files) ─────────────────
+! Define DIRECTION_WORDS_DEFINED + constants + _direction_dict_words array in a
+! language file included before globals.h to skip these English defaults entirely.
+#IfNDef DIRECTION_WORDS_DEFINED;
+Constant DIR_ABBREV_N  = 'n//'; Constant DIR_WORD_N  = 'north';
+Constant DIR_ABBREV_S  = 's//'; Constant DIR_WORD_S  = 'south';
+Constant DIR_ABBREV_E  = 'e//'; Constant DIR_WORD_E  = 'east';
+Constant DIR_ABBREV_W  = 'w//'; Constant DIR_WORD_W  = 'west';
+Constant DIR_ABBREV_U  = 'u//'; Constant DIR_WORD_U  = 'up';
+Constant DIR_ABBREV_D  = 'd//'; Constant DIR_WORD_D  = 'down';
+Constant DIR_ABBREV_IN  = 0;    Constant DIR_WORD_IN  = 'in';
+Constant DIR_ABBREV_OUT = 0;    Constant DIR_WORD_OUT = 'out';
+#IfDef OPTIONAL_FULL_DIRECTIONS;
+Constant DIR_ABBREV_NE = 'ne';  Constant DIR_WORD_NE = 'northeast';
+Constant DIR_ABBREV_NW = 'nw';  Constant DIR_WORD_NW = 'northwest';
+Constant DIR_ABBREV_SE = 'se';  Constant DIR_WORD_SE = 'southeast';
+Constant DIR_ABBREV_SW = 'sw';  Constant DIR_WORD_SW = 'southwest';
+#EndIf;
+#EndIf;
+
 #IfDef OPTIONAL_FULL_DIRECTIONS;
 
 Constant FAKE_NE_OBJ = 10005;
@@ -294,13 +314,9 @@ Constant FAKE_D_OBJ = 10010;
 Constant FAKE_IN_OBJ = 10011;
 Constant FAKE_OUT_OBJ = 10012;
 #Iftrue #version_number > 3;
-#IfNDef EXTRA_DIRECTION_ROW;
+#IfNDef DIRECTION_WORDS_DEFINED;
 Array _direction_dict_words static --> 'n//' 's//' 'e//' 'w//' 'ne' 'nw' 'se' 'sw' 'u//' 'd//' 0 0
 	'north' 'south' 'east' 'west' 'northeast' 'northwest' 'southeast' 'southwest' 'up' 'down' 'in' 'out';
-#IfNot;
-Array _direction_dict_words static --> 'n//' 's//' 'e//' 'w//' 'ne' 'nw' 'se' 'sw' 'u//' 'd//' 0 0
-	'north' 'south' 'east' 'west' 'northeast' 'northwest' 'southeast' 'southwest' 'up' 'down' 'in' 'out'
-	DE_NORD DE_SUED DE_OST DE_WEST DE_NORDOST DE_NORDWEST DE_SUEDOST DE_SUEDWEST DE_RAUF DE_RUNTER DE_REIN DE_RAUS;
 #EndIf;
 #Ifdef OPTIONAL_SHIP_DIRECTIONS;
 Array _ship_direction_dict_words static --> 'f//' 'a//' 'sb' 'p//' 0 0 0 0 'u//' 'd//' 0 0
@@ -318,13 +334,9 @@ Constant FAKE_D_OBJ = 10006;
 Constant FAKE_IN_OBJ = 10007;
 Constant FAKE_OUT_OBJ = 10008;
 #Iftrue #version_number > 3;
-#IfNDef EXTRA_DIRECTION_ROW;
+#IfNDef DIRECTION_WORDS_DEFINED;
 Array _direction_dict_words static --> 'n//' 's//' 'e//' 'w//' 'u//' 'd//' 0 0
 	'north' 'south' 'east' 'west' 'up' 'down' 'in' 'out';
-#IfNot;
-Array _direction_dict_words static --> 'n//' 's//' 'e//' 'w//' 'u//' 'd//' 0 0
-	'north' 'south' 'east' 'west' 'up' 'down' 'in' 'out'
-	DE_NORD DE_SUED DE_OST DE_WEST DE_RAUF DE_RUNTER DE_REIN DE_RAUS;
 #EndIf;
 #Ifdef OPTIONAL_SHIP_DIRECTIONS;
 Array _ship_direction_dict_words static --> 'f//' 'a//' 'sb' 'p//' 'u//' 'd//' 0 0
@@ -758,11 +770,7 @@ Object Directions
 
 			_arr = _direction_dict_words;
 			if(normal_directions_enabled) {
-#IfDef EXTRA_DIRECTION_ROW;
-				@scan_table _w _arr (DIRECTION_COUNT * 3) -> _i ?_matched_word_in_list;
-#IfNot;
 				@scan_table _w _arr (DIRECTION_COUNT * 2) -> _i ?_matched_word_in_list;
-#EndIf;
 #Ifndef OPTIONAL_SHIP_DIRECTIONS;
 				if(_w == 'floor' or 'ground') {
 					selected_direction_index = DIRECTION_COUNT - 2;
@@ -805,22 +813,22 @@ Object Directions
 
 			if(normal_directions_enabled) {
 #Ifndef OPTIONAL_SHIP_DIRECTIONS;
-				@je _w 'out' ?_matched_out;
-				@je _w 'in' ?_matched_in;
-				@je _w 'd//' 'down' ?_matched_d;
+				@je _w DIR_ABBREV_OUT DIR_WORD_OUT ?_matched_out;
+				@je _w DIR_ABBREV_IN DIR_WORD_IN ?_matched_in;
+				@je _w DIR_ABBREV_D DIR_WORD_D ?_matched_d;
 				@je _w 'floor' 'ground' ?_matched_d;
-				@je _w 'u//' 'up' ?_matched_u;
+				@je _w DIR_ABBREV_U DIR_WORD_U ?_matched_u;
 #Endif;
 #Ifdef OPTIONAL_FULL_DIRECTIONS;
-				@je _w 'se' 'southeast' ?_matched_se;
-				@je _w 'sw' 'southwest' ?_matched_sw;
-				@je _w 'ne' 'northeast' ?_matched_ne;
-				@je _w 'nw' 'northwest' ?_matched_nw;
+				@je _w DIR_ABBREV_SE DIR_WORD_SE ?_matched_se;
+				@je _w DIR_ABBREV_SW DIR_WORD_SW ?_matched_sw;
+				@je _w DIR_ABBREV_NE DIR_WORD_NE ?_matched_ne;
+				@je _w DIR_ABBREV_NW DIR_WORD_NW ?_matched_nw;
 #Endif;
-				@je _w 'e//' 'east' ?_matched_e;
-				@je _w 'w//' 'west' ?_matched_w;
-				@je _w 's//' 'south' ?_matched_s;
-				@je _w 'n//' 'north' ?_matched_n;
+				@je _w DIR_ABBREV_E DIR_WORD_E ?_matched_e;
+				@je _w DIR_ABBREV_W DIR_WORD_W ?_matched_w;
+				@je _w DIR_ABBREV_S DIR_WORD_S ?_matched_s;
+				@je _w DIR_ABBREV_N DIR_WORD_N ?_matched_n;
 			}
 
 #Ifdef OPTIONAL_SHIP_DIRECTIONS;

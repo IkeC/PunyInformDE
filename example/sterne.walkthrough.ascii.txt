@@ -49,7 +49,8 @@ oeffne tuer
 nord
 lies plakat
 beruehr glocke
-geh rauf
+hoch
+o
 kletter mast
 warte
 schau

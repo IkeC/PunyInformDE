@@ -28,6 +28,9 @@ Constant MAX_SCORE = 5;
 
 Constant OPTIONAL_NO_DARKNESS;
 
+! Unterstützt "diagonale" Himmelsrichtungen: Nordost, Nordwest, Südost, Südwest
+Constant OPTIONAL_FULL_DIRECTIONS;
+
 ! ---------------------------------------------------------------------------
 ! PunyInformDE-Konstanten
 ! ---------------------------------------------------------------------------

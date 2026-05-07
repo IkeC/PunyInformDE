@@ -205,7 +205,7 @@ Du liest: Ruhe im Gang. Keine offenen Flammen unter Deck.
 > beruehr glocke
 Die Glocke klingelt hell durch den ganzen Gang.
 
-> geh rauf
+> hoch
 Das Oberdeck
 Du stehst auf dem Oberdeck der Sternwind. Salzige Meeresluft weht dir ins
 Gesicht. Ein maechtiger Mast ragt in den wolkenlosen Abendhimmel. Im Westen
@@ -213,6 +213,9 @@ glueht die untergehende Sonne. Die Eisentreppe fuehrt nach unten.
 
 Hier befinden sich Steuermann Hinnerk, Navigatorin Elara, Molly und ein Messing-
 Fernrohr.
+
+> o
+Da kannst du nicht hingehen.
 
 > kletter mast
 Du versuchst den Mast hinaufzuklettern, rutschst aber ab und landest wieder auf
@@ -318,6 +321,6 @@ Du senkst das Fernrohr und laechelst. Das Abenteuer kann beginnen!
 
   *** Du hast gewonnen! ***
 
-In diesem Spiel hast du 5 von 5 moeglichen Punkten erreicht, in 60 Zuegen.
+In diesem Spiel hast du 5 von 5 moeglichen Punkten erreicht, in 61 Zuegen.
 
 Moechtest du NEUSTART, WIEDERHERSTELLEN oder BEENDEN? 

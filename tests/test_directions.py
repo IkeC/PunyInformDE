@@ -75,3 +75,72 @@ def test_sued_moves_to_kajuete(game):
     out = game.run(_OPEN_DOOR + ["nord", "sued", "schau"])
     # Starting room has the Schreibtisch — ASCII-safe landmark
     assert_output_contains(out, "Schreibtisch")
+
+
+@pytest.mark.feature("directions")
+def test_hoch_recognised(game):
+    """'hoch' is accepted as direction 'up' (alias for 'rauf')."""
+    out = game.run(_OPEN_DOOR + ["nord", "hoch"])
+    assert_output_not_contains(out, UNKNOWN_VERB)
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+@pytest.mark.feature("directions")
+def test_hoch_moves_to_oberdeck(game):
+    """'hoch' from Schiffsgang moves player to Oberdeck (same as 'rauf')."""
+    out = game.run(_OPEN_DOOR + ["nord", "hoch"])
+    assert_output_contains(out, "Oberdeck")
+
+
+@pytest.mark.feature("directions")
+def test_o_recognised_as_direction(game):
+    """'o' is accepted as a direction (east alias), not an unknown verb."""
+    out = game.run(_OPEN_DOOR + ["nord", "o"])
+    assert_output_not_contains(out, UNKNOWN_VERB)
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+@pytest.mark.feature("directions")
+def test_ost_recognised_as_direction(game):
+    """'ost' is accepted as a direction (east), not an unknown verb."""
+    out = game.run(_OPEN_DOOR + ["nord", "ost"])
+    assert_output_not_contains(out, UNKNOWN_VERB)
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+@pytest.mark.feature("directions")
+def test_hoch_ascii(game_ascii):
+    """'hoch' works in the ASCII build too."""
+    out = game_ascii.run(_OPEN_DOOR + ["nord", "hoch"])
+    assert_output_not_contains(out, UNKNOWN_VERB)
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
+    assert_output_contains(out, "Oberdeck")
+
+
+@pytest.mark.feature("directions")
+def test_o_recognised_ascii(game_ascii):
+    """'o' is accepted as a direction in the ASCII build."""
+    out = game_ascii.run(_OPEN_DOOR + ["nord", "o"])
+    assert_output_not_contains(out, UNKNOWN_VERB)
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+@pytest.mark.feature("directions")
+def test_english_north_not_in_dictionary(game):
+    """'north' is not recognised — English direction words are not in the German dictionary."""
+    out = game.run(["north"])
+    assert_output_contains(out, UNKNOWN_VERB)
+
+
+@pytest.mark.feature("directions")
+def test_english_east_not_in_dictionary(game):
+    """'east' is not recognised — English direction words are not in the German dictionary."""
+    out = game.run(["east"])
+    assert_output_contains(out, UNKNOWN_VERB)
+
+
+@pytest.mark.feature("directions")
+def test_english_up_not_in_dictionary(game):
+    """'up' is not recognised — English direction words are not in the German dictionary."""
+    out = game.run(["up"])
+    assert_output_contains(out, UNKNOWN_VERB)
