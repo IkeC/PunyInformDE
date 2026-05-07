@@ -1,4 +1,4 @@
-Expected here for VSCode tasks and the build.ps1 script (Windows only):
+Expected here for VSCode tasks and the build/build.ps1 script (Windows only):
 # dfrotz.exe
 
 Included, built from: https://github.com/DavidKinder/Windows-Frotz

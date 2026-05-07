@@ -65,6 +65,7 @@ tests/
 .vscode/
   tasks.json    — Build, Test Dfrotz, Test Dfrotz (ASCII), Test Lectrote,
                   Test Lectrote (ASCII)
+build/
   build.ps1     — Build script: Unicode compile, preprocess + ASCII compile,
                   ASCII walkthrough generation
 ```

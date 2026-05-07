@@ -190,7 +190,7 @@ There is no way to instruct Inform 6 to silently replace non-ASCII characters
 in string literals at compile time. The only reliable approach is to replace
 every umlaut in every string literal in every source file with its two-letter
 ASCII digraph **before compilation**. This is what the preprocessing pass in
-`build.ps1` does:
+`build/build.ps1` does:
 
 1. It reads each source file containing German strings as UTF-8.
 2. It substitutes each umlaut character: ä→ae, ö→oe, ü→ue, ß→ss, Ä→Ae,
@@ -263,7 +263,7 @@ now work correctly even when both words are absent from the dictionary.
 
 ## Build and Transcript Loop
 
-Build task (`.vscode/build.ps1`) does all of:
+Build task (`build/build.ps1`) does all of:
 
 1. Compile Unicode story
 2. Generate ASCII source tree and compile ASCII story

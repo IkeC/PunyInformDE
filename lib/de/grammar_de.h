@@ -250,7 +250,7 @@ Verb 'leg'
 	* multiexcept 'auf' noun                    -> PutOn;
 
 Verb 'lass'
-	* multiheld                                 -> Drop;
+	* multiheld                                 -> Drop
 	* multiheld 'fallen'                        -> Drop;
 
 ! --- Wear ---
