@@ -49,6 +49,7 @@ oeffne tuer
 nord
 lies plakat
 beruehr glocke
+nimm schuhe
 hoch
 o
 kletter mast

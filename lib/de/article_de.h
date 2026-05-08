@@ -161,10 +161,12 @@ Constant DE_MODE_BARE  = 2;
 
     if (p_mode == DE_MODE_INDEF) {
         ! Indefiniter Artikel (gemischte Flexion)
-        ! Nom: m=-er,f=-e,n=-es,pl=-en; Akk: m=-en,f=-e,n=-es,pl=-en; Dat: alle -en
+        ! Nom: m=-er,f=-e,n=-es,pl=-e; Akk: m=-en,f=-e,n=-es,pl=-e; Dat: alle -en
+        ! Plural Nom/Akk: nach "einige" starke Endung -e (z.B. "einige kleine Schuhe")
         if (p_case == Dat) return "en";
         if (p_case == Akk) {
-            if (p_gender == 0 or 3) return "en";
+            if (p_gender == 0) return "en";
+            if (p_gender == 3) return "e";
             if (p_gender == 1) return "e";
             return "es";
         }
@@ -172,7 +174,7 @@ Constant DE_MODE_BARE  = 2;
         if (p_gender == 0) return "er";
         if (p_gender == 1) return "e";
         if (p_gender == 2) return "es";
-        return "en";
+        return "e";  ! Plural Nom: starke Endung -e (nach "einige")
     }
 
     ! Ohne Artikel (starke Flexion)

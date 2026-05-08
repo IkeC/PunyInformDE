@@ -291,5 +291,11 @@ Array _de_dict_parse -> 8;  ! 2-byte header + 1 word entry (4 bytes)
     }
 ];
 
+! ---------------------------------------------------------------------------
+! German strings for parser disambiguation prompt (overrides defaults in parser.h).
+! ---------------------------------------------------------------------------
+Constant PARSER_ASK_WHICH_PREFIX_STR = "Meinst du ";
+Constant PARSER_ASK_WHICH_OR_STR = " oder ";
+
 ! _DE_SubstitutePronouns is defined in de/article_de.h (compiled after globals.h
 ! so that herobj/themobj global variables are already declared when needed).

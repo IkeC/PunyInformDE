@@ -161,12 +161,19 @@ System_file;
 	PrintMsg(MSG_PARSER_BAD_PATTERN_SUFFIX);
 ];
 
+#IfNDef PARSER_ASK_WHICH_PREFIX_STR;
+Constant PARSER_ASK_WHICH_PREFIX_STR = "Do you mean ";
+#EndIf;
+#IfNDef PARSER_ASK_WHICH_OR_STR;
+Constant PARSER_ASK_WHICH_OR_STR = " or ";
+#EndIf;
+
 [ _AskWhichNoun p_num_matching_nouns _i;
-	print "Do you mean ";
+	print (string) PARSER_ASK_WHICH_PREFIX_STR;
 	for(_i = 1 : _i <= p_num_matching_nouns : _i++) {
 		if(_i > 1) {
 			if(_i == p_num_matching_nouns) {
-				print " or ";
+				print (string) PARSER_ASK_WHICH_OR_STR;
 			} else {
 				print ", ";
 			}

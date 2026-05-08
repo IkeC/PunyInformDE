@@ -9,7 +9,7 @@ Wer -- und warum? Es wird Zeit, das herauszufinden.
 
 Das Schiff der Sterne
 Ein kurzes Abenteuer auf hoher See.
-Release 1 / Serial number 260507 / Inform v6.44 PunyInformDE v6.5 R
+Release 1 / Serial number 260508 / Inform v6.44 PunyInformDE v6.5 R
 
 Die Kapitänskajüte
 Die enge Kajüte des Kapitäns auf dem Segelschiff Sternwind. Ein alter
@@ -199,11 +199,16 @@ Ein enger Gang. Das Holz knarzt unter deinen Füßen. Im Süden liegt die
 Kapitänskajüte. Eine rostige Eisentreppe führt nach oben zum Deck. An der Wand
 hängt ein altes Schiffsplakat, daneben eine kleine Signalglocke.
 
+Hier befinden sich einige kleine Schuhe und einige große Schuhe.
+
 > lies plakat
 Du liest: Ruhe im Gang. Keine offenen Flammen unter Deck.
 
 > berühr glocke
 Die Glocke klingelt hell durch den ganzen Gang.
+
+> nimm schuhe
+Meinst du die kleinen Schuhe oder die großen Schuhe?
 
 > hoch
 Das Oberdeck

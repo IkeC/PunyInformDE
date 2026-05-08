@@ -404,6 +404,22 @@ Object -> Signalglocke "Signalglocke"
 		],
 	has scenery;
 
+Object -> small_shoes "Schuhe"
+	has pluralname clothing
+	with
+		name 'klein' 'schuh' 'frauenschuh',
+		adj "klein",
+		description "Größe und Stil nach zu urteilen gehören sie der Frau des Kapitäns."
+	;
+
+Object -> large_shoes "Schuhe"
+	has pluralname clothing
+	with
+		name 'groß' 'schuh' 'männerschuh',
+		adj "groß",
+		description "Größe und Stil nach zu urteilen gehören sie dem Kapitän."
+	;
+
 ! ==================================================================
 ! RAUM 3: Das Oberdeck
 ! ==================================================================
