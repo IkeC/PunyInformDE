@@ -21,6 +21,7 @@ Includes PunyInform features and commits up to May 1st, 2026.
 - German article system (automatic declension from gender attributes)
 - German pronoun substitution (er/ihn/ihm, sie/ihnen, es)
 - Adjective case/gender agreement in library messages
+- Object-aware take success feedback (`Du nimmst ... an dich.`)
 - Unicode and ASCII (digraph) build variants
 - Runnable example game (*Das Schiff der Sterne*)
 - Comprehensive test suite with pytest

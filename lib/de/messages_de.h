@@ -16,7 +16,7 @@ Constant MSG_TAKE_YOURSELF "Selbstverliebt wie immer.";
 Constant MSG_TAKE_NO_CAPACITY "Mehr kannst du nicht tragen.";
 #EndIf;
 #Ifndef MSG_TAKE_DEFAULT;
-Constant MSG_TAKE_DEFAULT "In Ordnung.";
+Default MSG_TAKE_DEFAULT = 1000;
 #EndIf;
 #Ifndef MSG_DRINK_NOTHING_SUITABLE;
 Constant MSG_DRINK_NOTHING_SUITABLE "Hier gibt es nichts zu trinken.";
@@ -733,7 +733,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 		! or false if MSG_INVENTORY_EMPTY should be displayed
 		p_arg_1 = "Du hast ";
 		if(inventory_style == 0) {
-			p_arg_1 = "Du hast:";
+			p_arg_1 = "Du hast bei dir:";
 			p_arg_2 = NEWLINE_BIT;
 		}
 		! Inventory items are direct objects of "Du hast" → Akkusativ
@@ -1048,8 +1048,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #EndIf;
 #IfTrue MSG_SEARCH_IN_IT_ISARE < 1000;
 	MSG_SEARCH_IN_IT_ISARE:
-		! Nominativ: noun ist Subjekt → (DE_Der_Cap) am Satzanfang
-		print (DE_Der_Cap) noun, " enthält bereits ";
+		print "In ", (DE_Dem) noun, " siehst du ";
 		p_arg_2 = short_name_case;
 		short_name_case = Akk;
 		PrintContents(0, noun);
@@ -1277,6 +1276,12 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 		print "Bist du sicher, dass du neu starten willst? ";
 		rtrue;
 #Endif;
+
+#IfTrue MSG_TAKE_DEFAULT > 999;
+	MSG_TAKE_DEFAULT:
+		! "nehmen" = Akkusativ → (DE_Den)
+		print_ret "Du nimmst ", (DE_Den) noun, " an dich.";
+#EndIf;
 
 #Ifndef NO_SCORE;
 #Ifndef SKIP_MSG_NOTIFY_ON;

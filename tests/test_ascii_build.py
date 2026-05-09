@@ -81,7 +81,7 @@ def test_ascii_nimm_schluessel(game_ascii):
     out = game_ascii.run(["oeffne kiste", "nimm schluessel"])
     assert_output_not_contains(out, NOT_UNDERSTOOD)
     assert_output_not_contains(out, UNKNOWN_VERB)
-    assert_output_contains(out, "Genommen")
+    assert_output_contains(out, "Du nimmst den kleinen Schluessel an dich.")
 
 
 @pytest.mark.feature("ascii")

@@ -12,6 +12,10 @@ A complete, release-ready German localisation of PunyInform v6.5, with:
 - Unicode build (`build/sterne.z5`) and ASCII build (`build/sterne.ascii.z5`)
 - VS Code tasks for Build and interactive testing
 
+Recent progress:
+- German take success feedback now uses an object-aware line (`Du nimmst ...
+  an dich.`) instead of the generic `In Ordnung.` fallback.
+
 ## Architecture (current)
 ```
 lib/

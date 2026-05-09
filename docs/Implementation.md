@@ -105,6 +105,23 @@ This fixes outputs such as:
 - `Du legst den alten Kompass auf den Schreibtisch.`
 - `Du öffnest die Seekiste, und siehst einen kleinen Schlüssel.`
 
+## §4 Default Take Feedback
+
+Implemented in:
+
+- `lib/de/messages_de.h`
+- `lib/messages.h` / `lib/de/messages_de.h` message hook
+
+Key behavior:
+
+- The generic take success fallback now prints an object-aware German line:
+   `Du nimmst ... an dich.`
+- This keeps the noun visible in post-action feedback while staying inside the
+   German message layer.
+
+Current regression coverage uses the example game and Staub transcript checks
+for `nimm schluessel` and `nimm tasche`.
+
 ## Example Story Coverage
 
 `example/sterne.inf` now contains explicit §3 demo objects and stems:

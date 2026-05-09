@@ -24,7 +24,8 @@ def test_suffix_pruning_accepts_kleinen_schluessel(game):
     """§3 Stage 1: inflected adjective input should resolve to stem form."""
     out = game.run(["oeffne kiste", "nimm kleinen schluessel"])
     assert_output_not_contains(out, "verstehe nicht")
-    assert_output_contains(out, "Genommen")
+    assert_output_contains(out, "Du nimmst den kleinen Schl")
+    assert_output_contains(out, "an dich.")
 
 
 @pytest.mark.feature("adjective-declension")

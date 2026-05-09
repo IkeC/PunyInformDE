@@ -21,7 +21,8 @@ def test_take_kleinen_schluessel(game):
     out = game.run(["oeffne kiste", "nimm kleinen schluessel"])
     assert_output_not_contains(out, UNKNOWN_VERB)
     assert_output_not_contains(out, NOT_UNDERSTOOD)
-    assert_output_contains(out, "Genommen")
+    assert_output_contains(out, "Du nimmst den kleinen Schl")
+    assert_output_contains(out, "an dich.")
 
 
 @pytest.mark.feature("suffix-pruning")
@@ -30,7 +31,7 @@ def test_take_alte_karte(game):
     out = game.run(["nimm alte karte"])
     assert_output_not_contains(out, UNKNOWN_VERB)
     assert_output_not_contains(out, NOT_UNDERSTOOD)
-    assert_output_contains(out, "Genommen")
+    assert_output_contains(out, "Du nimmst die alte Seekarte an dich.")
 
 
 @pytest.mark.feature("suffix-pruning")

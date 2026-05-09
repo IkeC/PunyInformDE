@@ -86,7 +86,7 @@ Constant TM_MSG_YOU "Du";
 
 #Ifndef TM_MSG_TALK_ABOUT_WHAT;
 [ TM_MSG_TALK_ABOUT_WHAT;
-	print "Worüber möchtest du mit ", (the) current_talker, " sprechen?^";
+	print "Worüber möchtest du mit ", (DE_dem) current_talker, " sprechen?^";
 ];
 #Endif;
 
