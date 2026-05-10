@@ -121,7 +121,7 @@ Verb meta 'skript' 'transkript'
 ! ---------------------------------------------------------------------------
 
 ! --- Take / Pick up ---
-Verb 'nimm' 'hol' 'nehm'
+Verb 'nimm' 'hol' 'nehm' 'p//'
 	* multi                                     -> Take
 	* 'auf' multi                               -> Take
 	* multi 'auf'                               -> Take
@@ -188,7 +188,7 @@ Verb 'mach'
 	* 'aus' noun                                -> SwitchOff;
 
 ! --- Inventory ---
-Verb 'inventar' 'besitz'
+Verb 'inventar' 'besitz' 'inv'
 	*                                           -> Inv;
 
 ! --- Wait ---

@@ -86,7 +86,7 @@ Constant TM_MSG_YOU "Du";
 
 #Ifndef TM_MSG_TALK_ABOUT_WHAT;
 [ TM_MSG_TALK_ABOUT_WHAT;
-	print "Worüber möchtest du mit ", (DE_dem) current_talker, " sprechen?^";
+	print "Was möchtest du zu ", (DE_dem) current_talker, " sagen?^";
 ];
 #Endif;
 
@@ -597,7 +597,7 @@ Verb 'talk' 'converse' 'interview' 'interrogate'
 	* creature                                  ->Talk;
 
 #IfDef LANG_DE;
-Verb 'rede' 'unterhalte' 'plaudere' 'diskutier'
+Verb 'rede' 'unterhalte' 'plaudere' 'diskutier' 't//'
 	* 'mit' creature                            ->Talk
 	* creature                                  ->Talk;
 #EndIf;

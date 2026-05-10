@@ -9,7 +9,7 @@ Wer -- und warum? Es wird Zeit, das herauszufinden.
 
 Das Schiff der Sterne
 Ein kurzes Abenteuer auf hoher See.
-Release 1 / Serial number 260509 / Inform v6.44 PunyInformDE v6.5 R
+Release 1 / Serial number 260510 / Inform v6.44 PunyInformDE v6.5 R
 
 Die Kapitänskajüte
 Die enge Kajüte des Kapitäns auf dem Segelschiff Sternwind. Ein alter
@@ -239,7 +239,7 @@ Hier befinden sich Steuermann Hinnerk, Navigatorin Elara, Molly und ein Messing-
 Fernrohr.
 
 > rede mit steuermann
-Worüber möchtest du mit Steuermann Hinnerk sprechen?
+Was möchtest du zu Steuermann Hinnerk sagen?
 
 [1] Wetter
 [2] Schiff
@@ -263,7 +263,7 @@ Damit endet das Gespräch.
 [Du hast 1 Punkt erhalten.]
 
 > rede mit papagei
-Worüber möchtest du mit Molly sprechen?
+Was möchtest du zu Molly sagen?
 
 [1] Spruch
 [2] Marten
@@ -284,7 +284,7 @@ ein Versprechen -- mehr verrät der Vogel nicht.
 Damit endet das Gespräch.
 
 > rede mit navigatorin
-Worüber möchtest du mit Navigatorin Elara sprechen?
+Was möchtest du zu Navigatorin Elara sagen?
 
 [1] Kurs
 [2] Insel
