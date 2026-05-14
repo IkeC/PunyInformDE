@@ -55,6 +55,7 @@ o
 kletter mast
 warte
 schau
+untersuche sonne
 rede mit steuermann
 1
 1

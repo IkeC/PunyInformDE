@@ -6,7 +6,7 @@ System_file;
 Include "globals_de.h";
 
 Constant PUNYINFORM_MAJOR_VERSION = 6;
-Constant PUNYINFORM_MINOR_VERSION = 5;
+Constant PUNYINFORM_MINOR_VERSION = 6;
 Constant PUNYINFORM_PATCH_VERSION = 0; ! Usually 0 (if zero, it is not printed in banner)
 Constant PUNYINFORM_VERSION_SUFFIX = ""; ! Comment out if none
 

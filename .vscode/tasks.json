@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build",
+      "label": "PunyInformDE Build",
       "type": "shell",
       "command": "powershell -ExecutionPolicy Bypass -File build\\build.ps1",
       "options": {
@@ -30,13 +30,13 @@
       }
     },
     {
-      "label": "Test Dfrotz",
+      "label": "PunyInformDE Test Dfrotz",
       "type": "shell",
       "command": "tools\\dfrotz.exe build\\sterne.z5",
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "dependsOn": ["Build"],
+      "dependsOn": ["PunyInformDEBuild"],
       "group": {
         "kind": "test",
         "isDefault": true
@@ -50,13 +50,13 @@
       "problemMatcher": []
     },
     {
-      "label": "Test Lectrote",
+      "label": "PunyInformDE Test Lectrote",
       "type": "shell",
       "command": "tools\\Lectrote\\Lectrote.exe build\\sterne.z5",
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "dependsOn": ["Build"],
+      "dependsOn": ["PunyInformDE Build"],
       "group": {
         "kind": "test"
       },
@@ -69,13 +69,13 @@
       "problemMatcher": []
     },
     {
-      "label": "Test Dfrotz (ASCII)",
+      "label": "PunyInformDE Test Dfrotz (ASCII)",
       "type": "shell",
       "command": "tools\\dfrotz.exe build\\sterne.ascii.z5",
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "dependsOn": ["Build"],
+      "dependsOn": ["PunyInformDE Build"],
       "group": {
         "kind": "test"
       },
@@ -88,13 +88,13 @@
       "problemMatcher": []
     },
     {
-      "label": "Test Lectrote (ASCII)",
+      "label": "PunyInformDE Test Lectrote (ASCII)",
       "type": "shell",
       "command": "tools\\Lectrote\\Lectrote.exe build\\sterne.ascii.z5",
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "dependsOn": ["Build"],
+      "dependsOn": ["PunyInformDE Build"],
       "group": {
         "kind": "test"
       },
@@ -107,7 +107,7 @@
       "problemMatcher": []
     },
     {
-      "label": "Test Dfrotz (Z3)",
+      "label": "PunyInformDE Test Dfrotz (Z3)",
       "type": "shell",
       "command": "tools\\dfrotz.exe build\\sterne.z3",
       "options": {
@@ -126,13 +126,13 @@
       "problemMatcher": []
     },
     {
-      "label": "Test Lectrote (Z3)",
+      "label": "PunyInformDE Test Lectrote (Z3)",
       "type": "shell",
       "command": "tools\\Lectrote\\Lectrote.exe build\\sterne.z3",
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "dependsOn": ["Build"],
+      "dependsOn": ["PunyInformDE Build"],
       "group": {
         "kind": "test"
       },

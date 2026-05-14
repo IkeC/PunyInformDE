@@ -566,6 +566,26 @@ Object -> Rettungsring "Rettungsring"
 			steht STERNWIND darauf.",
 	has scenery;
 
+! DEMO: describe=2 (PunyInform 6.6)
+! Ein Objekt mit describe returning 2 beschreibt sich selbst beim Look
+! (wenn nötig), taucht aber NICHT in der "Du siehst auch"-Liste auf
+! und setzt auch_flag nicht. Ideal für Hintergrundelemente, die im
+! Raumbeschreibungstext erwähnt werden, aber nicht als eigenständige
+! Objekte aufgelistet werden sollen.
+! Kein has scenery: nur describe=2 verhindert die Auflistung.
+! NEUTRUM: has neuter
+Object -> Abendsonne "Abendsonne"
+	with
+		name 'sonne' 'abendsonne' 'licht' 'himmel',
+		describe [;
+			! describe=2: Routine läuft, aber das Objekt wird weder selbst
+			! beschrieben noch in der "Du siehst auch"-Liste aufgeführt.
+			return 2;
+		],
+		description "Die tief stehende Sonne taucht den Horizont in orangefarbenes
+			Licht. Ein prächtiger Sonnenuntergang über dem Westmeer.",
+	has neuter;
+
 ! ==================================================================
 ! SPIELSTART
 ! ==================================================================

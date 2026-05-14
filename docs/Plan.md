@@ -15,6 +15,17 @@ A complete, release-ready German localisation of PunyInform v6.5, with:
 Recent progress:
 - German take success feedback now uses an object-aware line (`Du nimmst ...
   an dich.`) instead of the generic `In Ordnung.` fallback.
+- Synced with PunyInform upstream dev branch (post-v6.5): z4 support,
+  `describe=0` fix, `describe=2`, `PrintOrRun` return-value fix,
+  `MoveFloatingObjects` optimisation, grammar property warning, message
+  rearrangement — all already integrated.
+- Fixed MSG_TAKE_SCENERY: now uses `(CTheyreorThats) noun, " nicht portabel."`
+  (no more double-ist for scenery objects).
+- Fixed MSG_SEARCH_IN_IT_ISARE: now uses `(DE_Der_Cap) noun, " enthält bereits "`
+  with Akkusativ PrintContents (Nominativ subject, no double-ist).
+- Added `Abendsonne` object to `example/sterne.inf` (Oberdeck) as a `describe=2`
+  demo: not listed in room but examinable via `untersuche sonne`.
+- Test suite: 178 passed (4 new `describe=2` tests in `test_describe_property.py`).
 
 ## Architecture (current)
 ```
@@ -65,6 +76,7 @@ tests/
   test_debug_compile.py — DEBUG (-D) build compiles without ERR_UNSAFE_GRAMMAR_PROP error (issue #13)
   test_double_ist.py — No double 'ist' in CTheyreorThats-based messages (issues a/b)
   test_object_name_normalisation.py — Digraph input still resolves after removing explicit digraph name entries
+  test_describe_property.py — describe=2 objects are not listed in room but remain examinable
 
 .vscode/
   tasks.json    — Build, Test Dfrotz, Test Dfrotz (ASCII), Test Lectrote,

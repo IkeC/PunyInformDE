@@ -13,7 +13,7 @@ Für einen schnellen Einstieg in deutscher Sprache lies bitte [Schnellstart.md](
 grammatical case handling (nominative/accusative/dative), and German pronoun resolution (er/sie/es/ihnen)
 for creating interactive fiction in German.
 
-Includes PunyInform features and commits up to May 1st, 2026.
+Includes PunyInform features and commits up to May 14th, 2026.
 
 **Designed for**: Interactive fiction authors writing German-language IF who want automated support for German grammar. 
 
@@ -22,6 +22,7 @@ Includes PunyInform features and commits up to May 1st, 2026.
 - German pronoun substitution (er/ihn/ihm, sie/ihnen, es)
 - Adjective case/gender agreement in library messages
 - Object-aware take success feedback (`Du nimmst ... an dich.`)
+- `describe=2` support: objects that remain in scope but never appear in room listings
 - Unicode and ASCII (digraph) build variants
 - Runnable example game (*Das Schiff der Sterne*)
 - Comprehensive test suite with pytest
@@ -34,6 +35,7 @@ Includes PunyInform features and commits up to May 1st, 2026.
 - German pronoun resolution (er/ihn/ihm/sie/es/ihnen)
 - adjective input variants (kleinen, altem, feinem)
 - adjective output declension in library messages
+- `describe=2` property (`Abendsonne` on Oberdeck: not listed in room, examinable directly)
 
 ## Repository Layout
 

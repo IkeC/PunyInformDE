@@ -701,7 +701,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Endif;
 #Iftrue MSG_TAKE_SCENERY < 1000;
 	MSG_TAKE_SCENERY:
-		print_ret "Du kannst ", (DE_Den) noun, " nicht mitnehmen.";
+		print_ret (CTheyreorThats) noun, " nicht portabel.";
 #EndIf;
 #Ifndef SKIP_MSG_PUSH_DEFAULT;
 	MSG_PUSH_DEFAULT, MSG_PULL_DEFAULT, MSG_TURN_DEFAULT:
@@ -1048,7 +1048,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #EndIf;
 #IfTrue MSG_SEARCH_IN_IT_ISARE < 1000;
 	MSG_SEARCH_IN_IT_ISARE:
-		print "In ", (DE_Dem) noun, " siehst du ";
+		print (DE_Der_Cap) noun, " enthält bereits ";
 		p_arg_2 = short_name_case;
 		short_name_case = Akk;
 		PrintContents(0, noun);

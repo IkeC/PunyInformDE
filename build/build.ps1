@@ -128,15 +128,15 @@ $tmpUnicode = [System.IO.Path]::GetTempFileName()
 try {
     $lines = Get-Content "example\sterne.walkthrough.txt" -Encoding UTF8
     [System.IO.File]::WriteAllLines($tmpUnicode, $lines, $utf8NoBom)
-    cmd /c "tools\dfrotz.exe -m -q -Z 0 -T -n ""build\sterne.transcript.txt"" ""build\sterne.z5"" < ""$tmpUnicode"""
+    cmd /c "tools\dfrotz.exe -m -q -Z 0 -T -w 999 -S 999 -n ""build\sterne.transcript.txt"" ""build\sterne.z5"" < ""$tmpUnicode"""
 } finally {
     Remove-Item $tmpUnicode -ErrorAction SilentlyContinue
 }
 
 # ASCII transcript
-cmd /c "tools\dfrotz.exe -m -q -Z 0 -T -n ""build\sterne.transcript.ascii.txt"" ""build\sterne.ascii.z5"" < ""example\sterne.walkthrough.ascii.txt"""
+cmd /c "tools\dfrotz.exe -m -q -Z 0 -T -w 999 -S 999 -n ""build\sterne.transcript.ascii.txt"" ""build\sterne.ascii.z5"" < ""example\sterne.walkthrough.ascii.txt"""
 
 # Z3 transcript (reuses ASCII walkthrough — same commands, same ZSCII input)
-cmd /c "tools\dfrotz.exe -m -q -Z 0 -T -n ""build\sterne.transcript.z3.txt"" ""build\sterne.z3"" < ""example\sterne.walkthrough.ascii.txt"""
+cmd /c "tools\dfrotz.exe -m -q -Z 0 -T -w 999 -S 999 -n ""build\sterne.transcript.z3.txt"" ""build\sterne.z3"" < ""example\sterne.walkthrough.ascii.txt"""
 
 Write-Host "Build complete: build\sterne.z5, build\sterne.ascii.z5, build\sterne.z3, build\sterne.transcript.txt, build\sterne.transcript.ascii.txt, build\sterne.transcript.z3.txt"

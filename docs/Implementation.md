@@ -122,6 +122,42 @@ Key behavior:
 Current regression coverage uses the example game and Staub transcript checks
 for `nimm schluessel` and `nimm tasche`.
 
+## §5 describe=2 Support (PunyInform 6.6)
+
+Integrated from the PunyInform dev branch (commit after v6.5 tag).
+
+The `describe` property can hold:
+- `0` / not set: Object is listed normally by the Look routine.
+- `1` / routine returning `1`: Object's describe routine runs and prints its own
+  description. Not listed separately, but `also_flag` is still set (the "you
+  can also see" summary may appear for other objects).
+- `2` / routine returning `2`: Object's describe routine runs but the object is
+  **not listed** and `also_flag` is **not set**. This completely suppresses the
+  object from the room listing.
+
+Implemented in `lib/grammar.h` in the Look function (Look loop over objects).
+
+### Example in sterne.inf
+
+`Abendsonne` (Oberdeck) demonstrates `describe=2`:
+
+```inform
+Object -> Abendsonne "Abendsonne"
+    with
+        name 'sonne' 'abendsonne' 'licht' 'himmel',
+        describe [; return 2; ],
+        description "Die tief stehende Sonne taucht den Horizont in orangefarbenes
+            Licht. Ein prächtiger Sonnenuntergang über dem Westmeer.",
+    has neuter;
+```
+
+- The object has no `has scenery` — without `describe=2` it would appear in the
+  "Hier befinden sich…" list on the Oberdeck.
+- With `describe=2` it is silently skipped during Look, but remains examinable
+  via `untersuche sonne`.
+
+Covered by `tests/test_describe_property.py`.
+
 ## Example Story Coverage
 
 `example/sterne.inf` now contains explicit §3 demo objects and stems:
@@ -167,6 +203,8 @@ Current suite status (latest run):
 - 81 passed → 143 passed (as of issue #8 explicit-articles refactoring)
 - 143 passed → 145 passed (as of issue #13: DEBUG compile fix)
 - 145 passed → 163 passed (double-ist fix + digraph-name cleanup + normaliser stale-address fix)
+- 163 passed → 174 passed (MSG_TAKE_SCENERY / MSG_SEARCH_IN_IT_ISARE message fixes)
+- 174 passed → 178 passed (describe=2 demo + tests; upstream PunyInform dev-branch sync)
 - 3 xfailed (known dfrotz umlaut-pipe limitation on Windows)
 
 ## USE_ASCII and the ASCII Preprocessing Pass
