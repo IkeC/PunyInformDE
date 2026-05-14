@@ -34,6 +34,13 @@ System_file;
 !   Player line:  [~text~]     (instead of "Du: ~text~")
 !   NPC line:     text         (printed directly, no "Actor: ~text~" wrapper)
 !
+!   If TM_NO_LINE is used for the player speech slot, no echo is printed at all.
+!   This is intentional for inline menus: the topic label is already visible in
+!   the numbered list shown before the player makes their selection, so repeating
+!   it as a player-speech echo would be redundant.
+!   (Compare: in a windowed menu the label is not visible after selection, so an
+!    echo would make sense there.)
+!
 ! ARRAY FORMAT — two breaking changes:
 !   TM_END = -1  (was 26 in standard ext_talk_menu.h)
 !   No TM_ACTIVATE (27), TM_INACTIVATE (28), TM_MAYBE_ADD_LIST (29)
@@ -387,16 +394,11 @@ Global talk_menu_multi_mode = true;
 				_TMCallOrPrint(p_npc, _i);
 				_i++;
 			}
-			! Player speech
-			if(_array-->_i == TM_NO_LINE) {
-				_val = _array-->_count;
-				if(metaclass(_val) == String)
-					print "[", (string) _val, "]^";
-				else if(metaclass(_val) == Routine) {
-					print "["; _val(); print "]^";
-				}
-			} else
+			! Player speech: TM_NO_LINE skips the echo — topic text was already
+			! shown in the inline menu list, repeating it is redundant.
+			if(_array-->_i ~= TM_NO_LINE) {
 				TMPrintLine(player, p_npc, _i);
+			}
 			_i++;
 			if(_add_msg == TM_ADD_AFTER or TM_ADD_BEFORE_AND_AFTER) {
 				_TMCallOrPrint(p_npc, _i);
@@ -535,15 +537,11 @@ Global talk_menu_multi_mode = true;
 				_TMCallOrPrint(p_npc, _i);
 				_i++;
 			}
-			if(_array-->_i == TM_NO_LINE) {
-				_val = _array-->_count;
-				if(metaclass(_val) == String)
-					print "[", (string) _val, "]^";
-				else if(metaclass(_val) == Routine) {
-					print "["; _val(); print "]^";
-				}
-			} else
+			! Player speech: TM_NO_LINE skips the echo — topic text was already
+			! shown in the inline menu list, repeating it is redundant.
+			if(_array-->_i ~= TM_NO_LINE) {
 				TMPrintLine(player, p_npc, _i);
+			}
 			_i++;
 			if(_add_msg == TM_ADD_AFTER or TM_ADD_BEFORE_AND_AFTER) {
 				_TMCallOrPrint(p_npc, _i);
