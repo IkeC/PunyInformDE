@@ -34,12 +34,11 @@ System_file;
 !   Player line:  [~text~]     (instead of "Du: ~text~")
 !   NPC line:     text         (printed directly, no "Actor: ~text~" wrapper)
 !
-!   If TM_NO_LINE is used for the player speech slot, no echo is printed at all.
-!   This is intentional for inline menus: the topic label is already visible in
-!   the numbered list shown before the player makes their selection, so repeating
-!   it as a player-speech echo would be redundant.
-!   (Compare: in a windowed menu the label is not visible after selection, so an
-!    echo would make sense there.)
+!   If TM_NO_LINE is used for the player speech slot, the selected topic label is
+!   echoed back in [brackets]: ["topic text"]. This mirrors the Inform 7 format
+!   for player dialogue.
+!   If TM_SILENT_PLAYER is used instead, no player speech is printed at all
+!   (useful for topics where the echo would be redundant in context).
 !
 ! ARRAY FORMAT — two breaking changes:
 !   TM_END = -1  (was 26 in standard ext_talk_menu.h)
@@ -141,7 +140,7 @@ Constant TM_MSG_PAGE_OPTION_SHORT "[N]ächste";
 ! ---------------------------------------------------------------------------
 #Ifndef TMPrintLine;
 [TMPrintLine p_actor p_talk_actor p_line;
-	if((p_talk_actor.talk_array)-->p_line == TM_NO_LINE) rfalse;
+	if((p_talk_actor.talk_array)-->p_line == TM_NO_LINE or TM_SILENT_PLAYER) rfalse;
 	if(p_actor == player) {
 		print "[~";
 		_TMCallOrPrint(p_talk_actor, p_line, true);
@@ -184,7 +183,8 @@ Constant TM_STALE 31;
 Constant TM_END -1;
 
 Constant TM_NO_LINE 1;
-Constant TM_ADD_BEFORE 2;
+Constant TM_SILENT_PLAYER 2; ! like TM_NO_LINE but prints no echo at all
+Constant TM_ADD_BEFORE 3;
 Constant TM_ADD_AFTER 3;
 Constant TM_ADD_BEFORE_AND_AFTER 4;
 Constant TM_KEEP 5;
@@ -394,11 +394,16 @@ Global talk_menu_multi_mode = true;
 				_TMCallOrPrint(p_npc, _i);
 				_i++;
 			}
-			! Player speech: TM_NO_LINE skips the echo — topic text was already
-			! shown in the inline menu list, repeating it is redundant.
-			if(_array-->_i ~= TM_NO_LINE) {
+			! Player speech
+			if(_array-->_i == TM_NO_LINE) {
+				_val = _array-->_count;
+				if(metaclass(_val) == String)
+					print "[", (string) _val, "]^"; 
+				else if(metaclass(_val) == Routine) {
+					print "["; _val(); print "]^"; 
+				}
+			} else if(_array-->_i ~= TM_SILENT_PLAYER)
 				TMPrintLine(player, p_npc, _i);
-			}
 			_i++;
 			if(_add_msg == TM_ADD_AFTER or TM_ADD_BEFORE_AND_AFTER) {
 				_TMCallOrPrint(p_npc, _i);
@@ -537,11 +542,16 @@ Global talk_menu_multi_mode = true;
 				_TMCallOrPrint(p_npc, _i);
 				_i++;
 			}
-			! Player speech: TM_NO_LINE skips the echo — topic text was already
-			! shown in the inline menu list, repeating it is redundant.
-			if(_array-->_i ~= TM_NO_LINE) {
+			! Player speech: TM_NO_LINE echoes the topic label; TM_SILENT_PLAYER prints nothing
+			if(_array-->_i == TM_NO_LINE) {
+				_val = _array-->_count;
+				if(metaclass(_val) == String)
+					print "[", (string) _val, "]^"; 
+				else if(metaclass(_val) == Routine) {
+					print "["; _val(); print "]^"; 
+				}
+			} else if(_array-->_i ~= TM_SILENT_PLAYER)
 				TMPrintLine(player, p_npc, _i);
-			}
 			_i++;
 			if(_add_msg == TM_ADD_AFTER or TM_ADD_BEFORE_AND_AFTER) {
 				_TMCallOrPrint(p_npc, _i);
