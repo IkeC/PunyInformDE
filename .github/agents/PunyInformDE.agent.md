@@ -9,7 +9,7 @@ Understands and executes tasks closely following the project plan at `docs/Plan.
 
 Every code change MUST go through this loop before reporting completion:
 
-1. **Build**: Run `powershell -ExecutionPolicy Bypass -File build\build.ps1`. Fix any compiler errors before continuing.
+1. **Build**: Run `cd build; powershell -ExecutionPolicy Bypass -File build.ps1` (or press **Ctrl+Shift+B**). Fix any compiler errors before continuing.
 2. **Review transcripts**: Read `build/sterne.transcript.txt` and `build/sterne.transcript.ascii.txt` in full. Confirm the walkthrough still completes with 5/5 points and no unexpected output.
 3. **Write tests FIRST**: Before claiming a fix is done, write pytest tests in `tests/` that would have FAILED before the fix and PASS after. Tests must cover:
    - Both `game` (Unicode build) and `game_ascii` (ASCII build) fixtures unless a feature is build-specific.

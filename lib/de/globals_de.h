@@ -174,13 +174,5 @@ Array _dir_fullwords_anchor static -->
 #EndIf;
 #EndIf;
 
-! ---------------------------------------------------------------------------
-! ext_cheap_scenery.h — German default reply
-! Overrides CS_DEFAULT_MSG before the extension is included.
-! ---------------------------------------------------------------------------
-#Ifndef CS_DEFAULT_MSG;
-Constant CS_DEFAULT_MSG "Du siehst nichts Interessantes daran.";
-#Endif;
-
 ! German parser extension (enables ja/nein in YesOrNo via Replace directive)
 Include "parser_de.h";

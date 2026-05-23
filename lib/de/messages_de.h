@@ -17,6 +17,7 @@ Constant MSG_TAKE_NO_CAPACITY "Mehr kannst du nicht tragen.";
 #EndIf;
 #Ifndef MSG_TAKE_DEFAULT;
 Default MSG_TAKE_DEFAULT = 1000;
+Constant _MSG_TAKE_DEFAULT_HAS_CASE = 1; ! internal: include the switch case below
 #EndIf;
 #Ifndef MSG_DRINK_NOTHING_SUITABLE;
 Constant MSG_DRINK_NOTHING_SUITABLE "Hier gibt es nichts zu trinken.";
@@ -166,159 +167,600 @@ Constant MSG_FULLSCORE_ACTIONS "mache bemerkenswerte Aktionen";
 !
 
 ! Note, we can only use id 2-999
+#Ifndef MSG_CLOSE_YOU_CANT;
 Default MSG_CLOSE_YOU_CANT = 2;
+Constant _MSG_CLOSE_YOU_CANT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_ENTER_YOU_CANT;
 Default MSG_ENTER_YOU_CANT = 3;
+Constant _MSG_ENTER_YOU_CANT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_EXAMINE_NOTHING_SPECIAL;
 Default MSG_EXAMINE_NOTHING_SPECIAL = 4;
+Constant _MSG_EXAMINE_NOTHING_SPECIAL_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_TAKE_ANIMATE;
 Default MSG_TAKE_ANIMATE = 5;
+Constant _MSG_TAKE_ANIMATE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_TAKE_PLAYER_PARENT;
 Default MSG_TAKE_PLAYER_PARENT = 6;
+Constant _MSG_TAKE_PLAYER_PARENT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_EAT_ANIMATE;
 Default MSG_EAT_ANIMATE = 7;
+Constant _MSG_EAT_ANIMATE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_DROP_NOT_HOLDING;
 Default MSG_DROP_NOT_HOLDING = 8;
+Constant _MSG_DROP_NOT_HOLDING_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_OPEN_DEFAULT;
 Default MSG_OPEN_DEFAULT = 9;
+Constant _MSG_OPEN_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_CLOSE_DEFAULT;
 Default MSG_CLOSE_DEFAULT = 10;
+Constant _MSG_CLOSE_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_LOOK_BEFORE_ROOMNAME;
 Default MSG_LOOK_BEFORE_ROOMNAME  = 11;
+Constant _MSG_LOOK_BEFORE_ROOMNAME_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SHOW_NOT_HOLDING;
 Default MSG_SHOW_NOT_HOLDING = 12;
+Constant _MSG_SHOW_NOT_HOLDING_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SHOW_DEFAULT;
 Default MSG_SHOW_DEFAULT = 13;
+Constant _MSG_SHOW_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_GIVE_NOT_HOLDING;
 Default MSG_GIVE_NOT_HOLDING = 14;
+Constant _MSG_GIVE_NOT_HOLDING_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_GIVE_DEFAULT;
 Default MSG_GIVE_DEFAULT = 15;
+Constant _MSG_GIVE_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_ASKFOR_DEFAULT;
 Default MSG_ASKFOR_DEFAULT = 16;
+Constant _MSG_ASKFOR_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_ASKTO_DEFAULT;
 Default MSG_ASKTO_DEFAULT = 17;
+Constant _MSG_ASKTO_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_ENTER_DEFAULT;
 Default MSG_ENTER_DEFAULT = 18;
+Constant _MSG_ENTER_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_EXIT_FIRST_LEAVE;
 Default MSG_EXIT_FIRST_LEAVE = 19;
+Constant _MSG_EXIT_FIRST_LEAVE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_ENTER_NOT_OPEN;
 Default MSG_ENTER_NOT_OPEN = 20;
+Constant _MSG_ENTER_NOT_OPEN_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_EXIT_NOT_OPEN;
 Default MSG_EXIT_NOT_OPEN = 21;
+Constant _MSG_EXIT_NOT_OPEN_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_EXIT_DEFAULT;
 Default MSG_EXIT_DEFAULT = 22;
+Constant _MSG_EXIT_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_INVENTORY_DEFAULT;
 Default MSG_INVENTORY_DEFAULT = 23;
+Constant _MSG_INVENTORY_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_GO_FIRST_LEAVE;
 Default MSG_GO_FIRST_LEAVE = 24;
+Constant _MSG_GO_FIRST_LEAVE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_GIVE_PLAYER;
 Default MSG_GIVE_PLAYER 25;
+Constant _MSG_GIVE_PLAYER_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SAVE_FAILED;
 Default MSG_SAVE_FAILED 26;
+Constant _MSG_SAVE_FAILED_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_RESTORE_FAILED;
 Default MSG_RESTORE_FAILED 27;
+Constant _MSG_RESTORE_FAILED_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_RESTART_FAILED;
 Default MSG_RESTART_FAILED 28;
+Constant _MSG_RESTART_FAILED_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_INSERT_DEFAULT;
 Default MSG_INSERT_DEFAULT 29;
+Constant _MSG_INSERT_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_INSERT_NOT_OPEN;
 Default MSG_INSERT_NOT_OPEN 30;
+Constant _MSG_INSERT_NOT_OPEN_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_ASK_DEFAULT;
 Default MSG_ASK_DEFAULT 31;
+Constant _MSG_ASK_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_ANSWER_DEFAULT;
 Default MSG_ANSWER_DEFAULT 32;
+Constant _MSG_ANSWER_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_RESTART_RESTORE_OR_QUIT;
 Default MSG_RESTART_RESTORE_OR_QUIT 33;
+Constant _MSG_RESTART_RESTORE_OR_QUIT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_AREYOUSUREQUIT;
 Default MSG_AREYOUSUREQUIT 34;
+Constant _MSG_AREYOUSUREQUIT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_WEAR_ALREADY_WORN;
 Default MSG_WEAR_ALREADY_WORN 35;
+Constant _MSG_WEAR_ALREADY_WORN_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_WEAR_NOT_CLOTHING;
 Default MSG_WEAR_NOT_CLOTHING 36;
+Constant _MSG_WEAR_NOT_CLOTHING_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_WEAR_NOT_HOLDING;
 Default MSG_WEAR_NOT_HOLDING 37;
+Constant _MSG_WEAR_NOT_HOLDING_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_WEAR_DEFAULT;
 Default MSG_WEAR_DEFAULT 38;
+Constant _MSG_WEAR_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_INSERT_ALREADY;
 Default MSG_INSERT_ALREADY 39;
+Constant _MSG_INSERT_ALREADY_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_INSERT_NO_ROOM;
 Default MSG_INSERT_NO_ROOM 40;
+Constant _MSG_INSERT_NO_ROOM_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PUTON_ALREADY;
 Default MSG_PUTON_ALREADY 41;
+Constant _MSG_PUTON_ALREADY_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PUTON_NO_ROOM;
 Default MSG_PUTON_NO_ROOM 42;
+Constant _MSG_PUTON_NO_ROOM_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PUTON_DEFAULT;
 Default MSG_PUTON_DEFAULT 43;
+Constant _MSG_PUTON_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_GO_DOOR_CLOSED;
 Default MSG_GO_DOOR_CLOSED 44;
+Constant _MSG_GO_DOOR_CLOSED_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SWITCH_ON_NOT_SWITCHABLE;
 Default MSG_SWITCH_ON_NOT_SWITCHABLE 45;
+Constant _MSG_SWITCH_ON_NOT_SWITCHABLE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SWITCH_OFF_NOT_SWITCHABLE;
 Default MSG_SWITCH_OFF_NOT_SWITCHABLE 46;
+Constant _MSG_SWITCH_OFF_NOT_SWITCHABLE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SWITCH_ON_ON;
 Default MSG_SWITCH_ON_ON 47;
+Constant _MSG_SWITCH_ON_ON_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SWITCH_OFF_NOT_ON;
 Default MSG_SWITCH_OFF_NOT_ON 48;
+Constant _MSG_SWITCH_OFF_NOT_ON_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SWITCH_ON_DEFAULT;
 Default MSG_SWITCH_ON_DEFAULT 49;
+Constant _MSG_SWITCH_ON_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SWITCH_OFF_DEFAULT;
 Default MSG_SWITCH_OFF_DEFAULT 50;
+Constant _MSG_SWITCH_OFF_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PUSH_STATIC;
 Default MSG_PUSH_STATIC 51;
+Constant _MSG_PUSH_STATIC_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PULL_STATIC;
 Default MSG_PULL_STATIC 52;
+Constant _MSG_PULL_STATIC_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_TURN_STATIC;
 Default MSG_TURN_STATIC 53;
+Constant _MSG_TURN_STATIC_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PUSH_SCENERY;
 Default MSG_PUSH_SCENERY 54;
+Constant _MSG_PUSH_SCENERY_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PULL_SCENERY;
 Default MSG_PULL_SCENERY 55;
+Constant _MSG_PULL_SCENERY_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_TURN_SCENERY;
 Default MSG_TURN_SCENERY 56;
+Constant _MSG_TURN_SCENERY_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PUSH_ANIMATE;
 Default MSG_PUSH_ANIMATE 57;
+Constant _MSG_PUSH_ANIMATE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PULL_ANIMATE;
 Default MSG_PULL_ANIMATE 58;
+Constant _MSG_PULL_ANIMATE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_TURN_ANIMATE;
 Default MSG_TURN_ANIMATE 59;
+Constant _MSG_TURN_ANIMATE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_TURN_DEFAULT;
 Default MSG_TURN_DEFAULT 60;
+Constant _MSG_TURN_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PUSH_DEFAULT;
 Default MSG_PUSH_DEFAULT 61;
+Constant _MSG_PUSH_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PULL_DEFAULT;
 Default MSG_PULL_DEFAULT 62;
+Constant _MSG_PULL_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_YOU_HAVE_WON;
 Default MSG_YOU_HAVE_WON 63;
+Constant _MSG_YOU_HAVE_WON_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_YOU_HAVE_DIED;
 Default MSG_YOU_HAVE_DIED 64;
+Constant _MSG_YOU_HAVE_DIED_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_OPEN_YOU_CANT;
 Default MSG_OPEN_YOU_CANT = 65;
+Constant _MSG_OPEN_YOU_CANT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PARSER_NOTHING_TO_VERB;
 Default MSG_PARSER_NOTHING_TO_VERB 66;
+Constant _MSG_PARSER_NOTHING_TO_VERB_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_TOUCHABLE_FOUND_CLOSED;
 Default MSG_TOUCHABLE_FOUND_CLOSED 67;
+Constant _MSG_TOUCHABLE_FOUND_CLOSED_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_CONSULT_NOTHING_INTERESTING;
 Default MSG_CONSULT_NOTHING_INTERESTING 68;
+Constant _MSG_CONSULT_NOTHING_INTERESTING_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_CUT_NO_USE;
 Default MSG_CUT_NO_USE 69;
+Constant _MSG_CUT_NO_USE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SACK_PUTTING;
 Default MSG_SACK_PUTTING 70;
+Constant _MSG_SACK_PUTTING_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_LOCK_NOT_A_LOCK;
 Default MSG_LOCK_NOT_A_LOCK 71;
+Constant _MSG_LOCK_NOT_A_LOCK_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_LOCK_ALREADY_LOCKED;
 Default MSG_LOCK_ALREADY_LOCKED 72;
+Constant _MSG_LOCK_ALREADY_LOCKED_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_LOCK_CLOSE_FIRST;
 Default MSG_LOCK_CLOSE_FIRST 73;
+Constant _MSG_LOCK_CLOSE_FIRST_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_LOCK_KEY_DOESNT_FIT;
 Default MSG_LOCK_KEY_DOESNT_FIT 74;
+Constant _MSG_LOCK_KEY_DOESNT_FIT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_LOCK_DEFAULT;
 Default MSG_LOCK_DEFAULT 75;
+Constant _MSG_LOCK_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_DISROBE_NOT_WEARING;
 Default MSG_DISROBE_NOT_WEARING 76;
+Constant _MSG_DISROBE_NOT_WEARING_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_DISROBE_DEFAULT;
 Default MSG_DISROBE_DEFAULT 77;
+Constant _MSG_DISROBE_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_REMOVE_NOT_HERE;
 Default MSG_REMOVE_NOT_HERE 79;
+Constant _MSG_REMOVE_NOT_HERE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SEARCH_IN_IT_ISARE;
 Default MSG_SEARCH_IN_IT_ISARE 80;
+Constant _MSG_SEARCH_IN_IT_ISARE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SEARCH_ON_IT_ISARE;
 Default MSG_SEARCH_ON_IT_ISARE 81;
+Constant _MSG_SEARCH_ON_IT_ISARE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SEARCH_EMPTY;
 Default MSG_SEARCH_EMPTY 82;
+Constant _MSG_SEARCH_EMPTY_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SEARCH_NOTHING_ON;
 Default MSG_SEARCH_NOTHING_ON 83;
+Constant _MSG_SEARCH_NOTHING_ON_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SEARCH_CANT_SEE_CLOSED;
 Default MSG_SEARCH_CANT_SEE_CLOSED 84;
+Constant _MSG_SEARCH_CANT_SEE_CLOSED_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_EAT_DEFAULT;
 Default MSG_EAT_DEFAULT = 85;
+Constant _MSG_EAT_DEFAULT_HAS_CASE = 1;
+#EndIf;
 #Ifdef OPTIONAL_FULL_SCORE;
+#Ifndef MSG_FULLSCORE_START;
 Default MSG_FULLSCORE_START 86;
+Constant _MSG_FULLSCORE_START_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_FULLSCORE_END;
 Default MSG_FULLSCORE_END 87;
+Constant _MSG_FULLSCORE_END_HAS_CASE = 1;
+#EndIf;
 #Endif;
+#Ifndef MSG_SCORE_DEFAULT;
 Default MSG_SCORE_DEFAULT 88;
+Constant _MSG_SCORE_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_UNLOCK_NOT_A_LOCK;
 Default MSG_UNLOCK_NOT_A_LOCK 89;
+Constant _MSG_UNLOCK_NOT_A_LOCK_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_UNLOCK_ALREADY_UNLOCKED;
 Default MSG_UNLOCK_ALREADY_UNLOCKED 90;
+Constant _MSG_UNLOCK_ALREADY_UNLOCKED_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_UNLOCK_KEY_DOESNT_FIT;
 Default MSG_UNLOCK_KEY_DOESNT_FIT 91;
+Constant _MSG_UNLOCK_KEY_DOESNT_FIT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_UNLOCK_DEFAULT;
 Default MSG_UNLOCK_DEFAULT 92;
+Constant _MSG_UNLOCK_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_ENTER_BAD_LOCATION;
 Default MSG_ENTER_BAD_LOCATION 93;
+Constant _MSG_ENTER_BAD_LOCATION_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PROMPT;
 Default MSG_PROMPT 94;
+Constant _MSG_PROMPT_HAS_CASE = 1;
+#EndIf;
 #Ifndef OPTIONAL_NO_DARKNESS;
+#Ifndef MSG_EXAMINE_DARK;
 Default MSG_EXAMINE_DARK 95;
+Constant _MSG_EXAMINE_DARK_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SEARCH_DARK;
 Default MSG_SEARCH_DARK 96;
+Constant _MSG_SEARCH_DARK_HAS_CASE = 1;
+#EndIf;
 #Endif;
+#Ifndef MSG_EXAMINE_ONOFF;
 Default MSG_EXAMINE_ONOFF 97;
+Constant _MSG_EXAMINE_ONOFF_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_ORDERS_WONT;
 Default MSG_ORDERS_WONT 98;
+Constant _MSG_ORDERS_WONT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_AUTO_TAKE;
 Default MSG_AUTO_TAKE 99;
+Constant _MSG_AUTO_TAKE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_AUTO_DISROBE;
 Default MSG_AUTO_DISROBE = 100;
+Constant _MSG_AUTO_DISROBE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PARSER_PARTIAL_MATCH;
 Default MSG_PARSER_PARTIAL_MATCH = 101;
+Constant _MSG_PARSER_PARTIAL_MATCH_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_TAKE_BELONGS;
 Default MSG_TAKE_BELONGS 102;
+Constant _MSG_TAKE_BELONGS_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_TAKE_PART_OF;
 Default MSG_TAKE_PART_OF 103;
+Constant _MSG_TAKE_PART_OF_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_TAKE_NOT_AVAILABLE;
 Default MSG_TAKE_NOT_AVAILABLE 104;
+Constant _MSG_TAKE_NOT_AVAILABLE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PARSER_CONTAINER_ISNT_OPEN;
 Default MSG_PARSER_CONTAINER_ISNT_OPEN 105;
+Constant _MSG_PARSER_CONTAINER_ISNT_OPEN_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PARSER_NOT_HOLDING;
 Default MSG_PARSER_NOT_HOLDING 106;
+Constant _MSG_PARSER_NOT_HOLDING_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PARSER_CANT_TALK;
 Default MSG_PARSER_CANT_TALK 107;
+Constant _MSG_PARSER_CANT_TALK_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_WAVE_NOTHOLDING;
 Default MSG_WAVE_NOTHOLDING 108;
+Constant _MSG_WAVE_NOTHOLDING_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_JUMP_OVER;
 Default MSG_JUMP_OVER 109;
+Constant _MSG_JUMP_OVER_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_TIE_DEFAULT;
 Default MSG_TIE_DEFAULT 110;
+Constant _MSG_TIE_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_CLOSE_NOT_OPEN;
 Default MSG_CLOSE_NOT_OPEN 111;
+Constant _MSG_CLOSE_NOT_OPEN_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_RUB_DEFAULT;
 Default MSG_RUB_DEFAULT 112;
+Constant _MSG_RUB_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SQUEEZE_DEFAULT;
 Default MSG_SQUEEZE_DEFAULT 113;
+Constant _MSG_SQUEEZE_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_EXAMINE_CLOSED;
 Default MSG_EXAMINE_CLOSED 114;
+Constant _MSG_EXAMINE_CLOSED_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_EMPTY_IS_CLOSED;
 Default MSG_EMPTY_IS_CLOSED 115; ! Only used from extended verbset, but same message also used in basic set.
+Constant _MSG_EMPTY_IS_CLOSED_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PARSER_NO_NEED_REFER_TO;
 Default MSG_PARSER_NO_NEED_REFER_TO 116;
+Constant _MSG_PARSER_NO_NEED_REFER_TO_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PARSER_DONT_UNDERSTAND_WORD;
 Default MSG_PARSER_DONT_UNDERSTAND_WORD 117;
+Constant _MSG_PARSER_DONT_UNDERSTAND_WORD_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_INSERT_NOT_CONTAINER;
 Default MSG_INSERT_NOT_CONTAINER 118;
+Constant _MSG_INSERT_NOT_CONTAINER_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_TRANSFER_ALREADY;
 Default MSG_TRANSFER_ALREADY 119;
+Constant _MSG_TRANSFER_ALREADY_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_YES_OR_NO;
 Default MSG_YES_OR_NO 120;
+Constant _MSG_YES_OR_NO_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_RESTART_CONFIRM;
 Default MSG_RESTART_CONFIRM 121;
+Constant _MSG_RESTART_CONFIRM_HAS_CASE = 1;
+#EndIf;
 #Ifndef NO_SCORE;
+#Ifndef MSG_PARSER_NEW_SCORE;
 Default MSG_PARSER_NEW_SCORE 122;
+Constant _MSG_PARSER_NEW_SCORE_HAS_CASE = 1;
+#EndIf;
 #Endif;
+#Ifndef MSG_CLIMB_ANIMATE;
 Default MSG_CLIMB_ANIMATE 123;
+Constant _MSG_CLIMB_ANIMATE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_CLIMB_DEFAULT;
 Default MSG_CLIMB_DEFAULT 124;
+Constant _MSG_CLIMB_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PARSER_BAD_PATTERN_PREFIX;
 Default MSG_PARSER_BAD_PATTERN_PREFIX 125;
+Constant _MSG_PARSER_BAD_PATTERN_PREFIX_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PARSER_BAD_PATTERN_SUFFIX;
 Default MSG_PARSER_BAD_PATTERN_SUFFIX 126;
+Constant _MSG_PARSER_BAD_PATTERN_SUFFIX_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_TAKE_ALREADY_HAVE;
 Default MSG_TAKE_ALREADY_HAVE 127;
+Constant _MSG_TAKE_ALREADY_HAVE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SHOUT_DEFAULT;
 Default MSG_SHOUT_DEFAULT 128;
+Constant _MSG_SHOUT_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SHOUTAT_DEFAULT;
 Default MSG_SHOUTAT_DEFAULT 129;
+Constant _MSG_SHOUTAT_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_INSERT_ANIMATE;
 Default MSG_INSERT_ANIMATE 130;
+Constant _MSG_INSERT_ANIMATE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PUTON_ANIMATE;
 Default MSG_PUTON_ANIMATE 131;
+Constant _MSG_PUTON_ANIMATE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_LOOKMODE_NORMAL;
 Default MSG_LOOKMODE_NORMAL 132;
+Constant _MSG_LOOKMODE_NORMAL_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_LOOKMODE_LONG;
 Default MSG_LOOKMODE_LONG 133;
+Constant _MSG_LOOKMODE_LONG_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_LOOKMODE_SHORT;
 Default MSG_LOOKMODE_SHORT 134;
+Constant _MSG_LOOKMODE_SHORT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_AUTO_TAKE_NOT_HELD;
 Default MSG_AUTO_TAKE_NOT_HELD = 135;
+Constant _MSG_AUTO_TAKE_NOT_HELD_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_AUTO_DISROBE_WORN;
 Default MSG_AUTO_DISROBE_WORN = 136;
+Constant _MSG_AUTO_DISROBE_WORN_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_TAKE_SCENERY;
 Default MSG_TAKE_SCENERY = 137;
+Constant _MSG_TAKE_SCENERY_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_TAKE_STATIC;
 Default MSG_TAKE_STATIC = 138;
+Constant _MSG_TAKE_STATIC_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_EAT_INEDIBLE;
 Default MSG_EAT_INEDIBLE = 139;
+Constant _MSG_EAT_INEDIBLE_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_OPEN_ALREADY;
 Default MSG_OPEN_ALREADY = 140;
+Constant _MSG_OPEN_ALREADY_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_OPEN_LOCKED;
 Default MSG_OPEN_LOCKED = 141;
+Constant _MSG_OPEN_LOCKED_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PUTON_NOT_SUPPORTER;
 Default MSG_PUTON_NOT_SUPPORTER = 142;
+Constant _MSG_PUTON_NOT_SUPPORTER_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PARSER_NO_IT;
 Default MSG_PARSER_NO_IT = 143;
+Constant _MSG_PARSER_NO_IT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PARSER_CANT_SEE_IT;
 Default MSG_PARSER_CANT_SEE_IT = 144;
+Constant _MSG_PARSER_CANT_SEE_IT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_NOTIFY_ON;
 Default MSG_NOTIFY_ON = 145;
+Constant _MSG_NOTIFY_ON_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_NOTIFY_OFF;
 Default MSG_NOTIFY_OFF = 146;
+Constant _MSG_NOTIFY_OFF_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_ENTER_HELD;
 Default MSG_ENTER_HELD 147;
+Constant _MSG_ENTER_HELD_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_PARSER_NOSUCHTHING;
 Default MSG_PARSER_NOSUCHTHING 148;
+Constant _MSG_PARSER_NOSUCHTHING_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SHOUT_NOSUCHTHING;
 Default MSG_SHOUT_NOSUCHTHING 149;
+Constant _MSG_SHOUT_NOSUCHTHING_HAS_CASE = 1;
+#EndIf;
 
 #IfDef OPTIONAL_PROVIDE_UNDO_FINAL;
 #Ifndef MSG_UNDO_NOTHING_DONE;
@@ -408,45 +850,63 @@ Constant MSG_MILD_DEFAULT "Durchaus.";
 Constant MSG_STRONG_DEFAULT "Echte Abenteurer verwenden solche Begriffe nicht.";
 #EndIf;
 
+#Ifndef MSG_BLOW_DEFAULT;
 Default MSG_BLOW_DEFAULT 200;
+Constant _MSG_BLOW_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_WAVE_DEFAULT;
 Default MSG_WAVE_DEFAULT 201;
+Constant _MSG_WAVE_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_EMPTY_ALREADY_EMPTY;
 Default MSG_EMPTY_ALREADY_EMPTY 202;
+Constant _MSG_EMPTY_ALREADY_EMPTY_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SET_DEFAULT;
 Default MSG_SET_DEFAULT 203;
+Constant _MSG_SET_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_SET_TO_DEFAULT;
 Default MSG_SET_TO_DEFAULT 204;
+Constant _MSG_SET_TO_DEFAULT_HAS_CASE = 1;
+#EndIf;
+#Ifndef MSG_EMPTY_NOT_CONTAINER;
 Default MSG_EMPTY_NOT_CONTAINER 205;
+Constant _MSG_EMPTY_NOT_CONTAINER_HAS_CASE = 1;
+#EndIf;
 #EndIf;
 
 
-#Iffalse MSG_PUSH_DEFAULT < 1000;
-#Iffalse MSG_PULL_DEFAULT < 1000;
-#Iffalse MSG_TURN_DEFAULT < 1000;
+#Ifndef _MSG_PUSH_DEFAULT_HAS_CASE;
+#Ifndef _MSG_PULL_DEFAULT_HAS_CASE;
+#Ifndef _MSG_TURN_DEFAULT_HAS_CASE;
 Constant SKIP_MSG_PUSH_DEFAULT;
 #Endif;
 #Endif;
 #Endif;
 
-#Iffalse MSG_PUSH_STATIC < 1000;
-#Iffalse MSG_PULL_STATIC < 1000;
-#Iffalse MSG_TURN_STATIC < 1000;
-#Iffalse MSG_TAKE_STATIC < 1000;
+#Ifndef _MSG_PUSH_STATIC_HAS_CASE;
+#Ifndef _MSG_PULL_STATIC_HAS_CASE;
+#Ifndef _MSG_TURN_STATIC_HAS_CASE;
+#Ifndef _MSG_TAKE_STATIC_HAS_CASE;
 Constant SKIP_MSG_PUSH_STATIC;
 #Endif;
 #Endif;
 #Endif;
 #Endif;
 
-#Iffalse MSG_PUSH_SCENERY < 1000;
-#Iffalse MSG_PULL_SCENERY < 1000;
-#Iffalse MSG_TURN_SCENERY < 1000;
+#Ifndef _MSG_PUSH_SCENERY_HAS_CASE;
+#Ifndef _MSG_PULL_SCENERY_HAS_CASE;
+#Ifndef _MSG_TURN_SCENERY_HAS_CASE;
 Constant SKIP_MSG_PUSH_SCENERY;
 #Endif;
 #Endif;
 #Endif;
 
-#Iffalse MSG_PUSH_ANIMATE < 1000;
-#Iffalse MSG_PULL_ANIMATE < 1000;
-#Iffalse MSG_TURN_ANIMATE < 1000;
-#Iffalse MSG_CLIMB_ANIMATE < 1000;
+#Ifndef _MSG_PUSH_ANIMATE_HAS_CASE;
+#Ifndef _MSG_PULL_ANIMATE_HAS_CASE;
+#Ifndef _MSG_TURN_ANIMATE_HAS_CASE;
+#Ifndef _MSG_CLIMB_ANIMATE_HAS_CASE;
 Constant SKIP_MSG_PUSH_ANIMATE;
 #Endif;
 #Endif;
@@ -454,22 +914,22 @@ Constant SKIP_MSG_PUSH_ANIMATE;
 #Endif;
 
 
-#Iffalse MSG_DROP_NOT_HOLDING < 1000;
-#Iffalse MSG_SHOW_NOT_HOLDING < 1000;
-#Iffalse MSG_GIVE_NOT_HOLDING < 1000;
-#Iffalse MSG_WEAR_NOT_HOLDING < 1000;
+#Ifndef _MSG_DROP_NOT_HOLDING_HAS_CASE;
+#Ifndef _MSG_SHOW_NOT_HOLDING_HAS_CASE;
+#Ifndef _MSG_GIVE_NOT_HOLDING_HAS_CASE;
+#Ifndef _MSG_WEAR_NOT_HOLDING_HAS_CASE;
 Constant SKIP_MSG_DROP_NOT_HOLDING;
 #Endif;
 #Endif;
 #Endif;
 #Endif;
 
-#Iffalse MSG_OPEN_YOU_CANT < 1000;
-#Iffalse MSG_CLOSE_YOU_CANT < 1000;
-#Iffalse MSG_ENTER_YOU_CANT < 1000;
-#Iffalse MSG_LOCK_NOT_A_LOCK < 1000;
-#Iffalse MSG_UNLOCK_NOT_A_LOCK < 1000;
-#Iffalse MSG_WEAR_NOT_CLOTHING < 1000;
+#Ifndef _MSG_OPEN_YOU_CANT_HAS_CASE;
+#Ifndef _MSG_CLOSE_YOU_CANT_HAS_CASE;
+#Ifndef _MSG_ENTER_YOU_CANT_HAS_CASE;
+#Ifndef _MSG_LOCK_NOT_A_LOCK_HAS_CASE;
+#Ifndef _MSG_UNLOCK_NOT_A_LOCK_HAS_CASE;
+#Ifndef _MSG_WEAR_NOT_CLOTHING_HAS_CASE;
 Constant SKIP_MSG_OPEN_YOU_CANT;
 #Endif;
 #Endif;
@@ -478,25 +938,25 @@ Constant SKIP_MSG_OPEN_YOU_CANT;
 #Endif;
 #Endif;
 
-#Iffalse MSG_TAKE_ANIMATE < 1000;
-#Iffalse MSG_EAT_ANIMATE < 1000;
+#Ifndef _MSG_TAKE_ANIMATE_HAS_CASE;
+#Ifndef _MSG_EAT_ANIMATE_HAS_CASE;
 Constant SKIP_MSG_TAKE_ANIMATE;
 #Endif;
 #Endif;
 
-#Iffalse MSG_TAKE_PLAYER_PARENT < 1000;
-#Iffalse MSG_GO_FIRST_LEAVE < 1000;
-#Iffalse MSG_EXIT_FIRST_LEAVE < 1000;
+#Ifndef _MSG_TAKE_PLAYER_PARENT_HAS_CASE;
+#Ifndef _MSG_GO_FIRST_LEAVE_HAS_CASE;
+#Ifndef _MSG_EXIT_FIRST_LEAVE_HAS_CASE;
 Constant SKIP_MSG_TAKE_PLAYER_PARENT;
 #Endif;
 #Endif;
 #Endif;
 
-#Iffalse MSG_CLOSE_DEFAULT < 1000;
-#Iffalse MSG_ENTER_DEFAULT < 1000;
-#Iffalse MSG_LOCK_DEFAULT < 1000;
-#Iffalse MSG_UNLOCK_DEFAULT < 1000;
-#Iffalse MSG_EXIT_DEFAULT < 1000;
+#Ifndef _MSG_CLOSE_DEFAULT_HAS_CASE;
+#Ifndef _MSG_ENTER_DEFAULT_HAS_CASE;
+#Ifndef _MSG_LOCK_DEFAULT_HAS_CASE;
+#Ifndef _MSG_UNLOCK_DEFAULT_HAS_CASE;
+#Ifndef _MSG_EXIT_DEFAULT_HAS_CASE;
 Constant SKIP_MSG_CLOSE_DEFAULT;
 #Endif;
 #Endif;
@@ -504,25 +964,25 @@ Constant SKIP_MSG_CLOSE_DEFAULT;
 #Endif;
 #Endif;
 
-#Iffalse MSG_GIVE_DEFAULT < 1000;
-#Iffalse MSG_SHOW_DEFAULT < 1000;
+#Ifndef _MSG_GIVE_DEFAULT_HAS_CASE;
+#Ifndef _MSG_SHOW_DEFAULT_HAS_CASE;
 Constant SKIP_MSG_GIVE_DEFAULT;
 #Endif;
 #Endif;
 
-#Iffalse MSG_ASKFOR_DEFAULT < 1000;
-#Iffalse MSG_ASKTO_DEFAULT < 1000;
-#Iffalse MSG_ORDERS_WONT < 1000;
+#Ifndef _MSG_ASKFOR_DEFAULT_HAS_CASE;
+#Ifndef _MSG_ASKTO_DEFAULT_HAS_CASE;
+#Ifndef _MSG_ORDERS_WONT_HAS_CASE;
 Constant SKIP_MSG_ASKFOR_DEFAULT;
 #Endif;
 #Endif;
 #Endif;
 
-#Iffalse MSG_ENTER_NOT_OPEN < 1000;
-#Iffalse MSG_EXIT_NOT_OPEN < 1000;
-#Iffalse MSG_INSERT_NOT_OPEN < 1000;
-#Iffalse MSG_GO_DOOR_CLOSED < 1000;
-#Iffalse MSG_EMPTY_IS_CLOSED < 1000;
+#Ifndef _MSG_ENTER_NOT_OPEN_HAS_CASE;
+#Ifndef _MSG_EXIT_NOT_OPEN_HAS_CASE;
+#Ifndef _MSG_INSERT_NOT_OPEN_HAS_CASE;
+#Ifndef _MSG_GO_DOOR_CLOSED_HAS_CASE;
+#Ifndef _MSG_EMPTY_IS_CLOSED_HAS_CASE;
 Constant SKIP_MSG_ENTER_NOT_OPEN;
 #Endif;
 #Endif;
@@ -530,148 +990,148 @@ Constant SKIP_MSG_ENTER_NOT_OPEN;
 #Endif;
 #Endif;
 
-#Iffalse MSG_GIVE_PLAYER < 1000;
-#Iffalse MSG_TAKE_ALREADY_HAVE < 1000;
+#Ifndef _MSG_GIVE_PLAYER_HAS_CASE;
+#Ifndef _MSG_TAKE_ALREADY_HAVE_HAS_CASE;
 Constant SKIP_MSG_GIVE_PLAYER;
 #Endif;
 #Endif;
 
-#Iffalse MSG_SAVE_FAILED < 1000;
-#Iffalse MSG_RESTORE_FAILED < 1000;
-#Iffalse MSG_RESTART_FAILED < 1000;
+#Ifndef _MSG_SAVE_FAILED_HAS_CASE;
+#Ifndef _MSG_RESTORE_FAILED_HAS_CASE;
+#Ifndef _MSG_RESTART_FAILED_HAS_CASE;
 Constant SKIP_MSG_SAVE_FAILED;
 #Endif;
 #Endif;
 #Endif;
 
-#Iffalse MSG_INSERT_ALREADY < 1000;
-#Iffalse MSG_PUTON_ALREADY < 1000;
-#Iffalse MSG_TRANSFER_ALREADY < 1000;
+#Ifndef _MSG_INSERT_ALREADY_HAS_CASE;
+#Ifndef _MSG_PUTON_ALREADY_HAS_CASE;
+#Ifndef _MSG_TRANSFER_ALREADY_HAS_CASE;
 Constant SKIP_MSG_INSERT_ALREADY;
 #Endif;
 #Endif;
 #Endif;
 
-#Iffalse MSG_INSERT_ANIMATE < 1000;
-#Iffalse MSG_PUTON_ANIMATE < 1000;
+#Ifndef _MSG_INSERT_ANIMATE_HAS_CASE;
+#Ifndef _MSG_PUTON_ANIMATE_HAS_CASE;
 Constant SKIP_MSG_INSERT_ANIMATE;
 #Endif;
 #Endif;
 
-#Iffalse MSG_INSERT_NO_ROOM < 1000;
-#Iffalse MSG_PUTON_NO_ROOM < 1000;
+#Ifndef _MSG_INSERT_NO_ROOM_HAS_CASE;
+#Ifndef _MSG_PUTON_NO_ROOM_HAS_CASE;
 Constant SKIP_MSG_INSERT_NO_ROOM;
 #Endif;
 #Endif;
 
-#Iffalse MSG_ASK_DEFAULT < 1000;
-#Iffalse MSG_ANSWER_DEFAULT < 1000;
-#Iffalse MSG_SHOUT_DEFAULT < 1000;
-#Iffalse MSG_SHOUTAT_DEFAULT < 1000;
+#Ifndef _MSG_ASK_DEFAULT_HAS_CASE;
+#Ifndef _MSG_ANSWER_DEFAULT_HAS_CASE;
+#Ifndef _MSG_SHOUT_DEFAULT_HAS_CASE;
+#Ifndef _MSG_SHOUTAT_DEFAULT_HAS_CASE;
 Constant SKIP_MSG_ASK_DEFAULT;
 #Endif;
 #Endif;
 #Endif;
 #Endif;
 
-#Iffalse MSG_SWITCH_ON_NOT_SWITCHABLE < 1000;
-#Iffalse MSG_SWITCH_OFF_NOT_SWITCHABLE < 1000;
+#Ifndef _MSG_SWITCH_ON_NOT_SWITCHABLE_HAS_CASE;
+#Ifndef _MSG_SWITCH_OFF_NOT_SWITCHABLE_HAS_CASE;
 Constant SKIP_MSG_SWITCH_ON_NOT_SWITCHABL;
 #Endif;
 #Endif;
 
-#Iffalse MSG_SWITCH_ON_ON < 1000;
-#Iffalse MSG_SWITCH_OFF_NOT_ON < 1000;
+#Ifndef _MSG_SWITCH_ON_ON_HAS_CASE;
+#Ifndef _MSG_SWITCH_OFF_NOT_ON_HAS_CASE;
 Constant SKIP_MSG_SWITCH_ON_ON;
 #Endif;
 #Endif;
 
-#Iffalse MSG_SWITCH_ON_DEFAULT < 1000;
-#Iffalse MSG_SWITCH_OFF_DEFAULT < 1000;
+#Ifndef _MSG_SWITCH_ON_DEFAULT_HAS_CASE;
+#Ifndef _MSG_SWITCH_OFF_DEFAULT_HAS_CASE;
 Constant SKIP_MSG_SWITCH_ON_DEFAULT;
 #Endif;
 #Endif;
 
-#Iffalse MSG_PARSER_NOT_HOLDING < 1000;
-#Iffalse MSG_AUTO_TAKE_NOT_HELD < 1000;
-#Iffalse MSG_WAVE_NOTHOLDING < 1000;
+#Ifndef _MSG_PARSER_NOT_HOLDING_HAS_CASE;
+#Ifndef _MSG_AUTO_TAKE_NOT_HELD_HAS_CASE;
+#Ifndef _MSG_WAVE_NOTHOLDING_HAS_CASE;
 Constant SKIP_MSG_PARSER_NOT_HOLDING;
 #Endif;
 #Endif;
 #Endif;
 
-#Iffalse MSG_CLOSE_NOT_OPEN < 1000;
-#Iffalse MSG_TOUCHABLE_FOUND_CLOSED < 1000;
-#Iffalse MSG_PARSER_CONTAINER_ISNT_OPEN < 1000;
+#Ifndef _MSG_CLOSE_NOT_OPEN_HAS_CASE;
+#Ifndef _MSG_TOUCHABLE_FOUND_CLOSED_HAS_CASE;
+#Ifndef _MSG_PARSER_CONTAINER_ISNT_OPEN_HAS_CASE;
 Constant SKIP_MSG_CLOSE_NOT_OPEN;
 #Endif;
 #Endif;
 #Endif;
 
-#Iffalse MSG_CUT_NO_USE < 1000;
-#Iffalse MSG_JUMP_OVER < 1000;
-#Iffalse MSG_TIE_DEFAULT < 1000;
-#Iffalse MSG_CLIMB_DEFAULT < 1000;
+#Ifndef _MSG_CUT_NO_USE_HAS_CASE;
+#Ifndef _MSG_JUMP_OVER_HAS_CASE;
+#Ifndef _MSG_TIE_DEFAULT_HAS_CASE;
+#Ifndef _MSG_CLIMB_DEFAULT_HAS_CASE;
 Constant SKIP_MSG_CUT_NO_USE;
 #Endif;
 #Endif;
 #Endif;
 #Endif;
 
-#Iffalse MSG_LOCK_ALREADY_LOCKED < 1000;
-#Iffalse MSG_UNLOCK_ALREADY_UNLOCKED < 1000;
+#Ifndef _MSG_LOCK_ALREADY_LOCKED_HAS_CASE;
+#Ifndef _MSG_UNLOCK_ALREADY_UNLOCKED_HAS_CASE;
 Constant SKIP_MSG_LOCK_ALREADY_LOCKED;
 #Endif;
 #Endif;
 
-#Iffalse MSG_LOCK_KEY_DOESNT_FIT < 1000;
-#Iffalse MSG_UNLOCK_KEY_DOESNT_FIT < 1000;
+#Ifndef _MSG_LOCK_KEY_DOESNT_FIT_HAS_CASE;
+#Ifndef _MSG_UNLOCK_KEY_DOESNT_FIT_HAS_CASE;
 Constant SKIP_MSG_LOCK_KEY_DOESNT_FIT;
 #Endif;
 #Endif;
 
-#Iffalse MSG_RUB_DEFAULT < 1000;
-#Iffalse MSG_SQUEEZE_DEFAULT < 1000;
+#Ifndef _MSG_RUB_DEFAULT_HAS_CASE;
+#Ifndef _MSG_SQUEEZE_DEFAULT_HAS_CASE;
 Constant SKIP_MSG_RUB_DEFAULT;
 #Endif;
 #Endif;
 
-#Iffalse MSG_LOOKMODE_NORMAL < 1000;
-#Iffalse MSG_LOOKMODE_LONG < 1000;
-#Iffalse MSG_LOOKMODE_SHORT < 1000;
+#Ifndef _MSG_LOOKMODE_NORMAL_HAS_CASE;
+#Ifndef _MSG_LOOKMODE_LONG_HAS_CASE;
+#Ifndef _MSG_LOOKMODE_SHORT_HAS_CASE;
 Constant SKIP_MSG_LOOKMODE;
 #Endif;
 #Endif;
 #Endif;
 
-#Iffalse MSG_INSERT_NOT_CONTAINER < 1000;
+#Ifndef _MSG_INSERT_NOT_CONTAINER_HAS_CASE;
 #Ifndef MSG_EMPTY_NOT_CONTAINER;
 Constant SKIP_MSG_INSERT_NOT_CONTAINER;
 #Ifnot;
-#Iffalse MSG_EMPTY_NOT_CONTAINER < 1000;
+#Ifndef _MSG_EMPTY_NOT_CONTAINER_HAS_CASE;
 Constant SKIP_MSG_INSERT_NOT_CONTAINER;
 #Endif;
 #Endif;
 #Endif;
 
 #Ifndef OPTIONAL_NO_SCORE;
-#Iffalse MSG_NOTIFY_ON < 1000;
-#Iffalse MSG_NOTIFY_OFF < 1000;
+#Ifndef _MSG_NOTIFY_ON_HAS_CASE;
+#Ifndef _MSG_NOTIFY_OFF_HAS_CASE;
 Constant SKIP_MSG_NOTIFY_ON;
 #Endif;
 #Endif;
 #Endif;
 
 #Ifndef OPTIONAL_NO_DARKNESS;
-#Iffalse MSG_EXAMINE_DARK < 1000;
-#Iffalse MSG_SEARCH_DARK < 1000;
+#Ifndef _MSG_EXAMINE_DARK_HAS_CASE;
+#Ifndef _MSG_SEARCH_DARK_HAS_CASE;
 Constant SKIP_MSG_EXAMINE_DARK;
 #Endif;
 #Endif;
 #Endif;
 
-#Iffalse MSG_PARSER_NOSUCHTHING < 1000;
-#Iffalse MSG_SHOUT_NOSUCHTHING < 1000;
+#Ifndef _MSG_PARSER_NOSUCHTHING_HAS_CASE;
+#Ifndef _MSG_SHOUT_NOSUCHTHING_HAS_CASE;
 Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Endif;
 #Endif;
@@ -688,18 +1148,18 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 
 	! Not a string, there should be code for the message here
 	switch(p_msg) {
-#IfTrue MSG_PROMPT < 1000;
+#Ifdef _MSG_PROMPT_HAS_CASE;
 	MSG_PROMPT:
 		print "> ";
 		rtrue;
 #EndIf;
-#Iftrue MSG_LOOK_BEFORE_ROOMNAME < 1000;
+#Ifdef _MSG_LOOK_BEFORE_ROOMNAME_HAS_CASE;
 	MSG_LOOK_BEFORE_ROOMNAME:
 		! what to write at first when describing a room. Can be used to
 		! add a newline, but default is to write nothing.
 		!@new_line;
 #Endif;
-#Iftrue MSG_TAKE_SCENERY < 1000;
+#Ifdef _MSG_TAKE_SCENERY_HAS_CASE;
 	MSG_TAKE_SCENERY:
 		print_ret (CTheyreorThats) noun, " nicht portabel.";
 #EndIf;
@@ -720,14 +1180,14 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 		print_ret (CObjIs) noun, " nicht beweglich.";
 #Endif;
 #IfDef SACK_OBJECT;
-#IfTrue MSG_SACK_PUTTING < 1000;
+#Ifdef _MSG_SACK_PUTTING_HAS_CASE;
 	MSG_SACK_PUTTING:
 	! p_arg_1 = the object being put into SACK_OBJECT.
 		! "legen" = Akkusativ; "in" + Akkusativ (Richtung) → (DE_Den)
 		"(lege ", (DE_Den) p_arg_1, " in ", (DE_Den) SACK_OBJECT, " um Platz zu schaffen)";
 #EndIf;
 #EndIf;
-#IfTrue MSG_INVENTORY_DEFAULT < 1000;
+#Ifdef _MSG_INVENTORY_DEFAULT_HAS_CASE;
 	MSG_INVENTORY_DEFAULT:
 		! return true if something listed to run afterroutines
 		! or false if MSG_INVENTORY_EMPTY should be displayed
@@ -746,7 +1206,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 		short_name_case = Nom;
 		rfalse;
 #EndIf;
-#IfTrue MSG_EXAMINE_NOTHING_SPECIAL < 1000;
+#Ifdef _MSG_EXAMINE_NOTHING_SPECIAL_HAS_CASE;
 	MSG_EXAMINE_NOTHING_SPECIAL:
 		! "an" + Dativ → (DE_Dem)
 		"Du erkennst nichts Besonderes an ", (DE_Dem) noun, ".";
@@ -767,15 +1227,15 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 	! p_arg_1 = the base verb for this action.
 		"Du kannst ", (ThatorThose) noun, " nicht ", (verbname) p_arg_1, ".";
 #Endif;
-#IfTrue MSG_OPEN_ALREADY < 1000;
+#Ifdef _MSG_OPEN_ALREADY_HAS_CASE;
 	MSG_OPEN_ALREADY:
 		print_ret (CTheyreorIts) noun, " bereits offen.";
 #EndIf;
-#IfTrue MSG_OPEN_LOCKED < 1000;
+#Ifdef _MSG_OPEN_LOCKED_HAS_CASE;
 	MSG_OPEN_LOCKED:
 		print_ret (CTheyreorIts) noun, " verschlossen.";
 #EndIf;
-#IfTrue MSG_PUTON_NOT_SUPPORTER < 1000;
+#Ifdef _MSG_PUTON_NOT_SUPPORTER_HAS_CASE;
 	MSG_PUTON_NOT_SUPPORTER:
 		"Du kannst nichts auf ", (ThatorThose) second, " stellen.";
 #EndIf;
@@ -790,7 +1250,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 	! "verlassen" = Akkusativ → (DE_Den)
 		"Zuerst musst du ", (DE_Den) p_arg_1, " verlassen.";
 #Endif;
-#Iftrue MSG_OPEN_DEFAULT < 1000;
+#Ifdef _MSG_OPEN_DEFAULT_HAS_CASE;
 	MSG_OPEN_DEFAULT:
 		! "öffnen" = Akkusativ → (DE_Den)
 		print "Du öffnest ", (DE_Den) noun;
@@ -862,12 +1322,12 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 	MSG_INSERT_NO_ROOM, MSG_PUTON_NO_ROOM:
 		"Es ist kein Platz mehr.";
 #Endif;
-#IfTrue MSG_INSERT_DEFAULT < 1000;
+#Ifdef _MSG_INSERT_DEFAULT_HAS_CASE;
 	MSG_INSERT_DEFAULT:
 		! "legen in" (wohin?) = Akkusativ für noun + second → (DE_Den)
 		"Du legst ", (DE_Den) noun, " in ", (DE_Den) second, ".";
 #EndIf;
-#IfTrue MSG_PUTON_DEFAULT < 1000;
+#Ifdef _MSG_PUTON_DEFAULT_HAS_CASE;
 	MSG_PUTON_DEFAULT:
 		! "legen auf" (wohin?) = Akkusativ für noun + second → (DE_Den)
 		"Du legst ", (DE_Den) noun, " auf ", (DE_Den) second, ".";
@@ -876,22 +1336,22 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 	MSG_ASK_DEFAULT, MSG_ANSWER_DEFAULT, MSG_SHOUT_DEFAULT, MSG_SHOUTAT_DEFAULT:
 		"Keine Antwort.";
 #Endif;
-#IfTrue MSG_WEAR_ALREADY_WORN < 1000;
+#Ifdef _MSG_WEAR_ALREADY_WORN_HAS_CASE;
 	MSG_WEAR_ALREADY_WORN:
 		! "mit" + Dativ → (DE_Dem)
 		"Du bist bereits mit ", (DE_Dem) noun, " bekleidet.";
 #EndIf;
-#IfTrue MSG_WEAR_DEFAULT < 1000;
+#Ifdef _MSG_WEAR_DEFAULT_HAS_CASE;
 	MSG_WEAR_DEFAULT:
 		! "mit" + Dativ → (DE_Dem)
 		"Du bist nun mit ", (DE_Dem) noun, " bekleidet.";
 #EndIf;
-#IfTrue MSG_DISROBE_NOT_WEARING < 1000;
+#Ifdef _MSG_DISROBE_NOT_WEARING_HAS_CASE;
 	MSG_DISROBE_NOT_WEARING:
 		! "mit" + Dativ → (DE_Dem)
 		"Du bist nicht mit ", (DE_Dem) noun, " bekleidet.";
 #EndIf;
-#IfTrue MSG_DISROBE_DEFAULT < 1000;
+#Ifdef _MSG_DISROBE_DEFAULT_HAS_CASE;
 	MSG_DISROBE_DEFAULT:
 		! "ausziehen" = Akkusativ → (DE_Den)
 		"Du ziehst ", (DE_Den) noun, " aus.";
@@ -909,25 +1369,25 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 		! "schalten" = Akkusativ → (DE_Den)
 		"Du schaltest ", (DE_Den) noun, " ", (OnOff) noun, ".";
 #Endif;
-#Iftrue MSG_AUTO_TAKE < 1000;
+#Ifdef _MSG_AUTO_TAKE_HAS_CASE;
 	MSG_AUTO_TAKE:
 	! p_arg_1 = the object the player automatically picks up
 	! "nehmen" = Akkusativ → (DE_Den)
 		"(du nimmst zuerst ", (DE_Den) p_arg_1, ")";
 #Endif;
-#Iftrue MSG_AUTO_DISROBE < 1000;
+#Ifdef _MSG_AUTO_DISROBE_HAS_CASE;
 	MSG_AUTO_DISROBE:
 	! p_arg_1 = the object the player automatically takes off.
 	! "ausziehen" = Akkusativ → (DE_Den)
 		"(du ziehst zuerst ", (DE_Den) p_arg_1, " aus)";
 #Endif;
-#Iftrue MSG_AUTO_DISROBE_WORN < 1000;
+#Ifdef _MSG_AUTO_DISROBE_WORN_HAS_CASE;
 	MSG_AUTO_DISROBE_WORN:
 	! p_arg_1 = the object the player would need to take off.
 	! "ausziehen" = Akkusativ → (DE_Den)
 		"Du müsstest zuerst ", (DE_Den) p_arg_1, " ausziehen.";
 #Endif;
-#IfTrue MSG_PARSER_NOTHING_TO_VERB < 1000;
+#Ifdef _MSG_PARSER_NOTHING_TO_VERB_HAS_CASE;
 	MSG_PARSER_NOTHING_TO_VERB:
 	! p_arg_1 = the last word in player input + 1.
 		if(action == ##Drop or ##Insert) {
@@ -946,27 +1406,27 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 	! "halten" = Akkusativ → (DE_Den)
 		"Aber du hast ", (DE_Den) p_arg_1, " gar nicht.";
 #Endif;
-#IfTrue MSG_PARSER_PARTIAL_MATCH < 1000;
+#Ifdef _MSG_PARSER_PARTIAL_MATCH_HAS_CASE;
 	MSG_PARSER_PARTIAL_MATCH:
 	! p_arg_1 = the word number of the last word understood + 1.
 		print "Ich habe dich nur bis ~";
 		_PrintPartialMatch(verb_wordnum, p_arg_1);
 		"~ verstanden.";
 #EndIf;
-#IfTrue MSG_PARSER_CANT_TALK < 1000;
+#Ifdef _MSG_PARSER_CANT_TALK_HAS_CASE;
 	MSG_PARSER_CANT_TALK:
 	! p_arg_1 = the object which cant be talked to.
 	! "mit" + Dativ → (DE_Dem)
 		"Du kannst nicht mit ", (DE_Dem) p_arg_1, " reden.";
 #EndIf;
-#IfTrue MSG_PARSER_NO_NEED_REFER_TO < 1000;
+#Ifdef _MSG_PARSER_NO_NEED_REFER_TO_HAS_CASE;
 	MSG_PARSER_NO_NEED_REFER_TO:
 		! TODO: "Du musst dich in diesem Spiel nicht auf ~ beziehen."
 		print "Du musst dich in diesem Spiel nicht auf ~";
 		_PrintUnknownWord();
 		"~ beziehen.";
 #EndIf;
-#IfTrue MSG_PARSER_DONT_UNDERSTAND_WORD < 1000;
+#Ifdef _MSG_PARSER_DONT_UNDERSTAND_WORD_HAS_CASE;
 	MSG_PARSER_DONT_UNDERSTAND_WORD:
 		! TODO: "Entschuldigung, ich verstehe nicht was ~ bedeutet."
 		print "Entschuldigung, ich verstehe nicht ";
@@ -977,16 +1437,16 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 		_PrintUnknownWord();
 		"~ bedeutet.";
 #EndIf;
-#IfTrue MSG_PARSER_BAD_PATTERN_PREFIX < 1000;
+#Ifdef _MSG_PARSER_BAD_PATTERN_PREFIX_HAS_CASE;
 	MSG_PARSER_BAD_PATTERN_PREFIX:
 		print "Ich glaube, du wolltest ~";
 		rtrue;
 #EndIf;
-#IfTrue MSG_PARSER_BAD_PATTERN_SUFFIX < 1000;
+#Ifdef _MSG_PARSER_BAD_PATTERN_SUFFIX_HAS_CASE;
 	MSG_PARSER_BAD_PATTERN_SUFFIX:
 		"~ sagen. Bitte versuche es erneut.";
 #EndIf;
-#IfTrue MSG_PARSER_NO_IT < 1000;
+#Ifdef _MSG_PARSER_NO_IT_HAS_CASE;
 	MSG_PARSER_NO_IT:
 		print "Ich weiß nicht, was ~";
 		if (p_arg_1 == 'it') print "es";
@@ -999,7 +1459,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 	MSG_PARSER_NOSUCHTHING, MSG_SHOUT_NOSUCHTHING:
 		"So etwas kannst du nicht sehen.";
 #EndIf;
-#IfTrue MSG_PARSER_CANT_SEE_IT < 1000;
+#Ifdef _MSG_PARSER_CANT_SEE_IT_HAS_CASE;
 	MSG_PARSER_CANT_SEE_IT:
 		"Du kannst ~", (address) p_arg_1, "~ (", (name) p_arg_2, ") momentan nicht sehen.";
 #EndIf;
@@ -1009,7 +1469,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 	! p_arg_1 = the object which isnt open.
 		print_ret (CObjIs) p_arg_1, " nicht offen.";
 #Endif;
-#IfTrue MSG_CONSULT_NOTHING_INTERESTING < 1000;
+#Ifdef _MSG_CONSULT_NOTHING_INTERESTING_HAS_CASE;
 	MSG_CONSULT_NOTHING_INTERESTING:
 		! "in" + Dativ (wo?) → (DE_Dem)
 		"Du findest nichts von Belang in ", (DE_Dem) noun, ".";
@@ -1026,7 +1486,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 		! Nominativ: noun ist Subjekt → (DE_Der_Cap) am Satzanfang
 		print_ret (DE_Der_Cap) noun, " ist bereits aufgeschlossen.";
 #Endif;
-#IfTrue MSG_LOCK_CLOSE_FIRST < 1000;
+#Ifdef _MSG_LOCK_CLOSE_FIRST_HAS_CASE;
 	MSG_LOCK_CLOSE_FIRST:
 		! "schließen" = Akkusativ → (DE_Den)
 		"Zuerst musst du ", (DE_Den) noun, " schließen.";
@@ -1037,16 +1497,16 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 		! Nominativ: second ist Subjekt → (DE_Der_Cap) am Satzanfang
 		print_ret (DE_Der_Cap) second, " scheint nicht in das Schloss zu passen.";
 #Endif;
-#IfTrue MSG_EXAMINE_CLOSED < 1000;
+#Ifdef _MSG_EXAMINE_CLOSED_HAS_CASE;
 	MSG_EXAMINE_CLOSED:
 	! p_arg_1 = the examined object (which is closed).
 		print_ret (CObjIs) p_arg_1, " geschlossen.";
 #Endif;
-#IfTrue MSG_REMOVE_NOT_HERE < 1000;
+#Ifdef _MSG_REMOVE_NOT_HERE_HAS_CASE;
 	MSG_REMOVE_NOT_HERE:
 		"Aber ", (ObjIs) noun, " momentan nicht da.";
 #EndIf;
-#IfTrue MSG_SEARCH_IN_IT_ISARE < 1000;
+#Ifdef _MSG_SEARCH_IN_IT_ISARE_HAS_CASE;
 	MSG_SEARCH_IN_IT_ISARE:
 		print (DE_Der_Cap) noun, " enthält ";
 		p_arg_2 = short_name_case;
@@ -1055,31 +1515,31 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 		short_name_case = p_arg_2;
 		".";
 #EndIf;
-#IfTrue MSG_SEARCH_ON_IT_ISARE < 1000;
+#Ifdef _MSG_SEARCH_ON_IT_ISARE_HAS_CASE;
 	MSG_SEARCH_ON_IT_ISARE:
 		! "auf" + Dativ (Lage, wo?) → (DE_Dem)
 		print "Auf ", (DE_Dem) noun;
 		PrintContents(" ", noun, ISARE_BIT);
 		".";
 #EndIf;
-#IfTrue MSG_SEARCH_EMPTY < 1000;
+#Ifdef _MSG_SEARCH_EMPTY_HAS_CASE;
 	MSG_SEARCH_EMPTY:
 		print_ret (CObjIs) noun, " leer.";
 #EndIf;
-#IfTrue MSG_SEARCH_NOTHING_ON < 1000;
+#Ifdef _MSG_SEARCH_NOTHING_ON_HAS_CASE;
 	MSG_SEARCH_NOTHING_ON:
 		! "auf" + Dativ (Lage) → (DE_Dem)
 		"Es ist nichts auf ", (DE_Dem) noun, ".";
 #EndIf;
-#IfTrue MSG_SEARCH_CANT_SEE_CLOSED < 1000;
+#Ifdef _MSG_SEARCH_CANT_SEE_CLOSED_HAS_CASE;
 	MSG_SEARCH_CANT_SEE_CLOSED:
 		"Du kannst nicht reinschauen, ", (ObjIs) noun, " geschlossen.";
 #EndIf;
-#IfTrue MSG_EXAMINE_ONOFF < 1000;
+#Ifdef _MSG_EXAMINE_ONOFF_HAS_CASE;
 	MSG_EXAMINE_ONOFF:
 		print_ret (CObjIs) noun, " aktuell ", (OnOff) noun, "geschaltet.";
 #EndIf;
-#IfTrue MSG_EAT_DEFAULT < 1000;
+#Ifdef _MSG_EAT_DEFAULT_HAS_CASE;
 	MSG_EAT_DEFAULT:
 		! "essen" = Akkusativ → (DE_Den)
 		"Du isst ", (DE_Den) noun, ". Nicht schlecht.";
@@ -1088,17 +1548,17 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 	"Damit erreichst du nichts.";
 #Endif;
-#IfTrue MSG_TAKE_NOT_AVAILABLE < 1000;
+#Ifdef _MSG_TAKE_NOT_AVAILABLE_HAS_CASE;
 	MSG_TAKE_NOT_AVAILABLE:
 		print_ret (CObjIs) noun, " nicht vorhanden.";
 #EndIf;
-#IfTrue MSG_TAKE_BELONGS < 1000;
+#Ifdef _MSG_TAKE_BELONGS_HAS_CASE;
 	MSG_TAKE_BELONGS:
 		! p_arg_1 = the object that is held by p_arg_2
 		! p_arg_1 Nominativ (Subjekt), p_arg_2 Dativ ("gehören" + Dativ) → (DE_Dem)
 		print_ret (DE_Der_Cap) p_arg_1, " gehört ", (DE_Dem) p_arg_2, ".";
 #EndIf;
-#IfTrue MSG_TAKE_PART_OF < 1000;
+#Ifdef _MSG_TAKE_PART_OF_HAS_CASE;
 	MSG_TAKE_PART_OF:
 		! p_arg_1 = the object that is part of p_arg_2
 		! p_arg_1 Nominativ (Subjekt), p_arg_2 Dativ ("von" + Dativ) → (DE_Dem)
@@ -1110,11 +1570,11 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 		"Aber es ist dunkel.";
 #Endif;
 #Endif;
-#IfTrue MSG_EAT_INEDIBLE < 1000;
+#Ifdef _MSG_EAT_INEDIBLE_HAS_CASE;
 	MSG_EAT_INEDIBLE:
 		print_ret (CTheyreorThats) noun, " ungenießbar.";
 #EndIf;
-#IfTrue MSG_ENTER_BAD_LOCATION < 1000;
+#Ifdef _MSG_ENTER_BAD_LOCATION_HAS_CASE;
 	MSG_ENTER_BAD_LOCATION:
 		print "Du musst zuerst ";
 		if(player notin location && ~~IndirectlyContains(parent(player), noun))
@@ -1125,7 +1585,7 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 			print (DE_Den) parent(noun), " betreten";
 		".";
 #EndIf;
-#IfTrue MSG_ENTER_HELD < 1000;
+#Ifdef _MSG_ENTER_HELD_HAS_CASE;
 	MSG_ENTER_HELD:
 		! "betreten" = Akkusativ → (DE_Den); (ItorThem) = Akkusativ-Pronomen
 		"Du kannst ", (DE_Den) noun, " nicht betreten, während du ", (ItorThem) noun, " trägst.";
@@ -1142,25 +1602,25 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 #Endif;
 
 #IfDef OPTIONAL_EXTENDED_VERBSET;
-#IfTrue MSG_BLOW_DEFAULT < 1000;
+#Ifdef _MSG_BLOW_DEFAULT_HAS_CASE;
 	MSG_BLOW_DEFAULT:
 		! "pusten" = Akkusativ → (DE_Den)
 		"Du kannst ", (DE_Den) noun, " nicht sinnvoll pusten.";
 #EndIf;
-#IfTrue MSG_EMPTY_ALREADY_EMPTY < 1000;
+#Ifdef _MSG_EMPTY_ALREADY_EMPTY_HAS_CASE;
 	MSG_EMPTY_ALREADY_EMPTY:
 		! p_arg_1 = the object that is already empty
 		print_ret (CObjIs) p_arg_1, " bereits leer.";
 #EndIf;
-#IfTrue MSG_SET_DEFAULT < 1000;
+#Ifdef _MSG_SET_DEFAULT_HAS_CASE;
 	MSG_SET_DEFAULT:
 		"Nein, du kannst ", (thatorthose) noun, " nicht einstellen.";
 #EndIf;
-#IfTrue MSG_SET_TO_DEFAULT < 1000;
+#Ifdef _MSG_SET_TO_DEFAULT_HAS_CASE;
 	MSG_SET_TO_DEFAULT:
 		"Nein, du kannst ", (thatorthose) noun, " nicht auf etwas einstellen.";
 #EndIf;
-#IfTrue MSG_WAVE_DEFAULT < 1000;
+#Ifdef _MSG_WAVE_DEFAULT_HAS_CASE;
 	MSG_WAVE_DEFAULT:
 		! "mit" + Dativ → (DE_Dem)
 		"Du siehst dämlich aus, wenn du mit ", (DE_Dem) noun, " winkst.";
@@ -1168,7 +1628,7 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 #EndIf; ! Extended verbset
 
 #Ifndef NO_SCORE;
-#Iftrue MSG_PARSER_NEW_SCORE < 1000;
+#Ifdef _MSG_PARSER_NEW_SCORE_HAS_CASE;
 	MSG_PARSER_NEW_SCORE:
 		! p_arg_1 = the old score
 		if(p_arg_1 < score) {
@@ -1184,7 +1644,7 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 		}
 #Endif;
 #Endif;
-#Iftrue MSG_SCORE_DEFAULT < 1000;
+#Ifdef _MSG_SCORE_DEFAULT_HAS_CASE;
 	MSG_SCORE_DEFAULT:
 #Ifdef NO_SCORE;
 		"Es gibt keine Punkte in diesem Spiel.";
@@ -1196,11 +1656,11 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 #Endif;
 #Endif;
 #IfDef OPTIONAL_FULL_SCORE;
-#IfTrue MSG_FULLSCORE_START < 1000;
+#Ifdef _MSG_FULLSCORE_START_HAS_CASE;
 	MSG_FULLSCORE_START:
 		print "Die Punktzahl setzt sich wie folgt zusammen:";
 #EndIf;
-#IfTrue MSG_FULLSCORE_END < 1000;
+#Ifdef _MSG_FULLSCORE_END_HAS_CASE;
 	MSG_FULLSCORE_END:
 		"insgesamt (von ", MAX_SCORE, ")";
 #EndIf;
@@ -1232,7 +1692,7 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 		else print " dort noch nicht warst";
 		").";
 #Endif;
-#IfTrue MSG_RESTART_RESTORE_OR_QUIT < 1000;
+#Ifdef _MSG_RESTART_RESTORE_OR_QUIT_HAS_CASE;
 	MSG_RESTART_RESTORE_OR_QUIT:
 		print "^Möchtest du NEUSTART, WIEDERHERSTELLEN";
 #Ifdef OPTIONAL_PROVIDE_UNDO_FINAL;
@@ -1251,33 +1711,33 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 		print " oder BEENDEN? ";
 		rtrue;
 #EndIf;
-#IfTrue MSG_AREYOUSUREQUIT < 1000;
+#Ifdef _MSG_AREYOUSUREQUIT_HAS_CASE;
 	MSG_AREYOUSUREQUIT: ! print and rtrue to avoid newline
 		print "Bist du sicher, dass du das Spiel beenden willst? ";
 		rtrue;
 #EndIf;
-#IfTrue MSG_YOU_HAVE_WON < 1000;
+#Ifdef _MSG_YOU_HAVE_WON_HAS_CASE;
 	MSG_YOU_HAVE_WON: ! print and rtrue to avoid newline
  		print "Du hast gewonnen!";
  		rtrue;
 #EndIf;
-#IfTrue MSG_YOU_HAVE_DIED < 1000;
+#Ifdef _MSG_YOU_HAVE_DIED_HAS_CASE;
 	MSG_YOU_HAVE_DIED: ! print and rtrue to avoid newline
 		print "Du bist gestorben!";
 		rtrue;
 #EndIf;
-#IfTrue MSG_YES_OR_NO < 1000;
+#Ifdef _MSG_YES_OR_NO_HAS_CASE;
 	MSG_YES_OR_NO:
 		print "Bitte antworte mit Ja oder Nein: ";
 		rtrue;
 #EndIf;
-#IfTrue MSG_RESTART_CONFIRM < 1000;
+#Ifdef _MSG_RESTART_CONFIRM_HAS_CASE;
 	MSG_RESTART_CONFIRM:
 		print "Bist du sicher, dass du neu starten willst? ";
 		rtrue;
 #Endif;
 
-#IfTrue MSG_TAKE_DEFAULT > 999;
+#Ifdef _MSG_TAKE_DEFAULT_HAS_CASE;
 	MSG_TAKE_DEFAULT:
 		! "nehmen" = Akkusativ → (DE_Den)
 		print_ret "Du nimmst ", (DE_Den) noun, " an dich.";

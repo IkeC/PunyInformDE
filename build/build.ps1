@@ -1,9 +1,14 @@
 #Requires -Version 3.0
-# PunyInformDE build script — invoked by the VS Code "Build" task.
-# Working directory must be the project root (set by the task via options.cwd).
+# PunyInformDE build script — invoked by the VS Code "Build" task or directly.
+# Can be called from any directory; the script navigates to the project root.
+#   cd build ; .\build.ps1          # from build\ directory
+#   .\build\build.ps1               # from project root
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+
+# Navigate to project root regardless of the calling directory.
+Set-Location (Join-Path $PSScriptRoot "..")
 
 # Replace all German umlauts with ASCII digraphs in a source file.
 # Writes UTF-8 WITHOUT BOM — Inform 6 rejects the UTF-8 BOM that
