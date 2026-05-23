@@ -1048,7 +1048,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #EndIf;
 #IfTrue MSG_SEARCH_IN_IT_ISARE < 1000;
 	MSG_SEARCH_IN_IT_ISARE:
-		print (DE_Der_Cap) noun, " enthält bereits ";
+		print (DE_Der_Cap) noun, " enthält ";
 		p_arg_2 = short_name_case;
 		short_name_case = Akk;
 		PrintContents(0, noun);

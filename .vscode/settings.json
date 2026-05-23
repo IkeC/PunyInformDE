@@ -1,5 +1,12 @@
 {
   "github.pullRequests.remotes": ["origin"],
   "github.pullRequests.defaultBase": "main",
-  "github.pullRequests.defaultMergeMethod": "squash"
+  "github.pullRequests.defaultMergeMethod": "squash",
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestArgs": [
+    "--tb=short",
+    "-v"
+  ],
+  "python.testing.cwd": "${workspaceFolder}"
 }

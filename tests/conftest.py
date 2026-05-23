@@ -13,41 +13,13 @@ from __future__ import annotations
 import subprocess
 import sys
 from pathlib import Path
-import importlib
 
 GAME_ROOT = Path(__file__).resolve().parent.parent
 
-# Add the sibling PunyTest repository root (e.g. C:\Source\PunyTest) so the
-# public package name `punytest` can be imported.
-_PUNYTEST_REPO = GAME_ROOT.parent / "PunyTest"
-if str(_PUNYTEST_REPO) not in sys.path:
-    sys.path.insert(0, str(_PUNYTEST_REPO))
-
 import pytest
-
-try:
-    # New public repository layout/package name.
-    _pt_pkg = importlib.import_module("punytest")
-    _pt_asserts = importlib.import_module("punytest.asserts")
-    _pt_conftest_base = importlib.import_module("punytest.conftest_base")
-    _pt_runner = importlib.import_module("punytest.runner")
-    _pt_tools = importlib.import_module("punytest.tools")
-
-    # Compatibility aliases for existing test imports: from PunyTest.asserts import ...
-    sys.modules.setdefault("PunyTest", _pt_pkg)
-    sys.modules.setdefault("PunyTest.asserts", _pt_asserts)
-    sys.modules.setdefault("PunyTest.conftest_base", _pt_conftest_base)
-    sys.modules.setdefault("PunyTest.runner", _pt_runner)
-    sys.modules.setdefault("PunyTest.tools", _pt_tools)
-
-    from punytest.conftest_base import pytest_configure  # noqa: F401
-    from punytest.runner import compile_story, GameSession, GameOutput
-    from punytest.tools import find_dfrotz, find_inform6
-except ModuleNotFoundError:
-    # Legacy fallback for older local checkouts that still expose `PunyTest`.
-    from PunyTest.conftest_base import pytest_configure  # noqa: F401
-    from PunyTest.runner import compile_story, GameSession, GameOutput
-    from PunyTest.tools import find_dfrotz, find_inform6
+from PunyTest.conftest_base import pytest_configure  # noqa: F401
+from PunyTest.runner import compile_story, GameSession, GameOutput
+from PunyTest.tools import find_dfrotz, find_inform6
 
 STORY_SOURCE       = GAME_ROOT / "example" / "sterne.inf"
 STORY_Z5           = GAME_ROOT / "build" / "sterne.z5"

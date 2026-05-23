@@ -12,7 +12,6 @@ lege münzen auf schreibtisch
 untersuche feines tuch
 nimm münzen
 untersuche sie
-lege münzen auf schreibtisch
 nimm kompass
 untersuche ihn
 wirf kompass
@@ -25,7 +24,7 @@ untersuche ausweis
 wirf ausweis
 nimm ausweis
 nimm jacke
-inventar
+i
 untersuche jacke
 nimm tagebuch
 inventar
@@ -38,6 +37,9 @@ geh in kiste
 untersuche kiste
 schau in kiste
 öffne kiste
+leg münzen auf schreibtisch
+leg münzen in kiste
+schau in kiste
 steig in kiste
 raus
 nimm kleinen schlüssel

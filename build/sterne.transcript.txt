@@ -7,7 +7,7 @@ Wer -- und warum? Es wird Zeit, das herauszufinden.
 
 Das Schiff der Sterne
 Ein kurzes Abenteuer auf hoher See.
-Release 1 / Serial number 260514 / Inform v6.44 PunyInformDE v6.6 R
+Release 1 / Serial number 260523 / Inform v6.44 PunyInformDE v6.6 R
 
 Die Kapitänskajüte
 Die enge Kajüte des Kapitäns auf dem Segelschiff Sternwind. Ein alter Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine hölzerne Koje liegt an der Ostwand. Eine schwere Eichentür führt nach Norden in den Schiffsgang.
@@ -59,9 +59,6 @@ Du nimmst die Goldmünzen an dich.
 > untersuche sie
 Fünf glänzende Goldmünzen mit dem Abbild eines Seeadlers.
 
-> lege münzen auf schreibtisch
-Du legst die Goldmünzen auf den Schreibtisch.
-
 > nimm kompass
 Jetzt hast du den alten Kompass.
 
@@ -98,8 +95,8 @@ Du hast ihn bereits.
 > nimm jacke
 Du nimmst die Jacke an dich.
 
-> inventar
-Du hast meine Jacke, deinen Personalausweis, eine alte Seekarte und einen kleinen Ring.
+> i
+Du hast meine Jacke, deinen Personalausweis, eine alte Seekarte, einige Goldmünzen und einen kleinen Ring.
 
 > untersuche jacke
 Du findest nichts Besonderes an meiner Jacke.
@@ -108,7 +105,7 @@ Du findest nichts Besonderes an meiner Jacke.
 Du nimmst das Tagebuch an dich.
 
 > inventar
-Du hast sein Tagebuch, meine Jacke, deinen Personalausweis, eine alte Seekarte und einen kleinen Ring.
+Du hast sein Tagebuch, meine Jacke, deinen Personalausweis, eine alte Seekarte, einige Goldmünzen und einen kleinen Ring.
 
 > untersuche tagebuch
 Du findest nichts Besonderes an seinem Tagebuch.
@@ -139,6 +136,16 @@ Du kannst nicht reinschauen, die Seekiste ist geschlossen.
 
 > öffne kiste
 Du öffnest die Seekiste und siehst einen kleinen Schlüssel.
+
+> leg münzen auf schreibtisch
+Du legst die Goldmünzen auf den Schreibtisch.
+
+> leg münzen in kiste
+(du nimmst zuerst die Goldmünzen)
+Du legst die Goldmünzen in die Seekiste.
+
+> schau in kiste
+Die Seekiste enthält einige Goldmünzen und einen kleinen Schlüssel.
 
 > steig in kiste
 Du gehst in die Seekiste.
@@ -288,6 +295,6 @@ Du senkst das Fernrohr und lächelst. Das Abenteuer kann beginnen!
 
   *** Du hast gewonnen! ***
 
-In diesem Spiel hast du 5 von 5 möglichen Punkten erreicht, in 62 Zügen.
+In diesem Spiel hast du 5 von 5 möglichen Punkten erreicht, in 64 Zügen.
 
 Möchtest du NEUSTART, WIEDERHERSTELLEN oder BEENDEN? 

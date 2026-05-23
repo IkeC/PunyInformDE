@@ -135,7 +135,7 @@ def test_lock_already_locked_nominativ_ascii(game_ascii):
 
 # ---------------------------------------------------------------------------
 # MSG_SEARCH_IN_IT_ISARE (line 1039) – (DE_Der_Cap) für Nom Satzanfang
-# "Die Seekiste enthält bereits den kleinen Schlüssel."
+# "Die Seekiste enthält den kleinen Schlüssel."
 # ---------------------------------------------------------------------------
 
 @pytest.mark.feature("explicit-articles")
@@ -144,8 +144,8 @@ def test_search_in_it_isare_nominativ(game):
     out = game.run(["oeffne kiste", "schau in kiste"])
     assert_output_contains(out, "Die Seekiste",
         msg="MSG_SEARCH_IN_IT_ISARE: 'Die Seekiste' erwartet")
-    assert_output_contains(out, "bereits einen kleinen",
-        msg="MSG_SEARCH_IN_IT_ISARE: 'bereits einen kleinen' erwartet")
+    assert_output_contains(out, "einen kleinen",
+        msg="MSG_SEARCH_IN_IT_ISARE: 'einen kleinen' erwartet")
 
 
 @pytest.mark.feature("explicit-articles")
@@ -153,7 +153,7 @@ def test_search_in_it_isare_nominativ_ascii(game_ascii):
     """MSG_SEARCH_IN_IT_ISARE (ASCII): 'Die Seekiste enthaelt bereits ...'."""
     out = game_ascii.run(["oeffne kiste", "schau in kiste"])
     assert_output_contains(out, "Die Seekiste")
-    assert_output_contains(out, "enthaelt bereits")
+    assert_output_contains(out, "enthaelt einen")
 
 
 # ---------------------------------------------------------------------------

@@ -7,7 +7,7 @@ Wer -- und warum? Es wird Zeit, das herauszufinden.
 
 Das Schiff der Sterne
 Ein kurzes Abenteuer auf hoher See.
-Release 1 / Serial number 260514 / Inform v6.44 PunyInformDE v6.6 R
+Release 1 / Serial number 260523 / Inform v6.44 PunyInformDE v6.6 R
 
 Die Kapitaenskajuete
 Die enge Kajuete des Kapitaens auf dem Segelschiff Sternwind. Ein alter Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine hoelzerne Koje liegt an der Ostwand. Eine schwere Eichentuer fuehrt nach Norden in den Schiffsgang.
@@ -59,9 +59,6 @@ Du nimmst die Goldmuenzen an dich.
 > untersuche sie
 Fuenf glaenzende Goldmuenzen mit dem Abbild eines Seeadlers.
 
-> lege muenzen auf schreibtisch
-Du legst die Goldmuenzen auf den Schreibtisch.
-
 > nimm kompass
 Jetzt hast du den alten Kompass.
 
@@ -98,8 +95,8 @@ Du hast ihn bereits.
 > nimm jacke
 Du nimmst die Jacke an dich.
 
-> inventar
-Du hast meine Jacke, deinen Personalausweis, eine alte Seekarte und einen kleinen Ring.
+> i
+Du hast meine Jacke, deinen Personalausweis, eine alte Seekarte, einige Goldmuenzen und einen kleinen Ring.
 
 > untersuche jacke
 Du findest nichts Besonderes an meiner Jacke.
@@ -108,7 +105,7 @@ Du findest nichts Besonderes an meiner Jacke.
 Du nimmst das Tagebuch an dich.
 
 > inventar
-Du hast sein Tagebuch, meine Jacke, deinen Personalausweis, eine alte Seekarte und einen kleinen Ring.
+Du hast sein Tagebuch, meine Jacke, deinen Personalausweis, eine alte Seekarte, einige Goldmuenzen und einen kleinen Ring.
 
 > untersuche tagebuch
 Du findest nichts Besonderes an seinem Tagebuch.
@@ -139,6 +136,16 @@ Du kannst nicht reinschauen, die Seekiste ist geschlossen.
 
 > oeffne kiste
 Du oeffnest die Seekiste und siehst einen kleinen Schluessel.
+
+> leg muenzen auf schreibtisch
+Du legst die Goldmuenzen auf den Schreibtisch.
+
+> leg muenzen in kiste
+(du nimmst zuerst die Goldmuenzen)
+Du legst die Goldmuenzen in die Seekiste.
+
+> schau in kiste
+Die Seekiste enthaelt einige Goldmuenzen und einen kleinen Schluessel.
 
 > steig in kiste
 Du gehst in die Seekiste.
@@ -288,6 +295,6 @@ Du senkst das Fernrohr und laechelst. Das Abenteuer kann beginnen!
 
   *** Du hast gewonnen! ***
 
-In diesem Spiel hast du 5 von 5 moeglichen Punkten erreicht, in 62 Zuegen.
+In diesem Spiel hast du 5 von 5 moeglichen Punkten erreicht, in 64 Zuegen.
 
 Moechtest du NEUSTART, WIEDERHERSTELLEN oder BEENDEN? 

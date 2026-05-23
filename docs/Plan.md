@@ -21,7 +21,7 @@ Recent progress:
   rearrangement — all already integrated.
 - Fixed MSG_TAKE_SCENERY: now uses `(CTheyreorThats) noun, " nicht portabel."`
   (no more double-ist for scenery objects).
-- Fixed MSG_SEARCH_IN_IT_ISARE: now uses `(DE_Der_Cap) noun, " enthält bereits "`
+- Fixed MSG_SEARCH_IN_IT_ISARE: now uses `(DE_Der_Cap) noun, " enthält "`
   with Akkusativ PrintContents (Nominativ subject, no double-ist).
 - Added `Abendsonne` object to `example/sterne.inf` (Oberdeck) as a `describe=2`
   demo: not listed in room but examinable via `untersuche sonne`.
