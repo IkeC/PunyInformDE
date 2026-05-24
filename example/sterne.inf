@@ -319,6 +319,17 @@ Object -> Logbuch "Logbuch"
 		],
 	has neuter;
 
+! GENUS-KONFLIKT-DEMO: neutrum, aber Synonyme feminin ("Kamera") und maskulin ("Apparat")
+! has neuter         → "das Gerät"     → itobj  → "nimm es"
+! has also_female    → "die Kamera"    → herobj  → "nimm sie"
+! has also_male      → "der Apparat"   → himobj  → "nimm ihn"
+! Nach jeder Interaktion zeigen alle drei Pronomen auf dieses Objekt.
+Object -> Geraet "Gerät"
+	with
+		name 'gerät' 'fotokamera' 'kamera' 'fotoapparat' 'apparat',
+		description "Ein schwerer Fotoapparat mit einem Lederiemen.",
+	has neuter also_female also_male;
+
 ! FEMININ: has female + has container
 ! Artikeltabelle → "die Seekiste", Indef: "eine Seekiste"
 ! Pronomen → herobj → "öffne sie", "schließ sie"

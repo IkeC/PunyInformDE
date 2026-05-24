@@ -59,6 +59,20 @@ Global short_name_case = Nom;
 ! Last preferred target for ambiguous German "sie": 1=herobj, 2=themobj.
 Global de_last_sie_target = 0;
 
+! ---------------------------------------------------------------------------
+! Mixed-gender synonym attributes
+! A single object may be known by synonyms of different grammatical gender,
+! e.g. "das Gerät" (neuter, primary) / "die Kamera" (female) / "der Apparat" (male).
+! Mark secondary genders with also_female / also_male / also_neuter so that
+! PronounNotice sets ALL matching pronoun slots at once.
+!   das Gerät / die Kamera / der Apparat → has neuter, also_female, also_male
+!   die Lampe / das Licht                → has female, also_neuter
+!   der Schlüssel / die Schlüsselkarte   → (male) also_female
+! ---------------------------------------------------------------------------
+Attribute also_female;
+Attribute also_male;
+Attribute also_neuter;
+
 ! Optional adjective stem(s) and noun declension marker for §3.
 #IfNDef adj;
 Property adj;

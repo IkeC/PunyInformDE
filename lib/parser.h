@@ -2020,6 +2020,12 @@ Array guess_object-->5;
 		}
 		else if(p_object has neuter) itobj = p_object;
 		else himobj = p_object;
+#IfDef LANG_DE;
+		! Secondary genders: mixed-gender synonyms (e.g. animate NPC also known by another-gender name)
+		if(p_object has also_female) { herobj = p_object; de_last_sie_target = 1; }
+		if(p_object has also_male)   himobj = p_object;
+		if(p_object has also_neuter) itobj  = p_object;
+#EndIf;
 	} else {
 		! PunyInformDE: Im Deutschen haben unbelebte Objekte Genus.
 		! Feminin  → herobj  (Pronomen "sie")
@@ -2033,6 +2039,11 @@ Array guess_object-->5;
 		}
 		else if(p_object has neuter) itobj = p_object;
 		else himobj = p_object;
+		! Secondary genders: object known by synonyms of different grammatical gender
+		! e.g. "das Gerät" (neuter) / "die Kamera" (female) / "der Apparat" (male)
+		if(p_object has also_female) { herobj = p_object; de_last_sie_target = 1; }
+		if(p_object has also_male)   himobj = p_object;
+		if(p_object has also_neuter) itobj  = p_object;
 #IfNot;
 		itobj = p_object;
 #EndIf; ! LANG_DE

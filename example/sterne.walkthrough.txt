@@ -12,6 +12,15 @@ lege münzen auf schreibtisch
 untersuche feines tuch
 nimm münzen
 untersuche sie
+untersuche gerät
+nimm es
+wirf gerät
+untersuche kamera
+nimm sie
+wirf gerät
+untersuche apparat
+nimm ihn
+wirf gerät
 nimm kompass
 untersuche ihn
 wirf kompass

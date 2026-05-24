@@ -170,3 +170,63 @@ def test_ihn_ohne_referenz_kein_absturz(game):
     out = game.run(["untersuche ihn"])
     assert_output_not_contains(out, UNKNOWN_VERB,
         msg="'untersuche ihn' soll kein unbekanntes Verb auslösen")
+
+
+# ---------------------------------------------------------------------------
+# Gemischtes Genus: also_female / also_male / also_neuter (Gerät/Kamera/Apparat)
+# Das Gerät (has neuter also_female also_male) soll nach jeder Interaktion
+# alle drei Pronominalsätze befüllen.
+# ---------------------------------------------------------------------------
+
+@pytest.mark.feature("pronouns")
+def test_geraet_es_nach_untersuche_geraet(game):
+    """'es' nach 'untersuche geraet' (neuter, primary) → Gerät."""
+    out = game.run(["untersuche geraet", "nimm es"])
+    assert_output_contains(out, "Ger",   # "Gerät" / "Geraet"
+        msg="'nimm es' soll Gerät (neuter) nehmen")
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+@pytest.mark.feature("pronouns")
+def test_geraet_sie_nach_untersuche_kamera(game):
+    """'sie' nach 'untersuche kamera' (also_female) → Gerät."""
+    out = game.run(["untersuche kamera", "nimm sie"])
+    assert_output_contains(out, "Ger",   # "Gerät" / "Geraet"
+        msg="'nimm sie' nach 'untersuche kamera' soll Gerät (also_female) nehmen")
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+@pytest.mark.feature("pronouns")
+def test_geraet_ihn_nach_untersuche_apparat(game):
+    """'ihn' nach 'untersuche apparat' (also_male) → Gerät."""
+    out = game.run(["untersuche apparat", "nimm ihn"])
+    assert_output_contains(out, "Ger",   # "Gerät" / "Geraet"
+        msg="'nimm ihn' nach 'untersuche apparat' soll Gerät (also_male) nehmen")
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+@pytest.mark.feature("pronouns")
+def test_geraet_es_auch_nach_kamera(game):
+    """Auch nach 'untersuche kamera' soll 'es' noch auf das Gerät zeigen."""
+    out = game.run(["untersuche kamera", "nimm es"])
+    assert_output_contains(out, "Ger",
+        msg="'nimm es' nach 'untersuche kamera' soll Gerät nehmen (itobj gesetzt via also_neuter? nein, via neuter)")
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+@pytest.mark.feature("pronouns")
+def test_geraet_ihn_auch_nach_kamera(game):
+    """Auch nach 'untersuche kamera' soll 'ihn' auf das Gerät zeigen."""
+    out = game.run(["untersuche kamera", "untersuche ihn"])
+    assert_output_contains(out, "Ger",
+        msg="'untersuche ihn' nach 'untersuche kamera' soll Gerät (also_male) untersuchen")
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+@pytest.mark.feature("pronouns")
+def test_geraet_sie_auch_nach_apparat(game):
+    """Auch nach 'untersuche apparat' soll 'sie' auf das Gerät zeigen."""
+    out = game.run(["untersuche apparat", "nimm sie"])
+    assert_output_contains(out, "Ger",
+        msg="'nimm sie' nach 'untersuche apparat' soll Gerät (also_female) nehmen")
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
