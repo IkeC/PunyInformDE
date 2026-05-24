@@ -16,9 +16,9 @@ reference for internals.
 The implementation approach is based on the same core ideas used by:
 
 1. deform 6/11 (2005-2010), Martin Oehm
-   - Reference files: `c:/Source/informtest/deform/German.h`, `GermanG.h`
+   - Reference files: `German.h`, `GermanG.h`
 2. German.i7x (Team GerX, Frank Gerbig et al.)
-   - Reference file: `c:/Source/fiction/Staub/Staub.materials/Extensions/Team GerX/German.i7x`
+   - Reference file: `German.i7x`
 
 PunyInformDE adopts equivalent concepts but keeps them lightweight for
 PunyInform's smaller footprint and architecture.
@@ -76,13 +76,13 @@ Attribute also_male;
 Attribute also_neuter;
 ```
 
-Example: an object that is "das Ger\u00e4t" (neuter) / "die Kamera" (feminine) /
+Example: an object that is "das Gerät" (neuter) / "die Kamera" (feminine) /
 "der Apparat" (masculine):
 
 ```inform
-Object -> Geraet "Ger\u00e4t"
+Object -> Geraet "Gerät"
     with
-        name 'ger\u00e4t' 'fotokamera' 'kamera'
+        name 'gerät' 'fotokamera' 'kamera'
              'fotoapparat' 'apparat',
     has neuter also_female also_male;
 ```
@@ -127,7 +127,7 @@ This allows commands like:
 
 with stem-based dictionary entries.
 
-## §5 Stage 2 Output Adjective Declension
+## §4 Stage 2 Output Adjective Declension
 
 Implemented in:
 
@@ -153,7 +153,7 @@ This fixes outputs such as:
 - `Du legst den alten Kompass auf den Schreibtisch.`
 - `Du öffnest die Seekiste, und siehst einen kleinen Schlüssel.`
 
-## §6 Default Take Feedback
+## §5 Default Take Feedback
 
 Implemented in:
 
@@ -170,7 +170,7 @@ Key behavior:
 Current regression coverage uses the example game and Staub transcript checks
 for `nimm schluessel` and `nimm tasche`.
 
-## §7 describe=2 Support (PunyInform 6.6)
+## §6 describe=2 Support (PunyInform 6.6)
 
 Integrated from the PunyInform dev branch (commit after v6.5 tag).
 
@@ -214,8 +214,10 @@ Covered by `tests/test_describe_property.py`.
 - `Schluessel` with `adj "klein"`
 - Dative/default-examine demo objects:
   - `Ring` (m), `Nadel` (f), `Tuch` (n)
+- Mixed-gender synonym demo: `Gerät` (neuter primary) also known as `Kamera` (f)
+  and `Apparat` (m) — demonstrates `also_female`/`also_male` attributes
 
-Walkthrough (`example/beispiel.walkthrough.txt`) includes commands that exercise:
+Walkthrough (`example/sterne.walkthrough.txt`) includes commands that exercise:
 
 - Pronoun replacement
 - Suffix-pruned input forms
@@ -245,6 +247,21 @@ Key files:
 - `tests/test_suffix_pruning.py`
 - `tests/test_stage3_known_limitations.py`
 - `tests/test_walkthrough.py`
+- `tests/test_ascii_build.py`
+- `tests/test_directions.py`
+- `tests/test_lock_unlock.py`
+- `tests/test_list_format.py`
+- `tests/test_umlauts.py`
+- `tests/test_unknown_word_display.py`
+- `tests/test_room_noun.py`
+- `tests/test_explicit_articles.py`
+- `tests/test_debug_compile.py`
+- `tests/test_double_ist.py`
+- `tests/test_object_name_normalisation.py`
+- `tests/test_describe_property.py`
+- `tests/test_enterable.py`
+- `tests/test_verb_e_suffix.py`
+- `tests/test_z3_build.py`
 
 Current suite status (latest run):
 
@@ -253,6 +270,7 @@ Current suite status (latest run):
 - 145 passed → 163 passed (double-ist fix + digraph-name cleanup + normaliser stale-address fix)
 - 163 passed → 174 passed (MSG_TAKE_SCENERY / MSG_SEARCH_IN_IT_ISARE message fixes)
 - 174 passed → 178 passed (describe=2 demo + tests; upstream PunyInform dev-branch sync)
+- 178 passed → 184 passed (also_* mixed-gender synonyms; 6 new `test_pronouns` tests)
 - 3 xfailed (known dfrotz umlaut-pipe limitation on Windows)
 
 ## USE_ASCII and the ASCII Preprocessing Pass
@@ -361,8 +379,6 @@ parse table before the next iteration.
 This means that compound commands where BOTH the verb and the object require
 digraph normalisation (e.g., `oeffne tuer`, `schliess tuer mit schluessel auf`)
 now work correctly even when both words are absent from the dictionary.
-
-## §4 Gender-Sensitive Message Helpers
 
 ## Build and Transcript Loop
 
