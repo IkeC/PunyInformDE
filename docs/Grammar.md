@@ -8,8 +8,8 @@ solved, how the reference libraries **deform 6/11** (Martin Oehm) and
 one within PunyInform's lightweight, old-hardware-targeted architecture.
 
 Reference files consulted:
-- `c:\Source\informtest\deform\German.h`, `GermanG.h` — deform 6/11 (2005–2010)
-- `c:\Source\fiction\Staub\Staub.materials\Extensions\Team GerX\German.i7x` — German.i7x v4 (2023)
+- `German.h`, `GermanG.h` — deform 6/11 (2005–2010)
+- `German.i7x` — German.i7x v4 (2023)
 
 **Performance constraint**: PunyInform targets old 8-bit hardware via
 Z-machine interpreters (1 MHz effective throughput, ~64 KB story file).
@@ -61,7 +61,7 @@ that costs one property slot per object — the attribute approach is cheaper.
 
 Implemented in `lib/de/article_de.h`, `lib/puny.h`, `lib/de/messages_de.h`.
 
-- `DE_DefArticles` / `DE_IndefArticles` arrays (Nom/Akk/Dat × 4 genders = 24 entries each)
+- `DE_DefArticles` / `DE_IndefArticles` arrays (Nom/Akk/Dat × 4 genders = 12 entries each)
 - `short_name_case` global; case-set helpers `DE_Der`, `DE_Den`, `DE_Dem`, `DE_Ein`, `DE_Einen`, `DE_Einem`
 - `_PrintObjName` in `puny.h` uses the tables
 - Messages that use Akkusativ or Dativ call the helpers
@@ -111,7 +111,7 @@ equivalents in the raw input buffer before the main parser runs:
 | `es` | `it` | `itobj ≠ 0` |
 | `ihnen` | `them` | `themobj ≠ 0` |
 
-`PronounNotice` in `puny.h` is extended (`#IfDef LANG_DE`) so that inanimate
+`PronounNotice` in `parser.h` is extended (`#IfDef LANG_DE`) so that inanimate
 feminine objects update `herobj` (not just animate), enabling "die Kiste → sie".
 
 **Known limitation**: `ihr` is excluded — it is ambiguous between the
@@ -227,22 +227,23 @@ appends the correct case/gender/definiteness suffix from a lookup table
 when the stripped stem is found in the dictionary (dict-safe check).
 
 **Stage 2 — Output** (`lib/de/article_de.h`, `lib/puny.h`): The `adj` property
-stores the adjective stem. `_PrintObjName` appends a suffix from three compact
-12-entry tables:
+stores the adjective stem. `_PrintObjName` calls `_DE_GetAdjSuffix(mode, case, gender)`
+which returns the correct suffix string. The 36 logical combinations
+(3 modes × 3 cases × 4 genders) map to:
 
-```inform
-Array DE_AdjSuffix_Def  --> "en" "e"  "e"  "e"   ! Nom: pl m f n
-                            "en" "en" "e"  "e"    ! Akk
-                            "en" "en" "en" "en"   ! Dat
-Array DE_AdjSuffix_Indef --> "en" "er" "e"  "es"  ! Nom
-                             "en" "en" "e"  "es"   ! Akk
-                             "en" "en" "en" "en"   ! Dat
-Array DE_AdjSuffix_Bare  --> "e"  "er" "e"  "es"  ! Nom
-                             "e"  "en" "e"  "es"   ! Akk
-                             "en" "em" "er" "em"   ! Dat
-```
+| Mode | Case | pl | m | f | n |
+|---|---|---|---|---|---|
+| Definite | Nom | -en | -e | -e | -e |
+| Definite | Akk | -en | -en | -e | -e |
+| Definite | Dat | -en | -en | -en | -en |
+| Indefinite | Nom | -e | -er | -e | -es |
+| Indefinite | Akk | -e | -en | -e | -es |
+| Indefinite | Dat | -en | -en | -en | -en |
+| Bare | Nom | -e | -er | -e | -es |
+| Bare | Akk | -e | -en | -e | -es |
+| Bare | Dat | -en | -em | -er | -em |
 
-36 entries vs. deform's 80 — Genitiv and demonstrative forms are omitted.
+Vs. deform's 80-entry flat array — Genitiv and demonstrative forms are omitted.
 
 #### The `adj` property vs. inflected forms in `name`
 
@@ -276,5 +277,5 @@ to be in `name`.
 | Synonym contractions (ins/vom) | ✅ | ✅ | ❌ not planned |
 | Compound word splitting | ❌ | ✅ | ❌ not planned |
 | Pronominal adverbs (damit/daraus) | ✅ | ✅ | ❌ not planned |
-| Changing gender at runtime | ❌ | ✅ CG system | ❌ not planned |
+| Changing gender at runtime | ✅ CG buffer | ✅ | ❌ not planned |
 
