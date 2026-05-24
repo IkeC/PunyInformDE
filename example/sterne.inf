@@ -327,7 +327,7 @@ Object -> Logbuch "Logbuch"
 Object -> Geraet "Gerät"
 	with
 		name 'gerät' 'fotokamera' 'kamera' 'fotoapparat' 'apparat',
-		description "Ein schwerer Fotoapparat mit einem Lederiemen.",
+		description "Ein schwerer Fotoapparat mit einem Lederriemen.",
 	has neuter also_female also_male;
 
 ! FEMININ: has female + has container

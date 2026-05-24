@@ -60,7 +60,7 @@ Du nimmst die Goldmuenzen an dich.
 Fuenf glaenzende Goldmuenzen mit dem Abbild eines Seeadlers.
 
 > untersuche geraet
-Ein schwerer Fotoapparat mit einem Lederiemen.
+Ein schwerer Fotoapparat mit einem Lederriemen.
 
 > nimm es
 Du nimmst das Geraet an dich.
@@ -69,7 +69,7 @@ Du nimmst das Geraet an dich.
 In Ordnung.
 
 > untersuche kamera
-Ein schwerer Fotoapparat mit einem Lederiemen.
+Ein schwerer Fotoapparat mit einem Lederriemen.
 
 > nimm sie
 Du nimmst das Geraet an dich.
@@ -78,7 +78,7 @@ Du nimmst das Geraet an dich.
 In Ordnung.
 
 > untersuche apparat
-Ein schwerer Fotoapparat mit einem Lederiemen.
+Ein schwerer Fotoapparat mit einem Lederriemen.
 
 > nimm ihn
 Du nimmst das Geraet an dich.
