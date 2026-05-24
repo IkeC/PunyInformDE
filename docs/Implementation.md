@@ -60,6 +60,54 @@ German pronouns are rewritten before parse resolution:
 - `es` -> `it`
 - `ihnen` -> `them`
 
+## §2b Mixed-Gender Synonyms
+
+Implemented in:
+
+- `lib/de/globals_de.h` (three new attributes)
+- `lib/parser.h` (`PronounNotice` LANG_DE extension)
+
+Three new object attributes handle cases where an object is known by names in
+different genders:
+
+```inform
+Attribute also_female;
+Attribute also_male;
+Attribute also_neuter;
+```
+
+Example: an object that is "das Ger\u00e4t" (neuter) / "die Kamera" (feminine) /
+"der Apparat" (masculine):
+
+```inform
+Object -> Geraet "Ger\u00e4t"
+    with
+        name 'ger\u00e4t' 'fotokamera' 'kamera'
+             'fotoapparat' 'apparat',
+    has neuter also_female also_male;
+```
+
+When `PronounNotice` is called (after any parse involving this object), it sets
+all applicable pronoun slots simultaneously: `itobj`, `herobj`, and `himobj` all
+point to the same object. This allows `nimm es`, `nimm sie`, and `nimm ihn` to
+all work correctly.
+
+**Implementation detail**: In `lib/parser.h` within the `PronounNotice` function,
+the LANG_DE block checks for these attributes after primary gender assignment:
+
+```inform
+#IfDef LANG_DE;
+    if(p_object has also_female) { herobj = p_object; de_last_sie_target = 1; }
+    if(p_object has also_male)   himobj = p_object;
+    if(p_object has also_neuter) itobj  = p_object;
+#EndIf;
+```
+
+This runs for both animate and inanimate branches, ensuring all pronouns
+activate together.
+
+---
+
 ## §3 Stage 1 Input Suffix Pruning
 
 Implemented in:
@@ -79,7 +127,7 @@ This allows commands like:
 
 with stem-based dictionary entries.
 
-## §3 Stage 2 Output Adjective Declension
+## §5 Stage 2 Output Adjective Declension
 
 Implemented in:
 
@@ -105,7 +153,7 @@ This fixes outputs such as:
 - `Du legst den alten Kompass auf den Schreibtisch.`
 - `Du öffnest die Seekiste, und siehst einen kleinen Schlüssel.`
 
-## §4 Default Take Feedback
+## §6 Default Take Feedback
 
 Implemented in:
 
@@ -122,7 +170,7 @@ Key behavior:
 Current regression coverage uses the example game and Staub transcript checks
 for `nimm schluessel` and `nimm tasche`.
 
-## §5 describe=2 Support (PunyInform 6.6)
+## §7 describe=2 Support (PunyInform 6.6)
 
 Integrated from the PunyInform dev branch (commit after v6.5 tag).
 

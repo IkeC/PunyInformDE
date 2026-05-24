@@ -118,6 +118,76 @@ feminine objects update `herobj` (not just animate), enabling "die Kiste → sie
 possessive article ("ihr Haus"), the Dativ pronoun, and the 2nd-person-plural
 address. Players can use `sie` in Dativ contexts instead.
 
+### Mixed-Gender Synonyms
+
+**The Problem**
+
+An object might be known by multiple names in different genders:
+- "das Gerät" (neuter primary) — `nimm es`
+- "die Kamera" (feminine synonym) — `nimm sie`
+- "der Apparat" (masculine synonym) — `nimm ihn`
+
+In a normal object, each gender pronoun can reference at most one object. After
+`untersuche kamera` (feminine), PronounNotice sees the neuter object and sets
+only `itobj`, leaving `herobj` stale. Then `nimm sie` fails.
+
+**Deform's Approach**
+
+Deform uses a circular buffer (8 slots) to store one runtime gender override per
+object. After `untersuche kamera`, code would call `GenderNotice(Gerät, female)`
+to set an override. But this can only hold *one* override at a time — for three
+genders simultaneously, you get the static primary + one CG override = 2 active
+genders. The CG system is designed for runtime gender *change* (e.g. revealed
+character identity), not persistent multi-synonym support.
+
+**PunyInformDE Solution**
+
+Implemented in `lib/de/globals_de.h` and `lib/parser.h` (`PronounNotice` LANG_DE).
+
+Three new attributes allow an object to activate multiple pronoun slots at once:
+
+```inform
+Attribute also_female;
+Attribute also_male;
+Attribute also_neuter;
+```
+
+Example:
+
+```inform
+Object -> Geraet "Gerät"
+    with
+        name 'gerät' 'fotokamera' 'kamera'
+             'fotoapparat' 'apparat',
+        description "...",
+    has neuter also_female also_male;
+```
+
+After ANY interaction with this object (via any of its three name forms),
+`PronounNotice` runs and sets:
+- `itobj = Gerät` (primary neuter)
+- `herobj = Gerät` (also_female)
+- `himobj = Gerät` (also_male)
+
+All three pronouns now point to the same object. Subsequent commands `nimm es`,
+`nimm sie`, and `nimm ihn` all work.
+
+**Known limitation**: All three pronouns become over-inclusive. After `untersuche
+apparat` (male), the feminine pronoun `sie` also points to Gerät, potentially
+overwriting a genuine feminine antecedent from earlier in the conversation.
+This is acceptable for the rare case of multi-gender synonyms; more sophisticated
+tracking would require per-word gender metadata (which deform lacks too).
+
+**Comparison with deform**
+
+| | deform CG | PunyInformDE `also_*` |
+|---|---|---|
+| Capacity | Static gender + 1 CG override = 2 | Static + 3 attributes = 4 |
+| Three-gender case | Partial (CG is single-override) | Full support |
+| Memory | 16-word global buffer + pointer | 3 attribute bits |
+| Author API | `GenderNotice(obj, g)` per gender | `has neuter also_female also_male` |
+| Primary use case | Runtime gender revelation | Persistent multi-synonym support |
+
 ---
 
 ## 3. Adjective Inflection
@@ -199,6 +269,7 @@ to be in `name`.
 | German pronoun INPUT (er/ihn/ihm/sie/es/ihnen) | ✅ | ❌ | ✅ |
 | `ihr` pronoun input | ✅ | ❌ | ❌ ambiguous |
 | Gender-aware inanimate pronouns | ✅ GNA table | ✅ | ✅ LANG_DE hook |
+| Multi-gender synonyms (also_*) | ❌ single CG override | ❌ | ✅ 3 attributes |
 | Adjective input stripping | ✅ PruneWord | ✅ | ✅ Pass 4 |
 | Adjective output (declined) | ✅ 80-entry table | ✅ | ✅ 36-entry tables |
 | Noun declension (Genitiv-s) | ✅ `dekl` | ✅ | ❌ not planned |

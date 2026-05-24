@@ -26,6 +26,13 @@ Recent progress:
 - Added `Abendsonne` object to `example/sterne.inf` (Oberdeck) as a `describe=2`
   demo: not listed in room but examinable via `untersuche sonne`.
 - Test suite: 178 passed (4 new `describe=2` tests in `test_describe_property.py`).
+- **NEW**: Mixed-gender synonyms via `also_female`/`also_male`/`also_neuter`
+  attributes. Objects known by multiple gender-specific names now activate all
+  applicable pronouns simultaneously. Example: "das Gerät / die Kamera / der
+  Apparat" with `has neuter also_female also_male` enables `nimm es`, `nimm sie`,
+  `nimm ihn` to all work. Implemented in `lib/de/globals_de.h` and extended
+  `PronounNotice` in `lib/parser.h` (LANG_DE block). 6 new tests in
+  `test_pronouns.py` (184 tests passing). Walkthrough updated with demonstration.
 
 ## Architecture (current)
 ```
