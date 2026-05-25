@@ -440,6 +440,7 @@ Object Oberdeck "Das Oberdeck"
 		description "Du stehst auf dem Oberdeck der Sternwind. Salzige Meeresluft
 			weht dir ins Gesicht. Ein mächtiger Mast ragt in den wolkenlosen
 			Abendhimmel. Im Westen glüht die untergehende Sonne.
+			Ein Tau liegt aufgerollt auf dem Deck.
 			Die Eisentreppe führt nach unten.",
 		d_to Schiffsgang;
 
@@ -567,6 +568,16 @@ für einen vergrabenen Schatz.^^";
 		],
 	has neuter;
 ! Hinweis: has neuter → "ein Fernrohr", Akkusativ: "das Fernrohr", Dativ: "dem Fernrohr"
+
+! ALSO_PLURAL-DEMO: neuter singular + plural synonym
+! has neuter       → "das Tau"   → itobj   → "nimm es"
+! has also_plural  → "die Taue"  → themobj → "nimm sie" (plural sie)
+! Nach jeder Interaktion zeigen itobj und themobj auf dieses Objekt.
+Object -> Tau "Tau"
+	with
+		name 'tau' 'hanftau' 'seil' 'leine' 'taue',
+		description "Ein schweres Hanftau, ordentlich aufgerollt auf dem Deck.",
+	has neuter also_plural;
 
 ! MASKULIN (Standard): has scenery
 ! Artikeltabelle → "der Rettungsring", Indef: "ein Rettungsring"

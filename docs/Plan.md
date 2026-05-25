@@ -33,6 +33,12 @@ Recent progress:
   `nimm ihn` to all work. Implemented in `lib/de/globals_de.h` and extended
   `PronounNotice` in `lib/parser.h` (LANG_DE block). 6 new tests in
   `test_pronouns.py` (184 tests passing). Walkthrough updated with demonstration.
+- **NEW**: Plural synonym via `also_plural` attribute. An object with a primary
+  singular name that also has a plural word (e.g. "das Tau / die Taue") can now
+  be referred to with `sie` / `ihnen` (plural they/them) after the player uses
+  either the singular or plural form. Sets `themobj` and `de_last_sie_target = 2`
+  in `PronounNotice`. Demo object `Tau` added to Oberdeck in `sterne.inf`.
+  5 new tests in `test_pronouns.py` (189 tests passing). Walkthrough extended.
 
 ## Architecture (current)
 ```

@@ -144,15 +144,17 @@ character identity), not persistent multi-synonym support.
 
 Implemented in `lib/de/globals_de.h` and `lib/parser.h` (`PronounNotice` LANG_DE).
 
-Three new attributes allow an object to activate multiple pronoun slots at once:
+Four attributes allow an object to activate multiple pronoun slots at once:
 
 ```inform
 Attribute also_female;
 Attribute also_male;
 Attribute also_neuter;
+Attribute also_plural;
 ```
 
-Example:
+**Gender synonyms** (`also_female`, `also_male`, `also_neuter`): for objects
+known by names in more than one grammatical gender. Example:
 
 ```inform
 Object -> Geraet "Gerät"
@@ -172,7 +174,24 @@ After ANY interaction with this object (via any of its three name forms),
 All three pronouns now point to the same object. Subsequent commands `nimm es`,
 `nimm sie`, and `nimm ihn` all work.
 
-**Known limitation**: All three pronouns become over-inclusive. After `untersuche
+**Plural synonym** (`also_plural`): for objects that have a primary singular name
+but are also known by a plural form. Example: "das Tau" (neuter) / "die Taue" (plural):
+
+```inform
+Object -> Tau "Tau"
+    with
+        name 'tau' 'hanftau' 'taue',
+        description "...",
+    has neuter also_plural;
+```
+
+After any interaction, `PronounNotice` sets both `itobj` (neuter) and `themobj`
+(plural), and `de_last_sie_target = 2` (plural). This means `nimm es` and
+`nimm sie` / `nimm ihnen` all work for the same object. The `also_plural`
+check runs last in the attribute chain, so if `also_plural` and `also_female`
+are both present, `sie` resolves to the plural reading.
+
+**Known limitation**: All activated pronouns become over-inclusive. After `untersuche
 apparat` (male), the feminine pronoun `sie` also points to Gerät, potentially
 overwriting a genuine feminine antecedent from earlier in the conversation.
 This is acceptable for the rare case of multi-gender synonyms; more sophisticated
@@ -182,9 +201,10 @@ tracking would require per-word gender metadata (which deform lacks too).
 
 | | deform CG | PunyInformDE `also_*` |
 |---|---|---|
-| Capacity | Static gender + 1 CG override = 2 | Static + 3 attributes = 4 |
+| Capacity | Static gender + 1 CG override = 2 | Static + 4 attributes = 5 |
 | Three-gender case | Partial (CG is single-override) | Full support |
-| Memory | 16-word global buffer + pointer | 3 attribute bits |
+| Plural synonym | Not supported | `also_plural` sets `themobj` |
+| Memory | 16-word global buffer + pointer | 4 attribute bits |
 | Author API | `GenderNotice(obj, g)` per gender | `has neuter also_female also_male` |
 | Primary use case | Runtime gender revelation | Persistent multi-synonym support |
 

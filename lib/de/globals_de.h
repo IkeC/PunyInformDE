@@ -68,10 +68,15 @@ Global de_last_sie_target = 0;
 !   das Gerät / die Kamera / der Apparat → has neuter, also_female, also_male
 !   die Lampe / das Licht                → has female, also_neuter
 !   der Schlüssel / die Schlüsselkarte   → (male) also_female
+! Use also_plural when an object also has a plural name (different word or
+! grammatical plural form), so that "sie" / "ihnen" (plural they/them) also
+! refer to the object after the player uses the plural synonym.
+!   das Tau / die Taue                   → has neuter, also_plural
 ! ---------------------------------------------------------------------------
 Attribute also_female;
 Attribute also_male;
 Attribute also_neuter;
+Attribute also_plural;
 
 ! Optional adjective stem(s) and noun declension marker for §3.
 #IfNDef adj;

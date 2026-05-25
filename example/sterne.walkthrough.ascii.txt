@@ -67,6 +67,12 @@ kletter mast
 warte
 schau
 untersuche sonne
+untersuche tau
+nimm es
+wirf tau
+untersuche taue
+nimm sie
+wirf tau
 rede mit steuermann
 1
 1

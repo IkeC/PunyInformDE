@@ -2025,6 +2025,7 @@ Array guess_object-->5;
 		if(p_object has also_female) { herobj = p_object; de_last_sie_target = 1; }
 		if(p_object has also_male)   himobj = p_object;
 		if(p_object has also_neuter) itobj  = p_object;
+		if(p_object has also_plural) { themobj = p_object; de_last_sie_target = 2; }
 #EndIf;
 	} else {
 		! PunyInformDE: Im Deutschen haben unbelebte Objekte Genus.
@@ -2044,6 +2045,7 @@ Array guess_object-->5;
 		if(p_object has also_female) { herobj = p_object; de_last_sie_target = 1; }
 		if(p_object has also_male)   himobj = p_object;
 		if(p_object has also_neuter) itobj  = p_object;
+		if(p_object has also_plural) { themobj = p_object; de_last_sie_target = 2; }
 #IfNot;
 		itobj = p_object;
 #EndIf; ! LANG_DE

@@ -230,3 +230,56 @@ def test_geraet_sie_auch_nach_apparat(game):
     assert_output_contains(out, "Ger",
         msg="'nimm sie' nach 'untersuche apparat' soll Gerät (also_female) nehmen")
     assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+# ---------------------------------------------------------------------------
+# Plural-Synonym: also_plural (Tau/Taue)
+# Das Tau (has neuter also_plural) soll nach jeder Interaktion
+# sowohl itobj (es) als auch themobj (sie/ihnen) befüllen.
+# Das Tau befindet sich auf dem Oberdeck (nach dem Gang, oben).
+# ---------------------------------------------------------------------------
+
+@pytest.mark.feature("pronouns")
+def test_tau_es_nach_untersuche_tau(game):
+    """'es' nach 'untersuche tau' (neuter, primary) → Tau."""
+    out = game.run(_UNLOCK_AND_GOTO_OBERDECK + ["untersuche tau", "nimm es"])
+    assert_output_contains(out, "Tau",
+        msg="'nimm es' soll Tau (neuter) nehmen")
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+@pytest.mark.feature("pronouns")
+def test_tau_sie_plural_nach_untersuche_taue(game):
+    """'sie' nach 'untersuche taue' (also_plural) → Tau."""
+    out = game.run(_UNLOCK_AND_GOTO_OBERDECK + ["untersuche taue", "nimm sie"])
+    assert_output_contains(out, "Tau",
+        msg="'nimm sie' nach 'untersuche taue' soll Tau (also_plural) nehmen")
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+@pytest.mark.feature("pronouns")
+def test_tau_sie_plural_nach_untersuche_tau(game):
+    """'sie' nach 'untersuche tau' (primary neuter, also has also_plural) → Tau."""
+    out = game.run(_UNLOCK_AND_GOTO_OBERDECK + ["untersuche tau", "nimm sie"])
+    assert_output_contains(out, "Tau",
+        msg="'nimm sie' nach 'untersuche tau' soll Tau nehmen (also_plural setzt themobj)")
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+@pytest.mark.feature("pronouns")
+def test_tau_es_auch_nach_taue(game):
+    """Auch nach 'untersuche taue' soll 'es' noch auf das Tau zeigen."""
+    out = game.run(_UNLOCK_AND_GOTO_OBERDECK + ["untersuche taue", "nimm es"])
+    assert_output_contains(out, "Tau",
+        msg="'nimm es' nach 'untersuche taue' soll Tau (itobj via neuter) nehmen")
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+@pytest.mark.feature("pronouns")
+def test_tau_ihnen_plural_nach_untersuche_tau(game):
+    """'ihnen' (Dativ Plural) nach 'nimm tau' → Tau."""
+    out = game.run(_UNLOCK_AND_GOTO_OBERDECK + [
+        "nimm tau", "lege tau auf deck", "nimm ihnen",
+    ])
+    assert_output_not_contains(out, NOT_UNDERSTOOD,
+        msg="'nimm ihnen' (ihnen→them) soll Tau (also_plural) nehmen")

@@ -64,20 +64,22 @@ German pronouns are rewritten before parse resolution:
 
 Implemented in:
 
-- `lib/de/globals_de.h` (three new attributes)
+- `lib/de/globals_de.h` (four attributes)
 - `lib/parser.h` (`PronounNotice` LANG_DE extension)
 
-Three new object attributes handle cases where an object is known by names in
-different genders:
+Four object attributes handle cases where an object is known by names in
+different genders or by a plural synonym:
 
 ```inform
 Attribute also_female;
 Attribute also_male;
 Attribute also_neuter;
+Attribute also_plural;
 ```
 
-Example: an object that is "das Gerät" (neuter) / "die Kamera" (feminine) /
-"der Apparat" (masculine):
+**Gender synonyms** (`also_female`, `also_male`, `also_neuter`): an object known
+by names of more than one grammatical gender. Example: "das Gerät" (neuter) /
+"die Kamera" (feminine) / "der Apparat" (masculine):
 
 ```inform
 Object -> Geraet "Gerät"
@@ -92,6 +94,22 @@ all applicable pronoun slots simultaneously: `itobj`, `herobj`, and `himobj` all
 point to the same object. This allows `nimm es`, `nimm sie`, and `nimm ihn` to
 all work correctly.
 
+**Plural synonym** (`also_plural`): an object with a primary singular name that
+also has a plural form or a different plural word the player can use. Example:
+"das Tau" (neuter, rope) / "die Taue" (plural, ropes):
+
+```inform
+Object -> Tau "Tau"
+    with
+        name 'tau' 'hanftau' 'taue',
+    has neuter also_plural;
+```
+
+After the player refers to this object, both `itobj` and `themobj` point to it.
+`nimm es` (neuter singular) and `nimm sie` / `nimm ihnen` (plural they/them)
+both work. `de_last_sie_target` is set to `2` (plural), so when `herobj` and
+`themobj` both refer to an object, `sie` resolves to the plural reading.
+
 **Implementation detail**: In `lib/parser.h` within the `PronounNotice` function,
 the LANG_DE block checks for these attributes after primary gender assignment:
 
@@ -100,11 +118,13 @@ the LANG_DE block checks for these attributes after primary gender assignment:
     if(p_object has also_female) { herobj = p_object; de_last_sie_target = 1; }
     if(p_object has also_male)   himobj = p_object;
     if(p_object has also_neuter) itobj  = p_object;
+    if(p_object has also_plural) { themobj = p_object; de_last_sie_target = 2; }
 #EndIf;
 ```
 
 This runs for both animate and inanimate branches, ensuring all pronouns
-activate together.
+activate together. When `also_plural` is present alongside `also_female`, the
+`also_plural` assignment runs last, so `sie` resolves to the plural reading.
 
 ---
 
@@ -216,6 +236,8 @@ Covered by `tests/test_describe_property.py`.
   - `Ring` (m), `Nadel` (f), `Tuch` (n)
 - Mixed-gender synonym demo: `Gerät` (neuter primary) also known as `Kamera` (f)
   and `Apparat` (m) — demonstrates `also_female`/`also_male` attributes
+- Plural-synonym demo: `Tau` (neuter primary, "das Tau") also known as `Taue`
+  (plural, "die Taue") — demonstrates `also_plural` attribute
 
 Walkthrough (`example/sterne.walkthrough.txt`) includes commands that exercise:
 
@@ -271,6 +293,7 @@ Current suite status (latest run):
 - 163 passed → 174 passed (MSG_TAKE_SCENERY / MSG_SEARCH_IN_IT_ISARE message fixes)
 - 174 passed → 178 passed (describe=2 demo + tests; upstream PunyInform dev-branch sync)
 - 178 passed → 184 passed (also_* mixed-gender synonyms; 6 new `test_pronouns` tests)
+- 184 passed → 189 passed (`also_plural` attribute + Tau demo object; 5 new `test_pronouns` tests)
 - 3 xfailed (known dfrotz umlaut-pipe limitation on Windows)
 
 ## USE_ASCII and the ASCII Preprocessing Pass
