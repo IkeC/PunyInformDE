@@ -254,6 +254,21 @@ Object -> -> Tuch "Tuch"
 		adj "fein",
 	has neuter;
 
+Object -> stuhl "Stuhl"
+	with
+		name 'stuhl',
+		before [;
+			Climb:
+				if (player in stuhl) {
+					move player to Kajuete;
+					print_ret "Du steigst von ", (DE_dem) noun, ".";
+				} else {
+					move player to stuhl;
+					print_ret "Du steigst auf ", (DE_den) noun, ".";
+				}
+		],
+	has supporter enterable;
+
 ! FEMININ: has female + has enterable
 ! Artikeltabelle → "die Koje", Indef: "eine Koje"
 Object -> Koje "Koje"

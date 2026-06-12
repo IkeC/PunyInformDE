@@ -7,18 +7,18 @@ Wer -- und warum? Es wird Zeit, das herauszufinden.
 
 Das Schiff der Sterne
 Ein kurzes Abenteuer auf hoher See.
-Release 1 / Serial number 260525 / Inform v6.44 PunyInformDE v6.6 R
+Release 1 / Serial number 260612 / Inform v6.44 PunyInformDE v6.6 R
 
 Die Kapitaenskajuete
 Die enge Kajuete des Kapitaens auf dem Segelschiff Sternwind. Ein alter Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine hoelzerne Koje liegt an der Ostwand. Eine schwere Eichentuer fuehrt nach Norden in den Schiffsgang.
 
-Hier befinden sich dein Personalausweis, meine Jacke, sein Tagebuch, unser Logbuch, ein Geraet und eine Seekiste (geschlossen).
+Hier befinden sich ein Stuhl, dein Personalausweis, meine Jacke, sein Tagebuch, unser Logbuch, ein Geraet und eine Seekiste (geschlossen).
 
 > schau
 Die Kapitaenskajuete
 Die enge Kajuete des Kapitaens auf dem Segelschiff Sternwind. Ein alter Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine hoelzerne Koje liegt an der Ostwand. Eine schwere Eichentuer fuehrt nach Norden in den Schiffsgang.
 
-Hier befinden sich dein Personalausweis, meine Jacke, sein Tagebuch, unser Logbuch, ein Geraet und eine Seekiste (geschlossen).
+Hier befinden sich ein Stuhl, dein Personalausweis, meine Jacke, sein Tagebuch, unser Logbuch, ein Geraet und eine Seekiste (geschlossen).
 
 > riech
 Du riechst nichts Unerwartetes.
@@ -147,7 +147,7 @@ Du gehst in die Koje.
 Die Kapitaenskajuete (in der Koje)
 Die enge Kajuete des Kapitaens auf dem Segelschiff Sternwind. Ein alter Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine hoelzerne Koje liegt an der Ostwand. Eine schwere Eichentuer fuehrt nach Norden in den Schiffsgang.
 
-Hier befinden sich ein Geraet, unser Logbuch und eine Seekiste (geschlossen).
+Hier befinden sich ein Geraet, ein Stuhl, unser Logbuch und eine Seekiste (geschlossen).
 
 > raus
 Du verlaesst die Koje.
@@ -227,7 +227,7 @@ Hier befinden sich Steuermann Hinnerk, Navigatorin Elara, Molly, ein Messing-Fer
 Da kannst du nicht hingehen.
 
 > kletter mast
-Du versuchst den Mast hinaufzuklettern, rutschst aber ab und landest wieder auf Deck.
+Ich glaube, du wolltest "kletter Mast hoch" sagen. Bitte versuche es erneut.
 
 > warte
 Nichts passiert.
@@ -340,6 +340,6 @@ Du senkst das Fernrohr und laechelst. Das Abenteuer kann beginnen!
 
   *** Du hast gewonnen! ***
 
-In diesem Spiel hast du 5 von 5 moeglichen Punkten erreicht, in 79 Zuegen.
+In diesem Spiel hast du 5 von 5 moeglichen Punkten erreicht, in 78 Zuegen.
 
 Moechtest du NEUSTART, WIEDERHERSTELLEN oder BEENDEN? 

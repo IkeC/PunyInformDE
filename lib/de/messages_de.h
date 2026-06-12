@@ -1276,6 +1276,7 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 		"Du gehst in ", (DE_Den) noun, ".";
 	MSG_EXIT_DEFAULT:
 		! "verlassen" = Akkusativ → (DE_Den)
+		if (noun has supporter) { "Du steigst von ", (DE_Dem) noun, "."; }
 		"Du verlässt ", (DE_Den) noun, ".";
 	MSG_LOCK_DEFAULT:
 		! "verriegeln" = Akkusativ → (DE_Den)

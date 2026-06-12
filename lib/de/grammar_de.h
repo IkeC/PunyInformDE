@@ -336,11 +336,15 @@ Verb 'hau' 'tritt' 'töt' 'zerstör' 'erschlag'
 
 ! --- Climb ---
 Verb 'kletter' 'steig'
-	* noun                                      -> Climb
-	* 'hoch' noun                               -> Climb
+	* 'in' noun                                 -> Enter
+	* 'auf' noun                                -> Climb
 	* noun 'hoch'                               -> Climb
-	* 'auf' noun                                -> Enter
-	* 'in' noun                                 -> Enter;
+	* 'aus' noun                                -> Exit
+	* 'von' noun                                -> Climb
+	* 'über' noun                               -> Climb
+	* noun 'runter'                             -> Climb
+	* 'von' noun 'ab'/'runter'                  -> Climb
+	* 'ab'                                      -> Exit;
 
 ! --- Jump ---
 Verb 'spring'
