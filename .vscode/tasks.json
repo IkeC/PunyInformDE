@@ -32,11 +32,19 @@
     {
       "label": "PunyInformDE Test Dfrotz",
       "type": "shell",
-      "command": "tools\\dfrotz.exe build\\sterne.z5",
+      "command": "chcp 65001 > nul && tools\\dfrotz.exe build\\sterne.z5",
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}",
+				"shell": {
+					"executable": "cmd.exe",
+					"args": [
+						"/d",
+						"/s",
+						"/c"
+					]
+				}
       },
-      "dependsOn": ["PunyInformDEBuild"],
+      "dependsOn": ["PunyInformDE Build"],
       "group": {
         "kind": "test",
         "isDefault": true

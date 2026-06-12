@@ -93,8 +93,12 @@ Constant SOMEDIRECTION_STR  = "(eine Richtung)"; ! English: "(some direction)"
 ! ---------------------------------------------------------------------------
 ! German abbreviations
 ! Defining CUSTOM_ABBREVIATIONS prevents globals.h from adding English ones.
+! When GAME_ABBREVS is defined, the game provides all abbreviations itself
+! (e.g. via zabbrev). In that case these defaults are skipped so that
+! the game can use all 96 abbreviation slots.
 ! ---------------------------------------------------------------------------
 Constant CUSTOM_ABBREVIATIONS;
+#IfnDef GAME_ABBREVS;
 Abbreviate "Bist du sicher, dass du das ";
 Abbreviate " Selbstverliebt wie immer";
 Abbreviate "nichts Unerwartetes";
@@ -120,6 +124,7 @@ Abbreviate " sein";
 Abbreviate " haben";
 Abbreviate "halten";
 Abbreviate "stehst";
+#EndIf; ! GAME_ABBREVS
 
 ! German string constants for list printing
 ! Override the English " and " separator used in PrintContents (puny.h).

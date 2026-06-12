@@ -24,8 +24,11 @@ function Convert-ToAsciiDigraphs {
         -replace [char]0xf6, "oe" `
         -replace [char]0xfc, "ue" `
         -replace [char]0xdf, "ss" `
+        -replace ([char]0xc4 + "(?=[A-Z])"), "AE" `
         -replace [char]0xc4, "Ae" `
+        -replace ([char]0xd6 + "(?=[A-Z])"), "OE" `
         -replace [char]0xd6, "Oe" `
+        -replace ([char]0xdc + "(?=[A-Z])"), "UE" `
         -replace [char]0xdc, "Ue"
     $utf8NoBom = New-Object System.Text.UTF8Encoding $false
     $absPath = Join-Path $PWD.Path $Destination
