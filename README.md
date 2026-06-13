@@ -2,18 +2,18 @@
 
 ## Deutsch
 
-**PunyInformDE** ist die deutsche Version von [PunyInform](https://github.com/johanberntsson/PunyInform), ein Programm zur Erstellung von Textadventures ("Interactive Fiction"). 
+**PunyInformDE** (PIDE) ist die deutsche Version von [PunyInform](https://github.com/johanberntsson/PunyInform), ein Programm zur Erstellung von Textadventures ("Interactive Fiction"). 
 
-Für einen schnellen Einstieg in deutscher Sprache lies bitte [Schnellstart.md](docs/Schnellstart.md).
+Für einen schnellen Einstieg in deutscher Sprache lies bitte [Schnellstart](docs/Schnellstart.md).
 
 ## English
 
-**PunyInformDE** is a German localisation of [PunyInform](https://github.com/johanberntsson/PunyInform)
+**PunyInformDE** (PIDE) is a German localisation of [PunyInform](https://github.com/johanberntsson/PunyInform)
 (a lightweight Inform 6 game library). It extends PunyInform with German-native article declension,
 grammatical case handling (nominative/accusative/dative), and German pronoun resolution (er/sie/es/ihnen)
 for creating interactive fiction in German.
 
-Includes PunyInform features and commits up to May 14th, 2026.
+Includes PunyInform features and commits up to June 13th, 2026 (version 6.7).
 
 **Designed for**: Interactive fiction authors writing German-language IF who want automated support for German grammar. 
 
@@ -26,16 +26,6 @@ Includes PunyInform features and commits up to May 14th, 2026.
 - Unicode and ASCII (digraph) build variants
 - Runnable example game (*Das Schiff der Sterne*)
 - Comprehensive test suite with pytest
-
-## Example Game "Das Schiff der Sterne"
-
-`example/sterne.inf` demonstrates:
-
-- article/case handling (Nom/Akk/Dat)
-- German pronoun resolution (er/ihn/ihm/sie/es/ihnen)
-- adjective input variants (kleinen, altem, feinem)
-- adjective output declension in library messages
-- `describe=2` property (`Abendsonne` on Oberdeck: not listed in room, examinable directly)
 
 ## Repository Layout
 
@@ -138,6 +128,10 @@ and contributors.
 — The initial German localisation work done in 2023 by L. Santner and A. Pulvermacher.
 
 Many other authors have contributed to the underlying base of this solution. If you feel anyone is missing, please let me know.
+
+## PunyInformDE Games
+
+- [Staub](https://ikeserver.de/Staub/retro.html) by IkeC (source code on [GitHub](https://github.com/IkeC/InteractiveFiction)) 
 
 ## Contribute
 

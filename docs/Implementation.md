@@ -294,7 +294,7 @@ Current suite status (latest run):
 - 174 passed → 178 passed (describe=2 demo + tests; upstream PunyInform dev-branch sync)
 - 178 passed → 184 passed (also_* mixed-gender synonyms; 6 new `test_pronouns` tests)
 - 184 passed → 189 passed (`also_plural` attribute + Tau demo object; 5 new `test_pronouns` tests)
-- 3 xfailed (known dfrotz umlaut-pipe limitation on Windows)
+- Latest verified run: 189 passed, 3 xfailed (known dfrotz umlaut-pipe limitation on Windows)
 
 ## USE_ASCII and the ASCII Preprocessing Pass
 

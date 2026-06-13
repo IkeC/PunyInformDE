@@ -1708,7 +1708,9 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 #IfDef OPTIONAL_FULL_SCORE;
 		print ", die VOLLSTÄNDIGE Punktzahl dieses Spiels angeben";
 #EndIf;
-		if(AMUSING_PROVIDED == 0 && deadflag == 2) print ", einige Vorschläge für UNTERHALTSAME Aktivitäten sehen";
+#Ifdef Amusing;
+		if(AMUSING_PROVIDED == 0 && deadflag == GS_WIN) print ", einige Vorschläge für UNTERHALTSAME Aktivitäten sehen";
+#Endif;
 		print " oder BEENDEN? ";
 		rtrue;
 #EndIf;

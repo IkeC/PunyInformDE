@@ -25,7 +25,7 @@ Recent progress:
   with Akkusativ PrintContents (Nominativ subject, no double-ist).
 - Added `Abendsonne` object to `example/sterne.inf` (Oberdeck) as a `describe=2`
   demo: not listed in room but examinable via `untersuche sonne`.
-- Test suite: 178 passed (4 new `describe=2` tests in `test_describe_property.py`).
+- Test suite: 189 passed, 3 xfailed on the latest verified run (current baseline for the German localisation).
 - **NEW**: Mixed-gender synonyms via `also_female`/`also_male`/`also_neuter`
   attributes. Objects known by multiple gender-specific names now activate all
   applicable pronouns simultaneously. Example: "das Gerät / die Kamera / der

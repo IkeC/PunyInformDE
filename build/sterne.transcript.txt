@@ -7,7 +7,7 @@ Wer -- und warum? Es wird Zeit, das herauszufinden.
 
 Das Schiff der Sterne
 Ein kurzes Abenteuer auf hoher See.
-Release 1 / Serial number 260612 / Inform v6.44 PunyInformDE v6.6 R
+Release 1 / Serial number 260613 / Inform v6.44 PunyInformDE v6.7 R
 
 Die Kapitänskajüte
 Die enge Kajüte des Kapitäns auf dem Segelschiff Sternwind. Ein alter Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine hölzerne Koje liegt an der Ostwand. Eine schwere Eichentür führt nach Norden in den Schiffsgang.
@@ -226,8 +226,8 @@ Hier befinden sich Steuermann Hinnerk, Navigatorin Elara, Molly, ein Messing-Fer
 > o
 Da kannst du nicht hingehen.
 
-> kletter mast
-Ich glaube, du wolltest "kletter Mast hoch" sagen. Bitte versuche es erneut.
+> kletter mast hoch
+Du versuchst den Mast hinaufzuklettern, rutschst aber ab und landest wieder auf Deck.
 
 > warte
 Nichts passiert.
@@ -340,6 +340,6 @@ Du senkst das Fernrohr und lächelst. Das Abenteuer kann beginnen!
 
   *** Du hast gewonnen! ***
 
-In diesem Spiel hast du 5 von 5 möglichen Punkten erreicht, in 78 Zügen.
+In diesem Spiel hast du 5 von 5 möglichen Punkten erreicht, in 79 Zügen.
 
 Möchtest du NEUSTART, WIEDERHERSTELLEN oder BEENDEN? 

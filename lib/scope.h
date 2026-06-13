@@ -8,11 +8,12 @@
 
 System_file;
 
+#Ifndef OPTIONAL_NO_ADD_TO_SCOPE;
 [ _PerformAddToScope p_obj _add_obj _i _len _addr _n;
 	_addr = p_obj.&add_to_scope;
 	if(_addr) {
 		! routine or a list of objects
-		if(UnsignedCompare(_addr-->0, top_object) > 0) {
+		if(IsARoutine(_addr-->0)) {
 #IfDef DEBUG;
 #Iftrue #version_number < 5;
 			if(debug_flag & 1) print "[ ~", (name) inp1, "~.add_to_scope() ]^";
@@ -45,7 +46,7 @@ System_file;
 
 					! Get the first child of _add_obj. If no children, skip call to _SearchScope
 					@get_child _add_obj -> _add_obj ?~_no_child;
-					_SearchScope(_add_obj); ! _add_obj is now child(_add_obj)
+!                                      _SearchScope(_add_obj); ! _add_obj is now child(_add_obj)
 ._no_child;
 				}
 !			}
@@ -54,6 +55,7 @@ System_file;
 		}
 	}
 ];
+#Endif;
 
 [ _SearchScope p_obj p_risk_duplicate p_no_add _child;
 	if(p_obj == 0 ) rtrue;
@@ -65,18 +67,12 @@ System_file;
 #EndIf;
 #EndIf;
 ._next_sibling;
-		if(scope_objects >= MAX_SCOPE) {
-#IfTrue RUNTIME_ERRORS > RTE_MINIMUM;
-			_RunTimeError(ERR_SCOPE_FULL);
-#EndIf;
-			return;
-		}
+		if(_PutInScope(p_obj, p_risk_duplicate)) rtrue; ! rtrue if scope full
 
-		_PutInScope(p_obj, p_risk_duplicate);
-!		scope-->(scope_objects++) = p_obj;
-
+#Ifndef OPTIONAL_NO_ADD_TO_SCOPE;
 		! Add_to_scope
 		if(p_no_add == 0 && p_obj has reactive) _PerformAddToScope(p_obj);
+#Endif;
 
 		! Get first child. If no children, don't call SearchScope
 		@get_child p_obj -> _child ?~_no_child;
@@ -96,15 +92,16 @@ System_file;
 	if(p_obj) print "_PutInScope adding ",(object) p_obj," (", p_obj,") to scope. Action = ", action, "^";
 #EndIf;
 #EndIf;
-	if(p_risk_duplicate == 0) {
+	if(p_risk_duplicate == 0 && scope_objects > 0) {
 #Iftrue #version_number > 3;
 		@scan_table p_obj scope scope_objects -> _i ?~_object_wasnt_found;
-		return;
+		rfalse; ! All well, obj was already in scope
 ._object_wasnt_found;
 #Ifnot;
-		for(_i = 0: _i < scope_objects: _i++) {
-			if(scope-->_i == p_obj) return;
-		}
+		_i = scope_objects - 1;
+._check_next_obj;
+		if(scope-->_i == p_obj) rfalse; ! All well, obj was already in scope
+		@dec_chk _i 0 ?~_check_next_obj;
 #Endif;
 	}
 	! Check if there is room
@@ -112,19 +109,20 @@ System_file;
 #IfTrue RUNTIME_ERRORS > RTE_MINIMUM;
 		_RunTimeError(ERR_SCOPE_FULL);
 #EndIf;
-		return;
+		rtrue; ! Error, obj could not be put in scope
 	}
 	! Add it
 	scope-->scope_objects = p_obj;
 	scope_objects++;
+	rfalse; ! All well
 ];
 
 #Ifdef InScope;
-[ _UpdateScope p_actor p_reason _start_pos _i _j _obj _initial_scope_objects
+[ _UpdateScope p_actor p_reason _start_pos _i _initial_scope_objects
 		_current_scope_objects _risk_duplicates _scope_base _can_skip;
 #Ifnot;
-[ _UpdateScope p_actor p_reason _start_pos _i _j _obj _initial_scope_objects
-		_current_scope_objects _risk_duplicates _scope_base;
+[ _UpdateScope p_actor p_reason _start_pos _initial_scope_objects
+		_risk_duplicates _scope_base;
 #Endif;
 
 #IfDef DEBUG_SCOPE;
@@ -188,7 +186,7 @@ System_file;
 #Ifdef OPTIONAL_NO_DARKNESS;
 	if(p_actor hasnt transparent) {
 		! The player's possessions are in scope to the actor
-		_SearchScope(child(p_actor), _risk_duplicates, true);
+		_SearchScope(child(p_actor), _risk_duplicates);
 	}
 #Ifnot;
 	if(location == thedark || p_actor hasnt transparent) {
@@ -197,25 +195,12 @@ System_file;
 			_PutInScope(p_actor, _risk_duplicates);
 			_scope_base = location;
 		}
-		_SearchScope(child(p_actor), _risk_duplicates, true);
+		_SearchScope(child(p_actor), _risk_duplicates);
 	}
 #Endif;
 
-	_SearchScope(child(_scope_base), _risk_duplicates, true);
+	_SearchScope(child(_scope_base), _risk_duplicates);
 
-!	_current_scope_objects = scope_objects;
-!	print "WILL perform AddToScope for object ", _current_scope_objects, " to ", scope_objects - 1, "!^";
-	_j = scope_objects;
-	@dec_chk _j _current_scope_objects ?_done_updating_scope;
-	_i = _current_scope_objects;
-._next_add_to_scope;
-!	for(_i = _current_scope_objects : _i < scope_objects : _i++) {
-		_obj = scope-->_i;
-!		print "PERFORMING AddToScope for object ", _obj, "!^";
-		if(_obj has reactive)
-			_PerformAddToScope(_obj);
-!	}
-	@inc_chk _i _j ?~_next_add_to_scope;
 
 ._done_updating_scope;
 #Ifdef OPTIONAL_MANUAL_SCOPE_BOOST;

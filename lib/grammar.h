@@ -1500,6 +1500,7 @@ Array _GotoSubBuffer --> (1 + (GOTOSUB_BUFFER_SIZE + 1)/2); ! Add an extra word 
 
 	move noun to player;
 	scope_modified = true;
+	update_moved = true;
 	"Purloined.";
 ];
 
@@ -1775,7 +1776,7 @@ Constant _REAL_LOCATION_TEXT " *** real_location ***";
 #EndIf;
 
 [ Look _obj _top_ceil _ceil _describe_room _you_can_see_1 _you_can_see_2 
-		_desc_prop _last_level _action _result;
+		_desc_prop _action _result;
 	if(input_action == ##Look) PrintMsg(MSG_LOOK_BEFORE_ROOMNAME);
 	if((lookmode == 1 && location hasnt visited) || lookmode == 2) _describe_room = true;
 #Iftrue #version_number > 3;
@@ -1784,12 +1785,12 @@ Constant _REAL_LOCATION_TEXT " *** real_location ***";
 
 	! Print the room name
 #Ifdef OPTIONAL_NO_DARKNESS;
-	_ceil = ScopeCeiling(player, _last_level);
+	_ceil = ScopeCeiling(player);
 #Ifnot;
 	if(location == thedark)
 		_ceil = location;
 	else
-		_ceil = ScopeCeiling(player, _last_level);
+		_ceil = ScopeCeiling(player);
 #Endif;
 
 	_top_ceil = _ceil;
@@ -1871,7 +1872,8 @@ Constant _REAL_LOCATION_TEXT " *** real_location ***";
 			_you_can_see_1 = _ListObjsInOnMsg;
 			_you_can_see_2 = ".^";
 		}
-		if(PrintContents(_you_can_see_1, _ceil, true)) print (string) _you_can_see_2;
+if(PrintContents(_you_can_see_1, _ceil, WORKFLAG_BIT)) 
+				print (string) _you_can_see_2;
 
 
 #IfDef OPTIONAL_PRINT_SCENERY_CONTENTS;

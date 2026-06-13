@@ -63,7 +63,7 @@ berühr glocke
 nimm schuhe
 hoch
 o
-kletter mast
+kletter mast hoch
 warte
 schau
 untersuche sonne

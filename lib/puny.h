@@ -1383,10 +1383,10 @@ Include "parser.h";
 #Ifdef OPTIONAL_MANUAL_SCOPE_BOOST;
 		_any = 2;
 #Endif;
-#IfDef DEBUG;
-#Iftrue #version_number < 5;
+#Ifdef DEBUG;
+!#Iftrue #version_number < 5;
 		if(debug_flag & 1) print "[ ~", (name) _obj, "~.",(property) p_property,"() ]^";
-#Endif;
+!#Endif;
 #Endif;
 		if(RunRoutines(_obj, p_property) && p_break) {
 			rtrue;
@@ -1403,9 +1403,9 @@ Include "parser.h";
 
 	if(location has reactive && location.&each_turn ~= 0) {
 #Ifdef DEBUG;
-#Iftrue #version_number < 5;
+!#Iftrue #version_number < 5;
 		if(debug_flag & 1) print "[ ~", (name) location, "~.each_turn() ]^";
-#Endif;
+!#Endif;
 #Endif;
 		RunRoutines(location, each_turn);
 	}
@@ -1472,11 +1472,11 @@ Include "parser.h";
 	}
 	if(inp1 > 1) {
 #Ifdef DEBUG;
-#Iftrue #version_number < 5;
+!#Iftrue #version_number < 5;
 		if(debug_flag & 1) print "[ ~", (name) inp1, "~.before() ]^";
+!#Endif;
 #Endif;
-#Endif;
-		if(inp1.&before) {
+		if(inp1.&before && inp1 ~= real_location) {
 			if(RunRoutines(inp1, before)) rtrue;
 		}
 	}
@@ -1515,11 +1515,11 @@ Include "parser.h";
 	if(real_location.&after) {
 		if(RunRoutines(real_location, after)) rtrue;
 	}
-	if(inp1 > 1) {
+	if(inp1 > 1 && inp1 ~= real_location) {
 #Ifdef DEBUG;
-#Iftrue #version_number < 5;
+!#Iftrue #version_number < 5;
 		if(debug_flag & 1) print "[ ~", (name) inp1, "~.after() ]^";
-#Endif;
+!#Endif;
 #Endif;
 		if(inp1.&after) {
 			if(RunRoutines(inp1, after)) rtrue;
