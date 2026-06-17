@@ -128,6 +128,40 @@ def test_plural_def_akkusativ_ablegen(game):
     assert_output_not_contains(out, "du legst den",
         msg="Plural Akk: 'Du legst den' darf nicht erscheinen")
 
+@pytest.mark.feature("articles")
+def test_german_definite_articles_are_accepted(game):
+    """Definite German articles in noun phrases should be parsed like English 'the'."""
+    out = game.run(["oeffne die tuer"])
+    assert_output_contains(out, "abgeschlossen",
+        msg="German article + noun should resolve to the door object")
+    assert_output_not_contains(out, "So etwas kannst du nicht sehen",
+        msg="German article should not be rejected as an unknown noun")
+
+
+@pytest.mark.feature("articles")
+def test_german_definite_articles_are_accepted_ascii(game_ascii):
+    """ASCII build should accept German definite articles in noun phrases too."""
+    out = game_ascii.run(["oeffne die tuer"])
+    assert_output_contains(out, "Die Tuer ist noch abgeschlossen")
+    assert_output_not_contains(out, "So etwas kannst du nicht sehen")
+
+
+@pytest.mark.feature("articles")
+def test_german_definite_articles_with_plural_noun_are_accepted(game):
+    """German definite articles should also work with plural nouns."""
+    out = game.run(["nimm die muenzen"])
+    assert_output_contains(out, "Du nimmst die Goldm",
+        msg="German article + plural noun should be accepted")
+    assert_output_not_contains(out, "So etwas kannst du nicht sehen",
+        msg="Plural noun phrase with German article should not fail")
+
+
+@pytest.mark.feature("articles")
+def test_german_definite_articles_with_plural_noun_are_accepted_ascii(game_ascii):
+    """ASCII build should accept German definite articles with plural nouns."""
+    out = game_ascii.run(["nimm die muenzen"])
+    assert_output_contains(out, "Du nimmst die Goldmuenzen an dich")
+    assert_output_not_contains(out, "So etwas kannst du nicht sehen")
 
 @pytest.mark.feature("articles")
 def test_dativ_maskulin_wave_uses_kleinen(game):

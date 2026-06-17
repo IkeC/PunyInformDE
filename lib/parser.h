@@ -555,10 +555,17 @@ Constant _PARSENP_CHOOSEOBJ_WEIGHT = 1000;
 !	}
 ._skip_articles;
 	_k = p_parse_pointer --> 0;
-	if(_k== 'a//' or 'the' or 'an') {
-		p_parse_pointer = p_parse_pointer + 4;
-		@inc_chk wn 255 ?~_skip_articles; ! Always loop back
-	}
+	if(_k == 'a//' or 'the' or 'an') jump _skip_article_word;
+#IfDef LANG_DE;
+	if(_DE_IsArticleWord(_k)) jump _skip_article_word;
+#EndIf;
+	jump _continue_after_article_skip;
+
+._skip_article_word;
+	p_parse_pointer = p_parse_pointer + 4;
+	@inc_chk wn 255 ?~_skip_articles; ! Always loop back
+
+._continue_after_article_skip;
 
 !	if(_k) {
 !		_k = _k -> #dict_par1;

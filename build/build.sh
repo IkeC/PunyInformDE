@@ -80,10 +80,10 @@ echo "Compiling sterne.z3..."
     example/sterne_z3.inf build/sterne.z3
 
 # -------------------------------------------------------------------------
-# ASCII walkthrough
+# ASCII walkthrough (generated on demand for transcript runs)
 # -------------------------------------------------------------------------
-echo "Generating ASCII walkthrough..."
-ascii_digraphs example/sterne.walkthrough.txt example/sterne.walkthrough.ascii.txt
+ASCII_WALKTHROUGH="$(mktemp)"
+trap 'rm -f "$ASCII_WALKTHROUGH"' EXIT
 
 # -------------------------------------------------------------------------
 # Transcript generation (requires dfrotz)
@@ -94,6 +94,9 @@ if command -v "$DFROTZ" &>/dev/null; then
           build/sterne.transcript.ascii.txt \
           build/sterne.transcript.z3.txt
 
+    echo "Generating temporary ASCII walkthrough..."
+    ascii_digraphs example/sterne.walkthrough.txt "$ASCII_WALKTHROUGH"
+
     "$DFROTZ" -m -q -Z 0 -T -w 999 -S 999 \
         -n build/sterne.transcript.txt \
         build/sterne.z5 \
@@ -102,12 +105,12 @@ if command -v "$DFROTZ" &>/dev/null; then
     "$DFROTZ" -m -q -Z 0 -T -w 999 -S 999 \
         -n build/sterne.transcript.ascii.txt \
         build/sterne.ascii.z5 \
-        < example/sterne.walkthrough.ascii.txt
+        < "$ASCII_WALKTHROUGH"
 
     "$DFROTZ" -m -q -Z 0 -T -w 999 -S 999 \
         -n build/sterne.transcript.z3.txt \
         build/sterne.z3 \
-        < example/sterne.walkthrough.ascii.txt
+        < "$ASCII_WALKTHROUGH"
 else
     echo "dfrotz not found (checked: $DFROTZ) — skipping transcript generation."
     echo "Install with: sudo apt install frotz  (or set DFROTZ=/path/to/dfrotz)"

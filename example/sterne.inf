@@ -151,7 +151,7 @@ Object -> Kajuetentuer "Kajütentür"
 			sieht sehr solide aus.",
 		with_key Schluessel,
 		before [;
-			Open: if (self has locked) "Die Tür ist noch verschlossen."; rfalse;
+			Open: if (self has locked) "Die Tür ist noch abgeschlossen."; rfalse;
 		],
 		after [;
 			Unlock: if (score < 2) { score = score + 1; } rfalse;

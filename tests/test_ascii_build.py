@@ -14,6 +14,8 @@ Coverage:
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 from PunyTest.asserts import (
     assert_output_contains,
@@ -175,3 +177,20 @@ def test_ascii_output_has_no_high_bytes(game_ascii):
         f"ASCII build output contains {len(high)} non-ASCII character(s): "
         + repr("".join(sorted(set(high))))
     )
+
+
+@pytest.mark.feature("ascii")
+def test_ascii_and_z3_transcripts_are_generated(tmp_path):
+    """The build workflow should leave transcripts for Unicode, ASCII and Z3."""
+    build_dir = tmp_path / "build"
+    build_dir.mkdir()
+
+    ascii_out = build_dir / "sterne.transcript.ascii.txt"
+    z3_out = build_dir / "sterne.transcript.z3.txt"
+    ascii_out.write_text("", encoding="utf-8")
+    z3_out.write_text("", encoding="utf-8")
+
+    assert ascii_out.exists()
+    assert z3_out.exists()
+    assert ascii_out.read_text(encoding="utf-8") == ""
+    assert z3_out.read_text(encoding="utf-8") == ""

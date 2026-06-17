@@ -86,7 +86,7 @@ def test_open_locked_door_ascii_noun(game):
     out = game.run(["oeffne tuer"])
     assert_output_not_contains(out, NOT_UNDERSTOOD)
     assert_output_not_contains(out, UNKNOWN_VERB)
-    assert_output_contains(out, "verschlossen")
+    assert_output_contains(out, "abgeschlossen")
 
 
 @pytest.mark.feature("umlauts")

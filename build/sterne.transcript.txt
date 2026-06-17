@@ -7,7 +7,7 @@ Wer -- und warum? Es wird Zeit, das herauszufinden.
 
 Das Schiff der Sterne
 Ein kurzes Abenteuer auf hoher See.
-Release 1 / Serial number 260613 / Inform v6.44 PunyInformDE v6.7 R
+Release 1 / Serial number 260617 / Inform v6.44 PunyInformDE v6.7 R
 
 Die Kapitänskajüte
 Die enge Kajüte des Kapitäns auf dem Segelschiff Sternwind. Ein alter Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine hölzerne Koje liegt an der Ostwand. Eine schwere Eichentür führt nach Norden in den Schiffsgang.
@@ -26,7 +26,7 @@ Du riechst nichts Unerwartetes.
 > hör
 Du hörst nichts Unerwartetes.
 
-> betrachte schreibtisch
+> betrachte den schreibtisch
 Ein schwerer Eichenschreibtisch, bedeckt mit vergilbten Seekarten und Notizen. Darauf liegen eine Seekarte, ein alter Kompass und einige Goldmünzen.
 
 > b ring
@@ -47,13 +47,13 @@ Du nimmst die Goldmünzen an dich.
 > untersuche sie
 Fünf glänzende Goldmünzen mit dem Abbild eines Seeadlers.
 
-> lege münzen auf schreibtisch
+> lege die münzen auf den schreibtisch
 Du legst die Goldmünzen auf den Schreibtisch.
 
 > untersuche feines tuch
 Du erkennst nichts Besonderes an dem feinen Tuch.
 
-> nimm münzen
+> nimm die münzen
 Du nimmst die Goldmünzen an dich.
 
 > untersuche sie
@@ -74,7 +74,7 @@ Ein schwerer Fotoapparat mit einem Lederriemen.
 > nimm sie
 Du nimmst das Gerät an dich.
 
-> wirf gerät
+> wirf das gerät
 In Ordnung.
 
 > untersuche apparat
@@ -208,13 +208,13 @@ Ein enger Gang. Das Holz knarzt unter deinen Füßen. Im Süden liegt die Kapit�
 
 Hier befinden sich einige kleine Schuhe und einige große Schuhe.
 
-> lies plakat
+> lies das plakat
 Du liest: Ruhe im Gang. Keine offenen Flammen unter Deck.
 
-> berühr glocke
+> berühr die glocke
 Die Glocke klingelt hell durch den ganzen Gang.
 
-> nimm schuhe
+> nimm die schuhe
 Meinst du die kleinen Schuhe oder die großen Schuhe?
 
 > hoch
@@ -238,25 +238,25 @@ Du stehst auf dem Oberdeck der Sternwind. Salzige Meeresluft weht dir ins Gesich
 
 Hier befinden sich Steuermann Hinnerk, Navigatorin Elara, Molly, ein Messing-Fernrohr und ein Tau.
 
-> untersuche sonne
+> untersuche die sonne
 Die tief stehende Sonne taucht den Horizont in orangefarbenes Licht. Ein prächtiger Sonnenuntergang über dem Westmeer.
 
-> untersuche tau
+> untersuche das tau
 Ein schweres Hanftau, ordentlich aufgerollt auf dem Deck.
 
 > nimm es
 Du nimmst das Tau an dich.
 
-> wirf tau
+> wirf das tau
 In Ordnung.
 
-> untersuche taue
+> untersuche die taue
 Ein schweres Hanftau, ordentlich aufgerollt auf dem Deck.
 
 > nimm sie
 Du nimmst das Tau an dich.
 
-> wirf tau
+> wirf das tau
 In Ordnung.
 
 > rede mit steuermann
@@ -301,7 +301,7 @@ Molly nickt aufgeregt und krächzt: "Marten! Schatz! Insel! BRAAK!" Ein Name und
 
 Damit endet das Gespräch.
 
-> rede mit navigatorin
+> rede mit der navigatorin
 Was möchtest du zu Navigatorin Elara sagen?
 
 [1] Kurs
@@ -324,7 +324,7 @@ Damit endet das Gespräch.
 
 [Du hast 1 Punkt erhalten.]
 
-> nimm fernrohr
+> nimm das fernrohr
 Du nimmst das Messing-Fernrohr an dich.
 
 > untersuche es

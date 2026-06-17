@@ -103,18 +103,36 @@ Write-Host "Compiling sterne.z3..."
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 # -------------------------------------------------------------------------
-# ASCII walkthrough (for manual testing / Test Dfrotz (ASCII) task)
+# ASCII walkthrough (generated on demand for transcript / test runs)
 # -------------------------------------------------------------------------
-Write-Host "Generating ASCII walkthrough..."
-(Get-Content "example\sterne.walkthrough.txt" -Encoding UTF8) `
-    -replace [char]0xe4, "ae" `
-    -replace [char]0xf6, "oe" `
-    -replace [char]0xfc, "ue" `
-    -replace [char]0xdf, "ss" `
-    -replace [char]0xc4, "Ae" `
-    -replace [char]0xd6, "Oe" `
-    -replace [char]0xdc, "Ue" `
-    | Set-Content "example\sterne.walkthrough.ascii.txt" -Encoding ASCII
+Write-Host "Generating transcripts..."
+$utf8NoBom = New-Object System.Text.UTF8Encoding $false
+
+Remove-Item "build\sterne.transcript.txt"       -ErrorAction SilentlyContinue
+Remove-Item "build\sterne.transcript.ascii.txt" -ErrorAction SilentlyContinue
+Remove-Item "build\sterne.transcript.z3.txt"    -ErrorAction SilentlyContinue
+
+Write-Host "Generating temporary ASCII walkthrough..."
+$tempAsciiWalkthrough = [System.IO.Path]::GetTempFileName()
+try {
+    (Get-Content "example\sterne.walkthrough.txt" -Encoding UTF8) `
+        -replace [char]0xe4, "ae" `
+        -replace [char]0xf6, "oe" `
+        -replace [char]0xfc, "ue" `
+        -replace [char]0xdf, "ss" `
+        -replace [char]0xc4, "Ae" `
+        -replace [char]0xd6, "Oe" `
+        -replace [char]0xdc, "Ue" `
+        | Set-Content $tempAsciiWalkthrough -Encoding ASCII
+
+    # ASCII transcript
+    cmd /c "tools\dfrotz.exe -m -q -Z 0 -T -w 999 -S 999 -n ""build\sterne.transcript.ascii.txt"" ""build\sterne.ascii.z5"" < ""$tempAsciiWalkthrough"""
+
+    # Z3 transcript (reuses ASCII walkthrough — same commands, same ZSCII input)
+    cmd /c "tools\dfrotz.exe -m -q -Z 0 -T -w 999 -S 999 -n ""build\sterne.transcript.z3.txt"" ""build\sterne.z3"" < ""$tempAsciiWalkthrough"""
+} finally {
+    Remove-Item $tempAsciiWalkthrough -ErrorAction SilentlyContinue
+}
 
 # -------------------------------------------------------------------------
 # Transcript generation
@@ -124,13 +142,6 @@ Write-Host "Generating ASCII walkthrough..."
 # BOM-free temp files and use cmd.exe's `<` redirect, which passes raw
 # file bytes directly to dfrotz without any encoding layer.
 # -------------------------------------------------------------------------
-Write-Host "Generating transcripts..."
-$utf8NoBom = New-Object System.Text.UTF8Encoding $false
-
-Remove-Item "build\sterne.transcript.txt"       -ErrorAction SilentlyContinue
-Remove-Item "build\sterne.transcript.ascii.txt" -ErrorAction SilentlyContinue
-Remove-Item "build\sterne.transcript.z3.txt"    -ErrorAction SilentlyContinue
-
 # Unicode transcript
 $tmpUnicode = [System.IO.Path]::GetTempFileName()
 try {
@@ -140,11 +151,5 @@ try {
 } finally {
     Remove-Item $tmpUnicode -ErrorAction SilentlyContinue
 }
-
-# ASCII transcript
-cmd /c "tools\dfrotz.exe -m -q -Z 0 -T -w 999 -S 999 -n ""build\sterne.transcript.ascii.txt"" ""build\sterne.ascii.z5"" < ""example\sterne.walkthrough.ascii.txt"""
-
-# Z3 transcript (reuses ASCII walkthrough — same commands, same ZSCII input)
-cmd /c "tools\dfrotz.exe -m -q -Z 0 -T -w 999 -S 999 -n ""build\sterne.transcript.z3.txt"" ""build\sterne.z3"" < ""example\sterne.walkthrough.ascii.txt"""
 
 Write-Host "Build complete: build\sterne.z5, build\sterne.ascii.z5, build\sterne.z3, build\sterne.transcript.txt, build\sterne.transcript.ascii.txt, build\sterne.transcript.z3.txt"

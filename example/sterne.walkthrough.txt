@@ -1,23 +1,23 @@
 schau
 riech
 hör
-betrachte schreibtisch
+betrachte den schreibtisch
 b ring
 nimm ring
 wirf ring
 untersuche alte nadel
 nimm münzen
 untersuche sie
-lege münzen auf schreibtisch
+lege die münzen auf den schreibtisch
 untersuche feines tuch
-nimm münzen
+nimm die münzen
 untersuche sie
 untersuche gerät
 nimm es
 wirf gerät
 untersuche kamera
 nimm sie
-wirf gerät
+wirf das gerät
 untersuche apparat
 nimm ihn
 wirf gerät
@@ -58,29 +58,29 @@ schließ kiste
 schließ tür mit schlüssel auf
 öffne tür
 nord
-lies plakat
-berühr glocke
-nimm schuhe
+lies das plakat
+berühr die glocke
+nimm die schuhe
 hoch
 o
 kletter mast hoch
 warte
 schau
-untersuche sonne
-untersuche tau
+untersuche die sonne
+untersuche das tau
 nimm es
-wirf tau
-untersuche taue
+wirf das tau
+untersuche die taue
 nimm sie
-wirf tau
+wirf das tau
 rede mit steuermann
 1
 1
 rede mit papagei
 1
 1
-rede mit navigatorin
+rede mit der navigatorin
 1
 1
-nimm fernrohr
+nimm das fernrohr
 untersuche es
