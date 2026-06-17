@@ -19,6 +19,6 @@
 Zcharacter
     "abcdefghiäklmnopörstuvwüßz"
     "ABCDEFGHIÄKLMNOPÖRSTUVWÜjZ"
-    "0123456789.,!?qxyJQ-:XY";
+    "0123456789.,!?_#'/-:();";
 #EndIf; ! USE_ASCII
 #EndIf; ! IfV5

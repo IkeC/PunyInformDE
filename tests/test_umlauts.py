@@ -89,6 +89,14 @@ def test_open_locked_door_ascii_noun(game):
     assert_output_contains(out, "verschlossen")
 
 
+@pytest.mark.feature("umlauts")
+def test_unicode_output_uses_periods_not_digit_9(game):
+    """The Unicode build prints sentence-ending periods instead of the digit 9."""
+    out = game.run(["schau"])
+    assert_output_contains(out, "Du wachst auf.")
+    assert_output_not_contains(out, "Du wachst auf9")
+
+
 # ---------------------------------------------------------------------------
 # Umlaut input tests (removed: unfixable dfrotz limitation)
 # ---------------------------------------------------------------------------
