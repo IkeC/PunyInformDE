@@ -56,6 +56,7 @@ Implemented in:
 German pronouns are rewritten before parse resolution:
 
 - `er`/`ihn`/`ihm` -> `him`
+- `mich`/`mir` -> `me` (player-object pronouns)
 - `sie` -> `her` or `them` (slot-based fallback)
 - `es` -> `it`
 - `ihnen` -> `them`

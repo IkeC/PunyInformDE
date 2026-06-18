@@ -2406,6 +2406,9 @@ Include "parser.h";
 #EndIf;
 
 #Ifndef CUSTOM_PLAYER_OBJECT;
+#IfnDef CUSTOM_PLAYER_OBJECT_DESCRIPTION;
+Constant CUSTOM_PLAYER_OBJECT_DESCRIPTION "As good-looking as ever.";
+#EndIf;
 Object selfobj "you"
 	with
 		name 'me' 'myself' 'self',
@@ -2415,7 +2418,7 @@ Object selfobj "you"
 			print "yourself";
 			rtrue;
 		],
-		description "As good-looking as ever.",
+		description CUSTOM_PLAYER_OBJECT_DESCRIPTION,
 		before NULL,
 		after NULL,
 		life NULL,
@@ -2431,10 +2434,13 @@ Object selfobj "you"
 #Endif;
 
 #Ifndef OPTIONAL_NO_DARKNESS;
+#IfnDef CUSTOM_DARKNESS_DESCRIPTION;
+Constant CUSTOM_DARKNESS_DESCRIPTION "It is pitch dark here!";
+#EndIf;
 Object thedark "Darkness"
 	with
 		initial 0,
-		description "It is pitch dark here!",
+		description CUSTOM_DARKNESS_DESCRIPTION,
  		short_name 0;
 #Endif;
 

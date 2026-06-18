@@ -19,7 +19,7 @@ Includes PunyInform features and commits up to June 13th, 2026 (version 6.7).
 
 **Features**:
 - German article system (automatic declension from gender attributes)
-- German pronoun substitution (er/ihn/ihm, sie/ihnen, es)
+- German pronoun substitution (er/ihn/ihm, mich/mir, sie/ihnen, es)
 - Adjective case/gender agreement in library messages
 - Object-aware take success feedback (`Du nimmst ... an dich.`)
 - `describe=2` support: objects that remain in scope but never appear in room listings

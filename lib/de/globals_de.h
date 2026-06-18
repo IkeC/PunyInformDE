@@ -78,6 +78,14 @@ Attribute also_male;
 Attribute also_neuter;
 Attribute also_plural;
 
+! Override the default player-object description used by the base library.
+#IfnDef CUSTOM_PLAYER_OBJECT_DESCRIPTION;
+Constant CUSTOM_PLAYER_OBJECT_DESCRIPTION "Gutaussehend wie immer.";
+#EndIf;
+#IfnDef CUSTOM_DARKNESS_DESCRIPTION;
+Constant CUSTOM_DARKNESS_DESCRIPTION "Es ist stockdunkel!";
+#EndIf;
+
 ! Optional adjective stem(s) and noun declension marker for §3.
 #IfNDef adj;
 Property adj;

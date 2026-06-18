@@ -150,6 +150,40 @@ def test_ihnen_plural_muenzen(game):
         msg="'nimm ihnen' (ihnen→them) soll nicht 'nicht verstanden' auslösen")
 
 
+@pytest.mark.feature("pronouns")
+def test_mich_is_understood_as_player_object(game):
+    """'untersuche mich' soll den Spieler selbst erkennen."""
+    out = game.run(["untersuche mich"])
+    assert_output_contains(out, "Gutaussehend wie immer.",
+        msg="'untersuche mich' soll den Spieler als Objekt erkennen")
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+@pytest.mark.feature("pronouns")
+def test_mich_is_understood_as_player_object_ascii(game_ascii):
+    """ASCII-Build: 'untersuche mich' soll den Spieler selbst erkennen."""
+    out = game_ascii.run(["untersuche mich"])
+    assert_output_contains(out, "Gutaussehend wie immer.",
+        msg="ASCII: 'untersuche mich' soll den Spieler als Objekt erkennen")
+    assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+@pytest.mark.feature("pronouns")
+def test_mir_is_understood_as_player_object(game):
+    """'gib mir die jacke' soll 'mir' als Spielerpronomen akzeptieren."""
+    out = game.run(["gib mir die jacke"])
+    assert_output_not_contains(out, NOT_UNDERSTOOD,
+        msg="'gib mir die jacke' soll nicht als unbekanntes Pronomen fehlschlagen")
+
+
+@pytest.mark.feature("pronouns")
+def test_mir_is_understood_as_player_object_ascii(game_ascii):
+    """ASCII-Build: 'gib mir die jacke' soll 'mir' als Spielerpronomen akzeptieren."""
+    out = game_ascii.run(["gib mir die jacke"])
+    assert_output_not_contains(out, NOT_UNDERSTOOD,
+        msg="ASCII: 'gib mir die jacke' soll nicht als unbekanntes Pronomen fehlschlagen")
+
+
 # ---------------------------------------------------------------------------
 # Pronomen ohne vorher gesetztes Objekt (Fehlverhalten, kein Absturz)
 # ---------------------------------------------------------------------------

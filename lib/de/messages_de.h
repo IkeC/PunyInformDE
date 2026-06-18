@@ -1223,9 +1223,13 @@ Constant SKIP_MSG_PARSER_NOSUCHTHING;
 #Endif;
 #Ifndef SKIP_MSG_OPEN_YOU_CANT;
 	MSG_OPEN_YOU_CANT, MSG_CLOSE_YOU_CANT, MSG_ENTER_YOU_CANT,
-	MSG_LOCK_NOT_A_LOCK, MSG_UNLOCK_NOT_A_LOCK, MSG_WEAR_NOT_CLOTHING:
+	MSG_LOCK_NOT_A_LOCK, MSG_UNLOCK_NOT_A_LOCK:
 	! p_arg_1 = the base verb for this action.
-		"Du kannst ", (ThatorThose) noun, " nicht ", (verbname) p_arg_1, ".";
+		"Du kannst ", (DE_Den) noun, " nicht ", (verbname) p_arg_1, ".";
+#Endif;
+#Ifndef SKIP_MSG_WEAR_NOT_CLOTHING;
+	MSG_WEAR_NOT_CLOTHING:
+		"Du kannst ", (DE_Den) noun, " nicht anziehen.";
 #Endif;
 #Ifdef _MSG_OPEN_ALREADY_HAS_CASE;
 	MSG_OPEN_ALREADY:

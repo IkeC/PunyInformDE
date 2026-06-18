@@ -39,6 +39,10 @@ Recent progress:
   either the singular or plural form. Sets `themobj` and `de_last_sie_target = 2`
   in `PronounNotice`. Demo object `Tau` added to Oberdeck in `sterne.inf`.
   5 new tests in `test_pronouns.py` (189 tests passing). Walkthrough extended.
+- **NEW**: Player-object pronouns `mich` and `mir` are now rewritten to PunyInform's
+  built-in `me` token during the German pre-parse substitution pass, so commands
+  such as `untersuche mich` and `gib mir die jacke` are accepted. Added
+  targeted regressions in `tests/test_pronouns.py`.
 
 ## Architecture (current)
 ```

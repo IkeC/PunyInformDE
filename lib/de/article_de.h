@@ -336,6 +336,8 @@ Constant DE_MODE_BARE  = 2;
 !   "er"    (2 Bytes) → "him"   (3 Bytes)  Maskulin Nominativ/Subjekt
 !   "ihn"   (3 Bytes) → "him"   (3 Bytes)  Maskulin Akkusativ (in-place)
 !   "ihm"   (3 Bytes) → "him"   (3 Bytes)  Maskulin Dativ     (in-place)
+!   "mich"  (4 Bytes) → "me"    (2 Bytes)  Spieler Akkusativ
+!   "mir"   (3 Bytes) → "me"    (2 Bytes)  Spieler Dativ
 !   "sie"   (3 Bytes) → "her"   (3 Bytes)  Feminin  (wenn herobj gesetzt)
 !   "sie"   (3 Bytes) → "them"  (4 Bytes)  Plural   (wenn nur themobj gesetzt)
 !   "es"    (2 Bytes) → "it"    (2 Bytes)  Neutrum  (in-place)
@@ -391,6 +393,28 @@ Constant DE_MODE_BARE  = 2;
             buffer->_woff       = 'h';
             buffer->(_woff + 1) = 'i';
             buffer->(_woff + 2) = 'm';
+            _changed = true;
+            continue;
+        }
+
+        ! --- "mich" (4 Bytes) → "me" (2 Bytes): verkleinern ---
+        if (_wlen == 4 && _waddr->0 == 'm' && _waddr->1 == 'i' && _waddr->2 == 'c' && _waddr->3 == 'h') {
+            buffer->_woff       = 'm';
+            buffer->(_woff + 1) = 'e';
+            for (_j = _woff + 2 : _j <= _blen + 1 : _j++)
+                buffer->_j = buffer->(_j + 2);
+            buffer->1 = _blen - 2;
+            _changed = true;
+            continue;
+        }
+
+        ! --- "mir" (3 Bytes) → "me" (2 Bytes): verkleinern ---
+        if (_wlen == 3 && _waddr->0 == 'm' && _waddr->1 == 'i' && _waddr->2 == 'r') {
+            buffer->_woff       = 'm';
+            buffer->(_woff + 1) = 'e';
+            for (_j = _woff + 2 : _j <= _blen + 1 : _j++)
+                buffer->_j = buffer->(_j + 1);
+            buffer->1 = _blen - 1;
             _changed = true;
             continue;
         }

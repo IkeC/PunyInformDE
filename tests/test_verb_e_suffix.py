@@ -125,3 +125,10 @@ def test_ziehe_accepted(game):
     out = game.run(["ziehe schreibtisch"])
     assert_output_not_contains(out, UNKNOWN_VERB)
     assert_output_not_contains(out, NOT_UNDERSTOOD)
+
+
+@pytest.mark.feature("verb-e-suffix")
+def test_trage_nicht_anziehen_message(game):
+    """Wearing a non-clothing item should use the German anziehen wording."""
+    out = game.run(["nimm stuhl", "trage stuhl"])
+    assert_output_contains(out, "Du kannst den Stuhl nicht anziehen.")

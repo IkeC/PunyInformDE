@@ -7,7 +7,7 @@ Wer -- und warum? Es wird Zeit, das herauszufinden.
 
 Das Schiff der Sterne
 Ein kurzes Abenteuer auf hoher See.
-Release 1 / Serial number 260617 / Inform v6.44 PunyInformDE v6.7 R
+Release 1 / Serial number 260618 / Inform v6.44 PunyInformDE v6.7 R
 
 Die Kapitänskajüte
 Die enge Kajüte des Kapitäns auf dem Segelschiff Sternwind. Ein alter Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine hölzerne Koje liegt an der Ostwand. Eine schwere Eichentür führt nach Norden in den Schiffsgang.
@@ -25,6 +25,12 @@ Du riechst nichts Unerwartetes.
 
 > hör
 Du hörst nichts Unerwartetes.
+
+> untersuche mich
+Gutaussehend wie immer.
+
+> inventar
+Du hast nichts.
 
 > betrachte den schreibtisch
 Ein schwerer Eichenschreibtisch, bedeckt mit vergilbten Seekarten und Notizen. Darauf liegen eine Seekarte, ein alter Kompass und einige Goldmünzen.
@@ -340,6 +346,6 @@ Du senkst das Fernrohr und lächelst. Das Abenteuer kann beginnen!
 
   *** Du hast gewonnen! ***
 
-In diesem Spiel hast du 5 von 5 möglichen Punkten erreicht, in 79 Zügen.
+In diesem Spiel hast du 5 von 5 möglichen Punkten erreicht, in 81 Zügen.
 
 Möchtest du NEUSTART, WIEDERHERSTELLEN oder BEENDEN? 

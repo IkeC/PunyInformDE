@@ -97,6 +97,22 @@ def test_reaches_oberdeck(game):
     assert_output_contains(out, "Oberdeck")
 
 
+@pytest.mark.feature("messages")
+def test_self_description_is_german(game):
+    """Examining the player object uses the German default description."""
+    out = game.run(["untersuche mich"])
+    assert_output_contains(out, "Gutaussehend wie immer.")
+    assert_output_not_contains(out, "As good-looking as ever.")
+
+
+@pytest.mark.feature("messages")
+def test_self_description_is_german_ascii(game_ascii):
+    """The ASCII build uses the same German default description."""
+    out = game_ascii.run(["untersuche mich"])
+    assert_output_contains(out, "Gutaussehend wie immer.")
+    assert_output_not_contains(out, "As good-looking as ever.")
+
+
 @pytest.mark.feature("walkthrough")
 def test_ambiguous_sie_prefers_recent_plural(game):
     """After feminine references, taking coins should make 'sie' refer to coins."""
