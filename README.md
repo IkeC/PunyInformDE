@@ -71,6 +71,14 @@ tools\inform6.exe +include_path=lib,lib\de example\sterne.inf build\sterne.z5
 tools/inform6 +include_path=lib,lib/de example/sterne.inf build/sterne.z5
 ```
 
+On macOS, the easiest setup is to install the tools with Homebrew:
+
+```bash
+brew install inform6 frotz
+```
+
+That gives you `inform`/`dfrotz` on your `PATH`. For the Unix build flow, use the script in [build/build.sh](build/build.sh) (or `INFORM6=inform bash build.sh` if Homebrew exposes the compiler as `inform`).
+
 If you copy the library to a different location, the same rule applies — point
 `+include_path=` at the folder that **contains** `globals.h` and the `de/`
 sub-folder, **and** add the `de/` sub-folder as a second entry.
@@ -93,7 +101,7 @@ The build script produces:
 - `build/sterne.z3` — Z3 build
 - `build/sterne.transcript.txt` / `…ascii.txt` / `…z3.txt` — auto-generated transcripts
 
-For macOS/Linux, `cd` into `build/` and run `bash build.sh`.
+For macOS/Linux, `cd` into `build/` and run `bash build.sh` (or `INFORM6=inform bash build.sh` on Homebrew setups that expose the compiler as `inform`).
 
 ### 3. Run the game
 

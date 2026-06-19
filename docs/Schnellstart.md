@@ -26,7 +26,13 @@ Wenn du Windows benutzt, hast du den Compiler bereits im `tools`-Verzeichnis:
 
 `C:\Source\PunyInformDE\tools\Inform6.exe`
 
-Unter Linux/Mac baust du Inform am besten selbst. Führe in deinem Basisverzeichnis aus:
+Unter macOS kannst du die Tools am einfachsten mit Homebrew installieren:
+
+```
+brew install inform6 frotz
+```
+
+Damit stehen `inform` und `dfrotz` direkt im `PATH` zur Verfügung. Unter Linux/Mac kannst du Inform alternativ auch selbst bauen. Führe in deinem Basisverzeichnis aus:
 
 ```
 # gcc-Compiler installieren
@@ -61,6 +67,9 @@ cd PunyInformDE
 Linux/Mac:
 ```
 cd PunyInformDE
+# macOS/Homebrew example:
+INFORM6=inform bash build/build.sh
+# oder direkt mit dem Compiler:
 tools/inform6 +include_path=lib,lib/de example/minimal.inf minimal.z5
 ```
 
@@ -77,7 +86,13 @@ cd PunyInformDE
 tools\dfrotz.exe sterne-test.z5
 ```
 
-Für Linux/Mac kannst du `dfrotz` auch wieder selbst kompilieren:
+Für macOS kannst du `dfrotz` einfach per Homebrew installieren:
+
+```
+brew install frotz
+```
+
+Für Linux/Mac kannst du `dfrotz` alternativ auch selbst kompilieren:
 
 ```
 git clone https://gitlab.com/DavidGriffith/frotz
