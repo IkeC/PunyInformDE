@@ -1,0 +1,121 @@
+!% -~S
+!% -v5
+!% -Cu
+!% +../lib,../lib/de
+
+Constant Story      "Klammerauf, Klammer zu!";
+Constant Headline   "^Ein wenig interaktiver Einschub in Klammern.^";
+
+Include "globals.h";
+Include "puny.h";
+
+Object Study
+    ;
+
+Object -> tray "Tablett"
+    with name 'tablett'
+    has supporter
+    has neuter
+    ;
+    
+Object -> -> letter "Brief"
+    with name 'brief'
+    ;
+
+Object Orchard
+    ;
+
+Object -> basket "Korb"
+    with name 'korb' 'onstkorb'
+    has container
+    ;
+
+Object -> -> lemon "Zitrone"
+    has female
+    ;
+
+Object Cloakroom
+    ;
+
+Object -> cloak "Umhang"
+    with name 'umhang'
+    ;
+
+[ explore p attr
+    n max o i a bit count;
+    
+    n = (attr-->0) / 2;
+    attr++;
+    attr++;
+    
+    o = child(p);
+    
+    @log_shift 1 n -> max;
+    
+    while (i < max) {
+        a = 0;
+        bit = 1;
+        count = 0;
+
+        while (a < n) {
+            if (i & bit) {
+                if (count++) print " ";
+                print (string) attr-->(2*a + 1);
+                give o attr-->(2*a);
+            } else {
+                give o ~attr-->(2*a);
+            }
+
+            @log_shift bit 1 -> bit;
+            a++;
+        }
+        
+        style bold;
+        if (count == 0) print "--";  
+        style roman;      
+        if (PrintContents(": ", p, 0)) print ".";
+        new_line;
+        
+        i++;
+    }
+];
+
+Array tray_attr table
+    light "light";
+Array basket_attr table
+    light "light"
+    transparent "transparent"
+    open "open"
+    openable "openable";
+Array cloak_attr table
+    light "light"
+    worn "worn";
+
+[Initialise;
+    action = ##Inv;
+    
+    Banner();
+    
+    print "^[Hier wird die Ausgabe der Routine PrintAfterEntry
+        mit verschiedenen Kombinationen relevanter Attribute
+        getestet. Sonst gibt es nichts zu sehen.]^^";
+
+    explore(Study, tray_attr);
+    new_line;
+
+    remove child(tray);
+    explore(Study, tray_attr);
+    new_line;
+    
+    explore(Orchard, basket_attr);
+    new_line;
+    
+    remove child(basket);
+    explore(Orchard, basket_attr);
+    new_line;
+    
+    explore(Cloakroom, cloak_attr);
+    new_line;
+    
+    quit;
+];

@@ -46,6 +46,23 @@ Write-Host "Compiling sterne.z5..."
 & .\tools\inform6.exe "+include_path=lib,lib\de" example\sterne.inf build\sterne.z5
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+function Invoke-InformExampleBuild {
+    param([string]$SourceName, [string]$OutputName)
+
+    Write-Host "Compiling $OutputName..."
+    Push-Location "example"
+    try {
+        & ..\tools\inform6.exe $SourceName "..\build\$OutputName"
+        if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    }
+    finally {
+        Pop-Location
+    }
+}
+
+Invoke-InformExampleBuild -SourceName "bracket.inf" -OutputName "bracket.z5"
+Invoke-InformExampleBuild -SourceName "kondo.inf" -OutputName "kondo.z5"
+
 # -------------------------------------------------------------------------
 # ASCII build
 #

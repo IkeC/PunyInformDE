@@ -1,0 +1,135 @@
+!% -~S
+!% -v5
+!% -Cu
+!% +../lib,../lib/de
+
+Constant Story      "Sammelsurium";
+Constant Headline   "^Ein interaktiver Besuch bei Marie Kondo.^";
+
+Constant OPTIONAL_FULL_DIRECTIONS;
+Constant OPTIONAL_LIST_TOGETHER;
+Constant OPTIONAL_PROVIDE_UNDO;
+
+Constant INITIAL_LOCATION_VALUE = Attic;
+Constant NO_SCORE;
+
+Constant LibraryMessages msg_hook;
+Constant MSG_YOU_HAVE_DIED 1001;
+
+Include "globals.h";
+Include "puny.h";
+Include "ext_cheap_scenery_de.h";
+
+[ msg_hook msg arg1 arg2;
+    if (msg == MSG_YOU_HAVE_DIED) {
+        print "Du bist gescheitert";
+        rtrue;
+    }
+    
+    arg1 = arg2;
+    
+    rfalse;
+];
+
+Object Attic "Dachboden"
+	with description "Hier auf dem Dachboden ist gewiss seit Jahren keiner
+        mehr gewesen. Staubpartikel tanzen im Sonnenschein, das durch das
+        Oberlicht fällt. Eine zu steile Leiter führt nach unten."
+    with cheap_scenery
+        5 'staub' 'partikel' 'sonne' 'oberlicht' 'fenster'
+            "Das Oberlicht ist sauber genug, dass du das Sonnenlicht
+                für deine Erkundungen auf dem Speicher nutzen kannst."
+        3 'steil' 'treppe' 'leiter'
+            "Die Leiter ist nur als Fluchtweg nach unten interessant,
+                sonst nicht."
+    with d_to [;
+            deadflag = 1;
+    
+            "Es reicht für heute. Im Bewusstsein, dass du die nächsten
+            drei Wochen hier verbringen wirst, um aufzuräumen, steigst
+            du entmutigt in den ordentlichen Bereich des Hauses hinab.";
+        ]
+    with cant_go "Du kannst hier nur aufräumen oder aufgeben und nach
+            unten gehen."
+    has light
+    ;
+
+Object -> crate "Umzugskarton"
+	with name 'karton' 'umzugskarton'
+    with description ""
+	has openable container
+    has open
+    ;
+
+Object -> -> plaid "Wolldecke"
+    with name 'decke' 'wolldecke'
+    has female
+    ;
+
+Object -> -> teddy "Teddybär"
+    with name 'teddy' 'bär' 'teddybär'
+    with description "Dem Teddybär fehlt ein Auge."
+    ;
+    
+Object -> shelves "Regal"
+    with name 'regal'
+    has static supporter
+    has neuter
+    ;
+
+Object -> -> jar "Einmachglas"
+    with name 'glas' 'einmachglas' 'einweckglas'
+    has openable transparent container
+    has neuter
+    ;
+
+Object -> -> -> thing "Ding"
+    with adj "amorph"
+    with name 'amorph' 'unförmig' 'ding' 'gebilde'
+    with decsription "Du willst lieber nicht so genau wissen,
+        was sich hinter diesem unförmigen Gebilde verbirgt."
+    has neuter
+    ;
+
+Object -> -> hat "Tirolerhut"
+    with name 'hut' 'filzhut' 'tirolerhut' 'tiroler'
+    has clothing
+    ;
+
+Object -> -> cube "Neonwürfel"
+    with name 'grün' 'neon' 'würfel' 'neonwürfel'
+    has light
+    ;
+
+Object anorak "Anorak"
+    with name 'blau' 'anorak' 'jacke'
+    with description "Ein blauer Anorak aus den Neunzigern. Todschick."
+    has clothing
+    has also_female
+    ;
+
+[Initialise;
+	print "~Wenn dir in den Sommerferien langweilig wird, kannst du ja
+        den Dachspeicher aufräumen~, hat Tante Marie gesagt. Ha, ha!
+        Wenn die Weltöffenlichkeit erfährt, wie es bei Marie Kondo
+        unterm Dach aussieht, ist ihr Ruf dahin!^";
+];
+
+[ downward; selected_direction = d_to; return Directions; ];
+
+Verb 'setz'
+    * noun 'auf' -> Wear
+    ;
+    
+Extend 'gib'
+    * 'auf' downward -> Go
+    ;
+
+Verb 'räum'
+    * 'auf' -> CleanUp
+    * topic 'auf' -> CleanUp
+    ;
+
+[ CleanUpSub;
+    "";
+];

@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "PunyInformDE Build",
+      "label": "PunyInformDE Build (Windows)",
       "type": "shell",
       "command": "powershell -ExecutionPolicy Bypass -File build.ps1",
       "options": {
@@ -19,7 +19,10 @@
       },
       "problemMatcher": {
         "owner": "inform6",
-        "fileLocation": ["relative", "${workspaceFolder}"],
+        "fileLocation": [
+          "relative",
+          "${workspaceFolder}"
+        ],
         "pattern": {
           "regexp": "^(.+)\\((\\d+)\\):\\s+(Error|Warning|Fatal):\\s+(.+)$",
           "file": 1,
@@ -30,21 +33,23 @@
       }
     },
     {
-      "label": "PunyInformDE Test Dfrotz",
+      "label": "PunyInformDE Test Sterne (Windows Dfrotz)",
       "type": "shell",
       "command": "chcp 65001 > nul && tools\\dfrotz.exe build\\sterne.z5",
       "options": {
         "cwd": "${workspaceFolder}",
-				"shell": {
-					"executable": "cmd.exe",
-					"args": [
-						"/d",
-						"/s",
-						"/c"
-					]
-				}
+        "shell": {
+          "executable": "cmd.exe",
+          "args": [
+            "/d",
+            "/s",
+            "/c"
+          ]
+        }
       },
-      "dependsOn": ["PunyInformDE Build"],
+      "dependsOn": [
+        "PunyInformDE Build (Windows)"
+      ],
       "group": {
         "kind": "test",
         "isDefault": true
@@ -58,13 +63,15 @@
       "problemMatcher": []
     },
     {
-      "label": "PunyInformDE Test Lectrote",
+      "label": "PunyInformDE Test Sterne (Windows Lectrote)",
       "type": "shell",
       "command": "tools\\Lectrote\\Lectrote.exe build\\sterne.z5",
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "dependsOn": ["PunyInformDE Build"],
+      "dependsOn": [
+        "PunyInformDE Build (Windows)"
+      ],
       "group": {
         "kind": "test"
       },
@@ -77,13 +84,15 @@
       "problemMatcher": []
     },
     {
-      "label": "PunyInformDE Test Dfrotz (ASCII)",
+      "label": "PunyInformDE Test Sterne (Windows Dfrotz ASCII)",
       "type": "shell",
       "command": "tools\\dfrotz.exe build\\sterne.ascii.z5",
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "dependsOn": ["PunyInformDE Build"],
+      "dependsOn": [
+        "PunyInformDE Build (Windows)"
+      ],
       "group": {
         "kind": "test"
       },
@@ -96,13 +105,15 @@
       "problemMatcher": []
     },
     {
-      "label": "PunyInformDE Test Lectrote (ASCII)",
+      "label": "PunyInformDE Test Sterne (Windows Lectrote ASCII)",
       "type": "shell",
       "command": "tools\\Lectrote\\Lectrote.exe build\\sterne.ascii.z5",
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "dependsOn": ["PunyInformDE Build"],
+      "dependsOn": [
+        "PunyInformDE Build (Windows)"
+      ],
       "group": {
         "kind": "test"
       },
@@ -115,13 +126,15 @@
       "problemMatcher": []
     },
     {
-      "label": "PunyInformDE Test Dfrotz (Z3)",
+      "label": "PunyInformDE Test Sterne (Windows Dfrotz Z3)",
       "type": "shell",
       "command": "tools\\dfrotz.exe build\\sterne.z3",
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "dependsOn": ["Build"],
+      "dependsOn": [
+        "PunyInformDE Build (Windows)"
+      ],
       "group": {
         "kind": "test"
       },
@@ -134,15 +147,77 @@
       "problemMatcher": []
     },
     {
-      "label": "PunyInformDE Test Lectrote (Z3)",
+      "label": "PunyInformDE Test Sterne (Windows Lectrote Z3)",
       "type": "shell",
       "command": "tools\\Lectrote\\Lectrote.exe build\\sterne.z3",
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "dependsOn": ["PunyInformDE Build"],
+      "dependsOn": [
+        "PunyInformDE Build (Windows)"
+      ],
       "group": {
         "kind": "test"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true,
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "PunyInformDE Test Bracket (Windows Dfrotz)",
+      "type": "shell",
+      "command": "chcp 65001 > nul && tools\\dfrotz.exe build\\bracket.z5",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "cmd.exe",
+          "args": [
+            "/d",
+            "/s",
+            "/c"
+          ]
+        }
+      },
+      "dependsOn": [
+        "PunyInformDE Build (Windows)"
+      ],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true,
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+        {
+      "label": "PunyInformDE Test Kondo (Windows Dfrotz)",
+      "type": "shell",
+      "command": "chcp 65001 > nul && tools\\dfrotz.exe build\\kondo.z5",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "cmd.exe",
+          "args": [
+            "/d",
+            "/s",
+            "/c"
+          ]
+        }
+      },
+      "dependsOn": [
+        "PunyInformDE Build (Windows)"
+      ],
+      "group": {
+        "kind": "test",
+        "isDefault": true
       },
       "presentation": {
         "reveal": "always",
@@ -154,4 +229,3 @@
     }
   ]
 }
-
