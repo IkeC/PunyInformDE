@@ -1710,7 +1710,7 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 	#Endif;
 #Endif;
 #IfDef OPTIONAL_FULL_SCORE;
-		print ", die VOLLSTÄNDIGE Punktzahl dieses Spiels angeben";
+		print ", die VOLLE Punktzahl dieses Spiels angeben";
 #EndIf;
 #Ifdef Amusing;
 		if(AMUSING_PROVIDED == 0 && deadflag == GS_WIN) print ", einige Vorschläge für UNTERHALTSAME Aktivitäten sehen";

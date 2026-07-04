@@ -24,6 +24,7 @@ Constant Headline   "^Ein kurzes Abenteuer auf hoher See.^";
 Constant STATUSLINE_SCORE; Statusline score;
 
 Constant OPTIONAL_SCORED;
+Constant OPTIONAL_FULL_SCORE;
 Constant MAX_SCORE = 5;
 
 Constant OPTIONAL_NO_DARKNESS;

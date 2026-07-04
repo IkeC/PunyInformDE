@@ -101,6 +101,12 @@ Verb meta 'ausfuehrlich'
 Verb meta 'superknapp'
 	*                                           -> LookModeShort;
 
+#Ifdef OPTIONAL_FULL_SCORE;
+Verb meta 'volle' 'vollepunkte'
+	*                                           -> FullScore
+	* 'punkte'                                  -> FullScore;
+#Endif;
+
 #IfDef OPTIONAL_EXTENDED_METAVERBS;
 #Ifndef NO_PLACES;
 ! 'orte'/'objekte' alias existing English meta verbs (only if OPTIONAL_EXTENDED_METAVERBS)
