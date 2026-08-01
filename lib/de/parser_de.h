@@ -37,6 +37,8 @@ System_file;
 
 Constant LANG_DE;
 
+[ PrintDisambiguationNoun p_obj; print (DE_Den) p_obj; ];
+
 [ _DE_IsArticleWord p_word;
     if(p_word == 'der' or 'die' or 'das' or 'den' or 'dem'
         or 'ein' or 'eine' or 'einen' or 'einem' or 'einer'
@@ -44,7 +46,7 @@ Constant LANG_DE;
         or 'mein' or 'meine' or 'meinen' or 'meinem' or 'meiner'
         or 'dein' or 'deine' or 'deinen' or 'deinem' or 'deiner'
         or 'sein' or 'seine' or 'seinen' or 'seinem' or 'seiner'
-        or 'ihr' or 'ihre' or 'ihren' or 'ihrem' or 'ihrer'
+        or 'ihre' or 'ihren' or 'ihrem' or 'ihrer'
         or 'unser' or 'unsere' or 'unseren' or 'unserem' or 'unserer'
         or 'euer' or 'eure' or 'euren' or 'eurem' or 'eurer') rtrue;
     rfalse;

@@ -58,6 +58,9 @@ System_file;
 		'q//':       print "beende";    rtrue;
 		'i//':       print "inventar";  rtrue;
 		'inventory': print "inventar";  rtrue; ! Z3
+		'open':      print "öffnen";    rtrue;
+		'close':     print "schließen"; rtrue;
+		'enter':     print "betreten";  rtrue;
 		'superbrief': print "superknapp"; rtrue;
 	}
 	rfalse;
@@ -234,7 +237,8 @@ Verb 'betret' 'betritt'
 Verb 'gib' 'reich'
 	* held 'an' creature                        -> Give
 	* held creature                             -> Give
-	* creature held                             -> Give reverse;
+	* creature held                             -> Give reverse
+	* creature 'der'/'die'/'das'/'den'/'dem' held -> Give reverse;
 
 Verb 'zeig' 'präsentier'
 	* creature held                             -> Show reverse
@@ -253,6 +257,7 @@ Verb 'stell' 'steck' 'tu'
 
 Verb 'leg'
 	* multiheld                                 -> Drop
+	* multiheld 'ab'/'hin'/'weg'/'nieder'       -> Drop
 	* multiexcept 'in' noun                     -> Insert
 	* multiexcept 'auf' noun                    -> PutOn;
 
@@ -341,14 +346,16 @@ Verb 'hau' 'tritt' 'töt' 'zerstör' 'erschlag'
 	* noun 'mit' held                           -> Attack;
 
 ! --- Climb ---
-Verb 'kletter' 'steig'
+Verb 'kletter' 'klettere' 'steig'
 	* 'in' noun                                 -> Enter
 	* 'auf' noun                                -> Climb
+	* noun                                      -> Climb
 	* noun 'hoch'                               -> Climb
 	* 'aus' noun                                -> Exit
 	* 'von' noun                                -> Climb
 	* 'über' noun                               -> Climb
 	* noun 'runter'                             -> Climb
+	* 'am' noun 'runter'                        -> Climb
 	* 'von' noun 'ab'/'runter'                  -> Climb
 	* 'ab'                                      -> Exit;
 

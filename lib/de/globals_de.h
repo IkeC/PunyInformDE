@@ -208,3 +208,5 @@ Array _dir_fullwords_anchor static -->
 
 ! German parser extension (enables ja/nein in YesOrNo via Replace directive)
 Include "parser_de.h";
+
+[ DirectionsDescription; "Du siehst nichts Besonderes in dieser Richtung."; ];

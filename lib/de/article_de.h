@@ -455,6 +455,16 @@ Constant DE_MODE_BARE  = 2;
             continue;
         }
 
+        if (_wlen == 3 && _waddr->0 == 'i' && _waddr->1 == 'h' && _waddr->2 == 'r') {
+            if (herobj ~= 0) {
+                buffer->_woff = 'h';
+                buffer->(_woff + 1) = 'e';
+                buffer->(_woff + 2) = 'r';
+                _changed = true;
+            }
+            continue;
+        }
+
         ! --- "ihnen" (5 Bytes) → "them" (4 Bytes): überschreiben + 1 Byte links ---
         if (_wlen == 5 && _waddr->0 == 'i' && _waddr->1 == 'h' &&
                           _waddr->2 == 'n' && _waddr->3 == 'e' && _waddr->4 == 'n') {

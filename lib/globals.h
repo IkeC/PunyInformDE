@@ -748,9 +748,13 @@ Array task_scores -> 1;
 #Endif;
 #Endif;
 
+#IfNDef DirectionsDescription;
+[ DirectionsDescription; "A look in that direction reveals nothing new."; ];
+#EndIf;
+
 Object Directions
 	with
-		description "A look in that direction reveals nothing new.",
+		description DirectionsDescription,
 		short_name [;
 			print (string) direction_name_array-->selected_direction_index;
 			rtrue;

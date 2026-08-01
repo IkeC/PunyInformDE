@@ -7,7 +7,7 @@ Wer -- und warum? Es wird Zeit, das herauszufinden.
 
 Das Schiff der Sterne
 Ein kurzes Abenteuer auf hoher See.
-Release 1 / Serial number 260704 / Inform v6.44 PunyInformDE v6.7 R
+Release 1 / Serial number 260801 / Inform v6.44 PunyInformDE v6.7 R
 
 Die Kapitänskajüte
 Die enge Kajüte des Kapitäns auf dem Segelschiff Sternwind. Ein alter Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine hölzerne Koje liegt an der Ostwand. Eine schwere Eichentür führt nach Norden in den Schiffsgang.
@@ -19,6 +19,12 @@ Die Kapitänskajüte
 Die enge Kajüte des Kapitäns auf dem Segelschiff Sternwind. Ein alter Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine hölzerne Koje liegt an der Ostwand. Eine schwere Eichentür führt nach Norden in den Schiffsgang.
 
 Hier befinden sich ein Stuhl, dein Personalausweis, meine Jacke, sein Tagebuch, unser Logbuch, ein Gerät und eine Seekiste (geschlossen).
+
+> untersuche westen
+Du siehst nichts Besonderes in dieser Richtung.
+
+> untersuche norden
+Du siehst nichts Besonderes in dieser Richtung.
 
 > riech
 Du riechst nichts Unerwartetes.
@@ -157,6 +163,15 @@ Hier befinden sich ein Gerät, ein Stuhl, unser Logbuch und eine Seekiste (gesch
 
 > raus
 Du verlässt die Koje.
+
+> öffne münzen
+Du kannst die Goldmünzen nicht öffnen.
+
+> schließe schreibtisch
+Du kannst den Schreibtisch nicht schließen.
+
+> betritt münzen
+Du kannst die Goldmünzen nicht betreten.
 
 > geh in kiste
 Das geht nicht, da die Seekiste geschlossen ist.
@@ -346,6 +361,6 @@ Du senkst das Fernrohr und lächelst. Das Abenteuer kann beginnen!
 
   *** Du hast gewonnen! ***
 
-In diesem Spiel hast du 5 von 5 möglichen Punkten erreicht, in 81 Zügen.
+In diesem Spiel hast du 5 von 5 möglichen Punkten erreicht, in 86 Zügen.
 
 Möchtest du NEUSTART, WIEDERHERSTELLEN, die VOLLE Punktzahl dieses Spiels angeben oder BEENDEN? 

@@ -168,6 +168,10 @@ Constant PARSER_ASK_WHICH_PREFIX_STR = "Do you mean ";
 Constant PARSER_ASK_WHICH_OR_STR = " or ";
 #EndIf;
 
+#IfNDef PrintDisambiguationNoun;
+[ PrintDisambiguationNoun p_obj; print (the) p_obj; ];
+#EndIf;
+
 [ _AskWhichNoun p_num_matching_nouns _i;
 	print (string) PARSER_ASK_WHICH_PREFIX_STR;
 	for(_i = 1 : _i <= p_num_matching_nouns : _i++) {
@@ -178,7 +182,7 @@ Constant PARSER_ASK_WHICH_OR_STR = " or ";
 				print ", ";
 			}
 		}
-		print (the) which_object --> _i;
+		PrintDisambiguationNoun(which_object --> _i);
 	}
 	print "?";
 ];

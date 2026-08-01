@@ -1,4 +1,6 @@
 schau
+untersuche westen
+untersuche norden
 riech
 hör
 untersuche mich
@@ -44,6 +46,9 @@ untersuche koje
 steig in koje
 schau
 raus
+öffne münzen
+schließe schreibtisch
+betritt münzen
 geh in kiste
 untersuche kiste
 schau in kiste
