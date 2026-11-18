@@ -46,6 +46,10 @@ Write-Host "Compiling sterne.z5..."
 & .\tools\inform6.exe "+include_path=lib,lib\de" example\sterne.inf build\sterne.z5
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+Write-Host "Compiling sterne.z6..."
+& .\tools\inform6.exe -v6 "+include_path=lib,lib\de" example\sterne.inf build\sterne.z6
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
 function Invoke-InformExampleBuild {
     param([string]$SourceName, [string]$OutputName)
 
@@ -169,4 +173,4 @@ try {
     Remove-Item $tmpUnicode -ErrorAction SilentlyContinue
 }
 
-Write-Host "Build complete: build\sterne.z5, build\sterne.ascii.z5, build\sterne.z3, build\sterne.transcript.txt, build\sterne.transcript.ascii.txt, build\sterne.transcript.z3.txt"
+Write-Host "Build complete: build\sterne.z5, build\sterne.z6, build\sterne.ascii.z5, build\sterne.z3, build\sterne.transcript.txt, build\sterne.transcript.ascii.txt, build\sterne.transcript.z3.txt"

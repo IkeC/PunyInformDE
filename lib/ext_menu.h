@@ -95,7 +95,7 @@ Constant QKEY1__KY      = 'Q';
 Constant QKEY2__KY      = 'q';
 
 [ DoMenu menu_choices EntryR ChoiceR
-		 lines main_title main_wid cl i j oldcl pkey ch y x;
+		 lines main_title main_wid cl i j oldcl pkey ch cw y x;
 	menu_nesting++;
 	menu_item = 0;
 	lines = indirect(EntryR);
@@ -106,7 +106,12 @@ Constant QKEY2__KY      = 'q';
 
 	oldcl = 0;
 	@erase_window $ffff;
+#Iftrue #version_number == 6;
+	@set_cursor -1;
+	ch = HDR_FONTHUNITS->0;
+#Ifnot;
 	ch = 1;
+#Endif;
 	i = ch * (lines+7);
 	@split_window i;
 	i = HDR_SCREENWCHARS->0;
@@ -114,21 +119,27 @@ Constant QKEY2__KY      = 'q';
 	@set_window 1;
 	@set_cursor 1 1;
 
+#Iftrue #version_number == 6;
+	cw = HDR_FONTWUNITS->0;
+#Ifnot;
+	cw = 1;
+#Endif;
+
 	style reverse;
 	FastSpaces(i);
 #Ifdef EXT_MENU_STDLIB_MODE;
-	j=1+(i/2-main_wid);
+	j=1+(i/2-main_wid)*cw;
 #Ifnot;
-	j=1+(i-main_wid)/2;
+	j=1+((i-main_wid)/2)*cw;
 #Endif;
 	@set_cursor 1 j;
 	print (string) main_title;
 	y=1+ch; @set_cursor y 1; FastSpaces(i);
-	x=1+1; @set_cursor y x; print (string) NKEY__TX;
-	j=1+i-13; @set_cursor y j; print (string) PKEY__TX;
+	x=1+cw; @set_cursor y x; print (string) NKEY__TX;
+	j=1+(i-13)*cw; @set_cursor y j; print (string) PKEY__TX;
 	y=y+ch; @set_cursor y 1; FastSpaces(i);
 	@set_cursor y x; print (string) RKEY__TX;
-	j=1+i-18; @set_cursor y j;
+	j=1+(i-18)*cw; @set_cursor y j;
 
 	if (menu_nesting == 1) print (string) QKEY1__TX;
 	else                   print (string) QKEY2__TX;
@@ -139,7 +150,7 @@ Constant QKEY2__KY      = 'q';
 	if (IsAString(menu_choices)) print (string) menu_choices;
 	else                             menu_choices.call();
 
-	x = 1+3;
+	x = 1+3*cw;
 
 
 	for (::) {
@@ -159,7 +170,7 @@ Constant QKEY2__KY      = 'q';
 			cl--; if (cl == 6) cl = 6+lines; continue;
 		}
 		if (pkey == QKEY1__KY or QKEY2__KY or 27 or 131) break;
-		if (pkey == 10 or 13 or 132) {
+		if (pkey == 10 or 13 or 132 or 32) {
 			@set_window 0; font on;
 			new_line; new_line; new_line;
 
@@ -170,9 +181,9 @@ Constant QKEY2__KY      = 'q';
 			@split_window ch;
 			@set_window 1; @set_cursor 1 1; style reverse; FastSpaces(i);
 #Ifdef EXT_MENU_STDLIB_MODE;
-			j=1+(i/2-item_width);
+			j=1+(i/2-item_width)*cw;
 #Ifnot;
-			j=1+(i-item_width)/2;
+			j=1+((i-item_width)/2)*cw;
 #Endif;
 			@set_cursor 1 j;
 			print (string) item_name;
@@ -189,6 +200,9 @@ Constant QKEY2__KY      = 'q';
 	menu_nesting--; if (menu_nesting > 0) rfalse;
 	font on; @set_cursor 1 1;
 	@erase_window -1; @set_window 0;
+#Iftrue #version_number == 6;
+	@set_cursor -2;
+#Endif;
 #IfDef PUNYINFORM_MAJOR_VERSION;
 	statusline_current_height = 0;
 #IfNot;

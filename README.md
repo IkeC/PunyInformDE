@@ -13,7 +13,8 @@ Für einen schnellen Einstieg in deutscher Sprache lies bitte [Schnellstart](doc
 grammatical case handling (nominative/accusative/dative), and German pronoun resolution (er/sie/es/ihnen)
 for creating interactive fiction in German.
 
-Includes PunyInform features and commits up to June 13th, 2026 (version 6.7).
+Includes the PunyInform 6.9 feature set and the subsequent Z6 transcript fix
+(synced November 2026).
 
 **Designed for**: Interactive fiction authors writing German-language IF who want automated support for German grammar. 
 
@@ -24,6 +25,7 @@ Includes PunyInform features and commits up to June 13th, 2026 (version 6.7).
 - Object-aware take success feedback (`Du nimmst ... an dich.`)
 - `describe=2` support: objects that remain in scope but never appear in room listings
 - Unicode and ASCII (digraph) build variants
+- Z6 library support, including the optional graphics/window extension
 - Runnable example game (*Das Schiff der Sterne*)
 - Comprehensive test suite with pytest
 

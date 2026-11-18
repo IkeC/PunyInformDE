@@ -6,9 +6,10 @@ reference for internals.
 
 ## Scope
 
-- Base library: PunyInform v6.5
+- Base library: PunyInform v6.9
 - Compiler: Inform 6.44
-- Targets: z5 (Unicode + ASCII build variants)
+- Targets: z3/z5 (Unicode + ASCII build variants); Z6 support in the base
+  library and `ext_z6graphics.h`
 - Design rule: German-specific behavior lives in `lib/de/` whenever possible
 
 ## Credits and Source Algorithms
@@ -193,7 +194,7 @@ for `nimm schluessel` and `nimm tasche`.
 
 ## §6 describe=2 Support (PunyInform 6.6)
 
-Integrated from the PunyInform dev branch (commit after v6.5 tag).
+Integrated from PunyInform 6.9 and the subsequent Z6 transcript fix.
 
 The `describe` property can hold:
 - `0` / not set: Object is listed normally by the Look routine.

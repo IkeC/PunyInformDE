@@ -56,6 +56,7 @@ WALKTHROUGH = [
     "hoch",               # replaces 'geh rauf' — tests new 'hoch' = up alias
     "o",                  # tests 'o' = east alias (blocked direction, not unknown verb)
     "kletter mast",
+    "untersuche flagzeichen", # tests PunyInform 6.7 add_to_scope routine
     "warte",
     "schau",
     "rede mit steuermann",
@@ -138,6 +139,27 @@ def test_list_separator_und(game):
     out = game.run(["schau"])
     assert_output_not_contains(out, " and ")
     assert_output_contains(out, " und ")
+
+
+@pytest.mark.feature("parser")
+def test_new_command_at_disambiguation_prompt(game):
+    """A new command typed at a disambiguation prompt replaces the ambiguous one.
+
+    The compound noun phrase is required to reach the phase-2 reparse path;
+    without the PunyInform 6.9 fix the follow-up command is silently swallowed.
+    """
+    out = game.run([
+        "oeffne kiste",
+        "nimm schluessel",
+        "schliess tuer mit schluessel auf",
+        "oeffne tuer",
+        "nord",
+        "untersuche schuhe und plakat",
+        "untersuche plakat",
+    ])
+    assert_output_contains(out, "Meinst du")
+    assert_output_contains(out, "Du liest")
+    assert_output_not_contains(out, "verstehe nicht")
 
 
 @pytest.mark.feature("messages")

@@ -1,0 +1,30 @@
+!% -~S
+!% -Cu
+
+! Compile-only regression fixture for PunyInform 6.9 debug conditionals.
+Include "chartable_de.h";
+
+Constant Story "Compile test";
+Constant OPTIONAL_NO_ADD_TO_SCOPE;
+Constant OPTIONAL_MANUAL_REACTIVE;
+Constant OPTIONAL_REACTIVE_PARSE_NAME;
+Constant DEBUG;
+Constant DEBUG_PARSEPATTERN;
+Constant INITIAL_LOCATION_VALUE = TestRoom;
+
+Include "globals.h";
+Include "puny.h";
+#Iftrue #version_number == 6;
+Include "ext_z6graphics.h";
+#Endif;
+Include "ext_menu.h";
+Include "ext_quote_box.h";
+Include "ext_talk_menu.h";
+
+Object TestRoom "Test Room"
+	with description "A room for compile-time regression checks.",
+	has light;
+
+[ Initialise;
+	location = TestRoom;
+];

@@ -59,6 +59,9 @@ Constant INITIAL_LOCATION_VALUE = Kajuete;
 
 Include "globals.h";
 Include "puny.h";
+#Iftrue #version_number == 6;
+Include "ext_z6graphics.h";
+#Endif;
 
 ! The PunyInform style talk menu
 ! Include "ext_talk_menu_inline_de.h";
@@ -555,6 +558,9 @@ Object -> Mast "Mast"
 		name 'mast' 'hauptmast',
 		description "Der mächtige Hauptmast aus Eichenholz. Ganz oben weht
 			eine schwarze Flagge mit einem silbernen Stern.",
+		add_to_scope [;
+			PlaceInScope(Sternzeichen);
+		],
 		before [;
 			Climb:
 				"Du versuchst den Mast hinaufzuklettern, rutschst aber ab
@@ -623,6 +629,15 @@ Object -> Abendsonne "Abendsonne"
 		description "Die tief stehende Sonne taucht den Horizont in orangefarbenes
 			Licht. Ein prächtiger Sonnenuntergang über dem Westmeer.",
 	has neuter;
+
+! DEMO: add_to_scope-Routine (PunyInform 6.7)
+! Sternzeichen liegt außerhalb jedes Raums und wird ausschließlich über
+! Mast.add_to_scope in den Scope aufgenommen.
+Object Sternzeichen "Silbernes Flagzeichen"
+	with
+		name 'flagzeichen' 'zeichen',
+		description "Das silberne Flagzeichen ist auf die schwarze Flagge genäht.",
+	has neuter scenery;
 
 ! ==================================================================
 ! SPIELSTART

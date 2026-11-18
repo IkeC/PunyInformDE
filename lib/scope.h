@@ -217,7 +217,10 @@ System_file;
 	cached_scope_pov = p_actor;
 
 #IfDef DEBUG_SCOPE;
-	print "*** Updated scope from ", (the) _start_pos, ". Found ", scope_objects, " objects.^";
+	print "*** Updated scope, start object: ";
+	if(_start_pos) print (the) _start_pos; else print "<nothing>";
+	if(scope_stage == 2) print ", scope_routine: ", scope_routine;
+	print ". Found ", scope_objects, " objects.^";
 #EndIf;
 ];
 
@@ -365,6 +368,7 @@ Constant AddToScope = _PutInScope;
 
 	_ancestor = CommonAncestor(player, p_item);
 	if(_ancestor == 0) {
+#Ifndef OPTIONAL_NO_ADD_TO_SCOPE;
 		_ancestor = p_item;
 		while (_ancestor && (_i = _ObjectScopedBySomething(_ancestor)) == 0)
 			_ancestor = parent(_ancestor);
@@ -374,6 +378,9 @@ Constant AddToScope = _PutInScope;
 				rtrue;
 			}
 		}
+#Ifnot;
+		_i = 0; ! Avoid warning
+#Endif;
 	} else if(player ~= _ancestor) {
 		_g_check_take = 0;
 		if(_FindBarrier(_ancestor, parent(player), p_dontprint)) {
@@ -394,6 +401,7 @@ Constant AddToScope = _PutInScope;
 	rfalse;
 ];
 
+#Ifndef OPTIONAL_NO_ADD_TO_SCOPE;
 [ _ObjectScopedBySomething p_obj _j _k _l _m;
 	objectloop (_j has reactive && (_j.&add_to_scope ~= 0)) {
 		_l = _j.&add_to_scope;
@@ -411,6 +419,10 @@ Constant AddToScope = _PutInScope;
 	}
 	rfalse;
 ];
+#Ifnot;
+! In the Z-machine, this works like a routine that returns 0
+Constant _ObjectScopedBySomething 0;
+#Endif;
 
 [ ScopeWithin p_obj _child;
 	! DM: ScopeWithin(obj)

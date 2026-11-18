@@ -75,3 +75,39 @@ def test_describe2_examinable_ascii(game_ascii):
         "Sonnenuntergang",
         msg="Abendsonne muss trotz describe=2 eine Beschreibung haben.",
     )
+
+
+# ---------------------------------------------------------------------------
+# PunyInform 6.7: add_to_scope-Routine
+# ---------------------------------------------------------------------------
+
+def test_add_to_scope_routine(game):
+    """Das Sternzeichen wird durch Mast.add_to_scope in den Scope aufgenommen."""
+    out = game.run([
+        "oeffne kiste",
+        "nimm schluessel",
+        "schliess tuer mit schluessel auf",
+        "oeffne tuer",
+        "nord",
+        "hoch",
+        "untersuche flagzeichen",
+    ])
+    assert_output_contains(out, "silberne Flagzeichen")
+    assert_output_not_contains(out, "kenne ich nicht")
+    assert_output_not_contains(out, "verstehe nicht")
+
+
+def test_add_to_scope_routine_ascii(game_ascii):
+    """ASCII-Build: Mast.add_to_scope stellt das Sternzeichen in den Scope."""
+    out = game_ascii.run([
+        "oeffne kiste",
+        "nimm schluessel",
+        "schliess tuer mit schluessel auf",
+        "oeffne tuer",
+        "nord",
+        "hoch",
+        "untersuche flagzeichen",
+    ])
+    assert_output_contains(out, "silberne Flagzeichen")
+    assert_output_not_contains(out, "kenne ich nicht")
+    assert_output_not_contains(out, "verstehe nicht")

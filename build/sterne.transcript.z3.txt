@@ -7,7 +7,7 @@ Wer -- und warum? Es wird Zeit, das herauszufinden.
 
 Das Schiff der Sterne
 Ein kurzes Abenteuer auf hoher See.
-Release 1 / Serial number 260801 / Inform v6.44 PunyInformDE v6.7 R
+Release 1 / Serial number 261118 / Inform v6.44 PunyInformDE v6.9 R
 
 Die Kapitaenskajuete
 Die enge Kajuete des Kapitaens auf dem Segelschiff Sternwind. Ein alter Schreibtisch steht an der Nordwand, bedeckt mit vergilbten Seekarten. Eine hoelzerne Koje liegt an der Ostwand. Eine schwere Eichentuer fuehrt nach Norden in den Schiffsgang.
@@ -250,6 +250,9 @@ Da kannst du nicht hingehen.
 > kletter mast hoch
 Du versuchst den Mast hinaufzuklettern, rutschst aber ab und landest wieder auf Deck.
 
+> untersuche flagzeichen
+Das silberne Flagzeichen ist auf die schwarze Flagge genaeht.
+
 > warte
 Nichts passiert.
 
@@ -361,6 +364,6 @@ Du senkst das Fernrohr und laechelst. Das Abenteuer kann beginnen!
 
   *** Du hast gewonnen! ***
 
-In diesem Spiel hast du 5 von 5 moeglichen Punkten erreicht, in 86 Zuegen.
+In diesem Spiel hast du 5 von 5 moeglichen Punkten erreicht, in 87 Zuegen.
 
 Moechtest du NEUSTART, WIEDERHERSTELLEN, die VOLLE Punktzahl dieses Spiels angeben oder BEENDEN? 

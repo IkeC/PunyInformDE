@@ -5,7 +5,7 @@ Upstream: https://github.com/smartgrids-aau/punyinformde
 
 ## Goal
 
-A complete, release-ready German localisation of PunyInform v6.5, with:
+A complete, release-ready German localisation of PunyInform v6.9, with:
 - All German-specific code isolated in `lib/de/` (minimal diff from upstream base files)
 - A working example game (*Das Schiff der Sterne*)
 - Automated test suite (PunyTest / pytest + dfrotz)
@@ -15,10 +15,9 @@ A complete, release-ready German localisation of PunyInform v6.5, with:
 Recent progress:
 - German take success feedback now uses an object-aware line (`Du nimmst ...
   an dich.`) instead of the generic `In Ordnung.` fallback.
-- Synced with PunyInform upstream dev branch (post-v6.5): z4 support,
-  `describe=0` fix, `describe=2`, `PrintOrRun` return-value fix,
-  `MoveFloatingObjects` optimisation, grammar property warning, message
-  rearrangement — all already integrated.
+- Synced with PunyInform 6.9 and the subsequent Z6 transcript fix. Includes
+  Z6 screen handling, odd/even packed address support, extension updates,
+  parser fixes, and Z6 graphics helpers.
 - Fixed MSG_TAKE_SCENERY: now uses `(CTheyreorThats) noun, " nicht portabel."`
   (no more double-ist for scenery objects).
 - Fixed MSG_SEARCH_IN_IT_ISARE: now uses `(DE_Der_Cap) noun, " enthält "`
@@ -47,15 +46,16 @@ Recent progress:
 ## Architecture (current)
 ```
 lib/
-  globals.h     — PunyInform v6.5; Include "de/globals_de.h" first; all constants
+  globals.h     — PunyInform v6.9; Include "de/globals_de.h" first; all constants
                   wrapped in #IfNDef guards so de/ can override them
-  parser.h      — PunyInform v6.5; YesOrNo extended for ja/nein/j//
-  grammar.h     — PunyInform v6.5; banner = "PunyInformDE"; _ListObjsMsg /
+  parser.h      — PunyInform v6.9; YesOrNo extended for ja/nein/j//
+  grammar.h     — PunyInform v6.9; banner = "PunyInformDE"; _ListObjsMsg /
                   _ListObjsInOnMsg / LISTOBJS_ROOM_SUFFIX overridable via #IfNDef
-  puny.h        — PunyInform v6.5; includes de/ files; _PrintObjName outputs
+  puny.h        — PunyInform v6.9; includes de/ files; _PrintObjName outputs
                   die/das/der; _PrintAfterEntry translated; AND_LIST_STR constant
-  scope.h       — Unchanged
-  ext_*.h       — Unchanged
+  scope.h       — PunyInform 6.9 scope diagnostics
+  ext_*.h       — PunyInform 6.9 extensions, including Z6 screen-unit
+                  handling and ext_z6graphics.h
   de/
     globals_de.h  — Zcharacter (#IfNDef USE_ASCII), parser words, IS_STR/ARE_STR,
                     AND_LIST_STR, status-bar labels, direction constants,
@@ -69,8 +69,9 @@ example/
   sterne.ascii.inf        — Wrapper: Constant USE_ASCII; Include "sterne.inf";
   sterne.walkthrough.txt  — Master walkthrough (umlauts; input for Unicode build and temporary ASCII generation)
 
-build/                      — Compiler output (git-ignored)
+build/                      — Generated Unicode, ASCII, Z3, and Z6 stories
   sterne.z5
+  sterne.z6
   sterne.ascii.z5
   ascii_lib/                — Preprocessed library sources for ASCII build
   ascii_src/                — Preprocessed game source for ASCII build
@@ -93,6 +94,7 @@ tests/
   test_double_ist.py — No double 'ist' in CTheyreorThats-based messages (issues a/b)
   test_object_name_normalisation.py — Digraph input still resolves after removing explicit digraph name entries
   test_describe_property.py — describe=2 objects are not listed in room but remain examinable
+  test_upstream_sync.py — PunyInform 6.9 debug and Z6 extension compile regressions
 
 .vscode/
   tasks.json    — Build, Test Dfrotz, Test Dfrotz (ASCII), Test Lectrote,
